@@ -1,0 +1,125 @@
+MENU
+├── Супы / Soups
+│   ├── Фо (Pho)
+│   │   ├── pho_ga        — Фо с курицей
+│   │   ├── pho_bo        — Фо с говядиной
+│   │   ├── pho_heo       — Фо со свининой
+│   │   ├── pho_tom       — Фо с креветками
+│   │   ├── pho_tofu     — Фо с тофу
+│   │   ├── pho_rau      — Фо с овощами
+│   │   └── pho_mix      — Фо MIX (2 начинки)
+│   │
+│   ├── Бун (Bun)
+│   │   ├── bun_ga
+│   │   ├── bun_bo
+│   │   ├── bun_heo
+│   │   ├── bun_tom
+│   │   ├── bun_rau
+│   │   ├── bun_tofu
+│   │   └── bun_mix
+│   │
+│   ├── Бун Нам Бо (холодный)
+│   │   ├── bun_nam_bo_ga
+│   │   ├── bun_nam_bo_bo
+│   │   ├── bun_nam_bo_tom
+│   │   ├── bun_nam_bo_heo
+│   │   ├── bun_nam_bo_tofu
+│   │   └── bun_nam_bo_nem
+│   │
+│   ├── Специальные
+│   │   ├── bun_cha_ca   — Бун с рыбными котлетами
+│   │   └── bun_bo_hue   — Бун Бо Хюэ (острый)
+│   │
+│   ├── Миен (стеклянная лапша)
+│   │   ├── mien_ga
+│   │   ├── mien_bo
+│   │   ├── mien_heo
+│   │   ├── mien_tom
+│   │   ├── mien_tofu
+│   │   ├── mien_rau
+│   │   └── mien_mix
+│   │
+│   └── Ми Тау (яичная лапша)
+│       ├── mi_tau_ga
+│       ├── mi_tau_bo
+│       ├── mi_tau_heo
+│       ├── mi_tau_tom
+│       ├── mi_tau_tofu
+│       ├── mi_tau_rau
+│       └── mi_tau_mix
+│
+├── WOK / Жареная лапша
+│   ├── Фо xào (рисовая)
+│   │   ├── pho_xao_ga
+│   │   ├── pho_xao_bo
+│   │   ├── pho_xao_heo
+│   │   ├── pho_xao_tom
+│   │   ├── pho_xao_tofu
+│   │   ├── pho_xao_rau
+│   │   └── pho_xao_mix
+│   │
+│   ├── Миен xào (стеклянная)
+│   │   ├── mien_xao_ga
+│   │   ├── mien_xao_bo
+│   │   ├── mien_xao_heo
+│   │   ├── mien_xao_tom
+│   │   ├── mien_xao_tofu
+│   │   ├── mien_xao_rau
+│   │   └── mien_xao_mix
+│   │
+│   └── Ми xào (яичная)
+│       ├── mi_xao_ga
+│       ├── mi_xao_bo
+│       ├── mi_xao_heo
+│       ├── mi_xao_tom
+│       ├── mi_xao_tofu
+│       ├── mi_xao_rau
+│       └── mi_xao_mix
+│
+├── Рис / Rice
+│   ├── Тушёные блюда
+│   │   ├── com_thit_ga_kho
+│   │   ├── com_thit_bo_kho
+│   │   ├── com_thit_heo_kho
+│   │   └── com_thit_tom_kho
+│   │
+│   ├── Классика
+│   │   ├── com_chay
+│   │   └── com_nem
+│   │
+│   └── Жареный рис
+│       ├── com_rang_ga
+│       ├── com_rang_bo
+│       ├── com_rang_heo
+│       ├── com_rang_tom
+│       ├── com_rang_tofu
+│       ├── com_rang_rau
+│       └── com_rang_mix
+│
+├── Закуски / Appetizers
+│   ├── nem_ran
+│   └── spring_rolls
+│
+└── Напитки / Drinks
+    ├── caphe_viet
+    ├── nuoc_chanh
+    └── bo_huc
+    └── 
+
+
+
+
+    images/build_pho_soup.png
+images/build_bun_soup.png
+images/build_cold_bun.png
+images/build_bun_bo_hue.png
+images/build_bun_cha_ca.png
+images/build_mien_soup.png
+images/build_mi_soup.png
+images/build_wok_pho.png
+images/build_wok_mien.png
+images/build_wok_noodles.png
+images/build_rice_stewed.png
+images/build_rice_fried.png
+images/build_snacks.png
+images/build_spring_roll.png

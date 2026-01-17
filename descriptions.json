@@ -1,0 +1,170 @@
+{
+  "pho_bo": {
+    "ru": "Phở bò — суп phở с говядиной.",
+    "ua": "Phở bò — суп phở з яловичиною.",
+    "en": "Phở bò — pho soup with beef.",
+    "vn": "Phở bò — phở với thịt bò.",
+    "pl": "Phở bò — zupa pho z wołowiną.",
+    "de": "Phở bò — Pho-Suppe mit Rind.",
+    "zh": "Phở bò — 牛肉河粉汤。"
+  },
+  "pho_ga": {
+    "ru": "Phở gà — суп phở с курицей.",
+    "ua": "Phở gà — суп phở з куркою.",
+    "en": "Phở gà — pho soup with chicken.",
+    "vn": "Phở gà — phở với thịt gà.",
+    "pl": "Phở gà — zupa pho z kurczakiem.",
+    "de": "Phở gà — Pho-Suppe mit Huhn.",
+    "zh": "Phở gà — 鸡肉河粉汤。"
+  },
+  "pho_lon": {
+    "ru": "Phở lợn — суп phở со свининой.",
+    "ua": "Phở lợn — суп phở зі свининою.",
+    "en": "Phở lợn — pho soup with pork.",
+    "vn": "Phở lợn — phở với thịt lợn.",
+    "pl": "Phở lợn — zupa pho z wieprzowiną.",
+    "de": "Phở lợn — Pho-Suppe mit Schwein.",
+    "zh": "Phở lợn — 猪肉河粉汤。"
+  },
+
+  "bun_ga": {
+    "ru": "Bún gà — суп с рисовой вермишелью и курицей.",
+    "ua": "Bún gà — суп з рисовою вермішеллю та куркою.",
+    "en": "Bún gà — rice vermicelli soup with chicken.",
+    "vn": "Bún gà — súp bún với thịt gà.",
+    "pl": "Bún gà — zupa z makaronem ryżowym i kurczakiem.",
+    "de": "Bún gà — Suppe mit Reisnudeln und Huhn.",
+    "zh": "Bún gà — 鸡肉米粉汤。"
+  },
+  "bun_bo": {
+    "ru": "Bún bò — суп с рисовой вермишелью и говядиной.",
+    "ua": "Bún bò — суп з рисовою вермішеллю та яловичиною.",
+    "en": "Bún bò — rice vermicelli soup with beef.",
+    "vn": "Bún bò — súp bún với thịt bò.",
+    "pl": "Bún bò — zupa z makaronem ryżowym i wołowiną.",
+    "de": "Bún bò — Suppe mit Reisnudeln und Rind.",
+    "zh": "Bún bò — 牛肉米粉汤。"
+  },
+  "bun_lon": {
+    "ru": "Bún lợn — суп с рисовой вермишелью и свининой.",
+    "ua": "Bún lợn — суп з рисовою вермішеллю та свининою.",
+    "en": "Bún lợn — rice vermicelli soup with pork.",
+    "vn": "Bún lợn — súp bún với thịt lợn.",
+    "pl": "Bún lợn — zupa z makaronem ryżowym i wieprzowiną.",
+    "de": "Bún lợn — Suppe mit Reisnudeln und Schwein.",
+    "zh": "Bún lợn — 猪肉米粉汤。"
+  },
+
+  "bun_nem_nam_bo": {
+    "ru": "Bún nem Nam Bộ — bún с жареными спринг-роллами (nem rán), свежей зеленью и соусом.",
+    "ua": "Bún nem Nam Bộ — bún зі смаженими спрінг-ролами (nem rán), свіжою зеленню та соусом.",
+    "en": "Bún nem Nam Bộ — bun noodles with fried spring rolls (nem rán), fresh herbs and sauce.",
+    "vn": "Bún nem Nam Bộ — bún với nem rán, rau thơm và nước sốt.",
+    "pl": "Bún nem Nam Bộ — makaron bún z smażonymi spring rollsami (nem rán), zieleniną i sosem.",
+    "de": "Bún nem Nam Bộ — Bún-Nudeln mit frittierten Spring Rolls (nem rán), Kräutern und Sauce.",
+    "zh": "Bún nem Nam Bộ — 拌米粉配炸春卷、香草与酱汁。"
+  },
+
+  "mien_xao_ga": {
+    "ru": "Miến xào gà — жареная стеклянная лапша с курицей (WOK).",
+    "ua": "Miến xào gà — смажена скляна локшина з куркою (WOK).",
+    "en": "Miến xào gà — WOK fried glass noodles with chicken.",
+    "vn": "Miến xào gà — miến xào với thịt gà.",
+    "pl": "Miến xào gà — smażony makaron szklany z kurczakiem (WOK).",
+    "de": "Miến xào gà — gebratene Glasnudeln mit Huhn (WOK).",
+    "zh": "Miến xào gà — 鸡肉炒粉丝（WOK）。"
+  },
+  "mien_xao_bo": {
+    "ru": "Miến xào bò — жареная стеклянная лапша с говядиной (WOK).",
+    "ua": "Miến xào bò — смажена скляна локшина з яловичиною (WOK).",
+    "en": "Miến xào bò — WOK fried glass noodles with beef.",
+    "vn": "Miến xào bò — miến xào với thịt bò.",
+    "pl": "Miến xào bò — smażony makaron szklany z wołowiną (WOK).",
+    "de": "Miến xào bò — gebratene Glasnudeln mit Rind (WOK).",
+    "zh": "Miến xào bò — 牛肉炒粉丝（WOK）。"
+  },
+  "mien_xao_lon": {
+    "ru": "Miến xào lợn — жареная стеклянная лапша со свининой (WOK).",
+    "ua": "Miến xào lợn — смажена скляна локшина зі свининою (WOK).",
+    "en": "Miến xào lợn — WOK fried glass noodles with pork.",
+    "vn": "Miến xào lợn — miến xào với thịt lợn.",
+    "pl": "Miến xào lợn — smażony makaron szklany z wieprzowiną (WOK).",
+    "de": "Miến xào lợn — gebratene Glasnudeln mit Schwein (WOK).",
+    "zh": "Miến xào lợn — 猪肉炒粉丝（WOK）。"
+  },
+
+  "com_ga_xao": {
+    "ru": "Cơm gà xào — рис с жареной курицей, тофу, перепелиными яйцами, солёным арахисом и капустой в томатном соусе.",
+    "ua": "Cơm gà xào — рис зі смаженою куркою, тофу, перепелиними яйцями, солоним арахісом і капустою в томатному соусі.",
+    "en": "Cơm gà xào — rice with stir-fried chicken, tofu, quail eggs, salted peanuts and cabbage in tomato sauce.",
+    "vn": "Cơm gà xào (thịt gà xào + đậu phụ + trứng chim cút + lạc muối + bắp cải xào sốt cà chua).",
+    "pl": "Cơm gà xào — ryż z kurczakiem stir-fry, tofu, jajkami przepiórczymi, solonymi orzeszkami i kapustą w sosie pomidorowym.",
+    "de": "Cơm gà xào — Reis mit gebratenem Huhn, Tofu, Wachteleiern, gesalzenen Erdnüssen und Kohl in Tomatensauce.",
+    "zh": "Cơm gà xào — 米饭配炒鸡肉、豆腐、鹌鹑蛋、咸花生与卷心菜番茄酱。"
+  },
+  "com_bo_xao": {
+    "ru": "Cơm bò xào — рис с жареной говядиной с добавками.",
+    "ua": "Cơm bò xào — рис зі смаженою яловичиною з додатками.",
+    "en": "Cơm bò xào — rice with stir-fried beef and add-ons.",
+    "vn": "Cơm bò xào (thịt bò xào + đậu phụ + trứng chim cút + lạc muối + bắp cải xào sốt cà chua).",
+    "pl": "Cơm bò xào — ryż z wołowiną stir-fry i dodatkami.",
+    "de": "Cơm bò xào — Reis mit gebratenem Rind und Extras.",
+    "zh": "Cơm bò xào — 炒牛肉盖饭配配料。"
+  },
+  "com_lon_xao": {
+    "ru": "Cơm lợn xào — рис с жареной свининой с добавками.",
+    "ua": "Cơm lợn xào — рис зі смаженою свининою з додатками.",
+    "en": "Cơm lợn xào — rice with stir-fried pork and add-ons.",
+    "vn": "Cơm lợn xào (thịt lợn xào + đậu phụ + trứng chim cút + lạc muối + bắp cải xào sốt cà chua).",
+    "pl": "Cơm lợn xào — ryż z wieprzowiną stir-fry i dodatkami.",
+    "de": "Cơm lợn xào — Reis mit gebratenem Schwein und Extras.",
+    "zh": "Cơm lợn xào — 炒猪肉盖饭配配料。"
+  },
+
+  "com_rang_ga": {
+    "ru": "Cơm rang gà — жареный рис с курицей.",
+    "ua": "Cơm rang gà — смажений рис з куркою.",
+    "en": "Cơm rang gà — fried rice with chicken.",
+    "vn": "Cơm rang gà.",
+    "pl": "Cơm rang gà — smażony ryż z kurczakiem.",
+    "de": "Cơm rang gà — gebratener Reis mit Huhn.",
+    "zh": "Cơm rang gà — 鸡肉炒饭。"
+  },
+  "com_rang_bo": {
+    "ru": "Cơm rang bò — жареный рис с говядиной.",
+    "ua": "Cơm rang bò — смажений рис з яловичиною.",
+    "en": "Cơm rang bò — fried rice with beef.",
+    "vn": "Cơm rang bò.",
+    "pl": "Cơm rang bò — smażony ryż z wołowiną.",
+    "de": "Cơm rang bò — gebratener Reis mit Rind.",
+    "zh": "Cơm rang bò — 牛肉炒饭。"
+  },
+  "com_rang_lon": {
+    "ru": "Cơm rang lợn — жареный рис со свининой.",
+    "ua": "Cơm rang lợn — смажений рис зі свининою.",
+    "en": "Cơm rang lợn — fried rice with pork.",
+    "vn": "Cơm rang lợn.",
+    "pl": "Cơm rang lợn — smażony ryż z wieprzowiną.",
+    "de": "Cơm rang lợn — gebratener Reis mit Schwein.",
+    "zh": "Cơm rang lợn — 猪肉炒饭。"
+  },
+
+  "nem_ran": {
+    "ru": "Nem rán — жареные вьетнамские спринг-роллы.",
+    "ua": "Nem rán — смажені в’єтнамські спрінг-роли.",
+    "en": "Nem rán — fried Vietnamese spring rolls.",
+    "vn": "Nem rán — chả giò chiên giòn.",
+    "pl": "Nem rán — smażone wietnamskie spring rollsy.",
+    "de": "Nem rán — frittierte vietnamesische Spring Rolls.",
+    "zh": "炸越南春卷。"
+  },
+  "nem_cuon": {
+    "ru": "Nem cuốn — свежие спринг-роллы (нежареные).",
+    "ua": "Nem cuốn — свіжі спрінг-роли (нежарені).",
+    "en": "Nem cuốn — fresh (non-fried) spring rolls.",
+    "vn": "Nem cuốn (gỏi cuốn) — cuốn tươi.",
+    "pl": "Nem cuốn — świeże (niesmażone) spring rollsy.",
+    "de": "Nem cuốn — frische (nicht frittierte) Spring Rolls.",
+    "zh": "鲜春卷（不油炸）。"
+  }
+}

@@ -1,0 +1,53 @@
+git branch -M main
+git remote remove origin 2>/dev/null
+git remote add origin https://github.com/JkTiGR/cyber_dragon.git
+
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/USERNAME/REPO.git
+git push -u origin main
+
+ОБНОВИ tak chto by eti bludo kak obuchnuy bludo:
+{
+  id: "custom_bun_soups",
+  name: "Собери сам Бун (супы)",
+  image: "images/build_bun_soup.png", // ← ВОТ ТУТ
+  price: 120,
+  custom: true,
+  base: "Бун (суп)",
+  options: INGREDIENT_GROUPS_FOOD
+}
+i dlya vseh
+Собери сам Фо (супы)
+Собери сам Бун (супы)
+Собери сам Холодный Бун
+Собери сам Бун Бо Хюэ
+Собери сам Бун Ча Ка
+Собери сам Миен (супы)
+Собери сам Ми (супы)
+Собери сам ВОК: жареный Фо
+Собери сам ВОК: жареный Миен
+Собери сам ВОК: жареная лапша
+Собери сам Рис: тушёные
+Собери сам Рис: жареный
+Закуски
+Собери сам spring roll
+
+full code
+
+
+images/build_pho_soup.png
+images/build_bun_soup.png
+images/build_cold_bun.png
+images/build_bun_bo_hue.png
+images/build_bun_cha_ca.png
+images/build_mien_soup.png
+images/build_mi_soup.png
+images/build_wok_pho.png
+images/build_wok_mien.png
+images/build_wok_noodles.png
+images/build_rice_stewed.png
+images/build_rice_fried.png
+images/build_snacks.png
+images/build_spring_roll.png
