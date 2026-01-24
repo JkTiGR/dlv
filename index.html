@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b0f1a" />
-  <title>CYBER DRAGON — Menu</title>
+  <title>DLV — Menu</title>
   <link rel="icon" href="logo.png"/>
   <link rel="stylesheet" href="base.css">
 </head>
@@ -13,8 +13,7 @@
     <!-- Header -->
     <header class="header">
       <div class="bar">
-        <h1 class="brand" id="brandTap">CYBER <img class="mark" src="logo.png" alt="Logo"> DRAGON</h1>
-
+        <h1 class="brand" id="brandTap"> <img class="mark" src="logo.png" alt="Logo"> asian food</h1>
         <div class="lang">
           <select id="langSel" aria-label="Language">
             <option value="ru">🇷🇺 RU</option>
@@ -26,9 +25,7 @@
             <option value="zh">🇨🇳 ZH</option>
           </select>
         </div>
-
         <button class="burger" id="burgerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="navPop">☰</button>
-
         <nav class="nav-pop" id="navPop" role="menu" aria-label="Main menu">
           <a href="index.html" id="navHome" role="menuitem">🏠 HOME</a>
           <a href="#" id="navMenu" role="menuitem">🍜 MENU</a>
@@ -60,7 +57,7 @@
         playsinline
         preload="auto"
       ></video>
-      </button>
+
       <div class="social">
         <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
           <img src="images/icon/fb.png" alt="Facebook">
@@ -75,15 +72,12 @@
           <img src="images/icon/tt.png" alt="TikTok">
         </a>
       </div>
-      
     </div>
 
     <!-- Category pills -->
     <nav class="cat-nav glass-nav">
       <div class="h-scroll" id="catPills" aria-label="Categories"></div>
     </nav>
-
-    <!-- Content -->
 
     <!-- Top tools: search + order status -->
     <div class="top-tools">
@@ -101,6 +95,7 @@
 
       <div class="status-result" id="statusResult" aria-live="polite"></div>
     </div>
+
     <main id="content"></main>
 
     <!-- All categories sheet -->
@@ -117,21 +112,17 @@
       <button class="dock-btn" id="dockCat" data-label="Menu">
         <img src="DockIconMenu.png" alt="Menu">
       </button>
-
       <button class="dock-btn" id="dockLang" data-label="Lang">
         <img src="DockIconLang.png" alt="Language">
         <span class="cart-badge" id="dockLangFlag">🇷🇺</span>
       </button>
-
       <button class="dock-btn" id="dockCart" data-label="Cart">
         <img src="DockIconKorzina.png" alt="Cart">
         <span class="cart-badge" id="cartBadge">0</span>
       </button>
-
       <button class="dock-btn" id="dockView" data-label="View">
         <img src="DockIconWien.png" alt="View">
       </button>
-
       <button class="dock-btn" id="dockMore" data-label="More">
         <img src="DockIconMore.png" alt="More">
       </button>
@@ -154,7 +145,6 @@
       <div class="sheet-handle" aria-hidden="true"></div>
       <button class="sheet-close" id="sheetClose" aria-label="Закрыть">✕</button>
       <h3 id="sheetTitle">Ваш заказ</h3>
-
       <div class="cart-lines" id="cartLines"></div>
 
       <div class="section">
@@ -193,12 +183,12 @@
       </div>
     </div>
 
-
     <!-- Dish Details Sheet -->
     <div class="overlay" id="dishOverlay"></div>
     <div class="sheet dish-sheet" id="dishSheet" role="dialog" aria-modal="true" aria-labelledby="dishTitle">
       <div class="sheet-handle" aria-hidden="true"></div>
       <button class="sheet-close" id="dishClose" aria-label="Закрыть">✕</button>
+
       <div class="dish-head">
         <div class="dish-title">
           <h3 id="dishTitle">—</h3>
@@ -211,9 +201,7 @@
 
       <div class="dish-body">
         <div class="dish-desc" id="dishDesc">—</div>
-
         <div class="dish-options" id="dishOptions"></div>
-
         <div class="dish-note">
           <label for="dishNote" class="muted">Комментарий</label>
           <textarea id="dishNote" placeholder="Например: без лука, больше соуса…"></textarea>
@@ -230,7 +218,6 @@
 
     <!-- DATA -->
     <script src="menu.js"></script>
-
     <script>
     /* ==== DATA BIND (robust global) ==== */
     const MENU = window.MENU || (typeof menuData !== 'undefined' ? menuData : null);
@@ -238,11 +225,10 @@
       console.error('Menu data is missing. Make sure menu.js is loaded before index script and exposes window.MENU');
     }
 
-/* ==== LANG & I18N ==== */
+    /* ==== LANG & I18N ==== */
     const LANG_KEY = 'CD_LANG';
     let LANG = localStorage.getItem(LANG_KEY) || 'ru';
     document.documentElement.lang = LANG;
-
     const LANGS_ORDER = ['ru','en','ua','vn','pl','de','zh'];
     const LANG_FLAGS = { ru:'🇷🇺', en:'🇬🇧', ua:'🇺🇦', vn:'🇻🇳', pl:'🇵🇱', de:'🇩🇪', zh:'🇨🇳' };
 
@@ -252,7 +238,10 @@
     const I18N = {
       ru:{
         navHome:'Главная',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакты',
-        ui:{add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой'},
+        ui:{
+          add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой',
+          universalShort:'Классика вьетнамской кухни. Можно добавить: gà / bò / heo / tôm.'
+        },
         sheet:{
           title:'Ваш заказ',empty:'Корзина пуста.',orderType:'Тип заказа',
           onSite:'На месте',takeaway:'На вынос',delivery:'Доставка',
@@ -267,7 +256,10 @@
       },
       en:{
         navHome:'Home',navMenu:'Menu',navKaraoke:'Karaoke',navContact:'Contact',
-        ui:{add:'Add',more:'More',itemsShort:'pcs',viewList:'List view',viewGrid:'Grid view'},
+        ui:{
+          add:'Add',more:'More',itemsShort:'pcs',viewList:'List view',viewGrid:'Grid view',
+          universalShort:'Vietnamese classic. You can add: chicken / beef / pork / shrimp.'
+        },
         sheet:{
           title:'Your order',empty:'Cart is empty.',orderType:'Order type',
           onSite:'Dine-in',takeaway:'Takeaway',delivery:'Delivery',
@@ -282,7 +274,10 @@
       },
       ua:{
         navHome:'Головна',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакти',
-        ui:{add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою'},
+        ui:{
+          add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою',
+          universalShort:'Класика в’єтнамської кухні. Можна додати: gà / bò / heo / tôm.'
+        },
         sheet:{
           title:'Ваше замовлення',empty:'Кошик порожній.',orderType:'Тип замовлення',
           onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка',
@@ -297,7 +292,10 @@
       },
       pl:{
         navHome:'Start',navMenu:'Menu',navKaraoke:'Karaoke',navContact:'Kontakt',
-        ui:{add:'Dodaj',more:'Szczegóły',itemsShort:'szt.',viewList:'Widok listy',viewGrid:'Widok siatki'},
+        ui:{
+          add:'Dodaj',more:'Szczegóły',itemsShort:'szt.',viewList:'Widok listy',viewGrid:'Widok siatki',
+          universalShort:'Klasyk kuchni wietnamskiej. Możesz dodać: kurczak / wołowina / wieprzowina / krewetki.'
+        },
         sheet:{
           title:'Twoje zamówienie',empty:'Koszyk jest pusty.',orderType:'Rodzaj zamówienia',
           onSite:'Na miejscu',takeaway:'Na wynos',delivery:'Dostawa',
@@ -312,7 +310,10 @@
       },
       de:{
         navHome:'Start',navMenu:'Menü',navKaraoke:'Karaoke',navContact:'Kontakt',
-        ui:{add:'Hinzufügen',more:'Details',itemsShort:'St.',viewList:'Listenansicht',viewGrid:'Rasteransicht'},
+        ui:{
+          add:'Hinzufügen',more:'Details',itemsShort:'St.',viewList:'Listenansicht',viewGrid:'Rasteransicht',
+          universalShort:'Vietnamesischer Klassiker. Du kannst hinzufügen: Huhn / Rind / Schwein / Garnelen.'
+        },
         sheet:{
           title:'Ihre Bestellung',empty:'Warenkorb ist leer.',orderType:'Bestellart',
           onSite:'Vor Ort',takeaway:'Zum Mitnehmen',delivery:'Lieferung',
@@ -327,7 +328,10 @@
       },
       zh:{
         navHome:'主页',navMenu:'菜单',navKaraoke:'卡拉OK',navContact:'联系',
-        ui:{add:'添加',more:'详情',itemsShort:'件',viewList:'列表视图',viewGrid:'网格视图'},
+        ui:{
+          add:'添加',more:'详情',itemsShort:'件',viewList:'列表视图',viewGrid:'网格视图',
+          universalShort:'越南经典。可加：鸡/牛/猪/虾。'
+        },
         sheet:{
           title:'您的订单',empty:'购物车为空。',orderType:'订单类型',
           onSite:'堂食',takeaway:'外带',delivery:'配送',
@@ -342,7 +346,10 @@
       },
       vn:{
         navHome:'Trang chủ',navMenu:'Thực đơn',navKaraoke:'Karaoke',navContact:'Liên hệ',
-        ui:{add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới'},
+        ui:{
+          add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới',
+          universalShort:'Món Việt cơ bản. Có thể thêm: gà / bò / heo / tôm.'
+        },
         sheet:{
           title:'Đơn hàng của bạn',empty:'Giỏ hàng trống.',orderType:'Hình thức đặt',
           onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng',
@@ -356,14 +363,13 @@
         tabbar:{menu:'Thực đơn',lang:'Ngôn ngữ',cart:'Giỏ',more:'Thêm'}
       }
     };
+
     const L = () => I18N[LANG] || I18N.en;
 
     /* Descriptions lazy-load */
     let DESCS = null;
     async function loadDescriptions(){
       if (DESCS) return DESCS;
-
-      // If opened via file://, fetch() to local json often fails (CORS). Use embedded fallback.
       try{
         if (location.protocol === 'file:'){
           const node = document.getElementById('descriptions-embedded');
@@ -372,10 +378,7 @@
             return DESCS;
           }
         }
-      }catch(e){
-        // ignore
-      }
-
+      }catch(e){}
       try{
         const resp = await fetch('descriptions.json', {cache:'no-store'});
         if (resp.ok){
@@ -385,156 +388,51 @@
       }catch(e){
         console.warn('Descriptions unavailable (using menu short only).');
       }
-
-      // fallback
       DESCS = {};
       return DESCS;
     }
 
     /* Category labels — UPDATED to match NEW menu.js keys */
     const CAT_LABELS = {
-  "pho_soups": {
-    "ru": "Супы Фо",
-    "ua": "Супи Фо",
-    "en": "Pho Soups",
-    "vn": "Phở (súp)",
-    "pl": "Zupy Pho",
-    "de": "Pho-Suppen",
-    "zh": "河粉汤"
-  },
-  "bun_soups": {
-    "ru": "Супы Бун",
-    "ua": "Супи Бун",
-    "en": "Bun Soups",
-    "vn": "Bún (súp)",
-    "pl": "Zupy Bún",
-    "de": "Bún-Suppen",
-    "zh": "米粉汤"
-  },
-  "cold_bun": {
-    "ru": "Холодный Бун",
-    "ua": "Холодний Бун",
-    "en": "Cold Bun",
-    "vn": "Bún Nam Bộ",
-    "pl": "Bún na zimno",
-    "de": "Kalter Bún",
-    "zh": "冷拌米粉"
-  },
-  "mien_soups": {
-    "ru": "Супы Миен",
-    "ua": "Супи Мієн",
-    "en": "Mien Soups",
-    "vn": "Miến (súp)",
-    "pl": "Zupy Miến",
-    "de": "Miến-Suppen",
-    "zh": "粉丝汤"
-  },
-  "mi_soups": {
-    "ru": "Супы Ми",
-    "ua": "Супи Мì",
-    "en": "Mi Soups",
-    "vn": "Mì (súp)",
-    "pl": "Zupy Mì",
-    "de": "Mì-Suppen",
-    "zh": "面汤"
-  },
-  "wok_fried_pho": {
-    "ru": "WOK Phở xào",
-    "ua": "WOK Phở xào",
-    "en": "WOK Fried Pho",
-    "vn": "Phở xào (WOK)",
-    "pl": "Pho z woka",
-    "de": "WOK-Pho",
-    "zh": "炒河粉"
-  },
-  "wok_fried_mien": {
-    "ru": "WOK Miến xào",
-    "ua": "WOK Miến xào",
-    "en": "WOK Fried Mien",
-    "vn": "Miến xào (WOK)",
-    "pl": "Miến z woka",
-    "de": "WOK-Miến",
-    "zh": "炒粉丝"
-  },
-  "wok_fried_mi": {
-    "ru": "WOK Mì xào",
-    "ua": "WOK Mì xào",
-    "en": "WOK Fried Mi",
-    "vn": "Mì xào (WOK)",
-    "pl": "Mì z woka",
-    "de": "WOK-Mì",
-    "zh": "炒面"
-  },
-  "rice_braised": {
-    "ru": "Рис тушёный",
-    "ua": "Тушкований рис",
-    "en": "Braised Rice",
-    "vn": "Cơm thịt kho",
-    "pl": "Ryż duszony",
-    "de": "Geschmorter Reis",
-    "zh": "卤肉饭"
-  },
-  "fried_rice": {
-    "ru": "Жареный рис",
-    "ua": "Смажений рис",
-    "en": "Fried Rice",
-    "vn": "Cơm rang",
-    "pl": "Smażony ryż",
-    "de": "Gebratener Reis",
-    "zh": "炒饭"
-  },
-  "appetizers": {
-    "ru": "Закуски",
-    "ua": "Закуски",
-    "en": "Appetizers",
-    "vn": "Khai vị",
-    "pl": "Przystawki",
-    "de": "Vorspeisen",
-    "zh": "小吃"
-  },
-  "drinks": {
-    "ru": "Напитки",
-    "ua": "Напої",
-    "en": "Drinks",
-    "vn": "Đồ uống",
-    "pl": "Napoje",
-    "de": "Getränke",
-    "zh": "饮料"
-  }
-};
+      "pho_soups": {"ru":"Супы Фо","ua":"Супи Фо","en":"Pho Soups","vn":"Phở (súp)","pl":"Zupy Pho","de":"Pho-Suppen","zh":"河粉汤"},
+      "bun_soups": {"ru":"Супы Бун","ua":"Супи Бун","en":"Bun Soups","vn":"Bún (súp)","pl":"Zupy Bún","de":"Bún-Suppen","zh":"米粉汤"},
+      "cold_bun": {"ru":"Холодный Бун","ua":"Холодний Бун","en":"Cold Bun","vn":"Bún Nam Bộ","pl":"Bún na zimno","de":"Kalter Bún","zh":"冷拌米粉"},
+      "mien_soups": {"ru":"Супы Миен","ua":"Супи Мієн","en":"Mien Soups","vn":"Miến (súp)","pl":"Zupy Miến","de":"Miến-Suppen","zh":"粉丝汤"},
+      "mi_soups": {"ru":"Супы Ми","ua":"Супи Mì","en":"Mi Soups","vn":"Mì (súp)","pl":"Zupy Mì","de":"Mì-Suppen","zh":"面汤"},
+      "wok_fried_pho": {"ru":"WOK Phở xào","ua":"WOK Phở xào","en":"WOK Fried Pho","vn":"Phở xào (WOK)","pl":"Pho z woka","de":"WOK-Pho","zh":"炒河粉"},
+      "wok_fried_mien": {"ru":"WOK Miến xào","ua":"WOK Miến xào","en":"WOK Fried Mien","vn":"Miến xào (WOK)","pl":"Miến z woka","de":"WOK-Miến","zh":"炒粉丝"},
+      "wok_fried_mi": {"ru":"WOK Mì xào","ua":"WOK Mì xào","en":"WOK Fried Mi","vn":"Mì xào (WOK)","pl":"Mì z woka","de":"WOK-Mì","zh":"炒面"},
+      "rice_braised": {"ru":"Рис тушёный","ua":"Тушкований рис","en":"Braised Rice","vn":"Cơm thịt kho","pl":"Ryż duszony","de":"Geschmorter Reis","zh":"卤肉饭"},
+      "fried_rice": {"ru":"Жареный рис","ua":"Смажений рис","en":"Fried Rice","vn":"Cơm rang","pl":"Smażony ryż","de":"Gebratener Reis","zh":"炒饭"},
+      "appetizers": {"ru":"Закуски","ua":"Закуски","en":"Appetizers","vn":"Khai vị","pl":"Przystawki","de":"Vorspeisen","zh":"小吃"},
+      "drinks": {"ru":"Напитки","ua":"Напої","en":"Drinks","vn":"Đồ uống","pl":"Napoje","de":"Getränke","zh":"饮料"}
+    };
+
     const catLabel = k => (CAT_LABELS[k]?.[LANG] || CAT_LABELS[k]?.en || k);
 
     /* Helpers & state */
     const $ = s => document.querySelector(s);
     const $$ = s => document.querySelectorAll(s);
-
     const CURRENCY = 'грн';
     const IMG_DIR = 'images/';
     const IMG_EXTS = ['webp','jpg','jpeg','png'];
     const fmt = n => Number(n).toFixed(2) + ' ' + CURRENCY;
 
     // --- i18n safe text picker ---
-    // Accepts plain strings OR objects like {ru:"...", en:"..."}. Also supports nested {description:{...}}.
-    // Always returns a string (never an object), so UI never shows "[object Object]".
     function pickLang(val, lang = LANG){
       if (val === null || val === undefined) return '';
-
       const type = typeof val;
       if (type === 'string' || type === 'number' || type === 'boolean') return String(val);
       if (Array.isArray(val)){
         return val.map(v => pickLang(v, lang)).filter(Boolean).join(', ');
       }
       if (type === 'object'){
-        // common pattern in descriptions.json: { description: {ru:..., en:...} }
         if (val.description && typeof val.description === 'object') return pickLang(val.description, lang);
-
         if (val[lang] !== undefined) return pickLang(val[lang], lang);
-        if (val.en   !== undefined) return pickLang(val.en,   lang);
-        if (val.ru   !== undefined) return pickLang(val.ru,   lang);
-        if (val.ua   !== undefined) return pickLang(val.ua,   lang);
-        if (val.vn   !== undefined) return pickLang(val.vn,   lang);
-
-        // last resort: first string-like value
+        if (val.en !== undefined) return pickLang(val.en, lang);
+        if (val.ru !== undefined) return pickLang(val.ru, lang);
+        if (val.ua !== undefined) return pickLang(val.ua, lang);
+        if (val.vn !== undefined) return pickLang(val.vn, lang);
         for (const k of Object.keys(val)){
           const v = val[k];
           if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return String(v);
@@ -549,15 +447,13 @@
       const base = (text || '').trim();
       const norm = base.toLowerCase();
       if (!(norm === 'tự chọn' || norm === 'tu chon' || norm === 'tuy chon')) return base;
-
       const key = String(it?.key || '').toLowerCase();
       const hint = String(extraHint || '').toLowerCase();
       const hay = `${key} ${hint}`;
-
       if (/sot|sốt|sauce/.test(hay)) return 'Chọn sốt theo ý bạn';
-      if (/pho/.test(hay))          return 'Tự tạo tô Phở theo ý bạn';
-      if (/bun/.test(hay))          return 'Tự tạo tô Bún theo ý bạn';
-      if (/mien|miến/.test(hay))    return 'Tự tạo tô Miến theo ý bạn';
+      if (/pho/.test(hay)) return 'Tự tạo tô Phở theo ý bạn';
+      if (/bun/.test(hay)) return 'Tự tạo tô Bún theo ý bạn';
+      if (/mien|miến/.test(hay)) return 'Tự tạo tô Miến theo ý bạn';
       return base;
     }
 
@@ -588,7 +484,7 @@
       }
       return parts.join(' · ');
     }
-    
+
     function summarizeSelectionsLines(it, selections){
       const opts = normalizeOptions(it);
       const sel = selections || {};
@@ -608,7 +504,7 @@
       return lines;
     }
 
-function buildThumb(imgEl, key){
+    function buildThumb(imgEl, key){
       let i = 0;
       const trySet = () => imgEl.src = IMG_DIR + key + '.' + IMG_EXTS[i];
       imgEl.onerror = () => {
@@ -625,8 +521,6 @@ function buildThumb(imgEl, key){
 
     const itemName = it => {
       const base = pickLang(it?.translations) || (it?.key?.replaceAll('_',' ') || '');
-
-      // VN UX: if dish name contains a generic "Tự chọn" label, make it explicit per dish family
       if (LANG === 'vn'){
         const b = (base || '').trim();
         if (/tự chọn/i.test(b) || /tu chon/i.test(b) || /tuy chon/i.test(b)){
@@ -637,7 +531,6 @@ function buildThumb(imgEl, key){
           if (key.includes('sauce') || key.includes('sot') || key.includes('sốt')) return 'Chọn sốt theo ý bạn';
         }
       }
-
       return base;
     };
 
@@ -664,6 +557,7 @@ function buildThumb(imgEl, key){
         }
       }catch(e){ console.warn('Cart load failed', e); }
     }
+
     function saveCart(){
       try{
         const obj = {};
@@ -673,13 +567,16 @@ function buildThumb(imgEl, key){
         localStorage.setItem(CART_KEY, JSON.stringify(obj));
       }catch(e){ console.warn('Cart save failed', e); }
     }
+
     function cartQty(id){ return cart.get(id)?.qty || 0; }
+
     function cartInc(id, delta=1){
       const cur = cart.get(id) || {qty:0, selections:{}, note:''};
       cur.qty = Math.max(0, (cur.qty|0) + delta);
       if (cur.qty<=0) cart.delete(id); else cart.set(id, cur);
       saveCart();
     }
+
     function cartSetEntry(id, entry){
       cart.set(id, entry);
       saveCart();
@@ -717,7 +614,7 @@ function buildThumb(imgEl, key){
       if (!it) return '';
       const parts = [];
       if (it.weight) parts.push(it.weight + ' g');
-      if (it.kcal)   parts.push(it.kcal + ' kcal');
+      if (it.kcal) parts.push(it.kcal + ' kcal');
       if (it.spicy){
         const level = Math.max(1, Math.min(3, Number(it.spicy)));
         parts.push('🌶'.repeat(level));
@@ -725,12 +622,12 @@ function buildThumb(imgEl, key){
       if (Array.isArray(it.tags) && it.tags.length){
         const mapped = it.tags.map(t=>{
           switch(t){
-            case 'vegan':     return '🌱 vegan';
-            case 'veg':       return '🥦 veg';
+            case 'vegan': return '🌱 vegan';
+            case 'veg': return '🥦 veg';
             case 'no_gluten': return '🚫 gluten';
-            case 'chef':      return '⭐ chef';
-            case 'popular':   return '🔥 top';
-            default:          return t;
+            case 'chef': return '⭐ chef';
+            case 'popular': return '🔥 top';
+            default: return t;
           }
         });
         parts.push(mapped.join(' · '));
@@ -739,10 +636,44 @@ function buildThumb(imgEl, key){
       return `<div class="meta">${parts.join(' • ')}</div>`;
     }
 
-    /* Options / pricing */
-    function normalizeOptions(it){
-      return Array.isArray(it?.options) ? it.options : [];
+    /* Options / pricing — UPDATED: universal protein add-on */
+    function shouldEnableProteinAddon(it){
+      const k = String(it?.key || '').toLowerCase();
+      // families: pho, bun, mien, com, com_rang (+ mi optional)
+      return /^(pho|bun|mien|mi|com|com_rang)/.test(k);
     }
+
+    function proteinAddonGroup(){
+      return {
+        id:'add_protein',
+        title:{
+          ru:'Добавить мясо/морепродукты',
+          ua:'Додати м’ясо/морепродукти',
+          en:'Add extra protein',
+          vn:'Thêm đạm',
+          pl:'Dodaj białko',
+          de:'Extra Protein hinzufügen',
+          zh:'加主料'
+        },
+        required:false,
+        multi:true,
+        max:4,
+        items:[
+          {id:'ga',  label:{ru:'Gà (курица)',ua:'Gà (курка)',en:'Chicken (gà)',vn:'Gà',pl:'Kurczak (gà)',de:'Huhn (gà)',zh:'鸡'}, price_delta:30},
+          {id:'bo',  label:{ru:'Bò (говядина)',ua:'Bò (яловичина)',en:'Beef (bò)',vn:'Bò',pl:'Wołowina (bò)',de:'Rind (bò)',zh:'牛'}, price_delta:40},
+          {id:'heo', label:{ru:'Heo (свинина)',ua:'Heo (свинина)',en:'Pork (heo)',vn:'Heo',pl:'Wieprzowina (heo)',de:'Schwein (heo)',zh:'猪'}, price_delta:30},
+          {id:'tom', label:{ru:'Tôm (креветки)',ua:'Tôm (креветки)',en:'Shrimp (tôm)',vn:'Tôm',pl:'Krewetki (tôm)',de:'Garnelen (tôm)',zh:'虾'}, price_delta:50},
+        ]
+      };
+    }
+
+    function normalizeOptions(it){
+      const base = Array.isArray(it?.options) ? it.options : [];
+      if (!shouldEnableProteinAddon(it)) return base;
+      if (base.some(g => (g?.id || g?.key || g?.name) === 'add_protein')) return base;
+      return [...base, proteinAddonGroup()];
+    }
+
     function calcItemUnitPrice(it, selections){
       let base = Number(it?.price || 0);
       const opts = normalizeOptions(it);
@@ -751,7 +682,6 @@ function buildThumb(imgEl, key){
         const gid = g.id || g.key || g.name || '';
         const picked = sel[gid];
         if (!picked) continue;
-
         const pickArr = Array.isArray(picked) ? picked : [picked];
         for (const oid of pickArr){
           const found = (g.items || []).find(x => (x.id||x.key) === oid);
@@ -762,13 +692,20 @@ function buildThumb(imgEl, key){
     }
 
     function getShortForItem(it){
-      // Prefer short/desc from menu.js; if missing, try descriptions.json (cached in DESCS)
+      // 1) menu.js short/desc
       const base = pickLang(it?.short || it?.desc);
       if (base) return base;
+
+      // 2) descriptions.json
       const key = it?.key || '';
       const entry = key ? DESCS?.[key] : null;
-      return pickLang(entry?.short || entry?.description);
+      const fromJson = pickLang(entry?.short || entry?.description);
+      if (fromJson) return fromJson;
+
+      // 3) universal fallback
+      return (L()?.ui?.universalShort) || '';
     }
+
     /* Render menu */
     const TOP_KEYS = ["pho_bo", "pho_ga", "bun_bo", "com_rang_bo", "pho_xao_bo", "spring_rolls_fresh", "caphe_viet"];
     function findByKey(key){
@@ -784,8 +721,7 @@ function buildThumb(imgEl, key){
       const name = itemName(it);
       const unit = fmt(calcItemUnitPrice(it, cart.get(id)?.selections));
       const qty = cartQty(id);
-      const hasOpts = Array.isArray(it.options) && it.options.length;
-
+      const hasOpts = Array.isArray(normalizeOptions(it)) && normalizeOptions(it).length;
       const btn = qty
         ? `<div class="qty" data-qty="${id}">
              <button data-dec="${id}">−</button>
@@ -793,11 +729,9 @@ function buildThumb(imgEl, key){
              <button data-inc="${id}">+</button>
            </div>`
         : `<button class="add" data-add="${id}">${t.ui.add}</button>`;
-
       const key = (it && (it.key || it.id || it.code)) || '';
       const shortDesc = getShortForItem(it) || '';
       const metaHtml = buildMeta(it);
-
       return `
         <div class="card ${featured?'featured':''} ${hasOpts?'has-opts':''}" data-id="${id}"${key ? ` data-key="${key}"` : ''}>
           <div class="thumb-wrap">
@@ -827,13 +761,11 @@ function buildThumb(imgEl, key){
       const h2 = document.createElement('h2');
       h2.textContent = title;
       sec.appendChild(h2);
-
       const list = document.createElement('div');
       list.className = 'list';
       list.innerHTML = items.join('');
       sec.appendChild(list);
       content.appendChild(sec);
-
       // images
       list.querySelectorAll('.card').forEach(row => {
         const id = row.getAttribute('data-id');
@@ -848,7 +780,6 @@ function buildThumb(imgEl, key){
       const content = $('#content');
       if (!content) return;
       content.innerHTML = '';
-
       const q = (document.getElementById('searchIn')?.value || '').trim().toLowerCase();
       localStorage.setItem(SEARCH_KEY, q);
 
@@ -891,7 +822,6 @@ function buildThumb(imgEl, key){
           return cardHtml(it, id, idx===0);
         });
         renderSection(content, catLabel(k), items);
-        // ensure section id for scroll
         const last = content.lastElementChild;
         if (last) last.id = `sec-${k}`;
       });
@@ -907,18 +837,15 @@ function buildThumb(imgEl, key){
         const [cat, idx] = id.split(':');
         const it = MENU[cat]?.[+idx];
         if (!it || qty<=0) continue;
-
         items += qty;
         sum += calcItemUnitPrice(it, entry.selections) * qty;
       }
-
       const badge = $('#cartBadge');
       document.body.classList.toggle('cart-has-items', items > 0);
       if (badge){
         badge.textContent = items;
         badge.style.display = items > 0 ? 'flex' : 'none';
       }
-
       const meta = $('#cartMeta');
       if (meta){
         const s = L().sheet;
@@ -931,13 +858,11 @@ function buildThumb(imgEl, key){
       const t = L().sheet;
       const lines = $('#cartLines');
       if (!lines) return;
-
       if (cart.size === 0){
         lines.innerHTML = `<div class="muted">${t.empty}</div>`;
         $('#cartMeta').textContent = `${t.total}: ${fmt(0)}`;
         return;
       }
-
       let sum = 0;
       lines.innerHTML = '';
       for (const [id, entry] of cart){
@@ -946,14 +871,11 @@ function buildThumb(imgEl, key){
         const [cat, idx] = id.split(':');
         const it = MENU[cat]?.[+idx];
         if (!it) continue;
-
         const name = itemName(it);
         const unit = calcItemUnitPrice(it, entry.selections);
         sum += unit * qty;
-
         const optText = summarizeSelections(it, entry.selections);
         const noteText = (entry.note || '').trim();
-
         const el = document.createElement('div');
         el.className = 'line';
         el.innerHTML = `
@@ -984,22 +906,19 @@ function buildThumb(imgEl, key){
     function closeSheet(){
       document.body.style.overflow = '';
       document.body.classList.remove('sheet-open');
-
       const overlay = document.getElementById('overlay');
-      const sheet   = document.getElementById('sheet');
-
+      const sheet = document.getElementById('sheet');
       if (overlay){
         overlay.classList.remove('show');
-        overlay.style.opacity    = '';
+        overlay.style.opacity = '';
         overlay.style.transition = '';
       }
       if (sheet){
         sheet.classList.remove('open');
-        sheet.style.transform  = '';
+        sheet.style.transform = '';
         sheet.style.transition = '';
       }
     }
-
     function openCatSheet(){
       document.body.classList.add('sheet-open');
       $('#catOverlay').classList.add('show');
@@ -1007,38 +926,35 @@ function buildThumb(imgEl, key){
     }
     function closeCatSheet(){
       document.body.classList.remove('sheet-open');
-
       const overlay = document.getElementById('catOverlay');
-      const sheet   = document.getElementById('catSheet');
-
+      const sheet = document.getElementById('catSheet');
       if (overlay){
         overlay.classList.remove('show');
-        overlay.style.opacity    = '';
+        overlay.style.opacity = '';
         overlay.style.transition = '';
       }
       if (sheet){
         sheet.classList.remove('open');
-        sheet.style.transform  = '';
+        sheet.style.transform = '';
         sheet.style.transition = '';
       }
     }
 
-
     /* Dish sheet open/close + rendering */
     const dishOverlay = $('#dishOverlay');
-    const dishSheet   = $('#dishSheet');
-    const dishClose   = $('#dishClose');
-    const dishTitle   = $('#dishTitle');
-    const dishSub     = $('#dishSub');
+    const dishSheet = $('#dishSheet');
+    const dishClose = $('#dishClose');
+    const dishTitle = $('#dishTitle');
+    const dishSub = $('#dishSub');
     const dishPriceEl = $('#dishPrice');
-    const dishMedia   = $('#dishMedia');
-    const dishDesc    = $('#dishDesc');
+    const dishMedia = $('#dishMedia');
+    const dishDesc = $('#dishDesc');
     const dishOptions = $('#dishOptions');
-    const dishNote    = $('#dishNote');
-    const dishMinus   = $('#dishMinus');
-    const dishPlus    = $('#dishPlus');
-    const dishQtyEl   = $('#dishQty');
-    const dishAddBtn  = $('#dishAddBtn');
+    const dishNote = $('#dishNote');
+    const dishMinus = $('#dishMinus');
+    const dishPlus = $('#dishPlus');
+    const dishQtyEl = $('#dishQty');
+    const dishAddBtn = $('#dishAddBtn');
 
     let dishCtx = null; // {id, cat, idx, it, tempSel, tempNote}
 
@@ -1054,12 +970,7 @@ function buildThumb(imgEl, key){
       dishCtx = null;
     }
 
-    function isRequiredGroup(g){
-      return !!g.required;
-    }
-    function groupTitle(g){
-      return pickLang(g?.title);
-    }
+    function groupTitle(g){ return pickLang(g?.title); }
     function groupTitleSmart(g, it){
       const gid = g?.id || g?.key || g?.name || '';
       return vnPrettyTuyChon(groupTitle(g), it, gid);
@@ -1069,8 +980,7 @@ function buildThumb(imgEl, key){
     }
 
     function validateSelections(it, selections){
-      // User requested: allow adding even if required groups are not selected.
-      // We only enforce max limits to avoid impossible states.
+      // no required enforcement; only max limits
       const opts = normalizeOptions(it);
       for (const g of opts){
         const gid = g.id || g.key || g.name || '';
@@ -1085,12 +995,10 @@ function buildThumb(imgEl, key){
     function renderDishOptions(it, selections){
       const opts = normalizeOptions(it);
       if (!dishOptions) return;
-
       if (!opts.length){
         dishOptions.innerHTML = '';
         return;
       }
-
       dishOptions.innerHTML = opts.map(g=>{
         const gid = g.id || g.key || g.name || '';
         const multi = !!g.multi || (Number(g.max || 0) > 1);
@@ -1099,7 +1007,6 @@ function buildThumb(imgEl, key){
         const required = (!!g.required) && (Number(g.max || (multi ? 99 : 1)) !== 1);
         const picked = selections?.[gid] || (multi ? [] : '');
         const pickedArr = Array.isArray(picked) ? picked : [picked].filter(Boolean);
-
         const itemsHtml = (g.items||[]).map(opt=>{
           const oid = opt.id || opt.key;
           const checked = pickedArr.includes(oid);
@@ -1119,7 +1026,6 @@ function buildThumb(imgEl, key){
             </label>
           `;
         }).join('');
-
         return `
           <div class="opt-group" data-group="${escapeHtml(gid)}">
             <div class="opt-head">
@@ -1165,7 +1071,6 @@ function buildThumb(imgEl, key){
       // note
       dishNote.value = ctx.tempNote || '';
 
-      // price
       updateDishPrice();
     }
 
@@ -1181,7 +1086,6 @@ function buildThumb(imgEl, key){
       const idx = Number(idxStr);
       const it = MENU?.[cat]?.[idx];
       if (!it) return;
-
       const entry = cart.get(cardId) || {qty:0, selections:{}, note:''};
       dishCtx = {
         id: cardId,
@@ -1190,7 +1094,6 @@ function buildThumb(imgEl, key){
         tempSel: JSON.parse(JSON.stringify(entry.selections||{})),
         tempNote: entry.note || ''
       };
-
       openDishSheet();
       renderDishSheet(dishCtx);
     }
@@ -1239,7 +1142,6 @@ function buildThumb(imgEl, key){
 
     dishPlus?.addEventListener('click', ()=>{
       if (!dishCtx) return;
-      // If qty becomes 1 from 0, store selections+note
       const current = cart.get(dishCtx.id);
       if (!current || current.qty<=0){
         cartSetEntry(dishCtx.id, {qty:1, selections:dishCtx.tempSel||{}, note:(dishCtx.tempNote||'')});
@@ -1274,26 +1176,21 @@ function buildThumb(imgEl, key){
       openSheet();
     });
 
-        /* Global click handlers */
+    /* Global click handlers */
     document.addEventListener('click', async e=>{
       const add = e.target.closest('[data-add]');
       if (add){
         const id = add.dataset.add;
         const [cat, idx] = id.split(':');
         const it = MENU?.[cat]?.[+idx];
-
-        // If dish has options / constructor — open modal
-        if (it && (Array.isArray(it.options) && it.options.length)){
+        if (it && (Array.isArray(normalizeOptions(it)) && normalizeOptions(it).length)){
           openDishById(id);
           return;
         }
-
         cartInc(id, +1);
         renderMenu(); renderFab();
         return;
       }
-
-
       const inc = e.target.closest('[data-inc]');
       if (inc){
         const id = inc.dataset.inc;
@@ -1301,7 +1198,6 @@ function buildThumb(imgEl, key){
         renderMenu(); renderCartSheet(); renderFab();
         return;
       }
-
       const dec = e.target.closest('[data-dec]');
       if (dec){
         const id = dec.dataset.dec;
@@ -1309,7 +1205,6 @@ function buildThumb(imgEl, key){
         renderMenu(); renderCartSheet(); renderFab();
         return;
       }
-
       const info = e.target.closest('[data-toggle]');
       if (info){
         e.preventDefault();
@@ -1317,14 +1212,12 @@ function buildThumb(imgEl, key){
         openDishById(cardId);
         return;
       }
-
       const cardTap = e.target.closest('.card[data-id]');
       if (cardTap && !e.target.closest('.add') && !e.target.closest('.qty') && !e.target.closest('.info')){
         const cid = cardTap.getAttribute('data-id');
         openDishById(cid);
         return;
       }
-
       if (e.target.id === 'overlay'){ closeSheet(); return; }
       if (e.target.id === 'clearBtn'){
         cart.clear(); saveCart();
@@ -1364,22 +1257,19 @@ function buildThumb(imgEl, key){
     const tableHint = $('#tableHint');
     const pickupHint = $('#pickupHint');
     const addrHint = $('#addrHint');
-
     function show(el,on){ if(el) el.style.display = on?'grid':'none'; }
     function setOrderType(v){
       const c = L();
       show(tableField, v === 'on_site');
       show(takeawayField, v === 'takeaway');
       show(addrField, v === 'delivery');
-
-      if (tableNo)   tableNo.required   = (v === 'on_site');
-      if (pickupIn)  pickupIn.required  = (v === 'takeaway');
-      if (address)   address.required   = (v === 'delivery');
-
-      phoneHint.textContent  = (v === 'on_site') ? c.common.optional : c.common.required;
-      tableHint.textContent  = c.common.required;
+      if (tableNo) tableNo.required = (v === 'on_site');
+      if (pickupIn) pickupIn.required = (v === 'takeaway');
+      if (address) address.required = (v === 'delivery');
+      phoneHint.textContent = (v === 'on_site') ? c.common.optional : c.common.required;
+      tableHint.textContent = c.common.required;
       pickupHint.textContent = c.common.required;
-      addrHint.textContent   = c.common.required;
+      addrHint.textContent = c.common.required;
     }
     otWrap.addEventListener('click', e=>{
       const b = e.target.closest('[data-ot]');
@@ -1394,13 +1284,11 @@ function buildThumb(imgEl, key){
       const t = L();
       const tb = t.tabbar || {};
       const sheetT = t.sheet;
-
       const dm = $('#dockCat');
       const dl = $('#dockLang');
       const dc = $('#dockCart');
       const dv = $('#dockView');
       const dr = $('#dockMore');
-
       if (dm) dm.dataset.label = tb.menu || t.navMenu || 'Menu';
       if (dl) dl.dataset.label = tb.lang || 'Lang';
       if (dc) dc.dataset.label = tb.cart || (sheetT && sheetT.title) || 'Cart';
@@ -1411,49 +1299,38 @@ function buildThumb(imgEl, key){
     /* I18N apply */
     const selA = $('#langSel');
     const selB = $('#langSelMenu');
-
     function setUITexts(){
       const t = L();
       const s = t.sheet;
-
-      $('#navHome').textContent    = '🏠 ' + t.navHome;
-      $('#navMenu').textContent    = '🍜 ' + t.navMenu;
+      $('#navHome').textContent = '🏠 ' + t.navHome;
+      $('#navMenu').textContent = '🍜 ' + t.navMenu;
       $('#navKaraoke').textContent = '🎤 ' + t.navKaraoke;
       $('#navContact').textContent = '📞 ' + t.navContact;
-
-      $('#sheetTitle').textContent     = s.title;
+      $('#sheetTitle').textContent = s.title;
       $('#orderTypeTitle').textContent = s.orderType;
-      $('#otOnSite').textContent       = s.onSite;
-      $('#otTakeaway').textContent     = s.takeaway;
-      $('#otDelivery').textContent     = s.delivery;
-
-      $('#tableLbl').childNodes[0].nodeValue  = s.table + ' ';
+      $('#otOnSite').textContent = s.onSite;
+      $('#otTakeaway').textContent = s.takeaway;
+      $('#otDelivery').textContent = s.delivery;
+      $('#tableLbl').childNodes[0].nodeValue = s.table + ' ';
       $('#pickupLbl').childNodes[0].nodeValue = s.pickupIn + ' ';
-      $('#addrLbl').childNodes[0].nodeValue   = s.address + ' ';
-      $('#phoneLbl').childNodes[0].nodeValue  = s.phone + ' ';
-
-      tableNo.placeholder  = s.phTable;
+      $('#addrLbl').childNodes[0].nodeValue = s.address + ' ';
+      $('#phoneLbl').childNodes[0].nodeValue = s.phone + ' ';
+      tableNo.placeholder = s.phTable;
       pickupIn.placeholder = s.phPickup;
-      address.placeholder  = s.phAddress;
-      phone.placeholder    = s.phPhone;
-
+      address.placeholder = s.phAddress;
+      phone.placeholder = s.phPhone;
       $('#checkoutBtn').textContent = s.checkout;
-      $('#clearBtn').textContent    = s.clear;
-
+      $('#clearBtn').textContent = s.clear;
       const csTitle = $('#catSheetTitle');
       if (csTitle) csTitle.textContent = t.navMenu || 'Категории';
-
       renderPills();
       renderMenu();
       renderFab();
       renderCartSheet();
-
       const active = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
       setOrderType(active);
-
       applyDockLabels();
     }
-
 
     /* Search + order status UI */
     const searchInEl = $('#searchIn');
@@ -1461,14 +1338,12 @@ function buildThumb(imgEl, key){
     const statusCodeEl = $('#statusCode');
     const statusBtnEl = $('#statusBtn');
     const statusResultEl = $('#statusResult');
-
     const debouncedRenderMenu = (()=>{ let t; return ()=>{ clearTimeout(t); t=setTimeout(()=>{ renderMenu(); renderFab(); }, 120); }; })();
 
     function renderStatus(code){
       const orders = loadOrders();
       const rec = orders[(code||'').trim().toLowerCase()];
       if (!statusResultEl) return;
-
       if (!code){
         statusResultEl.innerHTML = '';
         return;
@@ -1495,7 +1370,6 @@ function buildThumb(imgEl, key){
       debouncedRenderMenu();
       searchInEl.focus();
     });
-
     statusBtnEl?.addEventListener('click', ()=>{
       const code = statusCodeEl?.value || '';
       renderStatus(code);
@@ -1507,27 +1381,19 @@ function buildThumb(imgEl, key){
       }
     });
 
-
     function setLang(v){
       LANG = v;
       localStorage.setItem(LANG_KEY, v);
       document.documentElement.lang = v;
-
       if (selA) selA.value = v;
       if (selB) selB.value = v;
-
       const flag = LANG_FLAGS[v] || '🌐';
       const langFlagEl = $('#dockLangFlag');
       if (langFlagEl) langFlagEl.textContent = flag;
-
       const savedQ = localStorage.getItem(SEARCH_KEY) || '';
       const searchIn = document.getElementById('searchIn');
       if (searchIn) searchIn.value = savedQ;
-
       setUITexts();
-
-      // Preload descriptions.json so cards/search/dish sheet never show "[object Object]"
-      // and can use rich multilingual descriptions.
       loadDescriptions()
         .then(() => {
           renderMenu();
@@ -1537,22 +1403,19 @@ function buildThumb(imgEl, key){
         .catch(() => {});
       document.dispatchEvent(new CustomEvent('CD_LANG_CHANGED'));
     }
-
     selA?.addEventListener('change', e => setLang(e.target.value));
     selB?.addEventListener('change', e => setLang(e.target.value));
 
     /* Telegram via proxy */
-    /* Telegram: direct or proxy (recommended proxy, but you want token in index) */
+    /* SECURITY NOTE: keep token out of frontend in production. Use PROXY_URL and store token server-side. */
     const TG = {
-      BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",     // <-- твой токен
-      CHAT_ID: "-1002283682762",             // <-- твой chat id
-      PROXY_URL: ""                          // "/api/tg/sendMessage" если будет сервер
+      BOT_TOKEN: "PUT_YOUR_BOT_TOKEN_HERE", // <-- вынеси токен на сервер (proxy) если это публичный сайт
+      CHAT_ID: "-1002283682762", // <-- твой chat id
+      PROXY_URL: "" // "/api/tg/sendMessage" если будет сервер
     };
 
     function TG_ENDPOINT() {
-      // Если есть прокси — шлём туда (токен можно убрать с фронта)
       if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
-      // Иначе напрямую в Telegram
       if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
       return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
     }
@@ -1565,30 +1428,22 @@ function buildThumb(imgEl, key){
         parse_mode: "HTML",
         disable_web_page_preview: true
       };
-
       const r = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-
-      // Если шлём напрямую в Telegram — он вернёт JSON с ok:true/false
-      // Если через твой прокси — тоже сделай так, чтобы он возвращал JSON {ok:true} / {ok:false, error:"..."}
       let data = null;
       try { data = await r.json(); } catch (_) {}
-
       if (!r.ok) {
         const msg = (data && (data.description || data.error)) || `HTTP ${r.status}`;
         return { ok: false, reason: msg };
       }
-
       if (data && data.ok === false) {
         return { ok: false, reason: data.description || "Telegram error" };
       }
-
       return { ok: true, data };
     }
-
 
     async function createOrderOnSheet(orderPayload){
       const body = { action:'create', ...orderPayload };
@@ -1612,27 +1467,23 @@ function buildThumb(imgEl, key){
         const [cat, idx] = id.split(':');
         const it = MENU[cat]?.[+idx];
         if (!it) continue;
-
         const name = itemName(it);
         const unit = calcItemUnitPrice(it, entry.selections);
         const key = it.key || it.id || it.code || '';
         const optText = summarizeSelections(it, entry.selections);
         const noteText = (entry.note || '').trim();
-
         itemsCount += qty;
         sum += unit * qty;
-
         const extra = [optText ? `(${optText})` : '', noteText ? `[${noteText}]` : ''].filter(Boolean).join(' ');
         const isCustom = (Array.isArray(it.tags) && it.tags.includes('custom')) || String(it.key||'').startsWith('custom_');
         if (isCustom){
           const optLines = summarizeSelectionsLines(it, entry.selections);
           lines.push(`• ${name} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
-          for (const l of optLines){ lines.push(`   └ ${l}`); }
-          if (noteText) lines.push(`   └ Note: ${noteText}`);
+          for (const l of optLines){ lines.push(` └ ${l}`); }
+          if (noteText) lines.push(` └ Note: ${noteText}`);
         } else {
           lines.push(`• ${name} ${extra} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
         }
-
         items.push({ name, price: unit, qty, key, selections: entry.selections || {}, note: noteText });
       }
       return {itemsCount,sum,lines,items};
@@ -1648,7 +1499,6 @@ function buildThumb(imgEl, key){
     $('#checkoutBtn').addEventListener('click', async ()=>{
       const s = L().sheet;
       const ot = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
-
       if (ot === 'on_site' && !tableNo.value.trim()){ alert(s.errTable); return; }
       if (ot === 'takeaway'){
         if (!pickupIn.value.trim()){ alert(s.errPickup); return; }
@@ -1661,24 +1511,22 @@ function buildThumb(imgEl, key){
 
       const {sum,lines,items} = cartSummary();
       const typeStr = ot === 'on_site' ? s.onSite : ot === 'takeaway' ? s.takeaway : s.delivery;
-
       const meta = [];
-      if (ot === 'on_site')   meta.push(`${s.table}: ${tableNo.value.trim()}`);
-      if (ot === 'takeaway')  meta.push(`${s.pickupIn}: ${pickupIn.value.trim()}`);
-      if (ot === 'delivery')  meta.push(`${s.address}: ${address.value.trim()}`);
+      if (ot === 'on_site') meta.push(`${s.table}: ${tableNo.value.trim()}`);
+      if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()}`);
+      if (ot === 'delivery') meta.push(`${s.address}: ${address.value.trim()}`);
       if (phone.value.trim()) meta.push(`${s.phone}: ${phone.value.trim()}`);
 
       const ordId = 'CD-'+new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
       const orderCode = generateShortCode();
 
       const text =
-`<b>CYBER DRAGON — New order</b>
+`<b>DLV90s — New order</b>
 ID: <code>${ordId}</code>
 Code: <b>${orderCode}</b>
 ${s.total}: <b>${sum.toFixed(2)} ${CURRENCY}</b>
 Type: <b>${typeStr}</b>
 ${meta.join('\n')}
-
 <b>Items:</b>
 ${lines.join('\n') || '—'}`;
 
@@ -1687,9 +1535,9 @@ ${lines.join('\n') || '—'}`;
         code: orderCode,
         status: 'NEW',
         type: ot,
-        table:     ot==='on_site'   ? tableNo.value.trim()   : '',
-        pickup_in: ot==='takeaway'  ? pickupIn.value.trim()  : '',
-        address:   ot==='delivery'  ? address.value.trim()   : '',
+        table: ot==='on_site' ? tableNo.value.trim() : '',
+        pickup_in: ot==='takeaway' ? pickupIn.value.trim() : '',
+        address: ot==='delivery' ? address.value.trim() : '',
         phone: phone.value.trim(),
         items,
         total: sum,
@@ -1701,7 +1549,6 @@ ${lines.join('\n') || '—'}`;
         createOrderOnSheet(orderPayload)
       ]);
 
-      // Save local status (client-side only)
       const orders = loadOrders();
       orders[orderCode] = {
         code: orderCode,
@@ -1724,7 +1571,6 @@ ${lines.join('\n') || '—'}`;
       else icon = '…';
 
       alert(`${icon} ID: ${ordId} • ${s.total}: ${sum.toFixed(2)} ${CURRENCY}`);
-
       cart.clear(); saveCart();
       renderMenu();
       renderCartSheet();
@@ -1740,7 +1586,6 @@ ${lines.join('\n') || '—'}`;
       const catNav = $('.cat-nav');
       if (!header || !catNav) return;
       const stickyH = header.offsetHeight + catNav.offsetHeight;
-
       let maxTop = -Infinity;
       let closest = null;
       $$('section').forEach(sec => {
@@ -1751,7 +1596,6 @@ ${lines.join('\n') || '—'}`;
           closest = sec;
         }
       });
-
       if (closest){
         const cat = closest.id.replace('sec-','');
         if (cat !== activeCat){
@@ -1768,13 +1612,11 @@ ${lines.join('\n') || '—'}`;
     window.addEventListener('scroll', debounce(updateActive,50));
 
     /* Dynamic Island + move pills into bar */
-    const catPillsEl      = $('#catPills');
-    const catPillsParent  = catPillsEl?.parentNode || null;
+    const catPillsEl = $('#catPills');
+    const catPillsParent = catPillsEl?.parentNode || null;
     const catPillsSibling = catPillsEl?.nextSibling || null;
-
     function islandThreshold(){ return 80; }
     let islandActive = false;
-
     const onScrollIsland = (() => {
       let ticking = false;
       return () => {
@@ -1805,17 +1647,15 @@ ${lines.join('\n') || '—'}`;
     onScrollIsland();
 
     /* ===== Bottom Dock logic ===== */
-    const dockCat  = $('#dockCat');
+    const dockCat = $('#dockCat');
     const dockView = $('#dockView');
     const dockMore = $('#dockMore');
     const dockLang = $('#dockLang');
     const dockCart = $('#dockCart');
-
     const langPopup = $('#langPopup');
-
-    const catOverlayEl   = $('#catOverlay');
-    const catSheetEl     = $('#catSheet');
-    const catSheetList   = $('#catSheetList');
+    const catOverlayEl = $('#catOverlay');
+    const catSheetEl = $('#catSheet');
+    const catSheetList = $('#catSheetList');
 
     function buildCatSheet(){
       if (!catSheetList) return;
@@ -1824,7 +1664,6 @@ ${lines.join('\n') || '—'}`;
         `<button class="chip" data-goto="#sec-${k}">${catLabel(k)}</button>`
       ).join('');
     }
-
     catOverlayEl?.addEventListener('click', closeCatSheet);
     catSheetEl?.addEventListener('click', e=>{
       const b = e.target.closest('[data-goto]');
@@ -1892,20 +1731,6 @@ ${lines.join('\n') || '—'}`;
       openSheet();
     });
 
-    const heroAllCats = $('#heroAllCats');
-    heroAllCats?.addEventListener('click', ()=>{
-      buildCatSheet();
-      openCatSheet();
-    });
-
-    const heroCloseBtn = $('#heroClose');
-    heroCloseBtn?.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const closed = !document.body.classList.contains('hero-closed');
-      document.body.classList.toggle('hero-closed', closed);
-      localStorage.setItem(HERO_KEY, closed ? '1' : '0');
-    });
-
     const brandEl = $('#brandTap');
     brandEl?.addEventListener('click', (e)=>{
       if (!document.body.classList.contains('island')) return;
@@ -1915,7 +1740,6 @@ ${lines.join('\n') || '—'}`;
 
     const sheetClose = $('#sheetClose');
     sheetClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeSheet(); });
-
     const catSheetClose = $('#catSheetClose');
     catSheetClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeCatSheet(); });
 
@@ -1924,46 +1748,40 @@ ${lines.join('\n') || '—'}`;
         if ($('#sheet')?.classList.contains('open')) closeSheet();
         if ($('#catSheet')?.classList.contains('open')) closeCatSheet();
         if (langPopup?.classList.contains('show')) langPopup.classList.remove('show');
+        if ($('#dishSheet')?.classList.contains('open')) closeDishSheet();
       }
     });
 
     // Swipe-down close sheets
     (function(){
-      const cartSheet   = $('#sheet');
+      const cartSheet = $('#sheet');
       const cartOverlay = $('#overlay');
-      const catSheet    = $('#catSheet');
-      const catOverlay  = $('#catOverlay');
-
+      const catSheet = $('#catSheet');
+      const catOverlay = $('#catOverlay');
       const DRAG_START_ZONE = 40;
-      const DISMISS_Y       = 120;
-      const MAX_DRAG        = 280;
-
+      const DISMISS_Y = 120;
+      const MAX_DRAG = 280;
       function attachSwipe(sheetEl, overlayEl, closeFn){
         if (!sheetEl) return;
-
         let startY = 0;
         let currentY = 0;
         let dragging = false;
-
         function onStart(e){
           const touch = e.touches && e.touches[0];
           if (!touch) return;
           const rect = sheetEl.getBoundingClientRect();
           const offsetY = touch.clientY - rect.top;
           if (offsetY > DRAG_START_ZONE) return;
-
           dragging = true;
           startY = touch.clientY;
           currentY = 0;
           sheetEl.style.transition = 'transform .0s';
           if (overlayEl) overlayEl.style.transition = 'opacity .0s';
         }
-
         function onMove(e){
           if (!dragging) return;
           const touch = e.touches && e.touches[0];
           if (!touch) return;
-
           const dy = touch.clientY - startY;
           if (dy <= 0){
             currentY = 0;
@@ -1971,19 +1789,16 @@ ${lines.join('\n') || '—'}`;
             if (overlayEl) overlayEl.style.opacity = '1';
             return;
           }
-
           currentY = Math.min(dy, MAX_DRAG);
           const progress = currentY / MAX_DRAG;
           sheetEl.style.transform = `translateY(${currentY}px)`;
           if (overlayEl) overlayEl.style.opacity = String(1 - progress * 0.7);
         }
-
         function onEnd(){
           if (!dragging) return;
           dragging = false;
           sheetEl.style.transition = 'transform .22s ease';
           if (overlayEl) overlayEl.style.transition = 'opacity .22s ease';
-
           if (currentY > DISMISS_Y){
             sheetEl.style.transform = `translateY(${MAX_DRAG}px)`;
             if (overlayEl) overlayEl.style.opacity = '0';
@@ -1997,15 +1812,13 @@ ${lines.join('\n') || '—'}`;
             if (overlayEl) overlayEl.style.opacity = '1';
           }
         }
-
         sheetEl.addEventListener('touchstart', onStart, {passive:true});
-        sheetEl.addEventListener('touchmove',  onMove,  {passive:true});
-        sheetEl.addEventListener('touchend',   onEnd);
+        sheetEl.addEventListener('touchmove', onMove, {passive:true});
+        sheetEl.addEventListener('touchend', onEnd);
         sheetEl.addEventListener('touchcancel',onEnd);
       }
-
       attachSwipe(cartSheet, cartOverlay, closeSheet);
-      attachSwipe(catSheet,  catOverlay,  closeCatSheet);
+      attachSwipe(catSheet, catOverlay, closeCatSheet);
     })();
 
     /* Init */
@@ -2019,7 +1832,7 @@ ${lines.join('\n') || '—'}`;
           arr.unshift({
             key:'pho_custom',
             price: 160,
-            weight: 450,
+            weight: 700,
             spicy: 0,
             tags:['chef','popular'],
             translations:{
@@ -2032,13 +1845,13 @@ ${lines.join('\n') || '—'}`;
               zh:'河粉—自选'
             },
             short:{
-              ru:'Бульон + лапша. Выбираешь мясо/тофу/креветки и добавки.',
-              ua:'Бульйон + локшина. Обираєш м’ясо/тофу/креветки та додатки.',
-              en:'Broth + noodles. Choose protein (meat/tofu/shrimp) and extras.',
-              vn:'Nước dùng + bánh phở. Chọn đạm (thịt/đậu phụ/tôm) và topping.',
-              pl:'Bulion + makaron. Wybierz białko (mięso/tofu/krewetki) i dodatki.',
-              de:'Brühe + Nudeln. Wähle Protein (Fleisch/Tofu/Garnelen) und Extras.',
-              zh:'清汤+河粉。选择主料（肉/豆腐/虾）和加料。'
+              ru:'Бульон + лапша. Выбираешь белок и добавки. Можно добавить: gà / bò / heo / tôm.',
+              ua:'Бульйон + локшина. Обираєш білок і додатки. Можна додати: gà / bò / heo / tôm.',
+              en:'Broth + noodles. Choose protein + extras. Add: chicken / beef / pork / shrimp.',
+              vn:'Nước dùng + bánh phở. Chọn đạm & topping. Có thể thêm: gà / bò / heo / tôm.',
+              pl:'Bulion + makaron. Wybierz białko i dodatki. Możesz dodać: kurczak / wołowina / wieprzowina / krewetki.',
+              de:'Brühe + Nudeln. Wähle Protein und Extras. Hinzufügen: Huhn / Rind / Schwein / Garnelen.',
+              zh:'清汤+河粉。选主料和加料。可加：鸡/牛/猪/虾。'
             },
             options:[
               {id:'protein', title:{ru:'Белок',en:'Protein',ua:'Білок',vn:'Đạm',pl:'Białko',de:'Protein',zh:'主料'}, required:true, multi:true, max:2,
@@ -2061,21 +1874,19 @@ ${lines.join('\n') || '—'}`;
         }
       }catch(e){}
 
-
       // Restore hero visibility
       const heroClosed = localStorage.getItem(HERO_KEY) === '1';
       document.body.classList.toggle('hero-closed', heroClosed);
 
       if (selA) selA.value = LANG;
       if (selB) selB.value = LANG;
-
       const flag = LANG_FLAGS[LANG] || '🌐';
       const langFlagEl = $('#dockLangFlag');
       if (langFlagEl) langFlagEl.textContent = flag;
 
       setUITexts();
 
-      // Preload descriptions.json on startup (for correct multilingual descriptions and search)
+      // Preload descriptions.json on startup
       loadDescriptions()
         .then(() => { renderMenu(); renderFab(); })
         .catch(() => {});
@@ -2085,575 +1896,48 @@ ${lines.join('\n') || '—'}`;
       if (header && catNav){
         catNav.style.top = `${header.offsetHeight}px`;
       }
-
       updateActive();
       applyView();
     })();
     </script>
+
   </div>
 
-<script>
-(() => {
-  const dock = document.getElementById('dock');
-  const lens = document.getElementById('dockLens');
-  if (!dock || !lens) return;
-
-  // Кнопки могут быть <a> или <button> — берём любые кликабельные элементы
-  const items = [...dock.querySelectorAll('.dock-btn, a, button')].filter(el => el !== lens);
-
-  function getActive(){
-    return dock.querySelector('.is-active') || items[0];
-  }
-
-  function moveLensTo(el){
-    if (!el) return;
-    const rDock = dock.getBoundingClientRect();
-    const rEl = el.getBoundingClientRect();
-
-    const centerX = (rEl.left + rEl.width/2) - rDock.left;
-    const size = Math.max(108, Math.min(140, rEl.width + 54)); // чуть больше кнопки
-
-    lens.style.width = size + 'px';
-    lens.style.height = size + 'px';
-
-    const x = centerX - size/2;
-    lens.style.transform = `translate(${x}px, -50%)`;
-  }
-
-  // init
-  requestAnimationFrame(() => moveLensTo(getActive()));
-
-  // Ничего не перехватываем: просто слушаем и двигаем линзу
-  dock.addEventListener('click', (e) => {
-    const target = e.target.closest('.dock-btn, a, button');
-    if (!target || target === lens) return;
-
-    // Если у тебя уже есть логика is-active — она отработает.
-    // Если нет — аккуратно поставим is-active сами:
-    if (!dock.querySelector('.is-active')) {
-      items.forEach(x => x.classList.remove('is-active'));
-      target.classList.add('is-active');
+  <script>
+  (() => {
+    const dock = document.getElementById('dock');
+    const lens = document.getElementById('dockLens');
+    if (!dock || !lens) return;
+    const items = [...dock.querySelectorAll('.dock-btn, a, button')].filter(el => el !== lens);
+    function getActive(){
+      return dock.querySelector('.is-active') || items[0];
     }
-
-    moveLensTo(dock.querySelector('.is-active') || target);
-  }, { passive: true });
-
-  window.addEventListener('resize', () => moveLensTo(getActive()));
-})();
-</script>
+    function moveLensTo(el){
+      if (!el) return;
+      const rDock = dock.getBoundingClientRect();
+      const rEl = el.getBoundingClientRect();
+      const centerX = (rEl.left + rEl.width/2) - rDock.left;
+      const size = Math.max(108, Math.min(140, rEl.width + 54));
+      lens.style.width = size + 'px';
+      lens.style.height = size + 'px';
+      const x = centerX - size/2;
+      lens.style.transform = `translate(${x}px, -50%)`;
+    }
+    requestAnimationFrame(() => moveLensTo(getActive()));
+    dock.addEventListener('click', (e) => {
+      const target = e.target.closest('.dock-btn, a, button');
+      if (!target || target === lens) return;
+      if (!dock.querySelector('.is-active')) {
+        items.forEach(x => x.classList.remove('is-active'));
+        target.classList.add('is-active');
+      }
+      moveLensTo(dock.querySelector('.is-active') || target);
+    }, { passive: true });
+    window.addEventListener('resize', () => moveLensTo(getActive()));
 
 
-
-  <script id="descriptions-embedded" type="application/json">
-{
-  "custom_pho": {
-    "description": {
-      "ru": "База: Фо (суп)",
-      "ua": "База: Фо (суп)",
-      "en": "База: Фо (суп)",
-      "vn": "Cơ bản: Phở (súp)",
-      "pl": "База: Фо (суп)",
-      "de": "База: Фо (суп)",
-      "zh": "База: Фо (суп)"
-    }
-  },
-  "pho_ga": {
-    "description": {
-      "ru": "Ароматный бульон, рисовая лапша и курица. Классика Вьетнама.",
-      "ua": "Ароматный бульон, рисовая лапша и курица. Классика Вьетнама.",
-      "en": "Ароматный бульон, рисовая лапша и курица. Классика Вьетнама.",
-      "vn": "Nước dùng thơm, bánh phở và thịt gà. Món phở truyền thống.",
-      "pl": "Ароматный бульон, рисовая лапша и курица. Классика Вьетнама.",
-      "de": "Ароматный бульон, рисовая лапша и курица. Классика Вьетнама.",
-      "zh": "Ароматный бульон, рисовая лапша и курица. Классика Вьетнама."
-    }
-  },
-  "pho_bo": {
-    "description": {
-      "ru": "Насыщенный говяжий бульон, рисовая лапша и тонкие ломтики мяса.",
-      "ua": "Насыщенный говяжий бульон, рисовая лапша и тонкие ломтики мяса.",
-      "en": "Насыщенный говяжий бульон, рисовая лапша и тонкие ломтики мяса.",
-      "vn": "Nước dùng bò đậm đà, bánh phở và thịt bò thái mỏng.",
-      "pl": "Насыщенный говяжий бульон, рисовая лапша и тонкие ломтики мяса.",
-      "de": "Насыщенный говяжий бульон, рисовая лапша и тонкие ломтики мяса.",
-      "zh": "Насыщенный говяжий бульон, рисовая лапша и тонкие ломтики мяса."
-    }
-  },
-  "pho_heo": {
-    "description": {
-      "ru": "Лёгкий бульон, рисовая лапша и свинина — с зеленью и лаймом.",
-      "ua": "Лёгкий бульон, рисовая лапша и свинина — с зеленью и лаймом.",
-      "en": "Лёгкий бульон, рисовая лапша и свинина — с зеленью и лаймом.",
-      "vn": "Nước dùng thanh, bánh phở và thịt heo — ăn kèm rau thơm & chanh.",
-      "pl": "Лёгкий бульон, рисовая лапша и свинина — с зеленью и лаймом.",
-      "de": "Лёгкий бульон, рисовая лапша и свинина — с зеленью и лаймом.",
-      "zh": "Лёгкий бульон, рисовая лапша и свинина — с зеленью и лаймом."
-    }
-  },
-  "custom_bun": {
-    "description": {
-      "ru": "База: Бун (суп)",
-      "ua": "База: Бун (суп)",
-      "en": "База: Бун (суп)",
-      "vn": "Cơ bản: Bún (súp)",
-      "pl": "База: Бун (суп)",
-      "de": "База: Бун (суп)",
-      "zh": "База: Бун (суп)"
-    }
-  },
-  "bun_ga": {
-    "description": {
-      "ru": "Рисовая вермишель в ароматном бульоне с курицей.",
-      "ua": "Рисовая вермишель в ароматном бульоне с курицей.",
-      "en": "Рисовая вермишель в ароматном бульоне с курицей.",
-      "vn": "Bún tươi trong nước dùng thơm với thịt gà.",
-      "pl": "Рисовая вермишель в ароматном бульоне с курицей.",
-      "de": "Рисовая вермишель в ароматном бульоне с курицей.",
-      "zh": "Рисовая вермишель в ароматном бульоне с курицей."
-    }
-  },
-  "bun_bo": {
-    "description": {
-      "ru": "Рисовая вермишель в говяжьем бульоне — с зеленью и лаймом.",
-      "ua": "Рисовая вермишель в говяжьем бульоне — с зеленью и лаймом.",
-      "en": "Рисовая вермишель в говяжьем бульоне — с зеленью и лаймом.",
-      "vn": "Bún tươi trong nước dùng bò — kèm rau thơm & chanh.",
-      "pl": "Рисовая вермишель в говяжьем бульоне — с зеленью и лаймом.",
-      "de": "Рисовая вермишель в говяжьем бульоне — с зеленью и лаймом.",
-      "zh": "Рисовая вермишель в говяжьем бульоне — с зеленью и лаймом."
-    }
-  },
-  "bun_heo": {
-    "description": {
-      "ru": "Рисовая вермишель, свинина и зелень — лёгкий азиатский суп.",
-      "ua": "Рисовая вермишель, свинина и зелень — лёгкий азиатский суп.",
-      "en": "Рисовая вермишель, свинина и зелень — лёгкий азиатский суп.",
-      "vn": "Bún tươi, thịt heo và rau thơm — món súp nhẹ kiểu Á.",
-      "pl": "Рисовая вермишель, свинина и зелень — лёгкий азиатский суп.",
-      "de": "Рисовая вермишель, свинина и зелень — лёгкий азиатский суп.",
-      "zh": "Рисовая вермишель, свинина и зелень — лёгкий азиатский суп."
-    }
-  },
-  "custom_cold_bun": {
-    "description": {
-      "ru": "База: Холодный Бун",
-      "ua": "База: Холодный Бун",
-      "en": "База: Холодный Бун",
-      "vn": "Cơ bản: Bún Nam Bộ (nguội)",
-      "pl": "База: Холодный Бун",
-      "de": "База: Холодный Бун",
-      "zh": "База: Холодный Бун"
-    }
-  },
-  "bun_nambo_ga_xao": {
-    "description": {
-      "ru": "Холодная рисовая лапша с овощами, соусом и курицей.",
-      "ua": "Холодная рисовая лапша с овощами, соусом и курицей.",
-      "en": "Холодная рисовая лапша с овощами, соусом и курицей.",
-      "vn": "Bún nguội trộn rau, sốt và thịt gà.",
-      "pl": "Холодная рисовая лапша с овощами, соусом и курицей.",
-      "de": "Холодная рисовая лапша с овощами, соусом и курицей.",
-      "zh": "Холодная рисовая лапша с овощами, соусом и курицей."
-    }
-  },
-  "bun_nambo_bo_xao": {
-    "description": {
-      "ru": "Холодная лапша-салат с говядиной, зеленью и соусом.",
-      "ua": "Холодная лапша-салат с говядиной, зеленью и соусом.",
-      "en": "Холодная лапша-салат с говядиной, зеленью и соусом.",
-      "vn": "Bún nguội trộn thịt bò, rau thơm và sốt.",
-      "pl": "Холодная лапша-салат с говядиной, зеленью и соусом.",
-      "de": "Холодная лапша-салат с говядиной, зеленью и соусом.",
-      "zh": "Холодная лапша-салат с говядиной, зеленью и соусом."
-    }
-  },
-  "bun_nambo_heo_xao": {
-    "description": {
-      "ru": "Холодная рисовая лапша с овощами, свининой и фирменным соусом.",
-      "ua": "Холодная рисовая лапша с овощами, свининой и фирменным соусом.",
-      "en": "Холодная рисовая лапша с овощами, свининой и фирменным соусом.",
-      "vn": "Bún nguội trộn rau, thịt heo và sốt đặc trưng.",
-      "pl": "Холодная рисовая лапша с овощами, свининой и фирменным соусом.",
-      "de": "Холодная рисовая лапша с овощами, свининой и фирменным соусом.",
-      "zh": "Холодная рисовая лапша с овощами, свининой и фирменным соусом."
-    }
-  },
-  "custom_mien": {
-    "description": {
-      "ru": "База: Miến (суп)",
-      "ua": "База: Miến (суп)",
-      "en": "База: Miến (суп)",
-      "vn": "Cơ bản: Miến (súp)",
-      "pl": "База: Miến (суп)",
-      "de": "База: Miến (суп)",
-      "zh": "База: Miến (суп)"
-    }
-  },
-  "mien_ga": {
-    "description": {
-      "ru": "Стеклянная лапша, курица и ароматный бульон.",
-      "ua": "Стеклянная лапша, курица и ароматный бульон.",
-      "en": "Стеклянная лапша, курица и ароматный бульон.",
-      "vn": "Miến (miến dong) với thịt gà trong nước dùng thơm.",
-      "pl": "Стеклянная лапша, курица и ароматный бульон.",
-      "de": "Стеклянная лапша, курица и ароматный бульон.",
-      "zh": "Стеклянная лапша, курица и ароматный бульон."
-    }
-  },
-  "mien_bo": {
-    "description": {
-      "ru": "Стеклянная лапша в насыщенном бульоне с говядиной.",
-      "ua": "Стеклянная лапша в насыщенном бульоне с говядиной.",
-      "en": "Стеклянная лапша в насыщенном бульоне с говядиной.",
-      "vn": "Miến trong nước dùng đậm đà với thịt bò.",
-      "pl": "Стеклянная лапша в насыщенном бульоне с говядиной.",
-      "de": "Стеклянная лапша в насыщенном бульоне с говядиной.",
-      "zh": "Стеклянная лапша в насыщенном бульоне с говядиной."
-    }
-  },
-  "mien_heo": {
-    "description": {
-      "ru": "Стеклянная лапша и свинина — с зеленью и лаймом.",
-      "ua": "Стеклянная лапша и свинина — с зеленью и лаймом.",
-      "en": "Стеклянная лапша и свинина — с зеленью и лаймом.",
-      "vn": "Miến với thịt heo — kèm rau thơm & chanh.",
-      "pl": "Стеклянная лапша и свинина — с зеленью и лаймом.",
-      "de": "Стеклянная лапша и свинина — с зеленью и лаймом.",
-      "zh": "Стеклянная лапша и свинина — с зеленью и лаймом."
-    }
-  },
-  "custom_mi_soup": {
-    "description": {
-      "ru": "База: Mì (суп)",
-      "ua": "База: Mì (суп)",
-      "en": "База: Mì (суп)",
-      "vn": "Cơ bản: Mì (súp)",
-      "pl": "База: Mì (суп)",
-      "de": "База: Mì (суп)",
-      "zh": "База: Mì (суп)"
-    }
-  },
-  "mi_ga": {
-    "description": {
-      "ru": "Пшеничная лапша в бульоне с курицей.",
-      "ua": "Пшеничная лапша в бульоне с курицей.",
-      "en": "Пшеничная лапша в бульоне с курицей.",
-      "vn": "Mì (mì trứng) trong nước dùng với thịt gà.",
-      "pl": "Пшеничная лапша в бульоне с курицей.",
-      "de": "Пшеничная лапша в бульоне с курицей.",
-      "zh": "Пшеничная лапша в бульоне с курицей."
-    }
-  },
-  "mi_bo": {
-    "description": {
-      "ru": "Пшеничная лапша в насыщенном бульоне с говядиной.",
-      "ua": "Пшеничная лапша в насыщенном бульоне с говядиной.",
-      "en": "Пшеничная лапша в насыщенном бульоне с говядиной.",
-      "vn": "Mì trong nước dùng đậm đà với thịt bò.",
-      "pl": "Пшеничная лапша в насыщенном бульоне с говядиной.",
-      "de": "Пшеничная лапша в насыщенном бульоне с говядиной.",
-      "zh": "Пшеничная лапша в насыщенном бульоне с говядиной."
-    }
-  },
-  "mi_heo": {
-    "description": {
-      "ru": "Пшеничная лапша, свинина и зелень.",
-      "ua": "Пшеничная лапша, свинина и зелень.",
-      "en": "Пшеничная лапша, свинина и зелень.",
-      "vn": "Mì với thịt heo và rau thơm.",
-      "pl": "Пшеничная лапша, свинина и зелень.",
-      "de": "Пшеничная лапша, свинина и зелень.",
-      "zh": "Пшеничная лапша, свинина и зелень."
-    }
-  },
-  "custom_pho_xao": {
-    "description": {
-      "ru": "База: WOK Pho",
-      "ua": "База: WOK Pho",
-      "en": "База: WOK Pho",
-      "vn": "Cơ bản: Phở xào (WOK)",
-      "pl": "База: WOK Pho",
-      "de": "База: WOK Pho",
-      "zh": "База: WOK Pho"
-    }
-  },
-  "pho_xao_ga": {
-    "description": {
-      "ru": "Рисовая лапша WOK, курица, овощи и соус.",
-      "ua": "Рисовая лапша WOK, курица, овощи и соус.",
-      "en": "Рисовая лапша WOK, курица, овощи и соус.",
-      "vn": "Phở xào WOK với thịt gà, rau và sốt.",
-      "pl": "Рисовая лапша WOK, курица, овощи и соус.",
-      "de": "Рисовая лапша WOK, курица, овощи и соус.",
-      "zh": "Рисовая лапша WOK, курица, овощи и соус."
-    }
-  },
-  "pho_xao_bo": {
-    "description": {
-      "ru": "Рисовая лапша WOK, говядина, овощи и соус.",
-      "ua": "Рисовая лапша WOK, говядина, овощи и соус.",
-      "en": "Рисовая лапша WOK, говядина, овощи и соус.",
-      "vn": "Phở xào WOK với thịt bò, rau và sốt.",
-      "pl": "Рисовая лапша WOK, говядина, овощи и соус.",
-      "de": "Рисовая лапша WOK, говядина, овощи и соус.",
-      "zh": "Рисовая лапша WOK, говядина, овощи и соус."
-    }
-  },
-  "pho_xao_heo": {
-    "description": {
-      "ru": "Рисовая лапша WOK, свинина, овощи и соус.",
-      "ua": "Рисовая лапша WOK, свинина, овощи и соус.",
-      "en": "Рисовая лапша WOK, свинина, овощи и соус.",
-      "vn": "Phở xào WOK với thịt heo, rau và sốt.",
-      "pl": "Рисовая лапша WOK, свинина, овощи и соус.",
-      "de": "Рисовая лапша WOK, свинина, овощи и соус.",
-      "zh": "Рисовая лапша WOK, свинина, овощи и соус."
-    }
-  },
-  "custom_mien_xao": {
-    "description": {
-      "ru": "База: WOK Miến",
-      "ua": "База: WOK Miến",
-      "en": "База: WOK Miến",
-      "vn": "Cơ bản: Miến xào (WOK)",
-      "pl": "База: WOK Miến",
-      "de": "База: WOK Miến",
-      "zh": "База: WOK Miến"
-    }
-  },
-  "mien_xao_ga": {
-    "description": {
-      "ru": "Стеклянная лапша WOK, курица, овощи и соус.",
-      "ua": "Стеклянная лапша WOK, курица, овощи и соус.",
-      "en": "Стеклянная лапша WOK, курица, овощи и соус.",
-      "vn": "Miến xào WOK với thịt gà, rau và sốt.",
-      "pl": "Стеклянная лапша WOK, курица, овощи и соус.",
-      "de": "Стеклянная лапша WOK, курица, овощи и соус.",
-      "zh": "Стеклянная лапша WOK, курица, овощи и соус."
-    }
-  },
-  "mien_xao_bo": {
-    "description": {
-      "ru": "Стеклянная лапша WOK, говядина и овощи.",
-      "ua": "Стеклянная лапша WOK, говядина и овощи.",
-      "en": "Стеклянная лапша WOK, говядина и овощи.",
-      "vn": "Miến xào WOK với thịt bò và rau.",
-      "pl": "Стеклянная лапша WOK, говядина и овощи.",
-      "de": "Стеклянная лапша WOK, говядина и овощи.",
-      "zh": "Стеклянная лапша WOK, говядина и овощи."
-    }
-  },
-  "mien_xao_heo": {
-    "description": {
-      "ru": "Стеклянная лапша WOK, свинина и овощи.",
-      "ua": "Стеклянная лапша WOK, свинина и овощи.",
-      "en": "Стеклянная лапша WOK, свинина и овощи.",
-      "vn": "Miến xào WOK với thịt heo và rau.",
-      "pl": "Стеклянная лапша WOK, свинина и овощи.",
-      "de": "Стеклянная лапша WOK, свинина и овощи.",
-      "zh": "Стеклянная лапша WOK, свинина и овощи."
-    }
-  },
-  "custom_mi_xao": {
-    "description": {
-      "ru": "База: WOK Mì",
-      "ua": "База: WOK Mì",
-      "en": "База: WOK Mì",
-      "vn": "Cơ bản: Mì xào (WOK)",
-      "pl": "База: WOK Mì",
-      "de": "База: WOK Mì",
-      "zh": "База: WOK Mì"
-    }
-  },
-  "mi_xao_ga": {
-    "description": {
-      "ru": "Пшеничная лапша WOK, курица и овощи.",
-      "ua": "Пшеничная лапша WOK, курица и овощи.",
-      "en": "Пшеничная лапша WOK, курица и овощи.",
-      "vn": "Mì xào WOK với thịt gà và rau.",
-      "pl": "Пшеничная лапша WOK, курица и овощи.",
-      "de": "Пшеничная лапша WOK, курица и овощи.",
-      "zh": "Пшеничная лапша WOK, курица и овощи."
-    }
-  },
-  "mi_xao_bo": {
-    "description": {
-      "ru": "Пшеничная лапша WOK, говядина и овощи.",
-      "ua": "Пшеничная лапша WOK, говядина и овощи.",
-      "en": "Пшеничная лапша WOK, говядина и овощи.",
-      "vn": "Mì xào WOK với thịt bò và rau.",
-      "pl": "Пшеничная лапша WOK, говядина и овощи.",
-      "de": "Пшеничная лапша WOK, говядина и овощи.",
-      "zh": "Пшеничная лапша WOK, говядина и овощи."
-    }
-  },
-  "mi_xao_heo": {
-    "description": {
-      "ru": "Пшеничная лапша WOK, свинина и овощи.",
-      "ua": "Пшеничная лапша WOK, свинина и овощи.",
-      "en": "Пшеничная лапша WOK, свинина и овощи.",
-      "vn": "Mì xào WOK với thịt heo và rau.",
-      "pl": "Пшеничная лапша WOK, свинина и овощи.",
-      "de": "Пшеничная лапша WOK, свинина и овощи.",
-      "zh": "Пшеничная лапша WOK, свинина и овощи."
-    }
-  },
-  "custom_com_kho": {
-    "description": {
-      "ru": "База: Рис тушёный",
-      "ua": "База: Рис тушёный",
-      "en": "База: Рис тушёный",
-      "vn": "Cơ bản: Cơm kho",
-      "pl": "База: Рис тушёный",
-      "de": "База: Рис тушёный",
-      "zh": "База: Рис тушёный"
-    }
-  },
-  "com_thit_ga_kho": {
-    "description": {
-      "ru": "Тушёная курица в соусе — с рисом.",
-      "ua": "Тушёная курица в соусе — с рисом.",
-      "en": "Тушёная курица в соусе — с рисом.",
-      "vn": "Thịt gà kho đậm đà ăn kèm cơm.",
-      "pl": "Тушёная курица в соусе — с рисом.",
-      "de": "Тушёная курица в соусе — с рисом.",
-      "zh": "Тушёная курица в соусе — с рисом."
-    }
-  },
-  "com_thit_bo_xao": {
-    "description": {
-      "ru": "Говядина в ароматном соусе — с рисом.",
-      "ua": "Говядина в ароматном соусе — с рисом.",
-      "en": "Говядина в ароматном соусе — с рисом.",
-      "vn": "Thịt bò kho thơm ăn kèm cơm.",
-      "pl": "Говядина в ароматном соусе — с рисом.",
-      "de": "Говядина в ароматном соусе — с рисом.",
-      "zh": "Говядина в ароматном соусе — с рисом."
-    }
-  },
-  "com_thit_heo_kho": {
-    "description": {
-      "ru": "Свинина в соусе — с рисом.",
-      "ua": "Свинина в соусе — с рисом.",
-      "en": "Свинина в соусе — с рисом.",
-      "vn": "Thịt heo kho đậm vị ăn kèm cơm.",
-      "pl": "Свинина в соусе — с рисом.",
-      "de": "Свинина в соусе — с рисом.",
-      "zh": "Свинина в соусе — с рисом."
-    }
-  },
-  "custom_com_rang": {
-    "description": {
-      "ru": "База: Жареный рис",
-      "ua": "База: Жареный рис",
-      "en": "База: Жареный рис",
-      "vn": "Cơ bản: Cơm rang",
-      "pl": "База: Жареный рис",
-      "de": "База: Жареный рис",
-      "zh": "База: Жареный рис"
-    }
-  },
-  "com_rang_ga": {
-    "description": {
-      "ru": "Жареный рис с курицей и овощами.",
-      "ua": "Жареный рис с курицей и овощами.",
-      "en": "Жареный рис с курицей и овощами.",
-      "vn": "Cơm rang với thịt gà và rau.",
-      "pl": "Жареный рис с курицей и овощами.",
-      "de": "Жареный рис с курицей и овощами.",
-      "zh": "Жареный рис с курицей и овощами."
-    }
-  },
-  "com_rang_bo": {
-    "description": {
-      "ru": "Жареный рис с говядиной и овощами.",
-      "ua": "Жареный рис с говядиной и овощами.",
-      "en": "Жареный рис с говядиной и овощами.",
-      "vn": "Cơm rang với thịt bò và rau.",
-      "pl": "Жареный рис с говядиной и овощами.",
-      "de": "Жареный рис с говядиной и овощами.",
-      "zh": "Жареный рис с говядиной и овощами."
-    }
-  },
-  "com_rang_tom": {
-    "description": {
-      "ru": "Жареный рис с креветками и овощами.",
-      "ua": "Жареный рис с креветками и овощами.",
-      "en": "Жареный рис с креветками и овощами.",
-      "vn": "Cơm rang với tôm và rau.",
-      "pl": "Жареный рис с креветками и овощами.",
-      "de": "Жареный рис с креветками и овощами.",
-      "zh": "Жареный рис с креветками и овощами."
-    }
-  },
-  "com_rang_heo": {
-    "description": {
-      "ru": "Жареный рис со свининой и овощами.",
-      "ua": "Жареный рис со свининой и овощами.",
-      "en": "Жареный рис со свининой и овощами.",
-      "vn": "Cơm rang với thịt heo và rau.",
-      "pl": "Жареный рис со свининой и овощами.",
-      "de": "Жареный рис со свининой и овощами.",
-      "zh": "Жареный рис со свининой и овощами."
-    }
-  },
-  "spring_rolls_fresh": {
-    "description": {
-      "ru": "Свежие роллы с овощами и соусом.",
-      "ua": "Свежие роллы с овощами и соусом.",
-      "en": "Свежие роллы с овощами и соусом.",
-      "vn": "Gỏi cuốn tươi với rau và sốt.",
-      "pl": "Свежие роллы с овощами и соусом.",
-      "de": "Свежие роллы с овощами и соусом.",
-      "zh": "Свежие роллы с овощами и соусом."
-    }
-  },
-  "caphe_viet": {
-    "description": {
-      "ru": "Крепкий кофе по-вьетнамски (фильтр phin).",
-      "ua": "Крепкий кофе по-вьетнамски (фильтр phin).",
-      "en": "Крепкий кофе по-вьетнамски (фильтр phin).",
-      "vn": "Cà phê phin đậm vị kiểu Việt.",
-      "pl": "Крепкий кофе по-вьетнамски (фильтр phin).",
-      "de": "Крепкий кофе по-вьетнамски (фильтр phin).",
-      "zh": "Крепкий кофе по-вьетнамски (фильтр phin)."
-    }
-  },
-  "bo_huc": {
-    "description": {
-      "ru": "Энергетический напиток.",
-      "ua": "Энергетический напиток.",
-      "en": "Энергетический напиток.",
-      "vn": "Nước tăng lực.",
-      "pl": "Энергетический напиток.",
-      "de": "Энергетический напиток.",
-      "zh": "Энергетический напиток."
-    }
-  },
-  "coca_cola": {
-    "description": {
-      "ru": "Газированный напиток.",
-      "ua": "Газированный напиток.",
-      "en": "Газированный напиток.",
-      "vn": "Nước ngọt có ga.",
-      "pl": "Газированный напиток.",
-      "de": "Газированный напиток.",
-      "zh": "Газированный напиток."
-    }
-  },
-  "pepsi": {
-    "description": {
-      "ru": "Газированный напиток.",
-      "ua": "Газированный напиток.",
-      "en": "Газированный напиток.",
-      "vn": "Nước ngọt có ga.",
-      "pl": "Газированный напиток.",
-      "de": "Газированный напиток.",
-      "zh": "Газированный напиток."
-    }
-  }
-}
-  </script>
-
+    })();
+    </script>
+  </div>
 </body>
 </html>
