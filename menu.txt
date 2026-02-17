@@ -1,0 +1,91 @@
+obnovit menu ( ostavit Додати м’ясо/морепродукти\
+(необов’язково) · max 4\
+курка\
++30 грн\
+яловичина\
++40 грн\
+свинина\
++30 грн\
+креветки)
+ 
+🍜PHỞ (soup)\
+Phở thit bò xào\
+Phở thit heo xào\
+Phở thit gà xào\
+Phở thit tôm xào\
+Phở thập cẩm\
+🍜 BÚN (soup)\
+Bún thit bò xào\
+Bún thit heo xào\
+Bún thit gà xào\
+Bún thit tôm xào\
+Bún thập cẩm\
+🥗 BÚN NAM BỘ (salad)\
+Bún salat thit bò\
+Bún salat thit gà\
+Bún salat thit tôm\
+Bún salat nem\
+Bún Nam Bộ thập cẩm (опционально)\
+🍝 MIẾN XÀO (glass noodles)\
+Miến xào thit bò\
+Miến xào thit heo\
+Miến xào thit gà\
+Miến xào thit tôm\
+Miến xào thập cẩm\
+🍜 MÌ XÀO (wheat noodles)\
+Mì xào thit bò\
+Mì xào heo\
+Mì xào gà\
+Mì xào tôm\
+Mì xào thập cẩm\
+🍚 CƠM trang\
+Cơm trang thit bò xào\
+Cơm trang thit heo xào\
+Cơm trang thit gà xào\
+Cơm trang thit tôm xào\
+Cơm xào thập cẩm\
+🍚 CƠM RANG\
+Cơm rang bò\
+Cơm rang heo\
+Cơm rang gà\
+Cơm rang tôm\
+Cơm rang thập cẩm\
+🥟 KHAI VỊ / ЗАКУСКИ\
+Gỏi cuốn (nem cuốn — разговорно, в меню лучше так)\
+Nem rán\
+Ức gà chiên xù
+ 
+nuoc uong
+bo huc
+cafe viet 50
+Pepsi 0.3 л (скло) — 69 грн
+69.00 грн
+ 
+Pepsi 0.33 л (ж/б) — 59 грн
+59.00 грн
+ 
+Pepsi 0.5 л — 69 грн
+69.00 грн
+ 
+Pepsi Black 0.5 л — 69 грн
+69.00 грн
+ 
+Pepsi Cherry 0.5 л — 69 грн
+69.00 грн
+ 
+Mirinda Orange 0.5 л — 69 грн
+69.00 грн
+ 
+7UP 0.5 л — 69 грн
+69.00 грн
+ 
+Карпатська джерельна негаз 0.5 л — 39 грн
+39.00 грн
+ 
+Карпатська джерельна газ 0.5 л — 39 грн
+39.00 грн
+ 
+Садочок Мультифрукт 0.5 л — 69 грн
+69.00 грн
+ 
+Садочок Томатний 0.5 л — 75 грн

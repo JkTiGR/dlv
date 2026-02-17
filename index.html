@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b0f1a" />
-  <title>DLV — Menu</title>
+  <title>CYBER DRAGON — Menu</title>
   <link rel="icon" href="logo.png"/>
   <link rel="stylesheet" href="base.css">
 </head>
@@ -13,16 +13,12 @@
     <!-- Header -->
     <header class="header">
       <div class="bar">
-        <h1 class="brand" id="brandTap"> <img class="mark" src="logo.png" alt="Logo"> asian food</h1>
+        <h1 class="brand" id="brandTap">cyber dragon <img class="mark" src="logo.png" alt="Logo"> 90s</h1>
         <div class="lang">
           <select id="langSel" aria-label="Language">
             <option value="ru">🇷🇺 RU</option>
-            <option value="en">🇬🇧 EN</option>
             <option value="ua">🇺🇦 UA</option>
             <option value="vn">🇻🇳 VN</option>
-            <option value="pl">🇵🇱 PL</option>
-            <option value="de">🇩🇪 DE</option>
-            <option value="zh">🇨🇳 ZH</option>
           </select>
         </div>
         <button class="burger" id="burgerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="navPop">☰</button>
@@ -35,18 +31,13 @@
           <div class="lang-inline" role="none">🌐
             <select id="langSelMenu" aria-label="Language (menu)">
               <option value="ru">🇷🇺 RU</option>
-              <option value="en">🇬🇧 EN</option>
               <option value="ua">🇺🇦 UA</option>
               <option value="vn">🇻🇳 VN</option>
-              <option value="pl">🇵🇱 PL</option>
-              <option value="de">🇩🇪 DE</option>
-              <option value="zh">🇨🇳 ZH</option>
             </select>
           </div>
         </nav>
       </div>
     </header>
-
     <div class="hero">
       <video
         class="promo"
@@ -57,10 +48,11 @@
         playsinline
         preload="auto"
       ></video>
-      
+        MENU
+      </button>
       <div class="social">
-        <a href="4441111166306294/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="monobank">
-          <img src="images/icon/mono.png" alt="monobank">
+        <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <img src="images/icon/fb.png" alt="Facebook">
         </a>
         <a href="https://www.instagram.com/cyber_dragon_ua/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
           <img src="images/icon/ig.png" alt="Instagram">
@@ -72,13 +64,12 @@
           <img src="images/icon/tt.png" alt="TikTok">
         </a>
       </div>
+     
     </div>
-
     <!-- Category pills -->
     <nav class="cat-nav glass-nav">
       <div class="h-scroll" id="catPills" aria-label="Categories"></div>
     </nav>
-
     <!-- Top tools: search + order status -->
     <div class="top-tools">
       <div class="searchbar glass">
@@ -86,18 +77,14 @@
         <input id="searchIn" type="search" placeholder="Поиск блюда / Search…" autocomplete="off" />
         <button class="icon-btn" id="searchClear" aria-label="Clear">✕</button>
       </div>
-
       <div class="statusbar glass">
         <span class="icon">📦</span>
         <input id="statusCode" type="text" placeholder="Код заказа (например, a123)" autocomplete="off" />
         <button class="btn mini" id="statusBtn">Статус</button>
       </div>
-
       <div class="status-result" id="statusResult" aria-live="polite"></div>
     </div>
-
     <main id="content"></main>
-
     <!-- All categories sheet -->
     <div class="overlay" id="catOverlay"></div>
     <div class="sheet" id="catSheet" role="dialog" aria-modal="true" aria-labelledby="catSheetTitle">
@@ -106,7 +93,6 @@
       <h3 id="catSheetTitle">Категории</h3>
       <div class="group" id="catSheetList"></div>
     </div>
-
     <!-- iOS-style Bottom Dock -->
     <nav class="dock" aria-label="Bottom navigation">
       <button class="dock-btn" id="dockCat" data-label="Menu">
@@ -114,7 +100,7 @@
       </button>
       <button class="dock-btn" id="dockLang" data-label="Lang">
         <img src="DockIconLang.png" alt="Language">
-        <span class="cart-badge" id="dockLangFlag">🇷🇺</span>
+        <span class="cart-badge" id="dockLangFlag">🇺🇦</span>
       </button>
       <button class="dock-btn" id="dockCart" data-label="Cart">
         <img src="DockIconKorzina.png" alt="Cart">
@@ -127,18 +113,12 @@
         <img src="DockIconMore.png" alt="More">
       </button>
     </nav>
-
     <!-- Mini language popup -->
     <div class="mini-popup mini-popup-lang" id="langPopup">
-      <button data-lang="ru">🇷🇺 RU</button>
-      <button data-lang="en">🇬🇧 EN</button>
+      <button data-lang="ru">🇺🇦 RU</button>
       <button data-lang="ua">🇺🇦 UA</button>
       <button data-lang="vn">🇻🇳 VN</button>
-      <button data-lang="pl">🇵🇱 PL</button>
-      <button data-lang="de">🇩🇪 DE</button>
-      <button data-lang="zh">🇨🇳 ZH</button>
     </div>
-
     <!-- Cart Bottom Sheet -->
     <div class="overlay" id="overlay"></div>
     <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
@@ -146,7 +126,6 @@
       <button class="sheet-close" id="sheetClose" aria-label="Закрыть">✕</button>
       <h3 id="sheetTitle">Ваш заказ</h3>
       <div class="cart-lines" id="cartLines"></div>
-
       <div class="section">
         <div class="muted" id="orderTypeTitle" style="margin-bottom:6px">Тип заказа</div>
         <div class="group" id="orderType">
@@ -154,41 +133,34 @@
           <button class="chip" data-ot="takeaway" id="otTakeaway">На вынос</button>
           <button class="chip" data-ot="delivery" id="otDelivery">Доставка</button>
         </div>
-
         <div class="field" id="tableField" style="display:grid">
           <label for="tableNo" id="tableLbl">Стол <span class="muted" id="tableHint">(обязательно)</span></label>
           <input id="tableNo" type="number" min="1" inputmode="numeric" placeholder="Например, 5">
         </div>
-
         <div class="field" id="takeawayField" style="display:none">
           <label for="pickupIn" id="pickupLbl">Через сколько забрать (мин) <span class="muted" id="pickupHint">(обязательно)</span></label>
           <input id="pickupIn" type="number" min="5" step="5" placeholder="15">
         </div>
-
         <div class="field" id="addrField" style="display:none">
           <label for="address" id="addrLbl">Адрес доставки <span class="muted" id="addrHint">(обязательно)</span></label>
           <textarea id="address" placeholder="Город, улица, дом, подъезд..."></textarea>
         </div>
-
         <div class="field" id="phoneField">
           <label for="phone" id="phoneLbl">Телефон <span class="muted" id="phoneHint">(необязательно)</span></label>
           <input id="phone" type="tel" placeholder="+380 63 000 00 00">
         </div>
       </div>
-
       <div class="checkout">
         <div class="muted" id="cartMeta">Итого: 0.00 грн</div>
         <button class="btn primary" id="checkoutBtn">Оформить</button>
         <button class="btn ghost" id="clearBtn">Очистить корзину</button>
       </div>
     </div>
-
     <!-- Dish Details Sheet -->
     <div class="overlay" id="dishOverlay"></div>
     <div class="sheet dish-sheet" id="dishSheet" role="dialog" aria-modal="true" aria-labelledby="dishTitle">
       <div class="sheet-handle" aria-hidden="true"></div>
       <button class="sheet-close" id="dishClose" aria-label="Закрыть">✕</button>
-
       <div class="dish-head">
         <div class="dish-title">
           <h3 id="dishTitle">—</h3>
@@ -196,9 +168,7 @@
         </div>
         <div class="dish-price" id="dishPrice">0.00 грн</div>
       </div>
-
       <div class="dish-media" id="dishMedia"></div>
-
       <div class="dish-body">
         <div class="dish-desc" id="dishDesc">—</div>
         <div class="dish-options" id="dishOptions"></div>
@@ -207,7 +177,6 @@
           <textarea id="dishNote" placeholder="Например: без лука, больше соуса…"></textarea>
         </div>
       </div>
-
       <div class="dish-actions">
         <button class="btn ghost" id="dishMinus">−</button>
         <div class="dish-qty" id="dishQty">0</div>
@@ -215,33 +184,21 @@
         <button class="btn primary" id="dishAddBtn">Добавить</button>
       </div>
     </div>
-
     <!-- DATA -->
     <script src="menu.js"></script>
     <script>
-    /* ==== DATA BIND (robust global) ==== */
-    const MENU = window.MENU || (typeof menuData !== 'undefined' ? menuData : null);
-    if (!MENU) {
-      console.error('Menu data is missing. Make sure menu.js is loaded before index script and exposes window.MENU');
-    }
-
     /* ==== LANG & I18N ==== */
     const LANG_KEY = 'CD_LANG';
     let LANG = localStorage.getItem(LANG_KEY) || 'ru';
     document.documentElement.lang = LANG;
-    const LANGS_ORDER = ['ru','en','ua','vn','pl','de','zh'];
-    const LANG_FLAGS = { ru:'🇷🇺', en:'🇬🇧', ua:'🇺🇦', vn:'🇻🇳', pl:'🇵🇱', de:'🇩🇪', zh:'🇨🇳' };
-
+    const LANGS_ORDER = ['ru','ua','vn'];
+    const LANG_FLAGS = { ru:'🇺🇦', ua:'🇺🇦', vn:'🇻🇳' };
     // === Google Sheets API (Apps Script) ===
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-
     const I18N = {
       ru:{
         navHome:'Главная',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакты',
-        ui:{
-          add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой',
-          universalShort:'Классика вьетнамской кухни. Можно добавить: gà / bò / heo / tôm.'
-        },
+        ui:{add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой'},
         sheet:{
           title:'Ваш заказ',empty:'Корзина пуста.',orderType:'Тип заказа',
           onSite:'На месте',takeaway:'На вынос',delivery:'Доставка',
@@ -254,30 +211,9 @@
         common:{required:'(обязательно)',optional:'(необязательно)'},
         tabbar:{menu:'Меню',lang:'Язык',cart:'Корзина',more:'Ещё'}
       },
-      en:{
-        navHome:'Home',navMenu:'Menu',navKaraoke:'Karaoke',navContact:'Contact',
-        ui:{
-          add:'Add',more:'More',itemsShort:'pcs',viewList:'List view',viewGrid:'Grid view',
-          universalShort:'Vietnamese classic. You can add: chicken / beef / pork / shrimp.'
-        },
-        sheet:{
-          title:'Your order',empty:'Cart is empty.',orderType:'Order type',
-          onSite:'Dine-in',takeaway:'Takeaway',delivery:'Delivery',
-          table:'Table',pickupIn:'Pickup in (min)',address:'Delivery address',phone:'Phone',
-          phTable:'e.g., 5',phPickup:'15',phAddress:'City, street, house…',phPhone:'+380 63 000 00 00',
-          total:'Total',checkout:'Checkout',clear:'Clear cart',
-          errTable:'Please enter table number.',errPickup:'Please enter pickup time (min).',
-          errPhone:'Please enter phone.',errAddress:'Please enter delivery address.'
-        },
-        common:{required:'(required)',optional:'(optional)'},
-        tabbar:{menu:'Menu',lang:'Lang',cart:'Cart',more:'More'}
-      },
       ua:{
         navHome:'Головна',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакти',
-        ui:{
-          add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою',
-          universalShort:'Класика в’єтнамської кухні. Можна додати: gà / bò / heo / tôm.'
-        },
+        ui:{add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою'},
         sheet:{
           title:'Ваше замовлення',empty:'Кошик порожній.',orderType:'Тип замовлення',
           onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка',
@@ -290,66 +226,9 @@
         common:{required:'(обов’язково)',optional:'(необов’язково)'},
         tabbar:{menu:'Меню',lang:'Мова',cart:'Кошик',more:'Ще'}
       },
-      pl:{
-        navHome:'Start',navMenu:'Menu',navKaraoke:'Karaoke',navContact:'Kontakt',
-        ui:{
-          add:'Dodaj',more:'Szczegóły',itemsShort:'szt.',viewList:'Widok listy',viewGrid:'Widok siatki',
-          universalShort:'Klasyk kuchni wietnamskiej. Możesz dodać: kurczak / wołowina / wieprzowina / krewetki.'
-        },
-        sheet:{
-          title:'Twoje zamówienie',empty:'Koszyk jest pusty.',orderType:'Rodzaj zamówienia',
-          onSite:'Na miejscu',takeaway:'Na wynos',delivery:'Dostawa',
-          table:'Stół',pickupIn:'Odbiór za (min)',address:'Adres dostawy',phone:'Telefon',
-          phTable:'Np. 5',phPickup:'15',phAddress:'Miasto, ulica, nr domu…',phPhone:'+380 63 000 00 00',
-          total:'Suma',checkout:'Zamów',clear:'Wyczyść koszyk',
-          errTable:'Podaj numer stołu.',errPickup:'Podaj czas odbioru (min).',
-          errPhone:'Podaj telefon.',errAddress:'Podaj adres dostawy.'
-        },
-        common:{required:'(wymagane)',optional:'(opcjonalnie)'},
-        tabbar:{menu:'Menu',lang:'Język',cart:'Koszyk',more:'Więcej'}
-      },
-      de:{
-        navHome:'Start',navMenu:'Menü',navKaraoke:'Karaoke',navContact:'Kontakt',
-        ui:{
-          add:'Hinzufügen',more:'Details',itemsShort:'St.',viewList:'Listenansicht',viewGrid:'Rasteransicht',
-          universalShort:'Vietnamesischer Klassiker. Du kannst hinzufügen: Huhn / Rind / Schwein / Garnelen.'
-        },
-        sheet:{
-          title:'Ihre Bestellung',empty:'Warenkorb ist leer.',orderType:'Bestellart',
-          onSite:'Vor Ort',takeaway:'Zum Mitnehmen',delivery:'Lieferung',
-          table:'Tisch',pickupIn:'Abholung in (Min.)',address:'Lieferadresse',phone:'Telefon',
-          phTable:'z. B. 5',phPickup:'15',phAddress:'Stadt, Straße, Nr.…',phPhone:'+380 63 000 00 00',
-          total:'Gesamt',checkout:'Bestellen',clear:'Warenkorb leeren',
-          errTable:'Bitte Tisch-Nr. eingeben.',errPickup:'Bitte Abholzeit (Min.) eingeben.',
-          errPhone:'Bitte Telefon eingeben.',errAddress:'Bitte Lieferadresse eingeben.'
-        },
-        common:{required:'(erforderlich)',optional:'(optional)'},
-        tabbar:{menu:'Menü',lang:'Sprache',cart:'Warenkorb',more:'Mehr'}
-      },
-      zh:{
-        navHome:'主页',navMenu:'菜单',navKaraoke:'卡拉OK',navContact:'联系',
-        ui:{
-          add:'添加',more:'详情',itemsShort:'件',viewList:'列表视图',viewGrid:'网格视图',
-          universalShort:'越南经典。可加：鸡/牛/猪/虾。'
-        },
-        sheet:{
-          title:'您的订单',empty:'购物车为空。',orderType:'订单类型',
-          onSite:'堂食',takeaway:'外带',delivery:'配送',
-          table:'桌号',pickupIn:'取餐时间（分钟）',address:'配送地址',phone:'电话',
-          phTable:'例如 5',phPickup:'15',phAddress:'城市、街道、门牌…',phPhone:'+380 63 000 00 00',
-          total:'合计',checkout:'下单',clear:'清空购物车',
-          errTable:'请输入桌号。',errPickup:'请输入取餐时间（分钟）。',
-          errPhone:'请输入电话。',errAddress:'请输入配送地址。'
-        },
-        common:{required:'(必填)',optional:'(可选)'},
-        tabbar:{menu:'菜单',lang:'语言',cart:'购物车',more:'更多'}
-      },
       vn:{
         navHome:'Trang chủ',navMenu:'Thực đơn',navKaraoke:'Karaoke',navContact:'Liên hệ',
-        ui:{
-          add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới',
-          universalShort:'Món Việt cơ bản. Có thể thêm: gà / bò / heo / tôm.'
-        },
+        ui:{add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới'},
         sheet:{
           title:'Đơn hàng của bạn',empty:'Giỏ hàng trống.',orderType:'Hình thức đặt',
           onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng',
@@ -363,53 +242,39 @@
         tabbar:{menu:'Thực đơn',lang:'Ngôn ngữ',cart:'Giỏ',more:'Thêm'}
       }
     };
-
-    const L = () => I18N[LANG] || I18N.en;
-
+    const L = () => I18N[LANG] || I18N.ru;
     /* Descriptions lazy-load */
     let DESCS = null;
     async function loadDescriptions(){
       if (DESCS) return DESCS;
       try{
-        if (location.protocol === 'file:'){
-          const node = document.getElementById('descriptions-embedded');
-          if (node && node.textContent && node.textContent.trim()){
-            DESCS = JSON.parse(node.textContent);
-            return DESCS;
-          }
-        }
-      }catch(e){}
-      try{
-        const resp = await fetch('descriptions.json', {cache:'no-store'});
+        const resp = await fetch('descriptions.json');
         if (resp.ok){
           DESCS = await resp.json();
           return DESCS;
         }
       }catch(e){
-        console.warn('Descriptions unavailable (using menu short only).');
+        console.error('Failed to load descriptions.json', e);
       }
       DESCS = {};
       return DESCS;
     }
-
     /* Category labels — UPDATED to match NEW menu.js keys */
     const CAT_LABELS = {
-      "pho_soups": {"ru":"Супы Фо","ua":"Супи Фо","en":"Pho Soups","vn":"Phở (súp)","pl":"Zupy Pho","de":"Pho-Suppen","zh":"河粉汤"},
-      "bun_soups": {"ru":"Супы Бун","ua":"Супи Бун","en":"Bun Soups","vn":"Bún (súp)","pl":"Zupy Bún","de":"Bún-Suppen","zh":"米粉汤"},
-      "cold_bun": {"ru":"Холодный Бун","ua":"Холодний Бун","en":"Cold Bun","vn":"Bún Nam Bộ","pl":"Bún na zimno","de":"Kalter Bún","zh":"冷拌米粉"},
-      "mien_soups": {"ru":"Супы Миен","ua":"Супи Мієн","en":"Mien Soups","vn":"Miến (súp)","pl":"Zupy Miến","de":"Miến-Suppen","zh":"粉丝汤"},
-      "mi_soups": {"ru":"Супы Ми","ua":"Супи Mì","en":"Mi Soups","vn":"Mì (súp)","pl":"Zupy Mì","de":"Mì-Suppen","zh":"面汤"},
-      "wok_fried_pho": {"ru":"WOK Phở xào","ua":"WOK Phở xào","en":"WOK Fried Pho","vn":"Phở xào (WOK)","pl":"Pho z woka","de":"WOK-Pho","zh":"炒河粉"},
-      "wok_fried_mien": {"ru":"WOK Miến xào","ua":"WOK Miến xào","en":"WOK Fried Mien","vn":"Miến xào (WOK)","pl":"Miến z woka","de":"WOK-Miến","zh":"炒粉丝"},
-      "wok_fried_mi": {"ru":"WOK Mì xào","ua":"WOK Mì xào","en":"WOK Fried Mi","vn":"Mì xào (WOK)","pl":"Mì z woka","de":"WOK-Mì","zh":"炒面"},
-      "rice_braised": {"ru":"Рис тушёный","ua":"Тушкований рис","en":"Braised Rice","vn":"Cơm thịt kho","pl":"Ryż duszony","de":"Geschmorter Reis","zh":"卤肉饭"},
-      "fried_rice": {"ru":"Жареный рис","ua":"Смажений рис","en":"Fried Rice","vn":"Cơm rang","pl":"Smażony ryż","de":"Gebratener Reis","zh":"炒饭"},
-      "appetizers": {"ru":"Закуски","ua":"Закуски","en":"Appetizers","vn":"Khai vị","pl":"Przystawki","de":"Vorspeisen","zh":"小吃"},
-      "drinks": {"ru":"Напитки","ua":"Напої","en":"Drinks","vn":"Đồ uống","pl":"Napoje","de":"Getränke","zh":"饮料"}
+      pho_soups:{ru:'Фо (супы)',ua:'Фо (супи)',vn:'Súp Phở'},
+      bun_soups:{ru:'Бун (супы)',ua:'Бун (супи)',vn:'Súp Bún'},
+      salat_bun:{ru:'Бун (salat)',ua:'Бун (salat)',vn:'Bún nam bo'},
+      mien_soups:{ru:'Миен (супы)',ua:'Мієн (супи)',vn:'Súp Miến'},
+      mi_soups:{ru:'Ми (супы)',ua:'Мі (супи)',vn:'Súp Mì'},
+      wok_fried_pho:{ru:'ВОК: жареный Фо',ua:'ВОК: смажений Фо',vn:'Wok Phở xào'},
+      wok_fried_mien:{ru:'ВОК: жареный Миен',ua:'ВОК: смажений Мієн',vn:'Wok Miến xào'},
+      wok_fried_mi:{ru:'ВОК: жареная лапша',ua:'ВОК: смажена локшина',vn:'Wok Mì xào'},
+      rice_braised:{ru:'Рис: тушёные',ua:'Рис: тушковане',vn:'Cơm kho'},
+      fried_rice:{ru:'Рис: жареный',ua:'Смажений рис',vn:'Cơm chiên'},
+      appetizers:{ru:'Закуски',ua:'Закуски',vn:'Món khai vị'},
+      drinks:{ru:'Напитки',ua:'Напої',vn:'Đồ uống'}
     };
-
-    const catLabel = k => (CAT_LABELS[k]?.[LANG] || CAT_LABELS[k]?.en || k);
-
+    const catLabel = k => (CAT_LABELS[k]?.[LANG] || CAT_LABELS[k]?.ru || k);
     /* Helpers & state */
     const $ = s => document.querySelector(s);
     const $$ = s => document.querySelectorAll(s);
@@ -417,53 +282,12 @@
     const IMG_DIR = 'images/';
     const IMG_EXTS = ['webp','jpg','jpeg','png'];
     const fmt = n => Number(n).toFixed(2) + ' ' + CURRENCY;
-
-    // --- i18n safe text picker ---
-    function pickLang(val, lang = LANG){
-      if (val === null || val === undefined) return '';
-      const type = typeof val;
-      if (type === 'string' || type === 'number' || type === 'boolean') return String(val);
-      if (Array.isArray(val)){
-        return val.map(v => pickLang(v, lang)).filter(Boolean).join(', ');
-      }
-      if (type === 'object'){
-        if (val.description && typeof val.description === 'object') return pickLang(val.description, lang);
-        if (val[lang] !== undefined) return pickLang(val[lang], lang);
-        if (val.en !== undefined) return pickLang(val.en, lang);
-        if (val.ru !== undefined) return pickLang(val.ru, lang);
-        if (val.ua !== undefined) return pickLang(val.ua, lang);
-        if (val.vn !== undefined) return pickLang(val.vn, lang);
-        for (const k of Object.keys(val)){
-          const v = val[k];
-          if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return String(v);
-        }
-        return '';
-      }
-      return String(val);
-    }
-
-    function vnPrettyTuyChon(text, it, extraHint=''){
-      if (LANG !== 'vn') return text;
-      const base = (text || '').trim();
-      const norm = base.toLowerCase();
-      if (!(norm === 'tự chọn' || norm === 'tu chon' || norm === 'tuy chon')) return base;
-      const key = String(it?.key || '').toLowerCase();
-      const hint = String(extraHint || '').toLowerCase();
-      const hay = `${key} ${hint}`;
-      if (/sot|sốt|sauce/.test(hay)) return 'Chọn sốt theo ý bạn';
-      if (/pho/.test(hay)) return 'Tự tạo tô Phở theo ý bạn';
-      if (/bun/.test(hay)) return 'Tự tạo tô Bún theo ý bạn';
-      if (/mien|miến/.test(hay)) return 'Tự tạo tô Miến theo ý bạn';
-      return base;
-    }
-
-    const escapeHtml = (s='') => String(pickLang(s))
+    const escapeHtml = (s='') => String(s)
       .replaceAll('&','&amp;')
       .replaceAll('<','&lt;')
       .replaceAll('>','&gt;')
       .replaceAll('"','&quot;')
       .replaceAll("'","&#039;");
-
     function summarizeSelections(it, selections){
       const opts = normalizeOptions(it);
       const sel = selections || {};
@@ -475,16 +299,16 @@
         const pickArr = Array.isArray(picked) ? picked : [picked];
         const names = pickArr.map(oid=>{
           const item = (g.items||[]).find(x => (x.id||x.key)===oid);
-          const nm = optionLabel(item || {id:oid, label:oid});
+          const nm = item?.label?.[LANG] || item?.label?.ru || item?.label || item?.name || oid;
           const d = Number(item?.price_delta||0);
           return d ? `${nm} (+${d})` : `${nm}`;
         });
-        const gTitle = groupTitleSmart(g, it);
+        const gTitle = g.title?.[LANG] || g.title?.ru || g.title || '';
         parts.push(gTitle ? `${gTitle}: ${names.join(', ')}` : names.join(', '));
       }
       return parts.join(' · ');
     }
-
+   
     function summarizeSelectionsLines(it, selections){
       const opts = normalizeOptions(it);
       const sel = selections || {};
@@ -496,15 +320,14 @@
         const pickArr = Array.isArray(picked) ? picked : [picked];
         const names = pickArr.map(oid=>{
           const item = (g.items||[]).find(x => (x.id||x.key)===oid);
-          return optionLabel(item || {id:oid, label:oid});
+          return item?.label?.[LANG] || item?.label?.ru || item?.label || item?.name || oid;
         });
-        const gTitle = groupTitleSmart(g, it) || gid;
+        const gTitle = groupTitle(g) || gid;
         lines.push(`${gTitle}: ${names.join(', ')}`);
       }
       return lines;
     }
-
-    function buildThumb(imgEl, key){
+function buildThumb(imgEl, key){
       let i = 0;
       const trySet = () => imgEl.src = IMG_DIR + key + '.' + IMG_EXTS[i];
       imgEl.onerror = () => {
@@ -518,30 +341,17 @@
       };
       trySet();
     }
-
-    const itemName = it => {
-      const base = pickLang(it?.translations) || (it?.key?.replaceAll('_',' ') || '');
-      if (LANG === 'vn'){
-        const b = (base || '').trim();
-        if (/tự chọn/i.test(b) || /tu chon/i.test(b) || /tuy chon/i.test(b)){
-          const key = String(it?.key || '').toLowerCase();
-          if (key.includes('pho')) return 'Tự tạo tô Phở theo ý bạn';
-          if (key.includes('bun')) return 'Tự tạo tô Bún theo ý bạn';
-          if (key.includes('mien') || key.includes('miến')) return 'Tự tạo tô Miến theo ý bạn';
-          if (key.includes('sauce') || key.includes('sot') || key.includes('sốt')) return 'Chọn sốt theo ý bạn';
-        }
-      }
-      return base;
-    };
-
+    const itemName = it =>
+      it?.translations?.[LANG] ||
+      it?.translations?.ru ||
+      it?.key?.replaceAll('_',' ') ||
+      '';
     const CART_KEY = 'CD_CART_V2';
     const ORDERS_KEY = 'CD_ORDERS_V1';
     const SEARCH_KEY = 'CD_SEARCH_Q';
     const HERO_KEY = 'CD_HERO_CLOSED';
-
     // cart: Map(id -> {qty:number, selections:object, note:string})
     const cart = new Map();
-
     function loadCart(){
       try{
         const raw = localStorage.getItem(CART_KEY);
@@ -557,7 +367,6 @@
         }
       }catch(e){ console.warn('Cart load failed', e); }
     }
-
     function saveCart(){
       try{
         const obj = {};
@@ -567,21 +376,17 @@
         localStorage.setItem(CART_KEY, JSON.stringify(obj));
       }catch(e){ console.warn('Cart save failed', e); }
     }
-
     function cartQty(id){ return cart.get(id)?.qty || 0; }
-
     function cartInc(id, delta=1){
       const cur = cart.get(id) || {qty:0, selections:{}, note:''};
       cur.qty = Math.max(0, (cur.qty|0) + delta);
       if (cur.qty<=0) cart.delete(id); else cart.set(id, cur);
       saveCart();
     }
-
     function cartSetEntry(id, entry){
       cart.set(id, entry);
       saveCart();
     }
-
     function loadOrders(){
       try{ return JSON.parse(localStorage.getItem(ORDERS_KEY) || '{}') || {}; }
       catch(e){ return {}; }
@@ -589,17 +394,15 @@
     function saveOrders(obj){
       try{ localStorage.setItem(ORDERS_KEY, JSON.stringify(obj||{})); }catch(e){}
     }
-
     /* Pills */
     function renderPills(){
-      const keys = Object.keys(MENU || {});
+      const keys = Object.keys(menuData || {});
       const el = $('#catPills');
       if (!el) return;
       el.innerHTML = keys.map((k,i) =>
         `<a class="pill ${i===0?'active':''}" href="#sec-${k}">${catLabel(k)}</a>`
       ).join('');
     }
-
     /* View toggle (grid/list) */
     const VIEW_KEY = 'CD_VIEW_MENU';
     let viewMode = localStorage.getItem(VIEW_KEY) || 'grid';
@@ -608,7 +411,6 @@
         wrap.classList.toggle('as-list', viewMode === 'list');
       });
     }
-
     /* Meta info */
     function buildMeta(it){
       if (!it) return '';
@@ -635,45 +437,10 @@
       if (!parts.length) return '';
       return `<div class="meta">${parts.join(' • ')}</div>`;
     }
-
-    /* Options / pricing — UPDATED: universal protein add-on */
-    function shouldEnableProteinAddon(it){
-      const k = String(it?.key || '').toLowerCase();
-      // families: pho, bun, mien, com, com_rang (+ mi optional)
-      return /^(pho|bun|mien|mi|com|com_rang)/.test(k);
-    }
-
-    function proteinAddonGroup(){
-      return {
-        id:'add_protein',
-        title:{
-          ru:'Добавить мясо/морепродукты',
-          ua:'Додати м’ясо/морепродукти',
-          en:'Add extra protein',
-          vn:'Thêm đạm',
-          pl:'Dodaj białko',
-          de:'Extra Protein hinzufügen',
-          zh:'加主料'
-        },
-        required:false,
-        multi:true,
-        max:4,
-        items:[
-          {id:'ga',  label:{ru:'Gà (курица)',ua:'Gà (курка)',en:'Chicken (gà)',vn:'Gà',pl:'Kurczak (gà)',de:'Huhn (gà)',zh:'鸡'}, price_delta:30},
-          {id:'bo',  label:{ru:'Bò (говядина)',ua:'Bò (яловичина)',en:'Beef (bò)',vn:'Bò',pl:'Wołowina (bò)',de:'Rind (bò)',zh:'牛'}, price_delta:40},
-          {id:'heo', label:{ru:'Heo (свинина)',ua:'Heo (свинина)',en:'Pork (heo)',vn:'Heo',pl:'Wieprzowina (heo)',de:'Schwein (heo)',zh:'猪'}, price_delta:30},
-          {id:'tom', label:{ru:'Tôm (креветки)',ua:'Tôm (креветки)',en:'Shrimp (tôm)',vn:'Tôm',pl:'Krewetki (tôm)',de:'Garnelen (tôm)',zh:'虾'}, price_delta:50},
-        ]
-      };
-    }
-
+    /* Options / pricing */
     function normalizeOptions(it){
-      const base = Array.isArray(it?.options) ? it.options : [];
-      if (!shouldEnableProteinAddon(it)) return base;
-      if (base.some(g => (g?.id || g?.key || g?.name) === 'add_protein')) return base;
-      return [...base, proteinAddonGroup()];
+      return Array.isArray(it?.options) ? it.options : [];
     }
-
     function calcItemUnitPrice(it, selections){
       let base = Number(it?.price || 0);
       const opts = normalizeOptions(it);
@@ -690,38 +457,21 @@
       }
       return base;
     }
-
-    function getShortForItem(it){
-      // 1) menu.js short/desc
-      const base = pickLang(it?.short || it?.desc);
-      if (base) return base;
-
-      // 2) descriptions.json
-      const key = it?.key || '';
-      const entry = key ? DESCS?.[key] : null;
-      const fromJson = pickLang(entry?.short || entry?.description);
-      if (fromJson) return fromJson;
-
-      // 3) universal fallback
-      return (L()?.ui?.universalShort) || '';
-    }
-
     /* Render menu */
-    const TOP_KEYS = ["pho_bo", "pho_ga", "bun_bo", "com_rang_bo", "pho_bo_xao", "spring_rolls_fresh", "caphe_viet"];
+    const TOP_KEYS = ['pho_bo_xao','mi_xao_tom','mien_xao_heo','com_rang_ga','salat_bun_nem'];
     function findByKey(key){
-      for (const [cat, arr] of Object.entries(MENU||{})){
+      for (const [cat, arr] of Object.entries(menuData||{})){
         const idx = (arr||[]).findIndex(x => x && x.key === key);
         if (idx >= 0) return {cat, idx, it: arr[idx]};
       }
       return null;
     }
-
     function cardHtml(it, id, featured=false){
       const t = L();
       const name = itemName(it);
       const unit = fmt(calcItemUnitPrice(it, cart.get(id)?.selections));
       const qty = cartQty(id);
-      const hasOpts = Array.isArray(normalizeOptions(it)) && normalizeOptions(it).length;
+      const hasOpts = Array.isArray(it.options) && it.options.length;
       const btn = qty
         ? `<div class="qty" data-qty="${id}">
              <button data-dec="${id}">−</button>
@@ -730,7 +480,7 @@
            </div>`
         : `<button class="add" data-add="${id}">${t.ui.add}</button>`;
       const key = (it && (it.key || it.id || it.code)) || '';
-      const shortDesc = getShortForItem(it) || '';
+      const shortDesc = (it && (it.short || it.desc || '')) || '';
       const metaHtml = buildMeta(it);
       return `
         <div class="card ${featured?'featured':''} ${hasOpts?'has-opts':''}" data-id="${id}"${key ? ` data-key="${key}"` : ''}>
@@ -753,7 +503,6 @@
           </div>
         </div>`;
     }
-
     function renderSection(content, title, items){
       const sec = document.createElement('section');
       sec.className = 'menu-section';
@@ -770,28 +519,25 @@
       list.querySelectorAll('.card').forEach(row => {
         const id = row.getAttribute('data-id');
         const [cat, idx] = id.split(':');
-        const key = (MENU?.[cat]?.[+idx]?.key) || '';
+        const key = (menuData?.[cat]?.[+idx]?.key) || '';
         const img = row.querySelector('.thumb img');
         if (img && key) buildThumb(img, key);
       });
     }
-
     function renderMenu(){
       const content = $('#content');
       if (!content) return;
       content.innerHTML = '';
       const q = (document.getElementById('searchIn')?.value || '').trim().toLowerCase();
       localStorage.setItem(SEARCH_KEY, q);
-
       // Search results mode
       if (q){
         const res = [];
-        for (const [cat, arr] of Object.entries(MENU || {})){
+        for (const [cat, arr] of Object.entries(menuData || {})){
           (arr||[]).forEach((it, idx)=>{
             const name = itemName(it).toLowerCase();
-            const short = getShortForItem(it).toLowerCase();
-            const longDesc = pickLang(DESCS?.[it.key]?.description).toLowerCase();
-            if (name.includes(q) || short.includes(q) || (longDesc && longDesc.includes(q))){
+            const short = String(it.short||'').toLowerCase();
+            if (name.includes(q) || short.includes(q)){
               const id = `${cat}:${idx}`;
               res.push(cardHtml(it, id, false));
             }
@@ -801,7 +547,6 @@
         applyView();
         return;
       }
-
       // TOP section
       const topCards = [];
       TOP_KEYS.forEach((k, i)=>{
@@ -813,29 +558,27 @@
       if (topCards.length){
         renderSection(content, '🔥 TOP', topCards);
       }
-
       // Normal categories
-      const keys = Object.keys(MENU || {});
+      const keys = Object.keys(menuData || {});
       keys.forEach(k => {
-        const items = (MENU[k] || []).map((it, idx) => {
+        const items = (menuData[k] || []).map((it, idx) => {
           const id = `${k}:${idx}`;
           return cardHtml(it, id, idx===0);
         });
         renderSection(content, catLabel(k), items);
+        // ensure section id for scroll
         const last = content.lastElementChild;
         if (last) last.id = `sec-${k}`;
       });
-
       applyView();
     }
-
     /* Cart counters + dock badges */
     function renderFab(){
       let items = 0, sum = 0;
       for (const [id, entry] of cart){
         const qty = entry?.qty || 0;
         const [cat, idx] = id.split(':');
-        const it = MENU[cat]?.[+idx];
+        const it = menuData[cat]?.[+idx];
         if (!it || qty<=0) continue;
         items += qty;
         sum += calcItemUnitPrice(it, entry.selections) * qty;
@@ -852,7 +595,6 @@
         meta.textContent = `${s.total}: ${fmt(sum)}`;
       }
     }
-
     /* Cart sheet render */
     function renderCartSheet(){
       const t = L().sheet;
@@ -869,7 +611,7 @@
         const qty = entry?.qty || 0;
         if (qty<=0) continue;
         const [cat, idx] = id.split(':');
-        const it = MENU[cat]?.[+idx];
+        const it = menuData[cat]?.[+idx];
         if (!it) continue;
         const name = itemName(it);
         const unit = calcItemUnitPrice(it, entry.selections);
@@ -894,7 +636,6 @@
       }
       $('#cartMeta').textContent = `${t.total}: ${fmt(sum)}`;
     }
-
     /* Sheet open/close */
     function openSheet(){
       document.body.style.overflow = 'hidden';
@@ -939,7 +680,6 @@
         sheet.style.transition = '';
       }
     }
-
     /* Dish sheet open/close + rendering */
     const dishOverlay = $('#dishOverlay');
     const dishSheet = $('#dishSheet');
@@ -955,9 +695,7 @@
     const dishPlus = $('#dishPlus');
     const dishQtyEl = $('#dishQty');
     const dishAddBtn = $('#dishAddBtn');
-
     let dishCtx = null; // {id, cat, idx, it, tempSel, tempNote}
-
     function openDishSheet(){
       document.body.classList.add('sheet-open');
       dishOverlay?.classList.add('show');
@@ -969,18 +707,18 @@
       dishSheet?.classList.remove('open');
       dishCtx = null;
     }
-
-    function groupTitle(g){ return pickLang(g?.title); }
-    function groupTitleSmart(g, it){
-      const gid = g?.id || g?.key || g?.name || '';
-      return vnPrettyTuyChon(groupTitle(g), it, gid);
+    function isRequiredGroup(g){
+      return !!g.required;
+    }
+    function groupTitle(g){
+      return g.title?.[LANG] || g.title?.ru || g.title || '';
     }
     function optionLabel(o){
-      return pickLang(o?.label) || pickLang(o?.name) || o?.id || '';
+      return o.label?.[LANG] || o.label?.ru || o.label || o.name || o.id || '';
     }
-
     function validateSelections(it, selections){
-      // no required enforcement; only max limits
+      // User requested: allow adding even if required groups are not selected.
+      // We only enforce max limits to avoid impossible states.
       const opts = normalizeOptions(it);
       for (const g of opts){
         const gid = g.id || g.key || g.name || '';
@@ -991,7 +729,6 @@
       }
       return {ok:true};
     }
-
     function renderDishOptions(it, selections){
       const opts = normalizeOptions(it);
       if (!dishOptions) return;
@@ -1003,8 +740,7 @@
         const gid = g.id || g.key || g.name || '';
         const multi = !!g.multi || (Number(g.max || 0) > 1);
         const max = Number(g.max || (multi ? 99 : 1));
-        const showMax = (max && max < 99 && max !== 1);
-        const required = (!!g.required) && (Number(g.max || (multi ? 99 : 1)) !== 1);
+        const required = !!g.required;
         const picked = selections?.[gid] || (multi ? [] : '');
         const pickedArr = Array.isArray(picked) ? picked : [picked].filter(Boolean);
         const itemsHtml = (g.items||[]).map(opt=>{
@@ -1029,21 +765,19 @@
         return `
           <div class="opt-group" data-group="${escapeHtml(gid)}">
             <div class="opt-head">
-              <div class="opt-title">${escapeHtml(groupTitleSmart(g, it) || '')}</div>
-              <div class="muted opt-hint">${required ? L().common.required : L().common.optional}${showMax ? ` · max ${max}`:''}</div>
+              <div class="opt-title">${escapeHtml(groupTitle(g) || '')}</div>
+              <div class="muted opt-hint">${required ? L().common.required : L().common.optional}${max && max<99 ? ` · max ${max}`:''}</div>
             </div>
             <div class="opt-list">${itemsHtml}</div>
           </div>
         `;
       }).join('');
     }
-
     async function renderDishSheet(ctx){
       const {id, it} = ctx;
       dishTitle.textContent = itemName(it);
       dishSub.textContent = buildMeta(it).replace(/<[^>]*>/g,'') || '';
       dishQtyEl.textContent = String(cartQty(id));
-
       // image
       dishMedia.innerHTML = '';
       const key = it.key || '';
@@ -1055,36 +789,31 @@
         dishMedia.appendChild(wrap);
         if (img) buildThumb(img, key);
       }
-
       // desc lazy
-      dishDesc.textContent = getShortForItem(it) || '';
+      dishDesc.textContent = it.short || it.desc || '';
       try{
         const descs = await loadDescriptions();
         const entry = key ? descs[key] : null;
-        const text = pickLang(entry?.description || entry?.short);
+        const text = entry?.description?.[LANG] || entry?.description?.ru || '';
         if (text) dishDesc.textContent = text;
       }catch(e){}
-
       // options
       renderDishOptions(it, ctx.tempSel);
-
       // note
       dishNote.value = ctx.tempNote || '';
-
+      // price
       updateDishPrice();
     }
-
     function updateDishPrice(){
       if (!dishCtx) return;
       const it = dishCtx.it;
       const unit = calcItemUnitPrice(it, dishCtx.tempSel);
       dishPriceEl.textContent = fmt(unit);
     }
-
     function openDishById(cardId){
       const [cat, idxStr] = (cardId||'').split(':');
       const idx = Number(idxStr);
-      const it = MENU?.[cat]?.[idx];
+      const it = menuData?.[cat]?.[idx];
       if (!it) return;
       const entry = cart.get(cardId) || {qty:0, selections:{}, note:''};
       dishCtx = {
@@ -1097,10 +826,8 @@
       openDishSheet();
       renderDishSheet(dishCtx);
     }
-
     dishOverlay?.addEventListener('click', closeDishSheet);
     dishClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeDishSheet(); });
-
     dishOptions?.addEventListener('change', (e)=>{
       if (!dishCtx) return;
       const inp = e.target.closest('input[data-gid]');
@@ -1108,7 +835,6 @@
       const gid = inp.dataset.gid;
       const multi = inp.dataset.multi === '1';
       const max = Number(inp.dataset.max || 99);
-
       if (multi){
         const arr = Array.isArray(dishCtx.tempSel[gid]) ? dishCtx.tempSel[gid] : [];
         if (inp.checked){
@@ -1127,21 +853,19 @@
       }
       updateDishPrice();
     });
-
     dishNote?.addEventListener('input', ()=>{
       if (!dishCtx) return;
       dishCtx.tempNote = dishNote.value;
     });
-
     dishMinus?.addEventListener('click', ()=>{
       if (!dishCtx) return;
       cartInc(dishCtx.id, -1);
       dishQtyEl.textContent = String(cartQty(dishCtx.id));
       renderMenu(); renderCartSheet(); renderFab();
     });
-
     dishPlus?.addEventListener('click', ()=>{
       if (!dishCtx) return;
+      // If qty becomes 1 from 0, store selections+note
       const current = cart.get(dishCtx.id);
       if (!current || current.qty<=0){
         cartSetEntry(dishCtx.id, {qty:1, selections:dishCtx.tempSel||{}, note:(dishCtx.tempNote||'')});
@@ -1151,7 +875,6 @@
       dishQtyEl.textContent = String(cartQty(dishCtx.id));
       renderMenu(); renderCartSheet(); renderFab();
     });
-
     dishAddBtn?.addEventListener('click', ()=>{
       if (!dishCtx) return;
       const v = validateSelections(dishCtx.it, dishCtx.tempSel);
@@ -1175,15 +898,15 @@
       closeDishSheet();
       openSheet();
     });
-
-    /* Global click handlers */
+        /* Global click handlers */
     document.addEventListener('click', async e=>{
       const add = e.target.closest('[data-add]');
       if (add){
         const id = add.dataset.add;
         const [cat, idx] = id.split(':');
-        const it = MENU?.[cat]?.[+idx];
-        if (it && (Array.isArray(normalizeOptions(it)) && normalizeOptions(it).length)){
+        const it = menuData?.[cat]?.[+idx];
+        // If dish has options / constructor — open modal
+        if (it && (Array.isArray(it.options) && it.options.length)){
           openDishById(id);
           return;
         }
@@ -1225,7 +948,6 @@
         return;
       }
     });
-
     /* Burger menu */
     const burgerBtn = $('#burgerBtn');
     const navPop = $('#navPop');
@@ -1243,7 +965,6 @@
         burgerBtn?.setAttribute('aria-expanded','false');
       }
     });
-
     /* Order type switch */
     const otWrap = $('#orderType');
     const tableField = $('#tableField');
@@ -1278,7 +999,6 @@
       b.classList.add('active');
       setOrderType(b.dataset.ot);
     });
-
     /* Dock labels */
     function applyDockLabels(){
       const t = L();
@@ -1295,7 +1015,6 @@
       if (dv) dv.dataset.label = (viewMode === 'grid' ? t.ui.viewGrid : t.ui.viewList);
       if (dr) dr.dataset.label = tb.more || 'More';
     }
-
     /* I18N apply */
     const selA = $('#langSel');
     const selB = $('#langSelMenu');
@@ -1331,7 +1050,6 @@
       setOrderType(active);
       applyDockLabels();
     }
-
     /* Search + order status UI */
     const searchInEl = $('#searchIn');
     const searchClearEl = $('#searchClear');
@@ -1339,7 +1057,6 @@
     const statusBtnEl = $('#statusBtn');
     const statusResultEl = $('#statusResult');
     const debouncedRenderMenu = (()=>{ let t; return ()=>{ clearTimeout(t); t=setTimeout(()=>{ renderMenu(); renderFab(); }, 120); }; })();
-
     function renderStatus(code){
       const orders = loadOrders();
       const rec = orders[(code||'').trim().toLowerCase()];
@@ -1362,7 +1079,6 @@
         </div>
       `;
     }
-
     searchInEl?.addEventListener('input', debouncedRenderMenu);
     searchClearEl?.addEventListener('click', ()=>{
       if (!searchInEl) return;
@@ -1380,7 +1096,6 @@
         renderStatus(statusCodeEl.value);
       }
     });
-
     function setLang(v){
       LANG = v;
       localStorage.setItem(LANG_KEY, v);
@@ -1394,32 +1109,24 @@
       const searchIn = document.getElementById('searchIn');
       if (searchIn) searchIn.value = savedQ;
       setUITexts();
-      loadDescriptions()
-        .then(() => {
-          renderMenu();
-          renderFab();
-          if (dishCtx) renderDishSheet(dishCtx);
-        })
-        .catch(() => {});
       document.dispatchEvent(new CustomEvent('CD_LANG_CHANGED'));
     }
     selA?.addEventListener('change', e => setLang(e.target.value));
     selB?.addEventListener('change', e => setLang(e.target.value));
-
     /* Telegram via proxy */
-    /* SECURITY NOTE: keep token out of frontend in production. Use PROXY_URL and store token server-side. */
+    /* Telegram: direct or proxy (recommended proxy, but you want token in index) */
     const TG = {
-      BOT_TOKEN: "PUT_YOUR_BOT_TOKEN_HERE", // <-- вынеси токен на сервер (proxy) если это публичный сайт
+      BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4", // <-- твой токен
       CHAT_ID: "-1002283682762", // <-- твой chat id
       PROXY_URL: "" // "/api/tg/sendMessage" если будет сервер
     };
-
     function TG_ENDPOINT() {
+      // Если есть прокси — шлём туда (токен можно убрать с фронта)
       if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
+      // Иначе напрямую в Telegram
       if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
       return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
     }
-
     async function sendOrderToTelegram(text) {
       const url = TG_ENDPOINT();
       const payload = {
@@ -1433,6 +1140,8 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
+      // Если шлём напрямую в Telegram — он вернёт JSON с ok:true/false
+      // Если через твой прокси — тоже сделай так, чтобы он возвращал JSON {ok:true} / {ok:false, error:"..."}
       let data = null;
       try { data = await r.json(); } catch (_) {}
       if (!r.ok) {
@@ -1444,7 +1153,6 @@
       }
       return { ok: true, data };
     }
-
     async function createOrderOnSheet(orderPayload){
       const body = { action:'create', ...orderPayload };
       try{
@@ -1456,7 +1164,6 @@
         return {ok:false, error:String(e)};
       }
     }
-
     function cartSummary(){
       let itemsCount = 0, sum = 0;
       const lines = [];
@@ -1465,7 +1172,7 @@
         const qty = entry?.qty || 0;
         if (qty<=0) continue;
         const [cat, idx] = id.split(':');
-        const it = MENU[cat]?.[+idx];
+        const it = menuData[cat]?.[+idx];
         if (!it) continue;
         const name = itemName(it);
         const unit = calcItemUnitPrice(it, entry.selections);
@@ -1488,14 +1195,12 @@
       }
       return {itemsCount,sum,lines,items};
     }
-
     function generateShortCode(){
       const letters = 'abcdefghijklmnopqrstuvwxyz';
       const letter = letters[Math.floor(Math.random() * letters.length)];
       const num = Math.floor(Math.random() * 999) + 1;
       return letter + String(num).padStart(3,'0');
     }
-
     $('#checkoutBtn').addEventListener('click', async ()=>{
       const s = L().sheet;
       const ot = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
@@ -1508,7 +1213,6 @@
         if (!address.value.trim()){ alert(s.errAddress); return; }
         if (!phone.value.trim()){ alert(s.errPhone); return; }
       }
-
       const {sum,lines,items} = cartSummary();
       const typeStr = ot === 'on_site' ? s.onSite : ot === 'takeaway' ? s.takeaway : s.delivery;
       const meta = [];
@@ -1516,12 +1220,10 @@
       if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()}`);
       if (ot === 'delivery') meta.push(`${s.address}: ${address.value.trim()}`);
       if (phone.value.trim()) meta.push(`${s.phone}: ${phone.value.trim()}`);
-
       const ordId = 'CD-'+new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
       const orderCode = generateShortCode();
-
       const text =
-`<b>DLV90s — New order</b>
+`<b>CYBER DRAGON dlv— New order</b>
 ID: <code>${ordId}</code>
 Code: <b>${orderCode}</b>
 ${s.total}: <b>${sum.toFixed(2)} ${CURRENCY}</b>
@@ -1529,7 +1231,6 @@ Type: <b>${typeStr}</b>
 ${meta.join('\n')}
 <b>Items:</b>
 ${lines.join('\n') || '—'}`;
-
       const orderPayload = {
         id: ordId,
         code: orderCode,
@@ -1543,12 +1244,11 @@ ${lines.join('\n') || '—'}`;
         total: sum,
         created_at: new Date().toISOString()
       };
-
       const [tgRes, sheetRes] = await Promise.all([
         sendOrderToTelegram(text),
         createOrderOnSheet(orderPayload)
       ]);
-
+      // Save local status (client-side only)
       const orders = loadOrders();
       orders[orderCode] = {
         code: orderCode,
@@ -1564,12 +1264,10 @@ ${lines.join('\n') || '—'}`;
         status: (tgRes?.ok ? (tgRes?.opaque ? 'SENT (unconfirmed)' : 'SENT') : 'FAILED')
       };
       saveOrders(orders);
-
       let icon;
       if ((tgRes?.ok) && (sheetRes?.ok || sheetRes?.id)) icon = '✔✔';
       else if (tgRes?.ok || sheetRes?.ok || sheetRes?.id) icon = '✔…';
       else icon = '…';
-
       alert(`${icon} ID: ${ordId} • ${s.total}: ${sum.toFixed(2)} ${CURRENCY}`);
       cart.clear(); saveCart();
       renderMenu();
@@ -1577,7 +1275,6 @@ ${lines.join('\n') || '—'}`;
       renderFab();
       closeSheet();
     });
-
     /* Scroll highlight for pills */
     let activeCat = '';
     const debounce = (fn,delay) => { let timer; return () => { clearTimeout(timer); timer = setTimeout(fn,delay); }; };
@@ -1610,7 +1307,6 @@ ${lines.join('\n') || '—'}`;
       }
     }
     window.addEventListener('scroll', debounce(updateActive,50));
-
     /* Dynamic Island + move pills into bar */
     const catPillsEl = $('#catPills');
     const catPillsParent = catPillsEl?.parentNode || null;
@@ -1645,7 +1341,6 @@ ${lines.join('\n') || '—'}`;
     window.addEventListener('scroll', onScrollIsland, {passive:true});
     window.addEventListener('resize', onScrollIsland);
     onScrollIsland();
-
     /* ===== Bottom Dock logic ===== */
     const dockCat = $('#dockCat');
     const dockView = $('#dockView');
@@ -1656,10 +1351,9 @@ ${lines.join('\n') || '—'}`;
     const catOverlayEl = $('#catOverlay');
     const catSheetEl = $('#catSheet');
     const catSheetList = $('#catSheetList');
-
     function buildCatSheet(){
       if (!catSheetList) return;
-      const keys = Object.keys(MENU || {});
+      const keys = Object.keys(menuData || {});
       catSheetList.innerHTML = keys.map(k =>
         `<button class="chip" data-goto="#sec-${k}">${catLabel(k)}</button>`
       ).join('');
@@ -1672,20 +1366,17 @@ ${lines.join('\n') || '—'}`;
       closeCatSheet();
       document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'});
     });
-
     function setActiveDock(btn){
       $$('.dock-btn').forEach(b=>{
         if (b === btn) b.classList.add('active');
         else b.classList.remove('active');
       });
     }
-
     dockCat?.addEventListener('click', ()=>{
       setActiveDock(dockCat);
       buildCatSheet();
       openCatSheet();
     });
-
     dockView?.addEventListener('click', ()=>{
       setActiveDock(dockView);
       viewMode = (viewMode === 'grid') ? 'list' : 'grid';
@@ -1693,14 +1384,12 @@ ${lines.join('\n') || '—'}`;
       applyView();
       applyDockLabels();
     });
-
     dockLang?.addEventListener('click', (e)=>{
       e.stopPropagation();
       setActiveDock(dockLang);
       if (!langPopup) return;
       langPopup.classList.toggle('show');
     });
-
     langPopup?.addEventListener('click', e=>{
       const b = e.target.closest('[data-lang]');
       if (!b) return;
@@ -1708,14 +1397,12 @@ ${lines.join('\n') || '—'}`;
       setLang(code);
       langPopup.classList.remove('show');
     });
-
     document.addEventListener('click', e=>{
       if (!langPopup) return;
       if (!langPopup.contains(e.target) && !dockLang.contains(e.target)){
         langPopup.classList.remove('show');
       }
     });
-
     dockMore?.addEventListener('click', (e)=>{
       e.stopPropagation();
       const navPop = document.getElementById('navPop');
@@ -1725,33 +1412,39 @@ ${lines.join('\n') || '—'}`;
       navPop.classList.toggle('open', open);
       burgerBtn?.setAttribute('aria-expanded', String(open));
     });
-
     dockCart?.addEventListener('click', ()=>{
       setActiveDock(dockCart);
       openSheet();
     });
-
+    const heroAllCats = $('#heroAllCats');
+    heroAllCats?.addEventListener('click', ()=>{
+      buildCatSheet();
+      openCatSheet();
+    });
+    const heroCloseBtn = $('#heroClose');
+    heroCloseBtn?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const closed = !document.body.classList.contains('hero-closed');
+      document.body.classList.toggle('hero-closed', closed);
+      localStorage.setItem(HERO_KEY, closed ? '1' : '0');
+    });
     const brandEl = $('#brandTap');
     brandEl?.addEventListener('click', (e)=>{
       if (!document.body.classList.contains('island')) return;
       e.preventDefault();
       window.scrollTo({top:0, behavior:'smooth'});
     });
-
     const sheetClose = $('#sheetClose');
     sheetClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeSheet(); });
     const catSheetClose = $('#catSheetClose');
     catSheetClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeCatSheet(); });
-
     document.addEventListener('keydown', e=>{
       if (e.key === 'Escape'){
         if ($('#sheet')?.classList.contains('open')) closeSheet();
         if ($('#catSheet')?.classList.contains('open')) closeCatSheet();
         if (langPopup?.classList.contains('show')) langPopup.classList.remove('show');
-        if ($('#dishSheet')?.classList.contains('open')) closeDishSheet();
       }
     });
-
     // Swipe-down close sheets
     (function(){
       const cartSheet = $('#sheet');
@@ -1820,77 +1513,54 @@ ${lines.join('\n') || '—'}`;
       attachSwipe(cartSheet, cartOverlay, closeSheet);
       attachSwipe(catSheet, catOverlay, closeCatSheet);
     })();
-
     /* Init */
     (function init(){
       loadCart();
-
       // Inject "Pho constructor" as the first item in Pho Soups
       try{
-        const arr = MENU?.pho_soups;
+        const arr = menuData?.pho_soups;
         if (Array.isArray(arr) && !arr.some(x => x && x.key === 'pho_custom')){
           arr.unshift({
             key:'pho_custom',
             price: 160,
-            weight: 700,
+            weight: 450,
             spicy: 0,
             tags:['chef','popular'],
             translations:{
               ru:'Pho — Собери сам',
               ua:'Pho — Збери сам',
-              en:'Pho — Build your own',
-              vn:'Tự tạo tô Phở theo ý bạn',
-              pl:'Pho — Złóż sam',
-              de:'Pho — Stelle selbst zusammen',
-              zh:'河粉—自选'
+              vn:'Phở — Tự chọn',
             },
-            short:{
-              ru:'Бульон + лапша. Выбираешь белок и добавки. Можно добавить: gà / bò / heo / tôm.',
-              ua:'Бульйон + локшина. Обираєш білок і додатки. Можна додати: gà / bò / heo / tôm.',
-              en:'Broth + noodles. Choose protein + extras. Add: chicken / beef / pork / shrimp.',
-              vn:'Nước dùng + bánh phở. Chọn đạm & topping. Có thể thêm: gà / bò / heo / tôm.',
-              pl:'Bulion + makaron. Wybierz białko i dodatki. Możesz dodać: kurczak / wołowina / wieprzowina / krewetki.',
-              de:'Brühe + Nudeln. Wähle Protein und Extras. Hinzufügen: Huhn / Rind / Schwein / Garnelen.',
-              zh:'清汤+河粉。选主料和加料。可加：鸡/牛/猪/虾。'
-            },
+            short:'Бульон + лапша. Выбираешь мясо/тофу/креветки и добавки.',
             options:[
-              {id:'protein', title:{ru:'Белок',en:'Protein',ua:'Білок',vn:'Đạm',pl:'Białko',de:'Protein',zh:'主料'}, required:true, multi:true, max:2,
+              {id:'protein', title:{ru:'Белок',ua:'Білок',vn:'Đạm'}, required:true, multi:true, max:2,
                 items:[
-                  {id:'beef', label:{ru:'Говядина',en:'Beef',ua:'Яловичина',vn:'Bò',pl:'Wołowina',de:'Rind',zh:'牛肉'}, price_delta:40},
-                  {id:'chicken', label:{ru:'Курица',en:'Chicken',ua:'Курка',vn:'Gà',pl:'Kurczak',de:'Huhn',zh:'鸡肉'}, price_delta:30},
-                  {id:'pork', label:{ru:'Свинина',en:'Pork',ua:'Свинина',vn:'Heo',pl:'Wieprzowina',de:'Schwein',zh:'猪肉'}, price_delta:30},
-                  {id:'shrimp', label:{ru:'Креветки',en:'Shrimp',ua:'Креветки',vn:'Tôm',pl:'Krewetki',de:'Garnelen',zh:'虾'}, price_delta:50},
-                  {id:'tofu', label:{ru:'Тофу',en:'Tofu',ua:'Тофу',vn:'Đậu phụ',pl:'Tofu',de:'Tofu',zh:'豆腐'}, price_delta:20},
+                  {id:'beef', label:{ru:'Говядина',ua:'Яловичина',vn:'Bò'}, price_delta:40},
+                  {id:'chicken', label:{ru:'Курица',ua:'Курица',vn:'Gà'}, price_delta:30},
+                  {id:'pork', label:{ru:'Свинина',ua:'Свинина',vn:'Heo'}, price_delta:30},
+                  {id:'shrimp', label:{ru:'Креветки',ua:'Креветки',vn:'Tôm'}, price_delta:50},
+                  {id:'tofu', label:{ru:'Тофу',ua:'Тофу',vn:'Đậu phụ'}, price_delta:20},
                 ]},
-              {id:'extras', title:{ru:'Добавки',en:'Extras',ua:'Додатки',vn:'Thêm',pl:'Dodatki',de:'Extras',zh:'加料'}, required:false, multi:true, max:5,
+              {id:'extras', title:{ru:'Добавки',ua:'Додатки',vn:'Thêm'}, required:false, multi:true, max:5,
                 items:[
-                  {id:'corn', label:{ru:'Кукуруза',en:'Corn',ua:'Кукурудза',vn:'Bắp',pl:'Kukurydza',de:'Mais',zh:'玉米'}, price_delta:15},
-                  {id:'scallion', label:{ru:'Зелёный лук',en:'Scallion',ua:'Зелена цибуля',vn:'Hành lá',pl:'Szczypiorek',de:'Frühlingszwiebel',zh:'葱'}, price_delta:10},
-                  {id:'onion', label:{ru:'Лук',en:'Onion',ua:'Цибуля',vn:'Hành',pl:'Cebula',de:'Zwiebel',zh:'洋葱'}, price_delta:8},
-                  {id:'peanut', label:{ru:'Арахис',en:'Peanut',ua:'Арахіс',vn:'Đậu phộng',pl:'Orzechy ziemne',de:'Erdnuss',zh:'花生'}, price_delta:12},
+                  {id:'corn', label:{ru:'Кукуруза',ua:'Кукурудза',vn:'Bắp'}, price_delta:15},
+                  {id:'scallion', label:{ru:'Зелёный лук',ua:'Зелена цибуля',vn:'Hành lá'}, price_delta:10},
+                  {id:'onion', label:{ru:'Лук',ua:'Цибуля',vn:'Hành'}, price_delta:8},
+                  {id:'peanut', label:{ru:'Арахис',ua:'Арахіс',vn:'Đậu phộng'}, price_delta:12},
                 ]}
             ]
           });
         }
       }catch(e){}
-
       // Restore hero visibility
       const heroClosed = localStorage.getItem(HERO_KEY) === '1';
       document.body.classList.toggle('hero-closed', heroClosed);
-
       if (selA) selA.value = LANG;
       if (selB) selB.value = LANG;
       const flag = LANG_FLAGS[LANG] || '🌐';
       const langFlagEl = $('#dockLangFlag');
       if (langFlagEl) langFlagEl.textContent = flag;
-
       setUITexts();
-
-      // Preload descriptions.json on startup
-      loadDescriptions()
-        .then(() => { renderMenu(); renderFab(); })
-        .catch(() => {});
-
       const header = $('.header');
       const catNav = $('.cat-nav');
       if (header && catNav){
@@ -1900,44 +1570,44 @@ ${lines.join('\n') || '—'}`;
       applyView();
     })();
     </script>
-
   </div>
-
-  <script>
-  (() => {
-    const dock = document.getElementById('dock');
-    const lens = document.getElementById('dockLens');
-    if (!dock || !lens) return;
-    const items = [...dock.querySelectorAll('.dock-btn, a, button')].filter(el => el !== lens);
-    function getActive(){
-      return dock.querySelector('.is-active') || items[0];
+<script>
+(() => {
+  const dock = document.getElementById('dock');
+  const lens = document.getElementById('dockLens');
+  if (!dock || !lens) return;
+  // Кнопки могут быть <a> или <button> — берём любые кликабельные элементы
+  const items = [...dock.querySelectorAll('.dock-btn, a, button')].filter(el => el !== lens);
+  function getActive(){
+    return dock.querySelector('.is-active') || items[0];
+  }
+  function moveLensTo(el){
+    if (!el) return;
+    const rDock = dock.getBoundingClientRect();
+    const rEl = el.getBoundingClientRect();
+    const centerX = (rEl.left + rEl.width/2) - rDock.left;
+    const size = Math.max(108, Math.min(140, rEl.width + 54)); // чуть больше кнопки
+    lens.style.width = size + 'px';
+    lens.style.height = size + 'px';
+    const x = centerX - size/2;
+    lens.style.transform = `translate(${x}px, -50%)`;
+  }
+  // init
+  requestAnimationFrame(() => moveLensTo(getActive()));
+  // Ничего не перехватываем: просто слушаем и двигаем линзу
+  dock.addEventListener('click', (e) => {
+    const target = e.target.closest('.dock-btn, a, button');
+    if (!target || target === lens) return;
+    // Если у тебя уже есть логика is-active — она отработает.
+    // Если нет — аккуратно поставим is-active сами:
+    if (!dock.querySelector('.is-active')) {
+      items.forEach(x => x.classList.remove('is-active'));
+      target.classList.add('is-active');
     }
-    function moveLensTo(el){
-      if (!el) return;
-      const rDock = dock.getBoundingClientRect();
-      const rEl = el.getBoundingClientRect();
-      const centerX = (rEl.left + rEl.width/2) - rDock.left;
-      const size = Math.max(108, Math.min(140, rEl.width + 54));
-      lens.style.width = size + 'px';
-      lens.style.height = size + 'px';
-      const x = centerX - size/2;
-      lens.style.transform = `translate(${x}px, -50%)`;
-    }
-    requestAnimationFrame(() => moveLensTo(getActive()));
-    dock.addEventListener('click', (e) => {
-      const target = e.target.closest('.dock-btn, a, button');
-      if (!target || target === lens) return;
-      if (!dock.querySelector('.is-active')) {
-        items.forEach(x => x.classList.remove('is-active'));
-        target.classList.add('is-active');
-      }
-      moveLensTo(dock.querySelector('.is-active') || target);
-    }, { passive: true });
-    window.addEventListener('resize', () => moveLensTo(getActive()));
-
-
-    })();
-    </script>
-  </div>
+    moveLensTo(dock.querySelector('.is-active') || target);
+  }, { passive: true });
+  window.addEventListener('resize', () => moveLensTo(getActive()));
+})();
+</script>
 </body>
 </html>
