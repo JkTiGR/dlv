@@ -7,6 +7,15 @@
   <title>CYBER DRAGON — Menu</title>
   <link rel="icon" href="logo.png"/>
   <link rel="stylesheet" href="base.css">
+
+  <style>
+    .more-row{display:flex;align-items:center;justify-content:space-between;padding:16px 14px;border-top:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit}
+    .more-row:first-child{border-top:none}
+    .more-left{display:flex;align-items:center;gap:12px}
+    .more-ico{width:22px;display:inline-flex;justify-content:center;opacity:.9}
+    .more-arrow{opacity:.6;font-size:22px;line-height:1}
+  </style>
+
 </head>
 <body>
   <div class="app">
@@ -16,7 +25,7 @@
         <h1 class="brand" id="brandTap">cyber dragon <img class="mark" src="logo.png" alt="Logo"> 90s</h1>
         <div class="lang">
           <select id="langSel" aria-label="Language">
-            <option value="ru">🇷🇺 RU</option>
+            <option value="ru">🇺🇦 RU</option>
             <option value="ua">🇺🇦 UA</option>
             <option value="vn">🇻🇳 VN</option>
           </select>
@@ -30,7 +39,7 @@
           <hr>
           <div class="lang-inline" role="none">🌐
             <select id="langSelMenu" aria-label="Language (menu)">
-              <option value="ru">🇷🇺 RU</option>
+              <option value="ru">🇺🇦 RU</option>
               <option value="ua">🇺🇦 UA</option>
               <option value="vn">🇻🇳 VN</option>
             </select>
@@ -39,34 +48,25 @@
       </div>
     </header>
     <div class="hero">
-      <video
-        class="promo"
-        src="promo.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-      ></video>
-        MENU
-      </button>
-      <div class="social">
-        <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-          <img src="images/icon/fb.png" alt="Facebook">
-        </a>
-        <a href="https://www.instagram.com/cyber_dragon_ua/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <img src="images/icon/ig.png" alt="Instagram">
-        </a>
-        <a href="https://www.whatsapp.com/?lang=ru_RU" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-          <img src="images/icon/wa.png" alt="WhatsApp">
-        </a>
-        <a href="https://www.tiktok.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-          <img src="images/icon/tt.png" alt="TikTok">
-        </a>
-      </div>
-     
-    </div>
-    <!-- Category pills -->
+  <video class="promo" autoplay muted loop playsinline preload="auto">
+    <source src="promo.mp4" type="video/mp4" />
+  </video>
+  <div class="social">
+    <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <img src="images/icon/fb.png" alt="Facebook">
+    </a>
+    <a href="https://www.instagram.com/cyber_dragon_ua/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <img src="images/icon/ig.png" alt="Instagram">
+    </a>
+    <a href="https://www.whatsapp.com/?lang=ru_RU" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <img src="images/icon/wa.png" alt="WhatsApp">
+    </a>
+    <a href="https://www.tiktok.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+      <img src="images/icon/tt.png" alt="TikTok">
+    </a>
+  </div>
+</div>
+<!-- Category pills -->
     <nav class="cat-nav glass-nav">
       <div class="h-scroll" id="catPills" aria-label="Categories"></div>
     </nav>
@@ -119,6 +119,16 @@
       <button data-lang="ua">🇺🇦 UA</button>
       <button data-lang="vn">🇻🇳 VN</button>
     </div>
+
+    <!-- MORE sheet (McD-style) -->
+    <div class="overlay" id="moreOverlay"></div>
+    <div class="sheet" id="moreSheet" role="dialog" aria-modal="true" aria-labelledby="moreSheetTitle">
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button class="sheet-close" id="moreSheetClose" aria-label="Закрыть">✕</button>
+      <h3 id="moreSheetTitle">Більше</h3>
+      <div class="group" id="moreSheetList"></div>
+    </div>
+
     <!-- Cart Bottom Sheet -->
     <div class="overlay" id="overlay"></div>
     <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
@@ -131,7 +141,7 @@
         <div class="group" id="orderType">
           <button class="chip active" data-ot="on_site" id="otOnSite">На месте</button>
           <button class="chip" data-ot="takeaway" id="otTakeaway">На вынос</button>
-          <button class="chip" data-ot="delivery" id="otDelivery">Доставка</button>
+          <button class="chip" data-ot="delivery" id="otDelivery" disabled aria-disabled="true">Доставка</button>
         </div>
         <div class="field" id="tableField" style="display:grid">
           <label for="tableNo" id="tableLbl">Стол <span class="muted" id="tableHint">(обязательно)</span></label>
@@ -201,7 +211,7 @@
         ui:{add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой'},
         sheet:{
           title:'Ваш заказ',empty:'Корзина пуста.',orderType:'Тип заказа',
-          onSite:'На месте',takeaway:'На вынос',delivery:'Доставка',
+          onSite:'На месте',takeaway:'На вынос',delivery:'Доставка (временно недоступна)',
           table:'Стол',pickupIn:'Через сколько забрать (мин)',address:'Адрес доставки',phone:'Телефон',
           phTable:'Например, 5',phPickup:'15',phAddress:'Город, улица, дом, подъезд...',phPhone:'+380 63 000 00 00',
           total:'Итого',checkout:'Оформить',clear:'Очистить корзину',
@@ -216,7 +226,7 @@
         ui:{add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою'},
         sheet:{
           title:'Ваше замовлення',empty:'Кошик порожній.',orderType:'Тип замовлення',
-          onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка',
+          onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка (тимчасово недоступна)',
           table:'Стіл',pickupIn:'Через скільки забрати (хв)',address:'Адреса доставки',phone:'Телефон',
           phTable:'Наприклад, 5',phPickup:'15',phAddress:'Місто, вулиця, будинок…',phPhone:'+380 63 000 00 00',
           total:'Разом',checkout:'Оформити',clear:'Очистити кошик',
@@ -227,11 +237,11 @@
         tabbar:{menu:'Меню',lang:'Мова',cart:'Кошик',more:'Ще'}
       },
       vn:{
-        navHome:'Trang chủ',navMenu:'Thực đơn',navKaraoke:'Karaoke',navContact:'Liên hệ',
+        navHome:' Trang chủ',navMenu:'Thực đơn',navKaraoke:'Karaoke',navContact:'Liên hệ',
         ui:{add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới'},
         sheet:{
           title:'Đơn hàng của bạn',empty:'Giỏ hàng trống.',orderType:'Hình thức đặt',
-          onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng',
+          onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng (tạm thời chưa có)',
           table:'Bàn',pickupIn:'Nhận sau (phút)',address:'Địa chỉ giao hàng',phone:'Điện thoại',
           phTable:'Ví dụ: 5',phPickup:'15',phAddress:'Thành phố, đường, số nhà…',phPhone:'+380 63 000 00 00',
           total:'Tổng cộng',checkout:'Đặt hàng',clear:'Xóa giỏ hàng',
@@ -995,6 +1005,13 @@ function buildThumb(imgEl, key){
     otWrap.addEventListener('click', e=>{
       const b = e.target.closest('[data-ot]');
       if (!b) return;
+
+      // delivery temporarily disabled
+      if (b.dataset.ot === 'delivery' || b.disabled){
+        alert('Доставка временно недоступна');
+        return;
+      }
+
       $$('#orderType .chip').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
       setOrderType(b.dataset.ot);
@@ -1204,6 +1221,10 @@ function buildThumb(imgEl, key){
     $('#checkoutBtn').addEventListener('click', async ()=>{
       const s = L().sheet;
       const ot = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
+      if (ot === 'delivery'){
+        alert('Доставка временно недоступна.');
+        return;
+      }
       if (ot === 'on_site' && !tableNo.value.trim()){ alert(s.errTable); return; }
       if (ot === 'takeaway'){
         if (!pickupIn.value.trim()){ alert(s.errPickup); return; }
@@ -1405,12 +1426,8 @@ ${lines.join('\n') || '—'}`;
     });
     dockMore?.addEventListener('click', (e)=>{
       e.stopPropagation();
-      const navPop = document.getElementById('navPop');
-      const burgerBtn = document.getElementById('burgerBtn');
-      if (!navPop) return;
-      const open = !navPop.classList.contains('open');
-      navPop.classList.toggle('open', open);
-      burgerBtn?.setAttribute('aria-expanded', String(open));
+      setActiveDock(dockMore);
+      openMoreSheet();
     });
     dockCart?.addEventListener('click', ()=>{
       setActiveDock(dockCart);
@@ -1442,6 +1459,7 @@ ${lines.join('\n') || '—'}`;
       if (e.key === 'Escape'){
         if ($('#sheet')?.classList.contains('open')) closeSheet();
         if ($('#catSheet')?.classList.contains('open')) closeCatSheet();
+        if (document.getElementById('moreSheet')?.classList.contains('open')) closeMoreSheet();
         if (langPopup?.classList.contains('show')) langPopup.classList.remove('show');
       }
     });
@@ -1513,6 +1531,18 @@ ${lines.join('\n') || '—'}`;
       attachSwipe(cartSheet, cartOverlay, closeSheet);
       attachSwipe(catSheet, catOverlay, closeCatSheet);
     })();
+
+    // Ensure promo.mp4 plays (mobile autoplay quirks)
+    (function(){
+      const v = document.querySelector('video.promo');
+      if (!v) return;
+      const tryPlay = () => v.play().catch(()=>{});
+      tryPlay();
+      const once = () => { tryPlay(); window.removeEventListener('touchstart', once); window.removeEventListener('click', once); };
+      window.addEventListener('touchstart', once, {once:true, passive:true});
+      window.addEventListener('click', once, {once:true, passive:true});
+    })();
+
     /* Init */
     (function init(){
       loadCart();
