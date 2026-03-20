@@ -14,23 +14,28 @@
     .more-left{display:flex;align-items:center;gap:12px}
     .more-ico{width:22px;display:inline-flex;justify-content:center;opacity:.9}
     .more-arrow{opacity:.6;font-size:22px;line-height:1}
+    .contact{margin:14px 0 0;padding:14px;border-radius:18px}
+    .status-card{padding:12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+    .pill-mini{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.08);font-size:12px}
   </style>
-
 </head>
 <body>
   <div class="app">
     <!-- Header -->
     <header class="header">
       <div class="bar">
-        <h1 class="brand" id="brandTap">cyber dragon <img class="mark" src="logo.png" alt="Logo"> 90s</h1>
+        <h1 class="brand" id="brandTap"> <img class="mark" src="logo.png" alt="Logo"> 90s</h1>
+
         <div class="lang">
           <select id="langSel" aria-label="Language">
-            <option value="ru">🇺🇦 RU</option>
+            <option value="ru">🇷🇺 RU</option>
             <option value="ua">🇺🇦 UA</option>
             <option value="vn">🇻🇳 VN</option>
           </select>
         </div>
+
         <button class="burger" id="burgerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="navPop">☰</button>
+
         <nav class="nav-pop" id="navPop" role="menu" aria-label="Main menu">
           <a href="index.html" id="navHome" role="menuitem">🏠 HOME</a>
           <a href="#" id="navMenu" role="menuitem">🍜 MENU</a>
@@ -39,7 +44,7 @@
           <hr>
           <div class="lang-inline" role="none">🌐
             <select id="langSelMenu" aria-label="Language (menu)">
-              <option value="ru">🇺🇦 RU</option>
+              <option value="ru">🇷🇺 RU</option>
               <option value="ua">🇺🇦 UA</option>
               <option value="vn">🇻🇳 VN</option>
             </select>
@@ -47,45 +52,102 @@
         </nav>
       </div>
     </header>
+
+    <!-- Hero -->
     <div class="hero">
-  <video class="promo" autoplay muted loop playsinline preload="auto">
-    <source src="promo.mp4" type="video/mp4" />
-  </video>
-  <div class="social">
-    <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-      <img src="images/icon/fb.png" alt="Facebook">
-    </a>
-    <a href="https://www.instagram.com/cyber_dragon_ua/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-      <img src="images/icon/ig.png" alt="Instagram">
-    </a>
-    <a href="https://www.whatsapp.com/?lang=ru_RU" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-      <img src="images/icon/wa.png" alt="WhatsApp">
-    </a>
-    <a href="https://www.tiktok.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-      <img src="images/icon/tt.png" alt="TikTok">
-    </a>
-  </div>
-</div>
-<!-- Category pills -->
+      <video class="promo" autoplay muted loop playsinline preload="auto">
+        <source src="promo.mp4" type="video/mp4" />
+      </video>
+
+      <div class="social">
+        <!-- Universal bank QR switcher -->
+        <a href="#" class="social-link pay-switcher" id="paySwitcher" aria-label="Payment methods">
+          <img id="payIcon" src="images/icon/applepay.png" alt="Apple Pay" class="pay-icon">
+          <span id="payText" class="pay-text">Apple Pay</span>
+        </a>
+
+        <a href="https://www.instagram.com/cyber_dragon_dlv/" class="social-link social-neon ig-neon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <img src="images/icon/ig.png" alt="Instagram">
+        </a>
+
+        <a href="https://www.google.com/maps/place/%D0%92%E2%80%99%D1%94%D1%82%D0%BD%D0%B0%D0%BC%D1%81%D1%8C%D0%BA%D0%B0+%D0%BA%D1%83%D1%85%D0%BD%D1%8F+%7C+DLV90s+%7C+cyber+dragon/@46.4335078,30.7142878,17z/data=!4m15!1m8!3m7!1s0x40c633a6029f76a1:0x10acedb6000d5455!2z0LLRg9C70LjRhtGPINCT0LXRgNC-0ZfQsiDQmtGA0YPRgiwgMjIsINCe0LTQtdGB0LAsINCe0LTQtdGB0YzQutCwINC-0LHQu9Cw0YHRgtGMLCA2NTAwMA!3b1!8m2!3d46.4335078!4d30.7142878!16s%2Fg%2F11mf901vtc!3m5!1s0x40c633e323f5aca7:0x9a8d74f2dcb92ba0!8m2!3d46.4335078!4d30.7142878!16s%2Fg%2F11yxgsmtr5?entry=ttu&g_ep=EgoyMDI2MDMxNy4wIKXMDSoASAFQAw%3D%3D" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="googleMAPS">
+          <img src="images/icon/maps.png" alt="googleMAPS">
+        </a>
+
+        <a href="https://www.tiktok.com/@cyber_dragon_dlv" class="social-link social-neon tt-neon" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <img src="images/icon/tt.png" alt="TikTok">
+        </a>
+      </div>
+    </div>
+
+    <!-- Category pills -->
     <nav class="cat-nav glass-nav">
       <div class="h-scroll" id="catPills" aria-label="Categories"></div>
     </nav>
-    <!-- Top tools: search + order status -->
+
+    <!-- Top tools -->
     <div class="top-tools">
       <div class="searchbar glass">
         <span class="icon">🔎</span>
         <input id="searchIn" type="search" placeholder="Поиск блюда / Search…" autocomplete="off" />
         <button class="icon-btn" id="searchClear" aria-label="Clear">✕</button>
       </div>
+
       <div class="statusbar glass">
         <span class="icon">📦</span>
         <input id="statusCode" type="text" placeholder="Код заказа (например, a123)" autocomplete="off" />
         <button class="btn mini" id="statusBtn">Статус</button>
       </div>
+
       <div class="status-result" id="statusResult" aria-live="polite"></div>
     </div>
+
+    <!-- Content -->
     <main id="content"></main>
-    <!-- All categories sheet -->
+
+    <!-- CONTACT SECTION -->
+    <section id="contactSection" class="contact glass">
+      <h2 style="margin:0 0 10px 0;">📞 CONTACT</h2>
+
+      <a class="more-row" href="tel:+380632637999" style="border-top:none">
+        <span class="more-left">
+          <span class="more-ico">📞</span>
+          <span>
+            <div><b>+380 632 637 999</b></div>
+            <div class="muted">Cyber Dragon / DLV</div>
+          </span>
+        </span>
+        <span class="more-arrow">›</span>
+      </a>
+
+      <a class="more-row"
+         href="https://maps.google.com/?q=Героїв%20Крут%2022%2C%20Одеса"
+         target="_blank" rel="noopener noreferrer">
+        <span class="more-left">
+          <span class="more-ico">📍</span>
+          <span>
+            <div><b>Героїв Крут, 22</b></div>
+            <div class="muted">Черёмушки · Одесса</div>
+          </span>
+        </span>
+        <span class="more-arrow">›</span>
+      </a>
+
+      <a class="more-row"
+         href="https://bank.gov.ua/qr/QkNECjAwMgoxClVDVAoK0JvRlCDQotGF0ZYg0JrRhdCw0L3RjCDQm9GWClVBNDczMjIwMDEwMDAwMDI2MjAwMzQ0NTAzNjYwCgozMzAwMzIxNzYyCgoK0J_QvtC_0L7QstC90LXQvdC90Y8g0YDQsNGF0YPQvdC60YMKCg=="
+         target="_blank" rel="noopener noreferrer">
+        <span class="more-left">
+          <span class="more-ico">💳</span>
+          <span>
+            <div><b>Оплатить / Pay QR</b></div>
+            <div class="muted">Universal Bank QR</div>
+          </span>
+        </span>
+        <span class="more-arrow">›</span>
+      </a>
+    </section>
+
+    <!-- Categories Sheet -->
     <div class="overlay" id="catOverlay"></div>
     <div class="sheet" id="catSheet" role="dialog" aria-modal="true" aria-labelledby="catSheetTitle">
       <div class="sheet-handle" aria-hidden="true"></div>
@@ -93,14 +155,15 @@
       <h3 id="catSheetTitle">Категории</h3>
       <div class="group" id="catSheetList"></div>
     </div>
-    <!-- iOS-style Bottom Dock -->
+
+    <!-- Bottom Dock -->
     <nav class="dock" aria-label="Bottom navigation">
       <button class="dock-btn" id="dockCat" data-label="Menu">
         <img src="DockIconMenu.png" alt="Menu">
       </button>
       <button class="dock-btn" id="dockLang" data-label="Lang">
         <img src="DockIconLang.png" alt="Language">
-        <span class="cart-badge" id="dockLangFlag">🇺🇦</span>
+        <span class="cart-badge" id="dockLangFlag">🇷🇺</span>
       </button>
       <button class="dock-btn" id="dockCart" data-label="Cart">
         <img src="DockIconKorzina.png" alt="Cart">
@@ -113,14 +176,15 @@
         <img src="DockIconMore.png" alt="More">
       </button>
     </nav>
+
     <!-- Mini language popup -->
     <div class="mini-popup mini-popup-lang" id="langPopup">
-      <button data-lang="ru">🇺🇦 RU</button>
+      <button data-lang="ru">🇷🇺 RU</button>
       <button data-lang="ua">🇺🇦 UA</button>
       <button data-lang="vn">🇻🇳 VN</button>
     </div>
 
-    <!-- MORE sheet (McD-style) -->
+    <!-- More Sheet -->
     <div class="overlay" id="moreOverlay"></div>
     <div class="sheet" id="moreSheet" role="dialog" aria-modal="true" aria-labelledby="moreSheetTitle">
       <div class="sheet-handle" aria-hidden="true"></div>
@@ -129,48 +193,58 @@
       <div class="group" id="moreSheetList"></div>
     </div>
 
-    <!-- Cart Bottom Sheet -->
+    <!-- Cart Sheet -->
     <div class="overlay" id="overlay"></div>
     <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
       <div class="sheet-handle" aria-hidden="true"></div>
       <button class="sheet-close" id="sheetClose" aria-label="Закрыть">✕</button>
       <h3 id="sheetTitle">Ваш заказ</h3>
+
       <div class="cart-lines" id="cartLines"></div>
+
       <div class="section">
         <div class="muted" id="orderTypeTitle" style="margin-bottom:6px">Тип заказа</div>
+
         <div class="group" id="orderType">
           <button class="chip active" data-ot="on_site" id="otOnSite">На месте</button>
           <button class="chip" data-ot="takeaway" id="otTakeaway">На вынос</button>
           <button class="chip" data-ot="delivery" id="otDelivery" disabled aria-disabled="true">Доставка</button>
         </div>
+
         <div class="field" id="tableField" style="display:grid">
           <label for="tableNo" id="tableLbl">Стол <span class="muted" id="tableHint">(обязательно)</span></label>
           <input id="tableNo" type="number" min="1" inputmode="numeric" placeholder="Например, 5">
         </div>
+
         <div class="field" id="takeawayField" style="display:none">
           <label for="pickupIn" id="pickupLbl">Через сколько забрать (мин) <span class="muted" id="pickupHint">(обязательно)</span></label>
           <input id="pickupIn" type="number" min="5" step="5" placeholder="15">
         </div>
+
         <div class="field" id="addrField" style="display:none">
           <label for="address" id="addrLbl">Адрес доставки <span class="muted" id="addrHint">(обязательно)</span></label>
           <textarea id="address" placeholder="Город, улица, дом, подъезд..."></textarea>
         </div>
+
         <div class="field" id="phoneField">
           <label for="phone" id="phoneLbl">Телефон <span class="muted" id="phoneHint">(необязательно)</span></label>
           <input id="phone" type="tel" placeholder="+380 63 000 00 00">
         </div>
       </div>
+
       <div class="checkout">
         <div class="muted" id="cartMeta">Итого: 0.00 грн</div>
         <button class="btn primary" id="checkoutBtn">Оформить</button>
         <button class="btn ghost" id="clearBtn">Очистить корзину</button>
       </div>
     </div>
+
     <!-- Dish Details Sheet -->
     <div class="overlay" id="dishOverlay"></div>
     <div class="sheet dish-sheet" id="dishSheet" role="dialog" aria-modal="true" aria-labelledby="dishTitle">
       <div class="sheet-handle" aria-hidden="true"></div>
       <button class="sheet-close" id="dishClose" aria-label="Закрыть">✕</button>
+
       <div class="dish-head">
         <div class="dish-title">
           <h3 id="dishTitle">—</h3>
@@ -178,15 +252,19 @@
         </div>
         <div class="dish-price" id="dishPrice">0.00 грн</div>
       </div>
+
       <div class="dish-media" id="dishMedia"></div>
+
       <div class="dish-body">
         <div class="dish-desc" id="dishDesc">—</div>
         <div class="dish-options" id="dishOptions"></div>
+
         <div class="dish-note">
           <label for="dishNote" class="muted">Комментарий</label>
           <textarea id="dishNote" placeholder="Например: без лука, больше соуса…"></textarea>
         </div>
       </div>
+
       <div class="dish-actions">
         <button class="btn ghost" id="dishMinus">−</button>
         <div class="dish-qty" id="dishQty">0</div>
@@ -194,1057 +272,1287 @@
         <button class="btn primary" id="dishAddBtn">Добавить</button>
       </div>
     </div>
-    <!-- DATA -->
+
     <script src="menu.js"></script>
     <script>
-    /* ==== LANG & I18N ==== */
-    const LANG_KEY = 'CD_LANG';
-    let LANG = localStorage.getItem(LANG_KEY) || 'ru';
-    document.documentElement.lang = LANG;
-    const LANGS_ORDER = ['ru','ua','vn'];
-    const LANG_FLAGS = { ru:'🇺🇦', ua:'🇺🇦', vn:'🇻🇳' };
-    // === Google Sheets API (Apps Script) ===
-    const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-    const I18N = {
-      ru:{
-        navHome:'Главная',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакты',
-        ui:{add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой'},
-        sheet:{
-          title:'Ваш заказ',empty:'Корзина пуста.',orderType:'Тип заказа',
-          onSite:'На месте',takeaway:'На вынос',delivery:'Доставка (временно недоступна)',
-          table:'Стол',pickupIn:'Через сколько забрать (мин)',address:'Адрес доставки',phone:'Телефон',
-          phTable:'Например, 5',phPickup:'15',phAddress:'Город, улица, дом, подъезд...',phPhone:'+380 63 000 00 00',
-          total:'Итого',checkout:'Оформить',clear:'Очистить корзину',
-          errTable:'Укажите номер стола.',errPickup:'Укажите через сколько минут забрать.',
-          errPhone:'Укажите телефон.',errAddress:'Укажите адрес доставки.'
+      /* ==== CONFIG ==== */
+      const UNIVERSAL_PAY_LINK = 'https://bank.gov.ua/qr/QkNECjAwMgoxClVDVAoK0JvRlCDQotGF0ZYg0JrRhdCw0L3RjCDQm9GWClVBNDczMjIwMDEwMDAwMDI2MjAwMzQ0NTAzNjYwCgozMzAwMzIxNzYyCgoK0J_QvtC_0L7QstC90LXQvdC90Y8g0YDQsNGF0YPQvdC60YMKCg==';
+
+      /* ==== LANG & I18N ==== */
+      const LANG_KEY = 'CD_LANG';
+      let LANG = localStorage.getItem(LANG_KEY) || 'ru';
+      document.documentElement.lang = LANG;
+
+      const LANG_FLAGS = { ru:'🇷🇺', ua:'🇺🇦', vn:'🇻🇳' };
+      const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
+
+      const I18N = {
+        ru:{
+          navHome:'Главная',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакты',
+          ui:{add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой'},
+          sheet:{
+            title:'Ваш заказ',empty:'Корзина пуста.',orderType:'Тип заказа',
+            onSite:'На месте',takeaway:'На вынос',delivery:'Доставка (временно недоступна)',
+            table:'Стол',pickupIn:'Через сколько забрать (мин)',address:'Адрес доставки',phone:'Телефон',
+            phTable:'Например, 5',phPickup:'15',phAddress:'Город, улица, дом, подъезд...',phPhone:'+380 63 000 00 00',
+            total:'Итого',checkout:'Оформить',clear:'Очистить корзину',
+            errTable:'Укажите номер стола.',errPickup:'Укажите через сколько минут забрать.',
+            errPhone:'Укажите телефон.',errAddress:'Укажите адрес доставки.'
+          },
+          common:{required:'(обязательно)',optional:'(необязательно)'},
+          tabbar:{menu:'Меню',lang:'Язык',cart:'Корзина',more:'Ещё'},
+          receiptBtn:'Получить чек в Telegram',
+          receiptReady:'Чек можно получить в Telegram.',
+          deliveryOff:'Доставка временно недоступна'
         },
-        common:{required:'(обязательно)',optional:'(необязательно)'},
-        tabbar:{menu:'Меню',lang:'Язык',cart:'Корзина',more:'Ещё'}
-      },
-      ua:{
-        navHome:'Головна',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакти',
-        ui:{add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою'},
-        sheet:{
-          title:'Ваше замовлення',empty:'Кошик порожній.',orderType:'Тип замовлення',
-          onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка (тимчасово недоступна)',
-          table:'Стіл',pickupIn:'Через скільки забрати (хв)',address:'Адреса доставки',phone:'Телефон',
-          phTable:'Наприклад, 5',phPickup:'15',phAddress:'Місто, вулиця, будинок…',phPhone:'+380 63 000 00 00',
-          total:'Разом',checkout:'Оформити',clear:'Очистити кошик',
-          errTable:'Вкажіть номер столу.',errPickup:'Вкажіть час отримання (хв).',
-          errPhone:'Вкажіть телефон.',errAddress:'Вкажіть адресу доставки.'
+        ua:{
+          navHome:'Головна',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакти',
+          ui:{add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою'},
+          sheet:{
+            title:'Ваше замовлення',empty:'Кошик порожній.',orderType:'Тип замовлення',
+            onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка (тимчасово недоступна)',
+            table:'Стіл',pickupIn:'Через скільки забрати (хв)',address:'Адреса доставки',phone:'Телефон',
+            phTable:'Наприклад, 5',phPickup:'15',phAddress:'Місто, вулиця, будинок…',phPhone:'+380 63 000 00 00',
+            total:'Разом',checkout:'Оформити',clear:'Очистити кошик',
+            errTable:'Вкажіть номер столу.',errPickup:'Вкажіть час отримання (хв).',
+            errPhone:'Вкажіть телефон.',errAddress:'Вкажіть адресу доставки.'
+          },
+          common:{required:'(обов’язково)',optional:'(необов’язково)'},
+          tabbar:{menu:'Меню',lang:'Мова',cart:'Кошик',more:'Ще'},
+          receiptBtn:'Отримати чек у Telegram',
+          receiptReady:'Чек можна отримати у Telegram.',
+          deliveryOff:'Доставка тимчасово недоступна'
         },
-        common:{required:'(обов’язково)',optional:'(необов’язково)'},
-        tabbar:{menu:'Меню',lang:'Мова',cart:'Кошик',more:'Ще'}
-      },
-      vn:{
-        navHome:' Trang chủ',navMenu:'Thực đơn',navKaraoke:'Karaoke',navContact:'Liên hệ',
-        ui:{add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới'},
-        sheet:{
-          title:'Đơn hàng của bạn',empty:'Giỏ hàng trống.',orderType:'Hình thức đặt',
-          onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng (tạm thời chưa có)',
-          table:'Bàn',pickupIn:'Nhận sau (phút)',address:'Địa chỉ giao hàng',phone:'Điện thoại',
-          phTable:'Ví dụ: 5',phPickup:'15',phAddress:'Thành phố, đường, số nhà…',phPhone:'+380 63 000 00 00',
-          total:'Tổng cộng',checkout:'Đặt hàng',clear:'Xóa giỏ hàng',
-          errTable:'Vui lòng nhập số bàn.',errPickup:'Vui lòng nhập thời gian nhận (phút).',
-          errPhone:'Vui lòng nhập số điện thoại.',errAddress:'Vui lòng nhập địa chỉ giao hàng.'
-        },
-        common:{required:'(bắt buộc)',optional:'(không bắt buộc)'},
-        tabbar:{menu:'Thực đơn',lang:'Ngôn ngữ',cart:'Giỏ',more:'Thêm'}
-      }
-    };
-    const L = () => I18N[LANG] || I18N.ru;
-    /* Descriptions lazy-load */
-    let DESCS = null;
-    async function loadDescriptions(){
-      if (DESCS) return DESCS;
-      try{
-        const resp = await fetch('descriptions.json');
-        if (resp.ok){
-          DESCS = await resp.json();
-          return DESCS;
-        }
-      }catch(e){
-        console.error('Failed to load descriptions.json', e);
-      }
-      DESCS = {};
-      return DESCS;
-    }
-    /* Category labels — UPDATED to match NEW menu.js keys */
-    const CAT_LABELS = {
-      pho_soups:{ru:'Фо (супы)',ua:'Фо (супи)',vn:'Súp Phở'},
-      bun_soups:{ru:'Бун (супы)',ua:'Бун (супи)',vn:'Súp Bún'},
-      salat_bun:{ru:'Бун (salat)',ua:'Бун (salat)',vn:'Bún nam bo'},
-      mien_soups:{ru:'Миен (супы)',ua:'Мієн (супи)',vn:'Súp Miến'},
-      mi_soups:{ru:'Ми (супы)',ua:'Мі (супи)',vn:'Súp Mì'},
-      wok_fried_pho:{ru:'ВОК: жареный Фо',ua:'ВОК: смажений Фо',vn:'Wok Phở xào'},
-      wok_fried_mien:{ru:'ВОК: жареный Миен',ua:'ВОК: смажений Мієн',vn:'Wok Miến xào'},
-      wok_fried_mi:{ru:'ВОК: жареная лапша',ua:'ВОК: смажена локшина',vn:'Wok Mì xào'},
-      rice_braised:{ru:'Рис: тушёные',ua:'Рис: тушковане',vn:'Cơm kho'},
-      fried_rice:{ru:'Рис: жареный',ua:'Смажений рис',vn:'Cơm chiên'},
-      appetizers:{ru:'Закуски',ua:'Закуски',vn:'Món khai vị'},
-      drinks:{ru:'Напитки',ua:'Напої',vn:'Đồ uống'}
-    };
-    const catLabel = k => (CAT_LABELS[k]?.[LANG] || CAT_LABELS[k]?.ru || k);
-    /* Helpers & state */
-    const $ = s => document.querySelector(s);
-    const $$ = s => document.querySelectorAll(s);
-    const CURRENCY = 'грн';
-    const IMG_DIR = 'images/';
-    const IMG_EXTS = ['webp','jpg','jpeg','png'];
-    const fmt = n => Number(n).toFixed(2) + ' ' + CURRENCY;
-    const escapeHtml = (s='') => String(s)
-      .replaceAll('&','&amp;')
-      .replaceAll('<','&lt;')
-      .replaceAll('>','&gt;')
-      .replaceAll('"','&quot;')
-      .replaceAll("'","&#039;");
-    function summarizeSelections(it, selections){
-      const opts = normalizeOptions(it);
-      const sel = selections || {};
-      const parts = [];
-      for (const g of opts){
-        const gid = g.id || g.key || g.name || '';
-        const picked = sel[gid];
-        if (!picked) continue;
-        const pickArr = Array.isArray(picked) ? picked : [picked];
-        const names = pickArr.map(oid=>{
-          const item = (g.items||[]).find(x => (x.id||x.key)===oid);
-          const nm = item?.label?.[LANG] || item?.label?.ru || item?.label || item?.name || oid;
-          const d = Number(item?.price_delta||0);
-          return d ? `${nm} (+${d})` : `${nm}`;
-        });
-        const gTitle = g.title?.[LANG] || g.title?.ru || g.title || '';
-        parts.push(gTitle ? `${gTitle}: ${names.join(', ')}` : names.join(', '));
-      }
-      return parts.join(' · ');
-    }
-   
-    function summarizeSelectionsLines(it, selections){
-      const opts = normalizeOptions(it);
-      const sel = selections || {};
-      const lines = [];
-      for (const g of opts){
-        const gid = g.id || g.key || g.name || '';
-        const picked = sel[gid];
-        if (!picked) continue;
-        const pickArr = Array.isArray(picked) ? picked : [picked];
-        const names = pickArr.map(oid=>{
-          const item = (g.items||[]).find(x => (x.id||x.key)===oid);
-          return item?.label?.[LANG] || item?.label?.ru || item?.label || item?.name || oid;
-        });
-        const gTitle = groupTitle(g) || gid;
-        lines.push(`${gTitle}: ${names.join(', ')}`);
-      }
-      return lines;
-    }
-function buildThumb(imgEl, key){
-      let i = 0;
-      const trySet = () => imgEl.src = IMG_DIR + key + '.' + IMG_EXTS[i];
-      imgEl.onerror = () => {
-        i++;
-        if (i < IMG_EXTS.length){
-          trySet();
-        } else {
-          imgEl.closest('.thumb')?.classList.add('noimg');
-          imgEl.remove();
+        vn:{
+          navHome:'Trang chủ',navMenu:'Thực đơn',navKaraoke:'Karaoke',navContact:'Liên hệ',
+          ui:{add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới'},
+          sheet:{
+            title:'Đơn hàng của bạn',empty:'Giỏ hàng trống.',orderType:'Hình thức đặt',
+            onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng (tạm thời chưa có)',
+            table:'Bàn',pickupIn:'Nhận sau (phút)',address:'Địa chỉ giao hàng',phone:'Điện thoại',
+            phTable:'Ví dụ: 5',phPickup:'15',phAddress:'Thành phố, đường, số nhà…',phPhone:'+380 63 000 00 00',
+            total:'Tổng cộng',checkout:'Đặt hàng',clear:'Xóa giỏ hàng',
+            errTable:'Vui lòng nhập số bàn.',errPickup:'Vui lòng nhập thời gian nhận (phút).',
+            errPhone:'Vui lòng nhập số điện thoại.',errAddress:'Vui lòng nhập địa chỉ giao hàng.'
+          },
+          common:{required:'(bắt buộc)',optional:'(không bắt buộc)'},
+          tabbar:{menu:'Thực đơn',lang:'Ngôn ngữ',cart:'Giỏ',more:'Thêm'},
+          receiptBtn:'Nhận hóa đơn qua Telegram',
+          receiptReady:'Có thể nhận hóa đơn trên Telegram.',
+          deliveryOff:'Tạm thời chưa có giao hàng'
         }
       };
-      trySet();
-    }
-    const itemName = it =>
-      it?.translations?.[LANG] ||
-      it?.translations?.ru ||
-      it?.key?.replaceAll('_',' ') ||
-      '';
-    const CART_KEY = 'CD_CART_V2';
-    const ORDERS_KEY = 'CD_ORDERS_V1';
-    const SEARCH_KEY = 'CD_SEARCH_Q';
-    const HERO_KEY = 'CD_HERO_CLOSED';
-    // cart: Map(id -> {qty:number, selections:object, note:string})
-    const cart = new Map();
-    function loadCart(){
-      try{
-        const raw = localStorage.getItem(CART_KEY);
-        if (!raw) return;
-        const obj = JSON.parse(raw);
-        for (const [id, entry] of Object.entries(obj || {})){
-          if (!entry || typeof entry.qty !== 'number') continue;
-          cart.set(id, {
-            qty: Math.max(0, entry.qty|0),
-            selections: entry.selections || {},
-            note: entry.note || ''
-          });
-        }
-      }catch(e){ console.warn('Cart load failed', e); }
-    }
-    function saveCart(){
-      try{
-        const obj = {};
-        for (const [id, entry] of cart){
-          obj[id] = entry;
-        }
-        localStorage.setItem(CART_KEY, JSON.stringify(obj));
-      }catch(e){ console.warn('Cart save failed', e); }
-    }
-    function cartQty(id){ return cart.get(id)?.qty || 0; }
-    function cartInc(id, delta=1){
-      const cur = cart.get(id) || {qty:0, selections:{}, note:''};
-      cur.qty = Math.max(0, (cur.qty|0) + delta);
-      if (cur.qty<=0) cart.delete(id); else cart.set(id, cur);
-      saveCart();
-    }
-    function cartSetEntry(id, entry){
-      cart.set(id, entry);
-      saveCart();
-    }
-    function loadOrders(){
-      try{ return JSON.parse(localStorage.getItem(ORDERS_KEY) || '{}') || {}; }
-      catch(e){ return {}; }
-    }
-    function saveOrders(obj){
-      try{ localStorage.setItem(ORDERS_KEY, JSON.stringify(obj||{})); }catch(e){}
-    }
-    /* Pills */
-    function renderPills(){
-      const keys = Object.keys(menuData || {});
-      const el = $('#catPills');
-      if (!el) return;
-      el.innerHTML = keys.map((k,i) =>
-        `<a class="pill ${i===0?'active':''}" href="#sec-${k}">${catLabel(k)}</a>`
-      ).join('');
-    }
-    /* View toggle (grid/list) */
-    const VIEW_KEY = 'CD_VIEW_MENU';
-    let viewMode = localStorage.getItem(VIEW_KEY) || 'grid';
-    function applyView(){
-      $$('.list').forEach(wrap => {
-        wrap.classList.toggle('as-list', viewMode === 'list');
-      });
-    }
-    /* Meta info */
-    function buildMeta(it){
-      if (!it) return '';
-      const parts = [];
-      if (it.weight) parts.push(it.weight + ' g');
-      if (it.kcal) parts.push(it.kcal + ' kcal');
-      if (it.spicy){
-        const level = Math.max(1, Math.min(3, Number(it.spicy)));
-        parts.push('🌶'.repeat(level));
-      }
-      if (Array.isArray(it.tags) && it.tags.length){
-        const mapped = it.tags.map(t=>{
-          switch(t){
-            case 'vegan': return '🌱 vegan';
-            case 'veg': return '🥦 veg';
-            case 'no_gluten': return '🚫 gluten';
-            case 'chef': return '⭐ chef';
-            case 'popular': return '🔥 top';
-            default: return t;
+      const L = () => I18N[LANG] || I18N.ru;
+
+      let DESCS = null;
+      async function loadDescriptions(){
+        if (DESCS) return DESCS;
+        try{
+          const resp = await fetch('descriptions.json');
+          if (resp.ok){
+            DESCS = await resp.json();
+            return DESCS;
           }
-        });
-        parts.push(mapped.join(' · '));
-      }
-      if (!parts.length) return '';
-      return `<div class="meta">${parts.join(' • ')}</div>`;
-    }
-    /* Options / pricing */
-    function normalizeOptions(it){
-      return Array.isArray(it?.options) ? it.options : [];
-    }
-    function calcItemUnitPrice(it, selections){
-      let base = Number(it?.price || 0);
-      const opts = normalizeOptions(it);
-      const sel = selections || {};
-      for (const g of opts){
-        const gid = g.id || g.key || g.name || '';
-        const picked = sel[gid];
-        if (!picked) continue;
-        const pickArr = Array.isArray(picked) ? picked : [picked];
-        for (const oid of pickArr){
-          const found = (g.items || []).find(x => (x.id||x.key) === oid);
-          if (found) base += Number(found.price_delta || 0);
+        }catch(e){
+          console.error('Failed to load descriptions.json', e);
         }
+        DESCS = {};
+        return DESCS;
       }
-      return base;
-    }
-    /* Render menu */
-    const TOP_KEYS = ['pho_bo_xao','mi_xao_tom','mien_xao_heo','com_rang_ga','salat_bun_nem'];
-    function findByKey(key){
-      for (const [cat, arr] of Object.entries(menuData||{})){
-        const idx = (arr||[]).findIndex(x => x && x.key === key);
-        if (idx >= 0) return {cat, idx, it: arr[idx]};
+
+      const CAT_LABELS = {
+        top:{ru:'TOP',ua:'TOP',vn:'TOP'},
+        pho_soups:{ru:'Фо (супы)',ua:'Фо (супи)',vn:'Súp Phở'},
+        bun_soups:{ru:'Бун (супы)',ua:'Бун (супи)',vn:'Súp Bún'},
+        salat_bun:{ru:'Бун (salat)',ua:'Бун (salat)',vn:'Bún nam bộ'},
+        mien_soups:{ru:'Миен (супы)',ua:'Мієн (супи)',vn:'Súp Miến'},
+        mi_soups:{ru:'Ми (супы)',ua:'Мі (супи)',vn:'Súp Mì'},
+        wok_fried_pho:{ru:'ВОК: жареный Фо',ua:'ВОК: смажений Фо',vn:'Wok Phở xào'},
+        wok_fried_mien:{ru:'ВОК: жареный Миен',ua:'ВОК: смажений Мієн',vn:'Wok Miến xào'},
+        wok_fried_mi:{ru:'ВОК: жареная лапша',ua:'ВОК: смажена локшина',vn:'Wok Mì xào'},
+        rice_braised:{ru:'Рис: тушёные',ua:'Рис: тушковане',vn:'Cơm kho'},
+        fried_rice:{ru:'Рис: жареный',ua:'Смажений рис',vn:'Cơm chiên'},
+        appetizers:{ru:'Закуски',ua:'Закуски',vn:'Món khai vị'},
+        drinks:{ru:'Напитки',ua:'Напої',vn:'Đồ uống'}
+      };
+      const catLabel = k => (CAT_LABELS[k]?.[LANG] || CAT_LABELS[k]?.ru || k);
+
+      const $ = s => document.querySelector(s);
+      const $$ = s => document.querySelectorAll(s);
+      const CURRENCY = 'грн';
+      const IMG_DIR = 'images/';
+      const IMG_EXTS = ['webp','jpg','jpeg','png'];
+      const fmt = n => Number(n).toFixed(2) + ' ' + CURRENCY;
+      const escapeHtml = (s='') => String(s)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#039;");
+
+      function summarizeSelections(it, selections){
+        const opts = normalizeOptions(it);
+        const sel = selections || {};
+        const parts = [];
+        for (const g of opts){
+          const gid = g.id || g.key || g.name || '';
+          const picked = sel[gid];
+          if (!picked) continue;
+          const pickArr = Array.isArray(picked) ? picked : [picked];
+          const names = pickArr.map(oid=>{
+            const item = (g.items||[]).find(x => (x.id||x.key)===oid);
+            const nm = item?.label?.[LANG] || item?.label?.ru || item?.label || item?.name || oid;
+            const d = Number(item?.price_delta||0);
+            return d ? `${nm} (+${d})` : `${nm}`;
+          });
+          const gTitle = g.title?.[LANG] || g.title?.ru || g.title || '';
+          parts.push(gTitle ? `${gTitle}: ${names.join(', ')}` : names.join(', '));
+        }
+        return parts.join(' · ');
       }
-      return null;
-    }
-    function cardHtml(it, id, featured=false){
-      const t = L();
-      const name = itemName(it);
-      const unit = fmt(calcItemUnitPrice(it, cart.get(id)?.selections));
-      const qty = cartQty(id);
-      const hasOpts = Array.isArray(it.options) && it.options.length;
-      const btn = qty
-        ? `<div class="qty" data-qty="${id}">
-             <button data-dec="${id}">−</button>
-             <span>${qty}</span>
-             <button data-inc="${id}">+</button>
-           </div>`
-        : `<button class="add" data-add="${id}">${t.ui.add}</button>`;
-      const key = (it && (it.key || it.id || it.code)) || '';
-      const shortDesc = (it && (it.short || it.desc || '')) || '';
-      const metaHtml = buildMeta(it);
-      return `
-        <div class="card ${featured?'featured':''} ${hasOpts?'has-opts':''}" data-id="${id}"${key ? ` data-key="${key}"` : ''}>
-          <div class="thumb-wrap">
-            <div class="thumb">
-              <img alt="${escapeHtml(name)}" loading="lazy" decoding="async">
-            </div>
-            <button class="info"
-                    data-toggle="${id}"
-                    title="ℹ"
-                    aria-label="Info"
-                    aria-expanded="false">ℹ</button>
-          </div>
-          <div class="name">${escapeHtml(name)}</div>
-          ${metaHtml}
-          <p class="desc">${escapeHtml(shortDesc)}</p>
-          <div class="foot">
-            <div class="price">${unit}</div>
-            ${btn}
-          </div>
-        </div>`;
-    }
-    function renderSection(content, title, items){
-      const sec = document.createElement('section');
-      sec.className = 'menu-section';
-      sec.id = title.startsWith('TOP') ? 'sec-top' : '';
-      const h2 = document.createElement('h2');
-      h2.textContent = title;
-      sec.appendChild(h2);
-      const list = document.createElement('div');
-      list.className = 'list';
-      list.innerHTML = items.join('');
-      sec.appendChild(list);
-      content.appendChild(sec);
-      // images
-      list.querySelectorAll('.card').forEach(row => {
-        const id = row.getAttribute('data-id');
-        const [cat, idx] = id.split(':');
-        const key = (menuData?.[cat]?.[+idx]?.key) || '';
-        const img = row.querySelector('.thumb img');
-        if (img && key) buildThumb(img, key);
-      });
-    }
-    function renderMenu(){
-      const content = $('#content');
-      if (!content) return;
-      content.innerHTML = '';
-      const q = (document.getElementById('searchIn')?.value || '').trim().toLowerCase();
-      localStorage.setItem(SEARCH_KEY, q);
-      // Search results mode
-      if (q){
-        const res = [];
-        for (const [cat, arr] of Object.entries(menuData || {})){
-          (arr||[]).forEach((it, idx)=>{
-            const name = itemName(it).toLowerCase();
-            const short = String(it.short||'').toLowerCase();
-            if (name.includes(q) || short.includes(q)){
-              const id = `${cat}:${idx}`;
-              res.push(cardHtml(it, id, false));
+
+      function summarizeSelectionsLines(it, selections){
+        const opts = normalizeOptions(it);
+        const sel = selections || {};
+        const lines = [];
+        for (const g of opts){
+          const gid = g.id || g.key || g.name || '';
+          const picked = sel[gid];
+          if (!picked) continue;
+          const pickArr = Array.isArray(picked) ? picked : [picked];
+          const names = pickArr.map(oid=>{
+            const item = (g.items||[]).find(x => (x.id||x.key)===oid);
+            return item?.label?.[LANG] || item?.label?.ru || item?.label || item?.name || oid;
+          });
+          const gTitle = groupTitle(g) || gid;
+          lines.push(`${gTitle}: ${names.join(', ')}`);
+        }
+        return lines;
+      }
+
+      function buildThumb(imgEl, key){
+        let i = 0;
+        const trySet = () => imgEl.src = IMG_DIR + key + '.' + IMG_EXTS[i];
+        imgEl.onerror = () => {
+          i++;
+          if (i < IMG_EXTS.length){
+            trySet();
+          } else {
+            imgEl.closest('.thumb')?.classList.add('noimg');
+            imgEl.remove();
+          }
+        };
+        trySet();
+      }
+
+      const itemName = it =>
+        it?.translations?.[LANG] ||
+        it?.translations?.ru ||
+        it?.key?.replaceAll('_',' ') ||
+        '';
+
+      const CART_KEY = 'CD_CART_V2';
+      const ORDERS_KEY = 'CD_ORDERS_V1';
+      const SEARCH_KEY = 'CD_SEARCH_Q';
+      const HERO_KEY = 'CD_HERO_CLOSED';
+
+      const cart = new Map();
+
+      function loadCart(){
+        try{
+          const raw = localStorage.getItem(CART_KEY);
+          if (!raw) return;
+          const obj = JSON.parse(raw);
+          for (const [id, entry] of Object.entries(obj || {})){
+            if (!entry || typeof entry.qty !== 'number') continue;
+            cart.set(id, {
+              qty: Math.max(0, entry.qty|0),
+              selections: entry.selections || {},
+              note: entry.note || ''
+            });
+          }
+        }catch(e){ console.warn('Cart load failed', e); }
+      }
+
+      function saveCart(){
+        try{
+          const obj = {};
+          for (const [id, entry] of cart) obj[id] = entry;
+          localStorage.setItem(CART_KEY, JSON.stringify(obj));
+        }catch(e){ console.warn('Cart save failed', e); }
+      }
+
+      function cartQty(id){ return cart.get(id)?.qty || 0; }
+
+      function cartInc(id, delta=1){
+        const cur = cart.get(id) || {qty:0, selections:{}, note:''};
+        cur.qty = Math.max(0, (cur.qty|0) + delta);
+        if (cur.qty<=0) cart.delete(id); else cart.set(id, cur);
+        saveCart();
+      }
+
+      function cartSetEntry(id, entry){
+        cart.set(id, entry);
+        saveCart();
+      }
+
+      function loadOrders(){
+        try{ return JSON.parse(localStorage.getItem(ORDERS_KEY) || '{}') || {}; }
+        catch(e){ return {}; }
+      }
+
+      function saveOrders(obj){
+        try{ localStorage.setItem(ORDERS_KEY, JSON.stringify(obj||{})); }catch(e){}
+      }
+
+      function renderPills(){
+        const keys = Object.keys(menuData || {});
+        const el = $('#catPills');
+        if (!el) return;
+        el.innerHTML = keys.map((k,i) =>
+          `<a class="pill ${i===0?'active':''}" href="#sec-${k}">${catLabel(k)}</a>`
+        ).join('');
+      }
+
+      const VIEW_KEY = 'CD_VIEW_MENU';
+      let viewMode = localStorage.getItem(VIEW_KEY) || 'grid';
+
+      function applyView(){
+        $$('.list').forEach(wrap => {
+          wrap.classList.toggle('as-list', viewMode === 'list');
+        });
+      }
+
+      function buildMeta(it){
+        if (!it) return '';
+        const parts = [];
+        if (it.weight) parts.push(it.weight + ' g');
+        if (it.kcal) parts.push(it.kcal + ' kcal');
+        if (it.spicy){
+          const level = Math.max(1, Math.min(3, Number(it.spicy)));
+          parts.push('🌶'.repeat(level));
+        }
+        if (Array.isArray(it.tags) && it.tags.length){
+          const mapped = it.tags.map(t=>{
+            switch(t){
+              case 'vegan': return '🌱 vegan';
+              case 'veg': return '🥦 veg';
+              case 'no_gluten': return '🚫 gluten';
+              case 'chef': return '⭐ chef';
+              case 'popular': return '🔥 top';
+              case 'featured': return '✨ featured';
+              case 'custom': return '🛠 custom';
+              default: return t;
             }
           });
+          parts.push(mapped.join(' · '));
         }
-        renderSection(content, `🔎 ${q}`, res.length ? res : [`<div class="muted" style="padding:12px">Ничего не найдено.</div>`]);
-        applyView();
-        return;
+        if (!parts.length) return '';
+        return `<div class="meta">${parts.join(' • ')}</div>`;
       }
-      // TOP section
-      const topCards = [];
-      TOP_KEYS.forEach((k, i)=>{
-        const f = findByKey(k);
-        if (!f) return;
-        const id = `${f.cat}:${f.idx}`;
-        topCards.push(cardHtml(f.it, id, i===0));
-      });
-      if (topCards.length){
-        renderSection(content, '🔥 TOP', topCards);
+
+      function normalizeOptions(it){
+        return Array.isArray(it?.options) ? it.options : [];
       }
-      // Normal categories
-      const keys = Object.keys(menuData || {});
-      keys.forEach(k => {
-        const items = (menuData[k] || []).map((it, idx) => {
-          const id = `${k}:${idx}`;
-          return cardHtml(it, id, idx===0);
-        });
-        renderSection(content, catLabel(k), items);
-        // ensure section id for scroll
-        const last = content.lastElementChild;
-        if (last) last.id = `sec-${k}`;
-      });
-      applyView();
-    }
-    /* Cart counters + dock badges */
-    function renderFab(){
-      let items = 0, sum = 0;
-      for (const [id, entry] of cart){
-        const qty = entry?.qty || 0;
-        const [cat, idx] = id.split(':');
-        const it = menuData[cat]?.[+idx];
-        if (!it || qty<=0) continue;
-        items += qty;
-        sum += calcItemUnitPrice(it, entry.selections) * qty;
-      }
-      const badge = $('#cartBadge');
-      document.body.classList.toggle('cart-has-items', items > 0);
-      if (badge){
-        badge.textContent = items;
-        badge.style.display = items > 0 ? 'flex' : 'none';
-      }
-      const meta = $('#cartMeta');
-      if (meta){
-        const s = L().sheet;
-        meta.textContent = `${s.total}: ${fmt(sum)}`;
-      }
-    }
-    /* Cart sheet render */
-    function renderCartSheet(){
-      const t = L().sheet;
-      const lines = $('#cartLines');
-      if (!lines) return;
-      if (cart.size === 0){
-        lines.innerHTML = `<div class="muted">${t.empty}</div>`;
-        $('#cartMeta').textContent = `${t.total}: ${fmt(0)}`;
-        return;
-      }
-      let sum = 0;
-      lines.innerHTML = '';
-      for (const [id, entry] of cart){
-        const qty = entry?.qty || 0;
-        if (qty<=0) continue;
-        const [cat, idx] = id.split(':');
-        const it = menuData[cat]?.[+idx];
-        if (!it) continue;
-        const name = itemName(it);
-        const unit = calcItemUnitPrice(it, entry.selections);
-        sum += unit * qty;
-        const optText = summarizeSelections(it, entry.selections);
-        const noteText = (entry.note || '').trim();
-        const el = document.createElement('div');
-        el.className = 'line';
-        el.innerHTML = `
-          <div>
-            <strong>${name}</strong>
-            ${optText ? `<div class="muted">${optText}</div>` : ``}
-            ${noteText ? `<div class="muted">✎ ${escapeHtml(noteText)}</div>` : ``}
-            <div class="muted">${fmt(unit)} × ${qty}</div>
-          </div>
-          <div class="qty" data-qty="${id}">
-            <button data-dec="${id}">−</button>
-            <span>${qty}</span>
-            <button data-inc="${id}">+</button>
-          </div>`;
-        lines.appendChild(el);
-      }
-      $('#cartMeta').textContent = `${t.total}: ${fmt(sum)}`;
-    }
-    /* Sheet open/close */
-    function openSheet(){
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('sheet-open');
-      $('#overlay').classList.add('show');
-      $('#sheet').classList.add('open');
-      renderCartSheet();
-    }
-    function closeSheet(){
-      document.body.style.overflow = '';
-      document.body.classList.remove('sheet-open');
-      const overlay = document.getElementById('overlay');
-      const sheet = document.getElementById('sheet');
-      if (overlay){
-        overlay.classList.remove('show');
-        overlay.style.opacity = '';
-        overlay.style.transition = '';
-      }
-      if (sheet){
-        sheet.classList.remove('open');
-        sheet.style.transform = '';
-        sheet.style.transition = '';
-      }
-    }
-    function openCatSheet(){
-      document.body.classList.add('sheet-open');
-      $('#catOverlay').classList.add('show');
-      $('#catSheet').classList.add('open');
-    }
-    function closeCatSheet(){
-      document.body.classList.remove('sheet-open');
-      const overlay = document.getElementById('catOverlay');
-      const sheet = document.getElementById('catSheet');
-      if (overlay){
-        overlay.classList.remove('show');
-        overlay.style.opacity = '';
-        overlay.style.transition = '';
-      }
-      if (sheet){
-        sheet.classList.remove('open');
-        sheet.style.transform = '';
-        sheet.style.transition = '';
-      }
-    }
-    /* Dish sheet open/close + rendering */
-    const dishOverlay = $('#dishOverlay');
-    const dishSheet = $('#dishSheet');
-    const dishClose = $('#dishClose');
-    const dishTitle = $('#dishTitle');
-    const dishSub = $('#dishSub');
-    const dishPriceEl = $('#dishPrice');
-    const dishMedia = $('#dishMedia');
-    const dishDesc = $('#dishDesc');
-    const dishOptions = $('#dishOptions');
-    const dishNote = $('#dishNote');
-    const dishMinus = $('#dishMinus');
-    const dishPlus = $('#dishPlus');
-    const dishQtyEl = $('#dishQty');
-    const dishAddBtn = $('#dishAddBtn');
-    let dishCtx = null; // {id, cat, idx, it, tempSel, tempNote}
-    function openDishSheet(){
-      document.body.classList.add('sheet-open');
-      dishOverlay?.classList.add('show');
-      dishSheet?.classList.add('open');
-    }
-    function closeDishSheet(){
-      document.body.classList.remove('sheet-open');
-      dishOverlay?.classList.remove('show');
-      dishSheet?.classList.remove('open');
-      dishCtx = null;
-    }
-    function isRequiredGroup(g){
-      return !!g.required;
-    }
-    function groupTitle(g){
-      return g.title?.[LANG] || g.title?.ru || g.title || '';
-    }
-    function optionLabel(o){
-      return o.label?.[LANG] || o.label?.ru || o.label || o.name || o.id || '';
-    }
-    function validateSelections(it, selections){
-      // User requested: allow adding even if required groups are not selected.
-      // We only enforce max limits to avoid impossible states.
-      const opts = normalizeOptions(it);
-      for (const g of opts){
-        const gid = g.id || g.key || g.name || '';
-        const picked = selections?.[gid];
-        if (g.max && Array.isArray(picked) && picked.length > Number(g.max)){
-          return {ok:false, groupId: gid, title: groupTitle(g) || gid};
-        }
-      }
-      return {ok:true};
-    }
-    function renderDishOptions(it, selections){
-      const opts = normalizeOptions(it);
-      if (!dishOptions) return;
-      if (!opts.length){
-        dishOptions.innerHTML = '';
-        return;
-      }
-      dishOptions.innerHTML = opts.map(g=>{
-        const gid = g.id || g.key || g.name || '';
-        const multi = !!g.multi || (Number(g.max || 0) > 1);
-        const max = Number(g.max || (multi ? 99 : 1));
-        const required = !!g.required;
-        const picked = selections?.[gid] || (multi ? [] : '');
-        const pickedArr = Array.isArray(picked) ? picked : [picked].filter(Boolean);
-        const itemsHtml = (g.items||[]).map(opt=>{
-          const oid = opt.id || opt.key;
-          const checked = pickedArr.includes(oid);
-          const delta = Number(opt.price_delta || 0);
-          const deltaHtml = delta ? `<span class="delta">${delta>0?`+${delta}`:delta} ${CURRENCY}</span>` : '';
-          return `
-            <label class="opt">
-              <input type="${multi?'checkbox':'radio'}"
-                     name="opt-${gid}"
-                     value="${escapeHtml(oid)}"
-                     ${checked?'checked':''}
-                     data-gid="${escapeHtml(gid)}"
-                     data-multi="${multi?'1':'0'}"
-                     data-max="${max}">
-              <span class="opt-name">${escapeHtml(optionLabel(opt))}</span>
-              ${deltaHtml}
-            </label>
-          `;
-        }).join('');
-        return `
-          <div class="opt-group" data-group="${escapeHtml(gid)}">
-            <div class="opt-head">
-              <div class="opt-title">${escapeHtml(groupTitle(g) || '')}</div>
-              <div class="muted opt-hint">${required ? L().common.required : L().common.optional}${max && max<99 ? ` · max ${max}`:''}</div>
-            </div>
-            <div class="opt-list">${itemsHtml}</div>
-          </div>
-        `;
-      }).join('');
-    }
-    async function renderDishSheet(ctx){
-      const {id, it} = ctx;
-      dishTitle.textContent = itemName(it);
-      dishSub.textContent = buildMeta(it).replace(/<[^>]*>/g,'') || '';
-      dishQtyEl.textContent = String(cartQty(id));
-      // image
-      dishMedia.innerHTML = '';
-      const key = it.key || '';
-      if (key){
-        const wrap = document.createElement('div');
-        wrap.className = 'dish-thumb';
-        wrap.innerHTML = `<img alt="${escapeHtml(itemName(it))}" loading="lazy" decoding="async">`;
-        const img = wrap.querySelector('img');
-        dishMedia.appendChild(wrap);
-        if (img) buildThumb(img, key);
-      }
-      // desc lazy
-      dishDesc.textContent = it.short || it.desc || '';
-      try{
-        const descs = await loadDescriptions();
-        const entry = key ? descs[key] : null;
-        const text = entry?.description?.[LANG] || entry?.description?.ru || '';
-        if (text) dishDesc.textContent = text;
-      }catch(e){}
-      // options
-      renderDishOptions(it, ctx.tempSel);
-      // note
-      dishNote.value = ctx.tempNote || '';
-      // price
-      updateDishPrice();
-    }
-    function updateDishPrice(){
-      if (!dishCtx) return;
-      const it = dishCtx.it;
-      const unit = calcItemUnitPrice(it, dishCtx.tempSel);
-      dishPriceEl.textContent = fmt(unit);
-    }
-    function openDishById(cardId){
-      const [cat, idxStr] = (cardId||'').split(':');
-      const idx = Number(idxStr);
-      const it = menuData?.[cat]?.[idx];
-      if (!it) return;
-      const entry = cart.get(cardId) || {qty:0, selections:{}, note:''};
-      dishCtx = {
-        id: cardId,
-        cat, idx,
-        it,
-        tempSel: JSON.parse(JSON.stringify(entry.selections||{})),
-        tempNote: entry.note || ''
-      };
-      openDishSheet();
-      renderDishSheet(dishCtx);
-    }
-    dishOverlay?.addEventListener('click', closeDishSheet);
-    dishClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeDishSheet(); });
-    dishOptions?.addEventListener('change', (e)=>{
-      if (!dishCtx) return;
-      const inp = e.target.closest('input[data-gid]');
-      if (!inp) return;
-      const gid = inp.dataset.gid;
-      const multi = inp.dataset.multi === '1';
-      const max = Number(inp.dataset.max || 99);
-      if (multi){
-        const arr = Array.isArray(dishCtx.tempSel[gid]) ? dishCtx.tempSel[gid] : [];
-        if (inp.checked){
-          if (arr.length >= max){
-            inp.checked = false;
-            return;
+
+      function calcItemUnitPrice(it, selections){
+        let base = Number(it?.price || 0);
+        const opts = normalizeOptions(it);
+        const sel = selections || {};
+        for (const g of opts){
+          const gid = g.id || g.key || g.name || '';
+          const picked = sel[gid];
+          if (!picked) continue;
+          const pickArr = Array.isArray(picked) ? picked : [picked];
+          for (const oid of pickArr){
+            const found = (g.items || []).find(x => (x.id||x.key) === oid);
+            if (found) base += Number(found.price_delta || 0);
           }
-          arr.push(inp.value);
-        } else {
-          const i = arr.indexOf(inp.value);
-          if (i>=0) arr.splice(i,1);
         }
-        dishCtx.tempSel[gid] = arr;
-      } else {
-        dishCtx.tempSel[gid] = inp.value;
+        return base;
       }
-      updateDishPrice();
-    });
-    dishNote?.addEventListener('input', ()=>{
-      if (!dishCtx) return;
-      dishCtx.tempNote = dishNote.value;
-    });
-    dishMinus?.addEventListener('click', ()=>{
-      if (!dishCtx) return;
-      cartInc(dishCtx.id, -1);
-      dishQtyEl.textContent = String(cartQty(dishCtx.id));
-      renderMenu(); renderCartSheet(); renderFab();
-    });
-    dishPlus?.addEventListener('click', ()=>{
-      if (!dishCtx) return;
-      // If qty becomes 1 from 0, store selections+note
-      const current = cart.get(dishCtx.id);
-      if (!current || current.qty<=0){
-        cartSetEntry(dishCtx.id, {qty:1, selections:dishCtx.tempSel||{}, note:(dishCtx.tempNote||'')});
-      } else {
-        cartInc(dishCtx.id, +1);
+
+      const TOP_KEYS = ['pho_bo_xao','mi_xao_tom','mien_xao_heo','com_rang_ga','salat_bun_nem'];
+
+      function findByKey(key){
+        for (const [cat, arr] of Object.entries(menuData||{})){
+          const idx = (arr||[]).findIndex(x => x && x.key === key);
+          if (idx >= 0) return {cat, idx, it: arr[idx]};
+        }
+        return null;
       }
-      dishQtyEl.textContent = String(cartQty(dishCtx.id));
-      renderMenu(); renderCartSheet(); renderFab();
-    });
-    dishAddBtn?.addEventListener('click', ()=>{
-      if (!dishCtx) return;
-      const v = validateSelections(dishCtx.it, dishCtx.tempSel);
-      if (!v.ok){
-        alert(`Выберите: ${v.title}`);
-        const gEl = dishOptions?.querySelector(`.opt-group[data-group="${CSS.escape(v.groupId)}"]`);
-        gEl?.scrollIntoView({behavior:'smooth', block:'center'});
-        return;
+
+      function cardHtml(it, id, featured=false){
+        const t = L();
+        const name = itemName(it);
+        const unit = fmt(calcItemUnitPrice(it, cart.get(id)?.selections));
+        const qty = cartQty(id);
+        const hasOpts = Array.isArray(it.options) && it.options.length;
+        const btn = qty
+          ? `<div class="qty" data-qty="${id}">
+               <button data-dec="${id}">−</button>
+               <span>${qty}</span>
+               <button data-inc="${id}">+</button>
+             </div>`
+          : `<button class="add" data-add="${id}">${t.ui.add}</button>`;
+        const key = (it && (it.key || it.id || it.code)) || '';
+        const shortDesc = (it && (it.short || it.desc || '')) || '';
+        const metaHtml = buildMeta(it);
+        return `
+          <div class="card ${featured?'featured':''} ${hasOpts?'has-opts':''}" data-id="${id}"${key ? ` data-key="${key}"` : ''}>
+            <div class="thumb-wrap">
+              <div class="thumb">
+                <img alt="${escapeHtml(name)}" loading="lazy" decoding="async">
+              </div>
+              <button class="info"
+                      data-toggle="${id}"
+                      title="ℹ"
+                      aria-label="Info"
+                      aria-expanded="false">ℹ</button>
+            </div>
+            <div class="name">${escapeHtml(name)}</div>
+            ${metaHtml}
+            <p class="desc">${escapeHtml(shortDesc)}</p>
+            <div class="foot">
+              <div class="price">${unit}</div>
+              ${btn}
+            </div>
+          </div>`;
       }
-      const q = cartQty(dishCtx.id);
-      if (q<=0){
-        cartSetEntry(dishCtx.id, {qty:1, selections:dishCtx.tempSel||{}, note:(dishCtx.tempNote||'')});
-      } else {
-        const entry = cart.get(dishCtx.id) || {qty:q, selections:{}, note:''};
-        entry.selections = dishCtx.tempSel||{};
-        entry.note = dishCtx.tempNote||'';
-        cartSetEntry(dishCtx.id, entry);
+
+      function renderSection(content, title, items){
+        const sec = document.createElement('section');
+        sec.className = 'menu-section';
+
+        const h2 = document.createElement('h2');
+        h2.textContent = title;
+        sec.appendChild(h2);
+
+        const list = document.createElement('div');
+        list.className = 'list';
+        list.innerHTML = items.join('');
+        sec.appendChild(list);
+
+        content.appendChild(sec);
+
+        list.querySelectorAll('.card').forEach(row => {
+          const id = row.getAttribute('data-id');
+          const [cat, idx] = id.split(':');
+          const it = menuData?.[cat]?.[+idx];
+          const img = row.querySelector('.thumb img');
+          if (!img || !it) return;
+
+          if (it.image) {
+            img.src = it.image;
+            img.onerror = () => {
+              img.closest('.thumb')?.classList.add('noimg');
+              img.remove();
+            };
+          } else if (it.key) {
+            buildThumb(img, it.key);
+          } else {
+            img.closest('.thumb')?.classList.add('noimg');
+            img.remove();
+          }
+        });
       }
-      dishQtyEl.textContent = String(cartQty(dishCtx.id));
-      renderMenu(); renderCartSheet(); renderFab();
-      closeDishSheet();
-      openSheet();
-    });
-        /* Global click handlers */
-    document.addEventListener('click', async e=>{
-      const add = e.target.closest('[data-add]');
-      if (add){
-        const id = add.dataset.add;
-        const [cat, idx] = id.split(':');
-        const it = menuData?.[cat]?.[+idx];
-        // If dish has options / constructor — open modal
-        if (it && (Array.isArray(it.options) && it.options.length)){
-          openDishById(id);
+
+      function renderMenu(){
+        const content = $('#content');
+        if (!content) return;
+        content.innerHTML = '';
+
+        const q = (document.getElementById('searchIn')?.value || '').trim().toLowerCase();
+        localStorage.setItem(SEARCH_KEY, q);
+
+        if (q){
+          const res = [];
+          for (const [cat, arr] of Object.entries(menuData || {})){
+            (arr||[]).forEach((it, idx)=>{
+              const name = itemName(it).toLowerCase();
+              const short = String(it.short||'').toLowerCase();
+              if (name.includes(q) || short.includes(q)){
+                const id = `${cat}:${idx}`;
+                res.push(cardHtml(it, id, false));
+              }
+            });
+          }
+          renderSection(content, `🔎 ${q}`, res.length ? res : [`<div class="muted" style="padding:12px">Ничего не найдено.</div>`]);
+          const only = content.lastElementChild;
+          if (only) only.id = 'sec-search';
+          applyView();
           return;
         }
-        cartInc(id, +1);
-        renderMenu(); renderFab();
-        return;
-      }
-      const inc = e.target.closest('[data-inc]');
-      if (inc){
-        const id = inc.dataset.inc;
-        cartInc(id, +1);
-        renderMenu(); renderCartSheet(); renderFab();
-        return;
-      }
-      const dec = e.target.closest('[data-dec]');
-      if (dec){
-        const id = dec.dataset.dec;
-        cartInc(id, -1);
-        renderMenu(); renderCartSheet(); renderFab();
-        return;
-      }
-      const info = e.target.closest('[data-toggle]');
-      if (info){
-        e.preventDefault();
-        const cardId = info.dataset.toggle;
-        openDishById(cardId);
-        return;
-      }
-      const cardTap = e.target.closest('.card[data-id]');
-      if (cardTap && !e.target.closest('.add') && !e.target.closest('.qty') && !e.target.closest('.info')){
-        const cid = cardTap.getAttribute('data-id');
-        openDishById(cid);
-        return;
-      }
-      if (e.target.id === 'overlay'){ closeSheet(); return; }
-      if (e.target.id === 'clearBtn'){
-        cart.clear(); saveCart();
-        renderMenu(); renderCartSheet(); renderFab();
-        return;
-      }
-    });
-    /* Burger menu */
-    const burgerBtn = $('#burgerBtn');
-    const navPop = $('#navPop');
-    burgerBtn.addEventListener('click', ()=>{
-      const open = navPop.classList.toggle('open');
-      burgerBtn.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', e=>{
-      const navPop = document.getElementById('navPop');
-      const burgerBtn= document.getElementById('burgerBtn');
-      const dockMore = document.getElementById('dockMore');
-      if (!navPop) return;
-      if (!navPop.contains(e.target) && e.target !== burgerBtn && e.target !== dockMore) {
-        navPop.classList.remove('open');
-        burgerBtn?.setAttribute('aria-expanded','false');
-      }
-    });
-    /* Order type switch */
-    const otWrap = $('#orderType');
-    const tableField = $('#tableField');
-    const takeawayField = $('#takeawayField');
-    const addrField = $('#addrField');
-    const tableNo = $('#tableNo');
-    const pickupIn = $('#pickupIn');
-    const address = $('#address');
-    const phone = $('#phone');
-    const phoneHint = $('#phoneHint');
-    const tableHint = $('#tableHint');
-    const pickupHint = $('#pickupHint');
-    const addrHint = $('#addrHint');
-    function show(el,on){ if(el) el.style.display = on?'grid':'none'; }
-    function setOrderType(v){
-      const c = L();
-      show(tableField, v === 'on_site');
-      show(takeawayField, v === 'takeaway');
-      show(addrField, v === 'delivery');
-      if (tableNo) tableNo.required = (v === 'on_site');
-      if (pickupIn) pickupIn.required = (v === 'takeaway');
-      if (address) address.required = (v === 'delivery');
-      phoneHint.textContent = (v === 'on_site') ? c.common.optional : c.common.required;
-      tableHint.textContent = c.common.required;
-      pickupHint.textContent = c.common.required;
-      addrHint.textContent = c.common.required;
-    }
-    otWrap.addEventListener('click', e=>{
-      const b = e.target.closest('[data-ot]');
-      if (!b) return;
 
-      // delivery temporarily disabled
-      if (b.dataset.ot === 'delivery' || b.disabled){
-        alert('Доставка временно недоступна');
-        return;
-      }
-
-      $$('#orderType .chip').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      setOrderType(b.dataset.ot);
-    });
-    /* Dock labels */
-    function applyDockLabels(){
-      const t = L();
-      const tb = t.tabbar || {};
-      const sheetT = t.sheet;
-      const dm = $('#dockCat');
-      const dl = $('#dockLang');
-      const dc = $('#dockCart');
-      const dv = $('#dockView');
-      const dr = $('#dockMore');
-      if (dm) dm.dataset.label = tb.menu || t.navMenu || 'Menu';
-      if (dl) dl.dataset.label = tb.lang || 'Lang';
-      if (dc) dc.dataset.label = tb.cart || (sheetT && sheetT.title) || 'Cart';
-      if (dv) dv.dataset.label = (viewMode === 'grid' ? t.ui.viewGrid : t.ui.viewList);
-      if (dr) dr.dataset.label = tb.more || 'More';
-    }
-    /* I18N apply */
-    const selA = $('#langSel');
-    const selB = $('#langSelMenu');
-    function setUITexts(){
-      const t = L();
-      const s = t.sheet;
-      $('#navHome').textContent = '🏠 ' + t.navHome;
-      $('#navMenu').textContent = '🍜 ' + t.navMenu;
-      $('#navKaraoke').textContent = '🎤 ' + t.navKaraoke;
-      $('#navContact').textContent = '📞 ' + t.navContact;
-      $('#sheetTitle').textContent = s.title;
-      $('#orderTypeTitle').textContent = s.orderType;
-      $('#otOnSite').textContent = s.onSite;
-      $('#otTakeaway').textContent = s.takeaway;
-      $('#otDelivery').textContent = s.delivery;
-      $('#tableLbl').childNodes[0].nodeValue = s.table + ' ';
-      $('#pickupLbl').childNodes[0].nodeValue = s.pickupIn + ' ';
-      $('#addrLbl').childNodes[0].nodeValue = s.address + ' ';
-      $('#phoneLbl').childNodes[0].nodeValue = s.phone + ' ';
-      tableNo.placeholder = s.phTable;
-      pickupIn.placeholder = s.phPickup;
-      address.placeholder = s.phAddress;
-      phone.placeholder = s.phPhone;
-      $('#checkoutBtn').textContent = s.checkout;
-      $('#clearBtn').textContent = s.clear;
-      const csTitle = $('#catSheetTitle');
-      if (csTitle) csTitle.textContent = t.navMenu || 'Категории';
-      renderPills();
-      renderMenu();
-      renderFab();
-      renderCartSheet();
-      const active = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
-      setOrderType(active);
-      applyDockLabels();
-    }
-    /* Search + order status UI */
-    const searchInEl = $('#searchIn');
-    const searchClearEl = $('#searchClear');
-    const statusCodeEl = $('#statusCode');
-    const statusBtnEl = $('#statusBtn');
-    const statusResultEl = $('#statusResult');
-    const debouncedRenderMenu = (()=>{ let t; return ()=>{ clearTimeout(t); t=setTimeout(()=>{ renderMenu(); renderFab(); }, 120); }; })();
-    function renderStatus(code){
-      const orders = loadOrders();
-      const rec = orders[(code||'').trim().toLowerCase()];
-      if (!statusResultEl) return;
-      if (!code){
-        statusResultEl.innerHTML = '';
-        return;
-      }
-      if (!rec){
-        statusResultEl.innerHTML = `<div class="muted">Заказ <b>${escapeHtml(code)}</b> не найден на этом устройстве.</div>`;
-        return;
-      }
-      const when = new Date(rec.created_at).toLocaleString();
-      const total = Number(rec.total||0).toFixed(2);
-      statusResultEl.innerHTML = `
-        <div class="status-card">
-          <div><b>Код:</b> ${escapeHtml(rec.code)} <span class="pill-mini">${escapeHtml(rec.status||'—')}</span></div>
-          <div class="muted">ID: ${escapeHtml(rec.id)} · ${escapeHtml(when)}</div>
-          <div class="muted">Итого: ${total} ${escapeHtml(rec.currency||CURRENCY)}</div>
-        </div>
-      `;
-    }
-    searchInEl?.addEventListener('input', debouncedRenderMenu);
-    searchClearEl?.addEventListener('click', ()=>{
-      if (!searchInEl) return;
-      searchInEl.value = '';
-      debouncedRenderMenu();
-      searchInEl.focus();
-    });
-    statusBtnEl?.addEventListener('click', ()=>{
-      const code = statusCodeEl?.value || '';
-      renderStatus(code);
-    });
-    statusCodeEl?.addEventListener('keydown', (e)=>{
-      if (e.key === 'Enter'){
-        e.preventDefault();
-        renderStatus(statusCodeEl.value);
-      }
-    });
-    function setLang(v){
-      LANG = v;
-      localStorage.setItem(LANG_KEY, v);
-      document.documentElement.lang = v;
-      if (selA) selA.value = v;
-      if (selB) selB.value = v;
-      const flag = LANG_FLAGS[v] || '🌐';
-      const langFlagEl = $('#dockLangFlag');
-      if (langFlagEl) langFlagEl.textContent = flag;
-      const savedQ = localStorage.getItem(SEARCH_KEY) || '';
-      const searchIn = document.getElementById('searchIn');
-      if (searchIn) searchIn.value = savedQ;
-      setUITexts();
-      document.dispatchEvent(new CustomEvent('CD_LANG_CHANGED'));
-    }
-    selA?.addEventListener('change', e => setLang(e.target.value));
-    selB?.addEventListener('change', e => setLang(e.target.value));
-    /* Telegram via proxy */
-    /* Telegram: direct or proxy (recommended proxy, but you want token in index) */
-    const TG = {
-      BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4", // <-- твой токен
-      CHAT_ID: "-1002283682762", // <-- твой chat id
-      PROXY_URL: "" // "/api/tg/sendMessage" если будет сервер
-    };
-    function TG_ENDPOINT() {
-      // Если есть прокси — шлём туда (токен можно убрать с фронта)
-      if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
-      // Иначе напрямую в Telegram
-      if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
-      return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
-    }
-    async function sendOrderToTelegram(text) {
-      const url = TG_ENDPOINT();
-      const payload = {
-        chat_id: TG.CHAT_ID,
-        text,
-        parse_mode: "HTML",
-        disable_web_page_preview: true
-      };
-      const r = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      // Если шлём напрямую в Telegram — он вернёт JSON с ok:true/false
-      // Если через твой прокси — тоже сделай так, чтобы он возвращал JSON {ok:true} / {ok:false, error:"..."}
-      let data = null;
-      try { data = await r.json(); } catch (_) {}
-      if (!r.ok) {
-        const msg = (data && (data.description || data.error)) || `HTTP ${r.status}`;
-        return { ok: false, reason: msg };
-      }
-      if (data && data.ok === false) {
-        return { ok: false, reason: data.description || "Telegram error" };
-      }
-      return { ok: true, data };
-    }
-    async function createOrderOnSheet(orderPayload){
-      const body = { action:'create', ...orderPayload };
-      try{
-        const res = await fetch(API_BASE,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
-        const data = await res.json();
-        return data;
-      }catch(e){
-        console.error('Sheets error', e);
-        return {ok:false, error:String(e)};
-      }
-    }
-    function cartSummary(){
-      let itemsCount = 0, sum = 0;
-      const lines = [];
-      const items = [];
-      for (const [id, entry] of cart){
-        const qty = entry?.qty || 0;
-        if (qty<=0) continue;
-        const [cat, idx] = id.split(':');
-        const it = menuData[cat]?.[+idx];
-        if (!it) continue;
-        const name = itemName(it);
-        const unit = calcItemUnitPrice(it, entry.selections);
-        const key = it.key || it.id || it.code || '';
-        const optText = summarizeSelections(it, entry.selections);
-        const noteText = (entry.note || '').trim();
-        itemsCount += qty;
-        sum += unit * qty;
-        const extra = [optText ? `(${optText})` : '', noteText ? `[${noteText}]` : ''].filter(Boolean).join(' ');
-        const isCustom = (Array.isArray(it.tags) && it.tags.includes('custom')) || String(it.key||'').startsWith('custom_');
-        if (isCustom){
-          const optLines = summarizeSelectionsLines(it, entry.selections);
-          lines.push(`• ${name} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
-          for (const l of optLines){ lines.push(` └ ${l}`); }
-          if (noteText) lines.push(` └ Note: ${noteText}`);
-        } else {
-          lines.push(`• ${name} ${extra} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
+        const topCards = [];
+        TOP_KEYS.forEach((k, i)=>{
+          const f = findByKey(k);
+          if (!f) return;
+          const id = `${f.cat}:${f.idx}`;
+          topCards.push(cardHtml(f.it, id, i===0));
+        });
+        if (topCards.length){
+          renderSection(content, '🔥 TOP', topCards);
+          const firstSec = content.lastElementChild;
+          if (firstSec) firstSec.id = 'sec-top';
         }
-        items.push({ name, price: unit, qty, key, selections: entry.selections || {}, note: noteText });
+
+        const keys = Object.keys(menuData || {});
+        keys.forEach(k => {
+          const items = (menuData[k] || []).map((it, idx) => {
+            const id = `${k}:${idx}`;
+            return cardHtml(it, id, idx===0);
+          });
+          renderSection(content, catLabel(k), items);
+          const last = content.lastElementChild;
+          if (last) last.id = `sec-${k}`;
+        });
+
+        applyView();
       }
-      return {itemsCount,sum,lines,items};
-    }
-    function generateShortCode(){
-      const letters = 'abcdefghijklmnopqrstuvwxyz';
-      const letter = letters[Math.floor(Math.random() * letters.length)];
-      const num = Math.floor(Math.random() * 999) + 1;
-      return letter + String(num).padStart(3,'0');
-    }
-    $('#checkoutBtn').addEventListener('click', async ()=>{
-      const s = L().sheet;
-      const ot = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
-      if (ot === 'delivery'){
-        alert('Доставка временно недоступна.');
-        return;
+
+      function renderFab(){
+        let items = 0, sum = 0;
+        for (const [id, entry] of cart){
+          const qty = entry?.qty || 0;
+          const [cat, idx] = id.split(':');
+          const it = menuData[cat]?.[+idx];
+          if (!it || qty<=0) continue;
+          items += qty;
+          sum += calcItemUnitPrice(it, entry.selections) * qty;
+        }
+        const badge = $('#cartBadge');
+        document.body.classList.toggle('cart-has-items', items > 0);
+        if (badge){
+          badge.textContent = items;
+          badge.style.display = items > 0 ? 'flex' : 'none';
+        }
+        const meta = $('#cartMeta');
+        if (meta){
+          const s = L().sheet;
+          meta.textContent = `${s.total}: ${fmt(sum)}`;
+        }
       }
-      if (ot === 'on_site' && !tableNo.value.trim()){ alert(s.errTable); return; }
-      if (ot === 'takeaway'){
-        if (!pickupIn.value.trim()){ alert(s.errPickup); return; }
-        if (!phone.value.trim()){ alert(s.errPhone); return; }
+
+      function renderCartSheet(){
+        const t = L().sheet;
+        const lines = $('#cartLines');
+        if (!lines) return;
+        if (cart.size === 0){
+          lines.innerHTML = `<div class="muted">${t.empty}</div>`;
+          $('#cartMeta').textContent = `${t.total}: ${fmt(0)}`;
+          return;
+        }
+        let sum = 0;
+        lines.innerHTML = '';
+        for (const [id, entry] of cart){
+          const qty = entry?.qty || 0;
+          if (qty<=0) continue;
+          const [cat, idx] = id.split(':');
+          const it = menuData[cat]?.[+idx];
+          if (!it) continue;
+          const name = itemName(it);
+          const unit = calcItemUnitPrice(it, entry.selections);
+          sum += unit * qty;
+          const optText = summarizeSelections(it, entry.selections);
+          const noteText = (entry.note || '').trim();
+          const el = document.createElement('div');
+          el.className = 'line';
+          el.innerHTML = `
+            <div>
+              <strong>${name}</strong>
+              ${optText ? `<div class="muted">${optText}</div>` : ``}
+              ${noteText ? `<div class="muted">✎ ${escapeHtml(noteText)}</div>` : ``}
+              <div class="muted">${fmt(unit)} × ${qty}</div>
+            </div>
+            <div class="qty" data-qty="${id}">
+              <button data-dec="${id}">−</button>
+              <span>${qty}</span>
+              <button data-inc="${id}">+</button>
+            </div>`;
+          lines.appendChild(el);
+        }
+        $('#cartMeta').textContent = `${t.total}: ${fmt(sum)}`;
       }
-      if (ot === 'delivery'){
-        if (!address.value.trim()){ alert(s.errAddress); return; }
-        if (!phone.value.trim()){ alert(s.errPhone); return; }
+
+      function openSheet(){
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('sheet-open');
+        $('#overlay').classList.add('show');
+        $('#sheet').classList.add('open');
+        renderCartSheet();
       }
-      const {sum,lines,items} = cartSummary();
-      const typeStr = ot === 'on_site' ? s.onSite : ot === 'takeaway' ? s.takeaway : s.delivery;
-      const meta = [];
-      if (ot === 'on_site') meta.push(`${s.table}: ${tableNo.value.trim()}`);
-      if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()}`);
-      if (ot === 'delivery') meta.push(`${s.address}: ${address.value.trim()}`);
-      if (phone.value.trim()) meta.push(`${s.phone}: ${phone.value.trim()}`);
-      const ordId = 'CD-'+new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
-      const orderCode = generateShortCode();
-      const text =
-`<b>CYBER DRAGON dlv— New order</b>
+
+      function closeSheet(){
+        document.body.style.overflow = '';
+        document.body.classList.remove('sheet-open');
+        const overlay = document.getElementById('overlay');
+        const sheet = document.getElementById('sheet');
+        if (overlay){
+          overlay.classList.remove('show');
+          overlay.style.opacity = '';
+          overlay.style.transition = '';
+        }
+        if (sheet){
+          sheet.classList.remove('open');
+          sheet.style.transform = '';
+          sheet.style.transition = '';
+        }
+      }
+
+      function openCatSheet(){
+        document.body.classList.add('sheet-open');
+        $('#catOverlay').classList.add('show');
+        $('#catSheet').classList.add('open');
+      }
+
+      function closeCatSheet(){
+        document.body.classList.remove('sheet-open');
+        const overlay = document.getElementById('catOverlay');
+        const sheet = document.getElementById('catSheet');
+        if (overlay){
+          overlay.classList.remove('show');
+          overlay.style.opacity = '';
+          overlay.style.transition = '';
+        }
+        if (sheet){
+          sheet.classList.remove('open');
+          sheet.style.transform = '';
+          sheet.style.transition = '';
+        }
+      }
+
+      function openMoreSheet(){
+        document.body.classList.add('sheet-open');
+        $('#moreOverlay')?.classList.add('show');
+        $('#moreSheet')?.classList.add('open');
+
+        const list = $('#moreSheetList');
+        if (list){
+          list.innerHTML = `
+            <a class="more-row" href="tel:+380632637999">
+              <span class="more-left"><span class="more-ico">📞</span>+380 632 637 999</span>
+              <span class="more-arrow">›</span>
+            </a>
+            <a class="more-row" href="https://maps.google.com/?q=Героїв%20Крут%2022%2C%20Одеса" target="_blank" rel="noopener noreferrer">
+              <span class="more-left"><span class="more-ico">📍</span>Героїв Крут, 22</span>
+              <span class="more-arrow">›</span>
+            </a>
+            <a class="more-row" href="${UNIVERSAL_PAY_LINK}" target="_blank" rel="noopener noreferrer">
+              <span class="more-left"><span class="more-ico">💳</span>Оплатить / Pay QR</span>
+              <span class="more-arrow">›</span>
+            </a>
+            <a class="more-row" href="https://www.instagram.com/cyber_dragon_dlv/" target="_blank" rel="noopener noreferrer">
+              <span class="more-left"><span class="more-ico">📷</span>Instagram</span>
+              <span class="more-arrow">›</span>
+            </a>
+          `;
+        }
+      }
+
+      function closeMoreSheet(){
+        document.body.classList.remove('sheet-open');
+        const overlay = document.getElementById('moreOverlay');
+        const sheet = document.getElementById('moreSheet');
+        if (overlay){
+          overlay.classList.remove('show');
+          overlay.style.opacity = '';
+          overlay.style.transition = '';
+        }
+        if (sheet){
+          sheet.classList.remove('open');
+          sheet.style.transform = '';
+          sheet.style.transition = '';
+        }
+      }
+
+      const dishOverlay = $('#dishOverlay');
+      const dishSheet = $('#dishSheet');
+      const dishClose = $('#dishClose');
+      const dishTitle = $('#dishTitle');
+      const dishSub = $('#dishSub');
+      const dishPriceEl = $('#dishPrice');
+      const dishMedia = $('#dishMedia');
+      const dishDesc = $('#dishDesc');
+      const dishOptions = $('#dishOptions');
+      const dishNote = $('#dishNote');
+      const dishMinus = $('#dishMinus');
+      const dishPlus = $('#dishPlus');
+      const dishQtyEl = $('#dishQty');
+      const dishAddBtn = $('#dishAddBtn');
+      let dishCtx = null;
+
+      function openDishSheet(){
+        document.body.classList.add('sheet-open');
+        dishOverlay?.classList.add('show');
+        dishSheet?.classList.add('open');
+      }
+
+      function closeDishSheet(){
+        document.body.classList.remove('sheet-open');
+        dishOverlay?.classList.remove('show');
+        dishSheet?.classList.remove('open');
+        dishCtx = null;
+      }
+
+      function groupTitle(g){
+        return g.title?.[LANG] || g.title?.ru || g.title || '';
+      }
+
+      function optionLabel(o){
+        return o.label?.[LANG] || o.label?.ru || o.label || o.name || o.id || '';
+      }
+
+      function validateSelections(it, selections){
+        const opts = normalizeOptions(it);
+        for (const g of opts){
+          const gid = g.id || g.key || g.name || '';
+          const picked = selections?.[gid];
+          if (g.max && Array.isArray(picked) && picked.length > Number(g.max)){
+            return {ok:false, groupId: gid, title: groupTitle(g) || gid};
+          }
+        }
+        return {ok:true};
+      }
+
+      function renderDishOptions(it, selections){
+        const opts = normalizeOptions(it);
+        if (!dishOptions) return;
+        if (!opts.length){
+          dishOptions.innerHTML = '';
+          return;
+        }
+
+        dishOptions.innerHTML = opts.map(g=>{
+          const gid = g.id || g.key || g.name || '';
+          const multi = !!g.multi || (Number(g.max || 0) > 1);
+          const max = Number(g.max || (multi ? 99 : 1));
+          const required = !!g.required;
+          const picked = selections?.[gid] || (multi ? [] : '');
+          const pickedArr = Array.isArray(picked) ? picked : [picked].filter(Boolean);
+
+          const itemsHtml = (g.items||[]).map(opt=>{
+            const oid = opt.id || opt.key;
+            const checked = pickedArr.includes(oid);
+            const delta = Number(opt.price_delta || 0);
+            const deltaHtml = delta ? `<span class="delta">${delta>0?`+${delta}`:delta} ${CURRENCY}</span>` : '';
+            return `
+              <label class="opt">
+                <input type="${multi?'checkbox':'radio'}"
+                       name="opt-${gid}"
+                       value="${escapeHtml(oid)}"
+                       ${checked?'checked':''}
+                       data-gid="${escapeHtml(gid)}"
+                       data-multi="${multi?'1':'0'}"
+                       data-max="${max}">
+                <span class="opt-name">${escapeHtml(optionLabel(opt))}</span>
+                ${deltaHtml}
+              </label>
+            `;
+          }).join('');
+
+          return `
+            <div class="opt-group" data-group="${escapeHtml(gid)}">
+              <div class="opt-head">
+                <div class="opt-title">${escapeHtml(groupTitle(g) || '')}</div>
+                <div class="muted opt-hint">${required ? L().common.required : L().common.optional}${max && max<99 ? ` · max ${max}`:''}</div>
+              </div>
+              <div class="opt-list">${itemsHtml}</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      async function renderDishSheet(ctx){
+        const {id, it} = ctx;
+        dishTitle.textContent = itemName(it);
+        dishSub.textContent = buildMeta(it).replace(/<[^>]*>/g,'') || '';
+        dishQtyEl.textContent = String(cartQty(id));
+
+        dishMedia.innerHTML = '';
+        if (it.image){
+          const wrap = document.createElement('div');
+          wrap.className = 'dish-thumb';
+          wrap.innerHTML = `<img alt="${escapeHtml(itemName(it))}" loading="lazy" decoding="async">`;
+          const img = wrap.querySelector('img');
+          img.src = it.image;
+          img.onerror = () => {
+            wrap.classList.add('noimg');
+            img.remove();
+          };
+          dishMedia.appendChild(wrap);
+        } else if (it.key){
+          const wrap = document.createElement('div');
+          wrap.className = 'dish-thumb';
+          wrap.innerHTML = `<img alt="${escapeHtml(itemName(it))}" loading="lazy" decoding="async">`;
+          const img = wrap.querySelector('img');
+          dishMedia.appendChild(wrap);
+          if (img) buildThumb(img, it.key);
+        }
+
+        dishDesc.textContent = it.short || it.desc || '';
+        try{
+          const descs = await loadDescriptions();
+          const entry = it.key ? descs[it.key] : null;
+          const text = entry?.description?.[LANG] || entry?.description?.ru || '';
+          if (text) dishDesc.textContent = text;
+        }catch(e){}
+
+        renderDishOptions(it, ctx.tempSel);
+        dishNote.value = ctx.tempNote || '';
+        updateDishPrice();
+      }
+
+      function updateDishPrice(){
+        if (!dishCtx) return;
+        const it = dishCtx.it;
+        const unit = calcItemUnitPrice(it, dishCtx.tempSel);
+        dishPriceEl.textContent = fmt(unit);
+      }
+
+      function openDishById(cardId){
+        const [cat, idxStr] = (cardId||'').split(':');
+        const idx = Number(idxStr);
+        const it = menuData?.[cat]?.[idx];
+        if (!it) return;
+        const entry = cart.get(cardId) || {qty:0, selections:{}, note:''};
+        dishCtx = {
+          id: cardId,
+          cat, idx,
+          it,
+          tempSel: JSON.parse(JSON.stringify(entry.selections||{})),
+          tempNote: entry.note || ''
+        };
+        openDishSheet();
+        renderDishSheet(dishCtx);
+      }
+
+      dishOverlay?.addEventListener('click', closeDishSheet);
+      dishClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeDishSheet(); });
+
+      dishOptions?.addEventListener('change', (e)=>{
+        if (!dishCtx) return;
+        const inp = e.target.closest('input[data-gid]');
+        if (!inp) return;
+        const gid = inp.dataset.gid;
+        const multi = inp.dataset.multi === '1';
+        const max = Number(inp.dataset.max || 99);
+        if (multi){
+          const arr = Array.isArray(dishCtx.tempSel[gid]) ? dishCtx.tempSel[gid] : [];
+          if (inp.checked){
+            if (arr.length >= max){
+              inp.checked = false;
+              return;
+            }
+            arr.push(inp.value);
+          } else {
+            const i = arr.indexOf(inp.value);
+            if (i>=0) arr.splice(i,1);
+          }
+          dishCtx.tempSel[gid] = arr;
+        } else {
+          dishCtx.tempSel[gid] = inp.value;
+        }
+        updateDishPrice();
+      });
+
+      dishNote?.addEventListener('input', ()=>{
+        if (!dishCtx) return;
+        dishCtx.tempNote = dishNote.value;
+      });
+
+      dishMinus?.addEventListener('click', ()=>{
+        if (!dishCtx) return;
+        cartInc(dishCtx.id, -1);
+        dishQtyEl.textContent = String(cartQty(dishCtx.id));
+        renderMenu(); renderCartSheet(); renderFab();
+      });
+
+      dishPlus?.addEventListener('click', ()=>{
+        if (!dishCtx) return;
+        const current = cart.get(dishCtx.id);
+        if (!current || current.qty<=0){
+          cartSetEntry(dishCtx.id, {qty:1, selections:dishCtx.tempSel||{}, note:(dishCtx.tempNote||'')});
+        } else {
+          cartInc(dishCtx.id, +1);
+        }
+        dishQtyEl.textContent = String(cartQty(dishCtx.id));
+        renderMenu(); renderCartSheet(); renderFab();
+      });
+
+      dishAddBtn?.addEventListener('click', ()=>{
+        if (!dishCtx) return;
+        const v = validateSelections(dishCtx.it, dishCtx.tempSel);
+        if (!v.ok){
+          alert(`Выберите: ${v.title}`);
+          const gEl = dishOptions?.querySelector(`.opt-group[data-group="${CSS.escape(v.groupId)}"]`);
+          gEl?.scrollIntoView({behavior:'smooth', block:'center'});
+          return;
+        }
+        const q = cartQty(dishCtx.id);
+        if (q<=0){
+          cartSetEntry(dishCtx.id, {qty:1, selections:dishCtx.tempSel||{}, note:(dishCtx.tempNote||'')});
+        } else {
+          const entry = cart.get(dishCtx.id) || {qty:q, selections:{}, note:''};
+          entry.selections = dishCtx.tempSel||{};
+          entry.note = dishCtx.tempNote||'';
+          cartSetEntry(dishCtx.id, entry);
+        }
+        dishQtyEl.textContent = String(cartQty(dishCtx.id));
+        renderMenu(); renderCartSheet(); renderFab();
+        closeDishSheet();
+        openSheet();
+      });
+
+      document.addEventListener('click', async e=>{
+        const add = e.target.closest('[data-add]');
+        if (add){
+          const id = add.dataset.add;
+          const [cat, idx] = id.split(':');
+          const it = menuData?.[cat]?.[+idx];
+          if (it && (Array.isArray(it.options) && it.options.length)){
+            openDishById(id);
+            return;
+          }
+          cartInc(id, +1);
+          renderMenu(); renderFab();
+          return;
+        }
+
+        const inc = e.target.closest('[data-inc]');
+        if (inc){
+          const id = inc.dataset.inc;
+          cartInc(id, +1);
+          renderMenu(); renderCartSheet(); renderFab();
+          return;
+        }
+
+        const dec = e.target.closest('[data-dec]');
+        if (dec){
+          const id = dec.dataset.dec;
+          cartInc(id, -1);
+          renderMenu(); renderCartSheet(); renderFab();
+          return;
+        }
+
+        const info = e.target.closest('[data-toggle]');
+        if (info){
+          e.preventDefault();
+          const cardId = info.dataset.toggle;
+          openDishById(cardId);
+          return;
+        }
+
+        const cardTap = e.target.closest('.card[data-id]');
+        if (cardTap && !e.target.closest('.add') && !e.target.closest('.qty') && !e.target.closest('.info')){
+          const cid = cardTap.getAttribute('data-id');
+          openDishById(cid);
+          return;
+        }
+
+        if (e.target.id === 'overlay'){ closeSheet(); return; }
+        if (e.target.id === 'clearBtn'){
+          cart.clear(); saveCart();
+          renderMenu(); renderCartSheet(); renderFab();
+          return;
+        }
+      });
+
+      const burgerBtn = $('#burgerBtn');
+      const navPop = $('#navPop');
+
+      burgerBtn?.addEventListener('click', ()=>{
+        const open = navPop.classList.toggle('open');
+        burgerBtn.setAttribute('aria-expanded', String(open));
+      });
+
+      document.addEventListener('click', e=>{
+        const navPop = document.getElementById('navPop');
+        const burgerBtn= document.getElementById('burgerBtn');
+        const dockMore = document.getElementById('dockMore');
+        if (!navPop) return;
+        if (!navPop.contains(e.target) && e.target !== burgerBtn && e.target !== dockMore) {
+          navPop.classList.remove('open');
+          burgerBtn?.setAttribute('aria-expanded','false');
+        }
+      });
+
+      $('#navContact')?.addEventListener('click', (e)=>{
+        e.preventDefault();
+        navPop?.classList.remove('open');
+        burgerBtn?.setAttribute('aria-expanded','false');
+        document.getElementById('contactSection')?.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+
+      const otWrap = $('#orderType');
+      const tableField = $('#tableField');
+      const takeawayField = $('#takeawayField');
+      const addrField = $('#addrField');
+      const tableNo = $('#tableNo');
+      const pickupIn = $('#pickupIn');
+      const address = $('#address');
+      const phone = $('#phone');
+      const phoneHint = $('#phoneHint');
+      const tableHint = $('#tableHint');
+      const pickupHint = $('#pickupHint');
+      const addrHint = $('#addrHint');
+
+      function show(el,on){ if(el) el.style.display = on?'grid':'none'; }
+
+      function setOrderType(v){
+        const c = L();
+        show(tableField, v === 'on_site');
+        show(takeawayField, v === 'takeaway');
+        show(addrField, v === 'delivery');
+        if (tableNo) tableNo.required = (v === 'on_site');
+        if (pickupIn) pickupIn.required = (v === 'takeaway');
+        if (address) address.required = (v === 'delivery');
+        phoneHint.textContent = (v === 'on_site') ? c.common.optional : c.common.required;
+        tableHint.textContent = c.common.required;
+        pickupHint.textContent = c.common.required;
+        addrHint.textContent = c.common.required;
+      }
+
+      otWrap?.addEventListener('click', e=>{
+        const b = e.target.closest('[data-ot]');
+        if (!b) return;
+        if (b.dataset.ot === 'delivery' || b.disabled){
+          alert(L().deliveryOff);
+          return;
+        }
+        $$('#orderType .chip').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        setOrderType(b.dataset.ot);
+      });
+
+      function applyDockLabels(){
+        const t = L();
+        const tb = t.tabbar || {};
+        const dm = $('#dockCat');
+        const dl = $('#dockLang');
+        const dc = $('#dockCart');
+        const dv = $('#dockView');
+        const dr = $('#dockMore');
+        if (dm) dm.dataset.label = tb.menu || t.navMenu || 'Menu';
+        if (dl) dl.dataset.label = tb.lang || 'Lang';
+        if (dc) dc.dataset.label = tb.cart || 'Cart';
+        if (dv) dv.dataset.label = (viewMode === 'grid' ? t.ui.viewGrid : t.ui.viewList);
+        if (dr) dr.dataset.label = tb.more || 'More';
+      }
+
+      const selA = $('#langSel');
+      const selB = $('#langSelMenu');
+
+      function setUITexts(){
+        const t = L();
+        const s = t.sheet;
+
+        $('#navHome').textContent = '🏠 ' + t.navHome;
+        $('#navMenu').textContent = '🍜 ' + t.navMenu;
+        $('#navKaraoke').textContent = '🎤 ' + t.navKaraoke;
+        $('#navContact').textContent = '📞 ' + t.navContact;
+
+        $('#sheetTitle').textContent = s.title;
+        $('#orderTypeTitle').textContent = s.orderType;
+        $('#otOnSite').textContent = s.onSite;
+        $('#otTakeaway').textContent = s.takeaway;
+        $('#otDelivery').textContent = s.delivery;
+
+        $('#tableLbl').childNodes[0].nodeValue = s.table + ' ';
+        $('#pickupLbl').childNodes[0].nodeValue = s.pickupIn + ' ';
+        $('#addrLbl').childNodes[0].nodeValue = s.address + ' ';
+        $('#phoneLbl').childNodes[0].nodeValue = s.phone + ' ';
+
+        tableNo.placeholder = s.phTable;
+        pickupIn.placeholder = s.phPickup;
+        address.placeholder = s.phAddress;
+        phone.placeholder = s.phPhone;
+        $('#checkoutBtn').textContent = s.checkout;
+        $('#clearBtn').textContent = s.clear;
+
+        const csTitle = $('#catSheetTitle');
+        if (csTitle) csTitle.textContent = t.navMenu || 'Категории';
+
+        renderPills();
+        renderMenu();
+        renderFab();
+        renderCartSheet();
+        const active = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
+        setOrderType(active);
+        applyDockLabels();
+      }
+
+      const searchInEl = $('#searchIn');
+      const searchClearEl = $('#searchClear');
+      const statusCodeEl = $('#statusCode');
+      const statusBtnEl = $('#statusBtn');
+      const statusResultEl = $('#statusResult');
+
+      const debouncedRenderMenu = (()=>{ let t; return ()=>{ clearTimeout(t); t=setTimeout(()=>{ renderMenu(); renderFab(); }, 120); }; })();
+
+      function renderStatus(code){
+        const orders = loadOrders();
+        const rec = orders[(code||'').trim().toLowerCase()];
+        if (!statusResultEl) return;
+        if (!code){
+          statusResultEl.innerHTML = '';
+          return;
+        }
+        if (!rec){
+          statusResultEl.innerHTML = `<div class="muted">Заказ <b>${escapeHtml(code)}</b> не найден на этом устройстве.</div>`;
+          return;
+        }
+        const when = new Date(rec.created_at).toLocaleString();
+        const total = Number(rec.total||0).toFixed(2);
+        statusResultEl.innerHTML = `
+          <div class="status-card">
+            <div><b>Код:</b> ${escapeHtml(rec.code)} <span class="pill-mini">${escapeHtml(rec.status||'—')}</span></div>
+            <div class="muted">ID: ${escapeHtml(rec.id)} · ${escapeHtml(when)}</div>
+            <div class="muted">Итого: ${total} ${escapeHtml(rec.currency||CURRENCY)}</div>
+            ${rec.receipt_link ? `
+            <div style="margin-top:10px">
+              <a class="btn primary" href="${rec.receipt_link}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;justify-content:center;align-items:center;text-decoration:none;">
+                📩 ${escapeHtml(L().receiptBtn)}
+              </a>
+            </div>` : ``}
+          </div>
+        `;
+      }
+
+      searchInEl?.addEventListener('input', debouncedRenderMenu);
+
+      searchClearEl?.addEventListener('click', ()=>{
+        if (!searchInEl) return;
+        searchInEl.value = '';
+        debouncedRenderMenu();
+        searchInEl.focus();
+      });
+
+      statusBtnEl?.addEventListener('click', ()=>{
+        const code = statusCodeEl?.value || '';
+        renderStatus(code);
+      });
+
+      statusCodeEl?.addEventListener('keydown', (e)=>{
+        if (e.key === 'Enter'){
+          e.preventDefault();
+          renderStatus(statusCodeEl.value);
+        }
+      });
+
+      function setLang(v){
+        LANG = v;
+        localStorage.setItem(LANG_KEY, v);
+        document.documentElement.lang = v;
+        if (selA) selA.value = v;
+        if (selB) selB.value = v;
+        const flag = LANG_FLAGS[v] || '🌐';
+        const langFlagEl = $('#dockLangFlag');
+        if (langFlagEl) langFlagEl.textContent = flag;
+        const savedQ = localStorage.getItem(SEARCH_KEY) || '';
+        const searchIn = document.getElementById('searchIn');
+        if (searchIn) searchIn.value = savedQ;
+        setUITexts();
+        document.dispatchEvent(new CustomEvent('CD_LANG_CHANGED'));
+      }
+
+      selA?.addEventListener('change', e => setLang(e.target.value));
+      selB?.addEventListener('change', e => setLang(e.target.value));
+
+      /* TELEGRAM */
+      const TG = {
+        BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",
+        CHAT_ID: "-1002283682762",
+        CHAT_ID_VN: "-1002156259709",
+        BOT_USERNAME: "@cyber_dracon_bot",
+        PROXY_URL: ""
+      };
+
+      function TG_ENDPOINT() {
+        if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
+        if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
+        return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
+      }
+
+      async function sendTelegramMessage(chatId, text) {
+        const url = TG_ENDPOINT();
+        const payload = {
+          chat_id: chatId,
+          text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true
+        };
+        const r = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        let data = null;
+        try { data = await r.json(); } catch (_) {}
+        if (!r.ok) {
+          const msg = (data && (data.description || data.error)) || `HTTP ${r.status}`;
+          return { ok: false, reason: msg };
+        }
+        if (data && data.ok === false) {
+          return { ok: false, reason: data.description || "Telegram error" };
+        }
+        return { ok: true, data };
+      }
+
+      async function sendOrderToTelegram(text) {
+        return sendTelegramMessage(TG.CHAT_ID, text);
+      }
+
+      function viType(ot){
+        if (ot === "on_site") return "Ăn tại chỗ";
+        if (ot === "takeaway") return "Mang đi";
+        if (ot === "delivery") return "Giao hàng";
+        return ot || "—";
+      }
+
+      function summarizeSelectionsVI(it, selections){
+        const opts = normalizeOptions(it);
+        const sel = selections || {};
+        const parts = [];
+        for (const g of opts){
+          const gid = g.id || g.key || g.name || '';
+          const picked = sel[gid];
+          if (!picked) continue;
+          const pickArr = Array.isArray(picked) ? picked : [picked];
+
+          const gTitle = g.title?.vn || g.title?.ru || g.title || gid;
+          const names = pickArr.map(oid=>{
+            const item = (g.items||[]).find(x => (x.id||x.key)===oid);
+            const nm = item?.label?.vn || item?.label?.ru || item?.label || item?.name || oid;
+            return nm;
+          });
+
+          parts.push(`${gTitle}: ${names.join(", ")}`);
+        }
+        return parts.join(" · ");
+      }
+
+      function buildVietnameseOrderText(orderPayload){
+        const total = Number(orderPayload.total || 0).toFixed(2);
+
+        const meta = [];
+        if (orderPayload.type === "on_site" && orderPayload.table) meta.push(`Bàn: <b>${escapeHtml(orderPayload.table)}</b>`);
+        if (orderPayload.type === "takeaway" && orderPayload.pickup_in) meta.push(`Nhận sau: <b>${escapeHtml(orderPayload.pickup_in)} phút</b>`);
+        if (orderPayload.type === "delivery" && orderPayload.address) meta.push(`Địa chỉ: <b>${escapeHtml(orderPayload.address)}</b>`);
+        if (orderPayload.phone) meta.push(`SĐT: <b>${escapeHtml(orderPayload.phone)}</b>`);
+
+        const lines = (orderPayload.items || []).map(itm=>{
+          const found = itm.key ? findByKey(itm.key) : null;
+          const optText = found?.it ? summarizeSelectionsVI(found.it, itm.selections) : '';
+          const note = (itm.note || "").trim();
+          const extra = [optText ? `(${escapeHtml(optText)})` : '', note ? `📝 ${escapeHtml(note)}` : ''].filter(Boolean).join(' ');
+          return `• ${escapeHtml(itm.name || "Món")} ${extra} — ${Number(itm.price || 0).toFixed(2)} ${CURRENCY} × ${Number(itm.qty || 0)}`;
+        }).join("\n") || "—";
+
+        return `<b>CYBER DRAGON — Đơn mới</b>
+ID: <code>${escapeHtml(orderPayload.id)}</code>
+Code: <b>${escapeHtml(orderPayload.code)}</b>
+Tổng: <b>${total} ${CURRENCY}</b>
+Hình thức: <b>${viType(orderPayload.type)}</b>
+${meta.join("\n")}
+<b>Món:</b>
+${lines}`;
+      }
+
+      async function sendOrderToTelegramVN(orderPayload){
+        if (!TG.CHAT_ID_VN) return { ok:false, reason:"TG.CHAT_ID_VN is empty" };
+        const text = buildVietnameseOrderText(orderPayload);
+        return sendTelegramMessage(TG.CHAT_ID_VN, text);
+      }
+
+      async function createOrderOnSheet(orderPayload){
+        const body = { action:'create', ...orderPayload };
+        try{
+          const res = await fetch(API_BASE,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+          const data = await res.json();
+          return data;
+        }catch(e){
+          console.error('Sheets error', e);
+          return {ok:false, error:String(e)};
+        }
+      }
+
+      function cartSummary(){
+        let itemsCount = 0, sum = 0;
+        const lines = [];
+        const items = [];
+        for (const [id, entry] of cart){
+          const qty = entry?.qty || 0;
+          if (qty<=0) continue;
+          const [cat, idx] = id.split(':');
+          const it = menuData[cat]?.[+idx];
+          if (!it) continue;
+          const name = itemName(it);
+          const unit = calcItemUnitPrice(it, entry.selections);
+          const key = it.key || it.id || it.code || '';
+          const optText = summarizeSelections(it, entry.selections);
+          const noteText = (entry.note || '').trim();
+          itemsCount += qty;
+          sum += unit * qty;
+          const extra = [optText ? `(${optText})` : '', noteText ? `[${noteText}]` : ''].filter(Boolean).join(' ');
+          const isCustom = (Array.isArray(it.tags) && it.tags.includes('custom')) || String(it.key||'').startsWith('custom_') || !!it.is_custom_builder;
+          if (isCustom){
+            const optLines = summarizeSelectionsLines(it, entry.selections);
+            lines.push(`• ${name} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
+            for (const l of optLines){ lines.push(` └ ${l}`); }
+            if (noteText) lines.push(` └ Note: ${noteText}`);
+          } else {
+            lines.push(`• ${name} ${extra} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
+          }
+          items.push({ name, price: unit, qty, key, selections: entry.selections || {}, note: noteText });
+        }
+        return {itemsCount,sum,lines,items};
+      }
+
+      function generateShortCode(){
+        const letters = 'abcdefghijklmnopqrstuvwxyz';
+        const letter = letters[Math.floor(Math.random() * letters.length)];
+        const num = Math.floor(Math.random() * 999) + 1;
+        return letter + String(num).padStart(3,'0');
+      }
+
+      function receiptLink(orderCode){
+        const u = (TG.BOT_USERNAME || '').replace('@','').trim();
+        if (!u) return '';
+        return `https://t.me/${u}?start=receipt_${encodeURIComponent(orderCode)}`;
+      }
+
+      $('#checkoutBtn')?.addEventListener('click', async ()=>{
+        const s = L().sheet;
+        const ot = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
+
+        if (ot === 'delivery'){
+          alert(L().deliveryOff);
+          return;
+        }
+        if (ot === 'on_site' && !tableNo.value.trim()){ alert(s.errTable); return; }
+        if (ot === 'takeaway'){
+          if (!pickupIn.value.trim()){ alert(s.errPickup); return; }
+          if (!phone.value.trim()){ alert(s.errPhone); return; }
+        }
+        if (ot === 'delivery'){
+          if (!address.value.trim()){ alert(s.errAddress); return; }
+          if (!phone.value.trim()){ alert(s.errPhone); return; }
+        }
+
+        const {sum,lines,items} = cartSummary();
+        const typeStr = ot === 'on_site' ? s.onSite : ot === 'takeaway' ? s.takeaway : s.delivery;
+        const meta = [];
+        if (ot === 'on_site') meta.push(`${s.table}: ${tableNo.value.trim()}`);
+        if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()}`);
+        if (ot === 'delivery') meta.push(`${s.address}: ${address.value.trim()}`);
+        if (phone.value.trim()) meta.push(`${s.phone}: ${phone.value.trim()}`);
+
+        const ordId = 'CD-'+new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
+        const orderCode = generateShortCode();
+
+        const text =
+`<b>CYBER DRAGON dlv — New order</b>
 ID: <code>${ordId}</code>
 Code: <b>${orderCode}</b>
 ${s.total}: <b>${sum.toFixed(2)} ${CURRENCY}</b>
@@ -1252,392 +1560,445 @@ Type: <b>${typeStr}</b>
 ${meta.join('\n')}
 <b>Items:</b>
 ${lines.join('\n') || '—'}`;
-      const orderPayload = {
-        id: ordId,
-        code: orderCode,
-        status: 'NEW',
-        type: ot,
-        table: ot==='on_site' ? tableNo.value.trim() : '',
-        pickup_in: ot==='takeaway' ? pickupIn.value.trim() : '',
-        address: ot==='delivery' ? address.value.trim() : '',
-        phone: phone.value.trim(),
-        items,
-        total: sum,
-        created_at: new Date().toISOString()
-      };
-      const [tgRes, sheetRes] = await Promise.all([
-        sendOrderToTelegram(text),
-        createOrderOnSheet(orderPayload)
-      ]);
-      // Save local status (client-side only)
-      const orders = loadOrders();
-      orders[orderCode] = {
-        code: orderCode,
-        id: ordId,
-        created_at: orderPayload.created_at,
-        total: sum,
-        currency: CURRENCY,
-        type: ot,
-        meta,
-        items,
-        tg: tgRes,
-        sheet: sheetRes,
-        status: (tgRes?.ok ? (tgRes?.opaque ? 'SENT (unconfirmed)' : 'SENT') : 'FAILED')
-      };
-      saveOrders(orders);
-      let icon;
-      if ((tgRes?.ok) && (sheetRes?.ok || sheetRes?.id)) icon = '✔✔';
-      else if (tgRes?.ok || sheetRes?.ok || sheetRes?.id) icon = '✔…';
-      else icon = '…';
-      alert(`${icon} ID: ${ordId} • ${s.total}: ${sum.toFixed(2)} ${CURRENCY}`);
-      cart.clear(); saveCart();
-      renderMenu();
-      renderCartSheet();
-      renderFab();
-      closeSheet();
-    });
-    /* Scroll highlight for pills */
-    let activeCat = '';
-    const debounce = (fn,delay) => { let timer; return () => { clearTimeout(timer); timer = setTimeout(fn,delay); }; };
-    function updateActive(){
-      const header = $('.header');
-      const catNav = $('.cat-nav');
-      if (!header || !catNav) return;
-      const stickyH = header.offsetHeight + catNav.offsetHeight;
-      let maxTop = -Infinity;
-      let closest = null;
-      $$('section').forEach(sec => {
-        if (!sec.id || !sec.id.startsWith('sec-')) return;
-        const top = sec.getBoundingClientRect().top;
-        if (top <= stickyH && top > maxTop){
-          maxTop = top;
-          closest = sec;
+
+        const orderPayload = {
+          id: ordId,
+          code: orderCode,
+          status: 'NEW',
+          type: ot,
+          table: ot==='on_site' ? tableNo.value.trim() : '',
+          pickup_in: ot==='takeaway' ? pickupIn.value.trim() : '',
+          address: ot==='delivery' ? address.value.trim() : '',
+          phone: phone.value.trim(),
+          items,
+          total: sum,
+          created_at: new Date().toISOString()
+        };
+
+        const [tgRes, tgResVN, sheetRes] = await Promise.all([
+          sendOrderToTelegram(text),
+          sendOrderToTelegramVN(orderPayload),
+          createOrderOnSheet(orderPayload)
+        ]);
+
+        const receipt_link = receiptLink(orderCode);
+
+        const orders = loadOrders();
+        orders[orderCode] = {
+          code: orderCode,
+          id: ordId,
+          created_at: orderPayload.created_at,
+          total: sum,
+          currency: CURRENCY,
+          type: ot,
+          meta,
+          items,
+          tg: tgRes,
+          vn_tg: tgResVN,
+          sheet: sheetRes,
+          receipt_link,
+          status: (tgRes?.ok || tgResVN?.ok) ? 'SENT' : 'FAILED'
+        };
+        saveOrders(orders);
+
+        let icon;
+        if ((tgRes?.ok || tgResVN?.ok) && (sheetRes?.ok || sheetRes?.id)) icon = '✔✔';
+        else if (tgRes?.ok || tgResVN?.ok || sheetRes?.ok || sheetRes?.id) icon = '✔…';
+        else icon = '…';
+
+        alert(`${icon} ID: ${ordId} • ${s.total}: ${sum.toFixed(2)} ${CURRENCY}`);
+
+        if (statusResultEl){
+          statusResultEl.innerHTML = `
+            <div class="status-card">
+              <div><b>Код:</b> ${escapeHtml(orderCode)} <span class="pill-mini">NEW</span></div>
+              <div class="muted">${escapeHtml(L().receiptReady)}</div>
+              ${receipt_link ? `
+                <div style="margin-top:10px">
+                  <a class="btn primary" href="${receipt_link}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;justify-content:center;align-items:center;text-decoration:none;">
+                    📩 ${escapeHtml(L().receiptBtn)}
+                  </a>
+                </div>
+              ` : ``}
+            </div>
+          `;
         }
+
+        cart.clear(); saveCart();
+        renderMenu();
+        renderCartSheet();
+        renderFab();
+        closeSheet();
       });
-      if (closest){
-        const cat = closest.id.replace('sec-','');
-        if (cat !== activeCat){
-          activeCat = cat;
-          $$('.pill').forEach(p => p.classList.remove('active'));
-          const pill = $(`.pill[href="#${closest.id}"]`);
-          if (pill){
-            pill.classList.add('active');
-            pill.scrollIntoView({behavior:'smooth',inline:'center'});
+
+      let activeCat = '';
+      const debounce = (fn,delay) => { let timer; return () => { clearTimeout(timer); timer = setTimeout(fn,delay); }; };
+
+      function updateActive(){
+        const header = $('.header');
+        const catNav = $('.cat-nav');
+        if (!header || !catNav) return;
+        const stickyH = header.offsetHeight + catNav.offsetHeight;
+        let maxTop = -Infinity;
+        let closest = null;
+        $$('section').forEach(sec => {
+          if (!sec.id || !sec.id.startsWith('sec-')) return;
+          const top = sec.getBoundingClientRect().top;
+          if (top <= stickyH && top > maxTop){
+            maxTop = top;
+            closest = sec;
           }
-        }
-      }
-    }
-    window.addEventListener('scroll', debounce(updateActive,50));
-    /* Dynamic Island + move pills into bar */
-    const catPillsEl = $('#catPills');
-    const catPillsParent = catPillsEl?.parentNode || null;
-    const catPillsSibling = catPillsEl?.nextSibling || null;
-    function islandThreshold(){ return 80; }
-    let islandActive = false;
-    const onScrollIsland = (() => {
-      let ticking = false;
-      return () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          const needIsland = window.scrollY > islandThreshold();
-          if (needIsland !== islandActive){
-            islandActive = needIsland;
-            document.body.classList.toggle('island', islandActive);
-            const bar = $('.bar');
-            const catPills = $('#catPills');
-            if (islandActive){
-              if (bar && catPills) bar.appendChild(catPills);
-            } else {
-              if (catPillsParent && catPills){
-                if (catPillsSibling) catPillsParent.insertBefore(catPills,catPillsSibling);
-                else catPillsParent.appendChild(catPills);
-              }
+        });
+        if (closest){
+          const cat = closest.id.replace('sec-','');
+          if (cat !== activeCat){
+            activeCat = cat;
+            $$('.pill').forEach(p => p.classList.remove('active'));
+            const pill = $(`.pill[href="#${closest.id}"]`);
+            if (pill){
+              pill.classList.add('active');
+              pill.scrollIntoView({behavior:'smooth',inline:'center'});
             }
           }
-          ticking = false;
-        });
-      };
-    })();
-    window.addEventListener('scroll', onScrollIsland, {passive:true});
-    window.addEventListener('resize', onScrollIsland);
-    onScrollIsland();
-    /* ===== Bottom Dock logic ===== */
-    const dockCat = $('#dockCat');
-    const dockView = $('#dockView');
-    const dockMore = $('#dockMore');
-    const dockLang = $('#dockLang');
-    const dockCart = $('#dockCart');
-    const langPopup = $('#langPopup');
-    const catOverlayEl = $('#catOverlay');
-    const catSheetEl = $('#catSheet');
-    const catSheetList = $('#catSheetList');
-    function buildCatSheet(){
-      if (!catSheetList) return;
-      const keys = Object.keys(menuData || {});
-      catSheetList.innerHTML = keys.map(k =>
-        `<button class="chip" data-goto="#sec-${k}">${catLabel(k)}</button>`
-      ).join('');
-    }
-    catOverlayEl?.addEventListener('click', closeCatSheet);
-    catSheetEl?.addEventListener('click', e=>{
-      const b = e.target.closest('[data-goto]');
-      if (!b) return;
-      const target = b.getAttribute('data-goto');
-      closeCatSheet();
-      document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'});
-    });
-    function setActiveDock(btn){
-      $$('.dock-btn').forEach(b=>{
-        if (b === btn) b.classList.add('active');
-        else b.classList.remove('active');
-      });
-    }
-    dockCat?.addEventListener('click', ()=>{
-      setActiveDock(dockCat);
-      buildCatSheet();
-      openCatSheet();
-    });
-    dockView?.addEventListener('click', ()=>{
-      setActiveDock(dockView);
-      viewMode = (viewMode === 'grid') ? 'list' : 'grid';
-      localStorage.setItem(VIEW_KEY, viewMode);
-      applyView();
-      applyDockLabels();
-    });
-    dockLang?.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      setActiveDock(dockLang);
-      if (!langPopup) return;
-      langPopup.classList.toggle('show');
-    });
-    langPopup?.addEventListener('click', e=>{
-      const b = e.target.closest('[data-lang]');
-      if (!b) return;
-      const code = b.dataset.lang;
-      setLang(code);
-      langPopup.classList.remove('show');
-    });
-    document.addEventListener('click', e=>{
-      if (!langPopup) return;
-      if (!langPopup.contains(e.target) && !dockLang.contains(e.target)){
-        langPopup.classList.remove('show');
-      }
-    });
-    dockMore?.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      setActiveDock(dockMore);
-      openMoreSheet();
-    });
-    dockCart?.addEventListener('click', ()=>{
-      setActiveDock(dockCart);
-      openSheet();
-    });
-    const heroAllCats = $('#heroAllCats');
-    heroAllCats?.addEventListener('click', ()=>{
-      buildCatSheet();
-      openCatSheet();
-    });
-    const heroCloseBtn = $('#heroClose');
-    heroCloseBtn?.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const closed = !document.body.classList.contains('hero-closed');
-      document.body.classList.toggle('hero-closed', closed);
-      localStorage.setItem(HERO_KEY, closed ? '1' : '0');
-    });
-    const brandEl = $('#brandTap');
-    brandEl?.addEventListener('click', (e)=>{
-      if (!document.body.classList.contains('island')) return;
-      e.preventDefault();
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
-    const sheetClose = $('#sheetClose');
-    sheetClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeSheet(); });
-    const catSheetClose = $('#catSheetClose');
-    catSheetClose?.addEventListener('click', (e)=>{ e.stopPropagation(); closeCatSheet(); });
-    document.addEventListener('keydown', e=>{
-      if (e.key === 'Escape'){
-        if ($('#sheet')?.classList.contains('open')) closeSheet();
-        if ($('#catSheet')?.classList.contains('open')) closeCatSheet();
-        if (document.getElementById('moreSheet')?.classList.contains('open')) closeMoreSheet();
-        if (langPopup?.classList.contains('show')) langPopup.classList.remove('show');
-      }
-    });
-    // Swipe-down close sheets
-    (function(){
-      const cartSheet = $('#sheet');
-      const cartOverlay = $('#overlay');
-      const catSheet = $('#catSheet');
-      const catOverlay = $('#catOverlay');
-      const DRAG_START_ZONE = 40;
-      const DISMISS_Y = 120;
-      const MAX_DRAG = 280;
-      function attachSwipe(sheetEl, overlayEl, closeFn){
-        if (!sheetEl) return;
-        let startY = 0;
-        let currentY = 0;
-        let dragging = false;
-        function onStart(e){
-          const touch = e.touches && e.touches[0];
-          if (!touch) return;
-          const rect = sheetEl.getBoundingClientRect();
-          const offsetY = touch.clientY - rect.top;
-          if (offsetY > DRAG_START_ZONE) return;
-          dragging = true;
-          startY = touch.clientY;
-          currentY = 0;
-          sheetEl.style.transition = 'transform .0s';
-          if (overlayEl) overlayEl.style.transition = 'opacity .0s';
         }
-        function onMove(e){
-          if (!dragging) return;
-          const touch = e.touches && e.touches[0];
-          if (!touch) return;
-          const dy = touch.clientY - startY;
-          if (dy <= 0){
-            currentY = 0;
-            sheetEl.style.transform = 'translateY(0)';
-            if (overlayEl) overlayEl.style.opacity = '1';
-            return;
-          }
-          currentY = Math.min(dy, MAX_DRAG);
-          const progress = currentY / MAX_DRAG;
-          sheetEl.style.transform = `translateY(${currentY}px)`;
-          if (overlayEl) overlayEl.style.opacity = String(1 - progress * 0.7);
-        }
-        function onEnd(){
-          if (!dragging) return;
-          dragging = false;
-          sheetEl.style.transition = 'transform .22s ease';
-          if (overlayEl) overlayEl.style.transition = 'opacity .22s ease';
-          if (currentY > DISMISS_Y){
-            sheetEl.style.transform = `translateY(${MAX_DRAG}px)`;
-            if (overlayEl) overlayEl.style.opacity = '0';
-            setTimeout(()=>{
-              sheetEl.style.transform = '';
-              if (overlayEl) overlayEl.style.opacity = '';
-              closeFn();
-            },200);
-          } else {
-            sheetEl.style.transform = 'translateY(0)';
-            if (overlayEl) overlayEl.style.opacity = '1';
-          }
-        }
-        sheetEl.addEventListener('touchstart', onStart, {passive:true});
-        sheetEl.addEventListener('touchmove', onMove, {passive:true});
-        sheetEl.addEventListener('touchend', onEnd);
-        sheetEl.addEventListener('touchcancel',onEnd);
       }
-      attachSwipe(cartSheet, cartOverlay, closeSheet);
-      attachSwipe(catSheet, catOverlay, closeCatSheet);
-    })();
 
-    // Ensure promo.mp4 plays (mobile autoplay quirks)
-    (function(){
-      const v = document.querySelector('video.promo');
-      if (!v) return;
-      const tryPlay = () => v.play().catch(()=>{});
-      tryPlay();
-      const once = () => { tryPlay(); window.removeEventListener('touchstart', once); window.removeEventListener('click', once); };
-      window.addEventListener('touchstart', once, {once:true, passive:true});
-      window.addEventListener('click', once, {once:true, passive:true});
-    })();
+      window.addEventListener('scroll', debounce(updateActive,50));
 
-    /* Init */
-    (function init(){
-      loadCart();
-      // Inject "Pho constructor" as the first item in Pho Soups
-      try{
-        const arr = menuData?.pho_soups;
-        if (Array.isArray(arr) && !arr.some(x => x && x.key === 'pho_custom')){
-          arr.unshift({
-            key:'pho_custom',
-            price: 160,
-            weight: 450,
-            spicy: 0,
-            tags:['chef','popular'],
-            translations:{
-              ru:'Pho — Собери сам',
-              ua:'Pho — Збери сам',
-              vn:'Phở — Tự chọn',
-            },
-            short:'Бульон + лапша. Выбираешь мясо/тофу/креветки и добавки.',
-            options:[
-              {id:'protein', title:{ru:'Белок',ua:'Білок',vn:'Đạm'}, required:true, multi:true, max:2,
-                items:[
-                  {id:'beef', label:{ru:'Говядина',ua:'Яловичина',vn:'Bò'}, price_delta:40},
-                  {id:'chicken', label:{ru:'Курица',ua:'Курица',vn:'Gà'}, price_delta:30},
-                  {id:'pork', label:{ru:'Свинина',ua:'Свинина',vn:'Heo'}, price_delta:30},
-                  {id:'shrimp', label:{ru:'Креветки',ua:'Креветки',vn:'Tôm'}, price_delta:50},
-                  {id:'tofu', label:{ru:'Тофу',ua:'Тофу',vn:'Đậu phụ'}, price_delta:20},
-                ]},
-              {id:'extras', title:{ru:'Добавки',ua:'Додатки',vn:'Thêm'}, required:false, multi:true, max:5,
-                items:[
-                  {id:'corn', label:{ru:'Кукуруза',ua:'Кукурудза',vn:'Bắp'}, price_delta:15},
-                  {id:'scallion', label:{ru:'Зелёный лук',ua:'Зелена цибуля',vn:'Hành lá'}, price_delta:10},
-                  {id:'onion', label:{ru:'Лук',ua:'Цибуля',vn:'Hành'}, price_delta:8},
-                  {id:'peanut', label:{ru:'Арахис',ua:'Арахіс',vn:'Đậu phộng'}, price_delta:12},
-                ]}
-            ]
+      function islandThreshold(){ return 80; }
+      let islandActive = false;
+
+      const onScrollIsland = (() => {
+        let ticking = false;
+        return () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            const needIsland = window.scrollY > islandThreshold();
+            if (needIsland !== islandActive){
+              islandActive = needIsland;
+              document.body.classList.toggle('island', islandActive);
+            }
+            ticking = false;
           });
-        }
-      }catch(e){}
-      // Restore hero visibility
-      const heroClosed = localStorage.getItem(HERO_KEY) === '1';
-      document.body.classList.toggle('hero-closed', heroClosed);
-      if (selA) selA.value = LANG;
-      if (selB) selB.value = LANG;
-      const flag = LANG_FLAGS[LANG] || '🌐';
-      const langFlagEl = $('#dockLangFlag');
-      if (langFlagEl) langFlagEl.textContent = flag;
-      setUITexts();
-      const header = $('.header');
-      const catNav = $('.cat-nav');
-      if (header && catNav){
-        catNav.style.top = `${header.offsetHeight}px`;
+        };
+      })();
+
+      window.addEventListener('scroll', onScrollIsland, {passive:true});
+      window.addEventListener('resize', onScrollIsland);
+      onScrollIsland();
+
+      const dockCat = $('#dockCat');
+      const dockView = $('#dockView');
+      const dockMore = $('#dockMore');
+      const dockLang = $('#dockLang');
+      const dockCart = $('#dockCart');
+      const langPopup = $('#langPopup');
+      const catOverlayEl = $('#catOverlay');
+      const catSheetEl = $('#catSheet');
+      const catSheetList = $('#catSheetList');
+
+      function buildCatSheet(){
+        if (!catSheetList) return;
+        const keys = Object.keys(menuData || {});
+        catSheetList.innerHTML = keys.map(k =>
+          `<button class="chip" data-goto="#sec-${k}">${catLabel(k)}</button>`
+        ).join('');
       }
-      updateActive();
-      applyView();
-    })();
+
+      catOverlayEl?.addEventListener('click', closeCatSheet);
+      $('#moreOverlay')?.addEventListener('click', closeMoreSheet);
+
+      catSheetEl?.addEventListener('click', e=>{
+        const b = e.target.closest('[data-goto]');
+        if (!b) return;
+        const target = b.getAttribute('data-goto');
+        closeCatSheet();
+        document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+
+      function setActiveDock(btn){
+        $$('.dock-btn').forEach(b=>{
+          if (b === btn) b.classList.add('active');
+          else b.classList.remove('active');
+        });
+      }
+
+      dockCat?.addEventListener('click', ()=>{
+        setActiveDock(dockCat);
+        buildCatSheet();
+        openCatSheet();
+      });
+
+      dockView?.addEventListener('click', ()=>{
+        setActiveDock(dockView);
+        viewMode = (viewMode === 'grid') ? 'list' : 'grid';
+        localStorage.setItem(VIEW_KEY, viewMode);
+        applyView();
+        applyDockLabels();
+      });
+
+      dockLang?.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        setActiveDock(dockLang);
+        if (!langPopup) return;
+        langPopup.classList.toggle('show');
+      });
+
+      langPopup?.addEventListener('click', e=>{
+        const b = e.target.closest('[data-lang]');
+        if (!b) return;
+        const code = b.dataset.lang;
+        setLang(code);
+        langPopup.classList.remove('show');
+      });
+
+      document.addEventListener('click', e=>{
+        if (!langPopup) return;
+        if (!langPopup.contains(e.target) && !dockLang.contains(e.target)){
+          langPopup.classList.remove('show');
+        }
+      });
+
+      dockMore?.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        setActiveDock(dockMore);
+        openMoreSheet();
+      });
+
+      dockCart?.addEventListener('click', ()=>{
+        setActiveDock(dockCart);
+        openSheet();
+      });
+
+      const brandEl = $('#brandTap');
+      brandEl?.addEventListener('click', (e)=>{
+        if (!document.body.classList.contains('island')) return;
+        e.preventDefault();
+        window.scrollTo({top:0, behavior:'smooth'});
+      });
+
+      $('#sheetClose')?.addEventListener('click', (e)=>{ e.stopPropagation(); closeSheet(); });
+      $('#catSheetClose')?.addEventListener('click', (e)=>{ e.stopPropagation(); closeCatSheet(); });
+      $('#moreSheetClose')?.addEventListener('click', (e)=>{ e.stopPropagation(); closeMoreSheet(); });
+
+      document.addEventListener('keydown', e=>{
+        if (e.key === 'Escape'){
+          if ($('#sheet')?.classList.contains('open')) closeSheet();
+          if ($('#catSheet')?.classList.contains('open')) closeCatSheet();
+          if ($('#moreSheet')?.classList.contains('open')) closeMoreSheet();
+          if ($('#dishSheet')?.classList.contains('open')) closeDishSheet();
+          if (langPopup?.classList.contains('show')) langPopup.classList.remove('show');
+        }
+      });
+
+      (function(){
+        const cartSheet = $('#sheet');
+        const cartOverlay = $('#overlay');
+        const catSheet = $('#catSheet');
+        const catOverlay = $('#catOverlay');
+        const moreSheet = $('#moreSheet');
+        const moreOverlay = $('#moreOverlay');
+        const DRAG_START_ZONE = 40;
+        const DISMISS_Y = 120;
+        const MAX_DRAG = 280;
+
+        function attachSwipe(sheetEl, overlayEl, closeFn){
+          if (!sheetEl) return;
+          let startY = 0;
+          let currentY = 0;
+          let dragging = false;
+
+          function onStart(e){
+            const touch = e.touches && e.touches[0];
+            if (!touch) return;
+            const rect = sheetEl.getBoundingClientRect();
+            const offsetY = touch.clientY - rect.top;
+            if (offsetY > DRAG_START_ZONE) return;
+            dragging = true;
+            startY = touch.clientY;
+            currentY = 0;
+            sheetEl.style.transition = 'transform .0s';
+            if (overlayEl) overlayEl.style.transition = 'opacity .0s';
+          }
+
+          function onMove(e){
+            if (!dragging) return;
+            const touch = e.touches && e.touches[0];
+            if (!touch) return;
+            const dy = touch.clientY - startY;
+            if (dy <= 0){
+              currentY = 0;
+              sheetEl.style.transform = 'translateY(0)';
+              if (overlayEl) overlayEl.style.opacity = '1';
+              return;
+            }
+            currentY = Math.min(dy, MAX_DRAG);
+            const progress = currentY / MAX_DRAG;
+            sheetEl.style.transform = `translateY(${currentY}px)`;
+            if (overlayEl) overlayEl.style.opacity = String(1 - progress * 0.7);
+          }
+
+          function onEnd(){
+            if (!dragging) return;
+            dragging = false;
+            sheetEl.style.transition = 'transform .22s ease';
+            if (overlayEl) overlayEl.style.transition = 'opacity .22s ease';
+            if (currentY > DISMISS_Y){
+              sheetEl.style.transform = `translateY(${MAX_DRAG}px)`;
+              if (overlayEl) overlayEl.style.opacity = '0';
+              setTimeout(()=>{
+                sheetEl.style.transform = '';
+                if (overlayEl) overlayEl.style.opacity = '';
+                closeFn();
+              },200);
+            } else {
+              sheetEl.style.transform = 'translateY(0)';
+              if (overlayEl) overlayEl.style.opacity = '1';
+            }
+          }
+
+          sheetEl.addEventListener('touchstart', onStart, {passive:true});
+          sheetEl.addEventListener('touchmove', onMove, {passive:true});
+          sheetEl.addEventListener('touchend', onEnd);
+          sheetEl.addEventListener('touchcancel',onEnd);
+        }
+
+        attachSwipe(cartSheet, cartOverlay, closeSheet);
+        attachSwipe(catSheet, catOverlay, closeCatSheet);
+        attachSwipe(moreSheet, moreOverlay, closeMoreSheet);
+      })();
+
+      (function(){
+        const v = document.querySelector('video.promo');
+        if (!v) return;
+        const tryPlay = () => v.play().catch(()=>{});
+        tryPlay();
+        const once = () => {
+          tryPlay();
+          window.removeEventListener('touchstart', once);
+          window.removeEventListener('click', once);
+        };
+        window.addEventListener('touchstart', once, {once:true, passive:true});
+        window.addEventListener('click', once, {once:true, passive:true});
+      })();
+
+      /* ===== PAY SWITCHER ===== */
+      (function(){
+        const paySwitcher = document.getElementById('paySwitcher');
+        const payIcon = document.getElementById('payIcon');
+        const payText = document.getElementById('payText');
+        if (!paySwitcher || !payIcon || !payText) return;
+
+        const payItems = [
+          {
+            name: 'Apple Pay',
+            icon: 'images/icon/applepay.png',
+            link: UNIVERSAL_PAY_LINK
+          },
+          {
+            name: 'Google Pay',
+            icon: 'images/icon/gpay.png',
+            link: UNIVERSAL_PAY_LINK
+          },
+          {
+            name: 'Privat24',
+            icon: 'images/icon/privat24.png',
+            link: UNIVERSAL_PAY_LINK
+          },
+          {
+            name: 'Monobank',
+            icon: 'images/icon/monobank.png',
+            link: UNIVERSAL_PAY_LINK
+          }
+        ];
+
+        let payIndex = 0;
+
+        function applyPayItem(item){
+          payIcon.src = item.icon;
+          payIcon.alt = item.name;
+          payText.textContent = item.name;
+          paySwitcher.setAttribute('aria-label', item.name);
+          paySwitcher.href = item.link || '#';
+          paySwitcher.target = '_blank';
+          paySwitcher.rel = 'noopener noreferrer';
+        }
+
+        function nextPayItem(){
+          paySwitcher.classList.add('switching');
+          setTimeout(() => {
+            payIndex = (payIndex + 1) % payItems.length;
+            applyPayItem(payItems[payIndex]);
+            paySwitcher.classList.remove('switching');
+          }, 220);
+        }
+
+        applyPayItem(payItems[0]);
+        setInterval(nextPayItem, 2200);
+      })();
+
+      (function init(){
+        loadCart();
+
+        try{
+          const arr = menuData?.pho_soups;
+          if (Array.isArray(arr) && !arr.some(x => x && x.key === 'pho_custom')){
+            arr.unshift({
+              key:'pho_custom',
+              price: 160,
+              weight: 450,
+              spicy: 0,
+              tags:['chef','popular'],
+              translations:{
+                ru:'Pho — Собери сам',
+                ua:'Pho — Збери сам',
+                vn:'Phở — Tự chọn',
+              },
+              short:'Бульон + лапша. Выбираешь мясо/тофу/креветки и добавки.',
+              options:[
+                {id:'protein', title:{ru:'Белок',ua:'Білок',vn:'Đạm'}, required:true, multi:true, max:2,
+                  items:[
+                    {id:'beef', label:{ru:'Говядина',ua:'Яловичина',vn:'Bò'}, price_delta:40},
+                    {id:'chicken', label:{ru:'Курица',ua:'Курка',vn:'Gà'}, price_delta:30},
+                    {id:'pork', label:{ru:'Свинина',ua:'Свинина',vn:'Heo'}, price_delta:30},
+                    {id:'shrimp', label:{ru:'Креветки',ua:'Креветки',vn:'Tôm'}, price_delta:50},
+                    {id:'tofu', label:{ru:'Тофу',ua:'Тофу',vn:'Đậu phụ'}, price_delta:20},
+                  ]},
+                {id:'extras', title:{ru:'Добавки',ua:'Додатки',vn:'Thêm'}, required:false, multi:true, max:5,
+                  items:[
+                    {id:'corn', label:{ru:'Кукуруза',ua:'Кукурудза',vn:'Bắp'}, price_delta:15},
+                    {id:'scallion', label:{ru:'Зелёный лук',ua:'Зелена цибуля',vn:'Hành lá'}, price_delta:10},
+                    {id:'onion', label:{ru:'Лук',ua:'Цибуля',vn:'Hành'}, price_delta:8},
+                    {id:'peanut', label:{ru:'Арахис',ua:'Арахіс',vn:'Đậu phộng'}, price_delta:12},
+                  ]}
+              ]
+            });
+          }
+        }catch(e){}
+
+        const heroClosed = localStorage.getItem(HERO_KEY) === '1';
+        document.body.classList.toggle('hero-closed', heroClosed);
+
+        if (selA) selA.value = LANG;
+        if (selB) selB.value = LANG;
+
+        const flag = LANG_FLAGS[LANG] || '🌐';
+        const langFlagEl = $('#dockLangFlag');
+        if (langFlagEl) langFlagEl.textContent = flag;
+
+        setUITexts();
+
+        const header = $('.header');
+        const catNav = $('.cat-nav');
+        if (header && catNav){
+          catNav.style.top = `${header.offsetHeight}px`;
+        }
+
+        updateActive();
+        applyView();
+      })();
     </script>
   </div>
-<script>
-(() => {
-  const dock = document.getElementById('dock');
-  const lens = document.getElementById('dockLens');
-  if (!dock || !lens) return;
-  // Кнопки могут быть <a> или <button> — берём любые кликабельные элементы
-  const items = [...dock.querySelectorAll('.dock-btn, a, button')].filter(el => el !== lens);
-  function getActive(){
-    return dock.querySelector('.is-active') || items[0];
-  }
-  function moveLensTo(el){
-    if (!el) return;
-    const rDock = dock.getBoundingClientRect();
-    const rEl = el.getBoundingClientRect();
-    const centerX = (rEl.left + rEl.width/2) - rDock.left;
-    const size = Math.max(108, Math.min(140, rEl.width + 54)); // чуть больше кнопки
-    lens.style.width = size + 'px';
-    lens.style.height = size + 'px';
-    const x = centerX - size/2;
-    lens.style.transform = `translate(${x}px, -50%)`;
-  }
-  // init
-  requestAnimationFrame(() => moveLensTo(getActive()));
-  // Ничего не перехватываем: просто слушаем и двигаем линзу
-  dock.addEventListener('click', (e) => {
-    const target = e.target.closest('.dock-btn, a, button');
-    if (!target || target === lens) return;
-    // Если у тебя уже есть логика is-active — она отработает.
-    // Если нет — аккуратно поставим is-active сами:
-    if (!dock.querySelector('.is-active')) {
-      items.forEach(x => x.classList.remove('is-active'));
-      target.classList.add('is-active');
-    }
-    moveLensTo(dock.querySelector('.is-active') || target);
-  }, { passive: true });
-  window.addEventListener('resize', () => moveLensTo(getActive()));
-})();
-</script>
 </body>
 </html>
