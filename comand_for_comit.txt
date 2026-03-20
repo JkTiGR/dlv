@@ -5,7 +5,6 @@ git remote add origin https://github.com/JkTiGR/cyber_dragon.git
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/USERNAME/REPO.git
 git push -u origin main
 
 ОБНОВИ tak chto by eti bludo kak obuchnuy bludo:
