@@ -17,6 +17,20 @@
     .contact{margin:14px 0 0;padding:14px;border-radius:18px}
     .status-card{padding:12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
     .pill-mini{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.08);font-size:12px}
+    .code {
+      font-family: monospace;
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.15);
+      padding: 0.2rem 0.5rem;
+      border-radius: 30px;
+      margin-left: 0.5rem;
+      font-weight: normal;
+      color: #ff9f9f;
+      letter-spacing: 0.02em;
+    }
+    @media (max-width: 560px) {
+      .code { font-size: 0.7rem; padding: 0.15rem 0.4rem; }
+    }
   </style>
 </head>
 <body>
@@ -24,7 +38,7 @@
     <!-- Header -->
     <header class="header">
       <div class="bar">
-        <h1 class="brand" id="brandTap"> <img class="mark" src="logo.png" alt="Logo"> 90s</h1>
+        <h1 class="brand" id="brandTap"> <img class="mark" src="logo.png" alt="Logo"> CYBER DRAGON</h1>
 
         <div class="lang">
           <select id="langSel" aria-label="Language">
@@ -60,7 +74,7 @@
       </video>
 
       <div class="social">
-        <!-- Universal bank QR switcher -->
+        <!-- Universal bank QR switcher with modal -->
         <a href="#" class="social-link pay-switcher" id="paySwitcher" aria-label="Payment methods">
           <img id="payIcon" src="images/icon/applepay.png" alt="Apple Pay" class="pay-icon">
           <span id="payText" class="pay-text">Apple Pay</span>
@@ -156,6 +170,15 @@
       <div class="group" id="catSheetList"></div>
     </div>
 
+    <!-- Bank Selection Sheet -->
+    <div class="overlay" id="bankOverlay"></div>
+    <div class="sheet" id="bankSheet" role="dialog" aria-modal="true" aria-labelledby="bankSheetTitle">
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button class="sheet-close" id="bankSheetClose" aria-label="Закрыть">✕</button>
+      <h3 id="bankSheetTitle">Выберите способ оплаты</h3>
+      <div class="group" id="bankList"></div>
+    </div>
+
     <!-- Bottom Dock -->
     <nav class="dock" aria-label="Bottom navigation">
       <button class="dock-btn" id="dockCat" data-label="Menu">
@@ -208,7 +231,7 @@
         <div class="group" id="orderType">
           <button class="chip active" data-ot="on_site" id="otOnSite">На месте</button>
           <button class="chip" data-ot="takeaway" id="otTakeaway">На вынос</button>
-          <button class="chip" data-ot="delivery" id="otDelivery" disabled aria-disabled="true">Доставка</button>
+          <button class="chip" data-ot="delivery" id="otDelivery">Доставка</button>
         </div>
 
         <div class="field" id="tableField" style="display:grid">
@@ -277,6 +300,8 @@
     <script>
       /* ==== CONFIG ==== */
       const UNIVERSAL_PAY_LINK = 'https://bank.gov.ua/qr/QkNECjAwMgoxClVDVAoK0JvRlCDQotGF0ZYg0JrRhdCw0L3RjCDQm9GWClVBNDczMjIwMDEwMDAwMDI2MjAwMzQ0NTAzNjYwCgozMzAwMzIxNzYyCgoK0J_QvtC_0L7QstC90LXQvdC90Y8g0YDQsNGF0YPQvdC60YMKCg==';
+      const DELIVERY_PRICE = 50;
+      const FREE_DELIVERY_MIN = 1000;
 
       /* ==== LANG & I18N ==== */
       const LANG_KEY = 'CD_LANG';
@@ -292,14 +317,16 @@
           ui:{add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой'},
           sheet:{
             title:'Ваш заказ',empty:'Корзина пуста.',orderType:'Тип заказа',
-            onSite:'На месте',takeaway:'На вынос',delivery:'Доставка (временно недоступна)',
+            onSite:'На месте',takeaway:'На вынос',delivery:'Доставка',
             table:'Стол',pickupIn:'Через сколько забрать (мин)',address:'Адрес доставки',phone:'Телефон',
             phTable:'Например, 5',phPickup:'15',phAddress:'Город, улица, дом, подъезд...',phPhone:'+380 63 000 00 00',
             total:'Итого',checkout:'Оформить',clear:'Очистить корзину',
             errTable:'Укажите номер стола.',errPickup:'Укажите через сколько минут забрать.',
-            errPhone:'Укажите телефон.',errAddress:'Укажите адрес доставки.'
+            errPhone:'Укажите телефон.',errAddress:'Укажите адрес доставки.',
+            deliveryPrice:'Стоимость доставки',
+            freeDelivery:'Бесплатная доставка от 1000 грн'
           },
-          common:{required:'(обязательно)',optional:'(необязательно)'},
+          common:{required:'(обязательно)',optional:'(необязательно)',ingredients:'Состав'},
           tabbar:{menu:'Меню',lang:'Язык',cart:'Корзина',more:'Ещё'},
           receiptBtn:'Получить чек в Telegram',
           receiptReady:'Чек можно получить в Telegram.',
@@ -310,14 +337,16 @@
           ui:{add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою'},
           sheet:{
             title:'Ваше замовлення',empty:'Кошик порожній.',orderType:'Тип замовлення',
-            onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка (тимчасово недоступна)',
+            onSite:'У закладі',takeaway:'На виніс',delivery:'Доставка',
             table:'Стіл',pickupIn:'Через скільки забрати (хв)',address:'Адреса доставки',phone:'Телефон',
             phTable:'Наприклад, 5',phPickup:'15',phAddress:'Місто, вулиця, будинок…',phPhone:'+380 63 000 00 00',
             total:'Разом',checkout:'Оформити',clear:'Очистити кошик',
             errTable:'Вкажіть номер столу.',errPickup:'Вкажіть час отримання (хв).',
-            errPhone:'Вкажіть телефон.',errAddress:'Вкажіть адресу доставки.'
+            errPhone:'Вкажіть телефон.',errAddress:'Вкажіть адресу доставки.',
+            deliveryPrice:'Вартість доставки',
+            freeDelivery:'Безкоштовна доставка від 1000 грн'
           },
-          common:{required:'(обов’язково)',optional:'(необов’язково)'},
+          common:{required:'(обов’язково)',optional:'(необов’язково)',ingredients:'Склад'},
           tabbar:{menu:'Меню',lang:'Мова',cart:'Кошик',more:'Ще'},
           receiptBtn:'Отримати чек у Telegram',
           receiptReady:'Чек можна отримати у Telegram.',
@@ -328,14 +357,16 @@
           ui:{add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới'},
           sheet:{
             title:'Đơn hàng của bạn',empty:'Giỏ hàng trống.',orderType:'Hình thức đặt',
-            onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng (tạm thời chưa có)',
+            onSite:'Ăn tại chỗ',takeaway:'Mang đi',delivery:'Giao hàng',
             table:'Bàn',pickupIn:'Nhận sau (phút)',address:'Địa chỉ giao hàng',phone:'Điện thoại',
             phTable:'Ví dụ: 5',phPickup:'15',phAddress:'Thành phố, đường, số nhà…',phPhone:'+380 63 000 00 00',
             total:'Tổng cộng',checkout:'Đặt hàng',clear:'Xóa giỏ hàng',
             errTable:'Vui lòng nhập số bàn.',errPickup:'Vui lòng nhập thời gian nhận (phút).',
-            errPhone:'Vui lòng nhập số điện thoại.',errAddress:'Vui lòng nhập địa chỉ giao hàng.'
+            errPhone:'Vui lòng nhập số điện thoại.',errAddress:'Vui lòng nhập địa chỉ giao hàng.',
+            deliveryPrice:'Phí giao hàng',
+            freeDelivery:'Miễn phí giao hàng cho đơn từ 1000 грн'
           },
-          common:{required:'(bắt buộc)',optional:'(không bắt buộc)'},
+          common:{required:'(bắt buộc)',optional:'(không bắt buộc)',ingredients:'Thành phần'},
           tabbar:{menu:'Thực đơn',lang:'Ngôn ngữ',cart:'Giỏ',more:'Thêm'},
           receiptBtn:'Nhận hóa đơn qua Telegram',
           receiptReady:'Có thể nhận hóa đơn trên Telegram.',
@@ -345,15 +376,15 @@
       const L = () => I18N[LANG] || I18N.ru;
 
       let DESCS = null;
-      async function loadDescriptions(){
+      async function loadDescriptions() {
         if (DESCS) return DESCS;
-        try{
+        try {
           const resp = await fetch('descriptions.json');
-          if (resp.ok){
+          if (resp.ok) {
             DESCS = await resp.json();
             return DESCS;
           }
-        }catch(e){
+        } catch(e) {
           console.error('Failed to load descriptions.json', e);
         }
         DESCS = {};
@@ -364,7 +395,7 @@
         top:{ru:'TOP',ua:'TOP',vn:'TOP'},
         pho_soups:{ru:'Фо (супы)',ua:'Фо (супи)',vn:'Súp Phở'},
         bun_soups:{ru:'Бун (супы)',ua:'Бун (супи)',vn:'Súp Bún'},
-        salat_bun:{ru:'Бун (salat)',ua:'Бун (salat)',vn:'Bún nam bộ'},
+        salat_bun:{ru:'Бун (салат)',ua:'Бун (салат)',vn:'Bún nam bộ'},
         mien_soups:{ru:'Миен (супы)',ua:'Мієн (супи)',vn:'Súp Miến'},
         mi_soups:{ru:'Ми (супы)',ua:'Мі (супи)',vn:'Súp Mì'},
         wok_fried_pho:{ru:'ВОК: жареный Фо',ua:'ВОК: смажений Фо',vn:'Wok Phở xào'},
@@ -454,7 +485,6 @@
       const CART_KEY = 'CD_CART_V2';
       const ORDERS_KEY = 'CD_ORDERS_V1';
       const SEARCH_KEY = 'CD_SEARCH_Q';
-      const HERO_KEY = 'CD_HERO_CLOSED';
 
       const cart = new Map();
 
@@ -595,11 +625,11 @@
                <button data-inc="${id}">+</button>
              </div>`
           : `<button class="add" data-add="${id}">${t.ui.add}</button>`;
-        const key = (it && (it.key || it.id || it.code)) || '';
         const shortDesc = (it && (it.short || it.desc || '')) || '';
         const metaHtml = buildMeta(it);
+        const codeHtml = it.code ? `<span class="code">${it.code}</span>` : '';
         return `
-          <div class="card ${featured?'featured':''} ${hasOpts?'has-opts':''}" data-id="${id}"${key ? ` data-key="${key}"` : ''}>
+          <div class="card ${featured?'featured':''} ${hasOpts?'has-opts':''}" data-id="${id}">
             <div class="thumb-wrap">
               <div class="thumb">
                 <img alt="${escapeHtml(name)}" loading="lazy" decoding="async">
@@ -610,7 +640,7 @@
                       aria-label="Info"
                       aria-expanded="false">ℹ</button>
             </div>
-            <div class="name">${escapeHtml(name)}</div>
+            <div class="name">${escapeHtml(name)} ${codeHtml}</div>
             ${metaHtml}
             <p class="desc">${escapeHtml(shortDesc)}</p>
             <div class="foot">
@@ -711,6 +741,121 @@
         applyView();
       }
 
+      function cartSummary(orderType = 'on_site') {
+        let itemsCount = 0, sum = 0;
+        const lines = [];
+        const items = [];
+        for (const [id, entry] of cart){
+          const qty = entry?.qty || 0;
+          if (qty<=0) continue;
+          const [cat, idx] = id.split(':');
+          const it = menuData[cat]?.[+idx];
+          if (!it) continue;
+          const name = itemName(it);
+          const unit = calcItemUnitPrice(it, entry.selections);
+          const key = it.key || it.id || it.code || '';
+          const code = it.code || '';
+          const optText = summarizeSelections(it, entry.selections);
+          const noteText = (entry.note || '').trim();
+          itemsCount += qty;
+          sum += unit * qty;
+          const extra = [optText ? `(${optText})` : '', noteText ? `[${noteText}]` : ''].filter(Boolean).join(' ');
+          const isCustom = (Array.isArray(it.tags) && it.tags.includes('custom')) || String(it.key||'').startsWith('custom_') || !!it.is_custom_builder;
+          const codeDisplay = code ? `(${code})` : '';
+          if (isCustom){
+            const optLines = summarizeSelectionsLines(it, entry.selections);
+            lines.push(`• ${name} ${codeDisplay} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
+            for (const l of optLines){ lines.push(` └ ${l}`); }
+            if (noteText) lines.push(` └ Note: ${noteText}`);
+          } else {
+            lines.push(`• ${name} ${codeDisplay} ${extra} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
+          }
+          items.push({ name, price: unit, qty, key, code, selections: entry.selections || {}, note: noteText });
+        }
+        
+        let deliveryFee = 0;
+        let deliveryText = '';
+        if (orderType === 'delivery') {
+          if (sum >= FREE_DELIVERY_MIN) {
+            deliveryFee = 0;
+            deliveryText = L().sheet.freeDelivery;
+          } else {
+            deliveryFee = DELIVERY_PRICE;
+            deliveryText = `${DELIVERY_PRICE} ${CURRENCY}`;
+          }
+        }
+        
+        const totalWithDelivery = sum + deliveryFee;
+        return {itemsCount, sum, lines, items, deliveryFee, deliveryText, totalWithDelivery};
+      }
+
+      function renderCartSheet(){
+        const t = L().sheet;
+        const lines = $('#cartLines');
+        if (!lines) return;
+        
+        const orderType = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
+        
+        if (cart.size === 0){
+          lines.innerHTML = `<div class="muted">${t.empty}</div>`;
+          $('#cartMeta').innerHTML = `${t.total}: ${fmt(0)}`;
+          return;
+        }
+        
+        let sum = 0;
+        lines.innerHTML = '';
+        for (const [id, entry] of cart){
+          const qty = entry?.qty || 0;
+          if (qty<=0) continue;
+          const [cat, idx] = id.split(':');
+          const it = menuData[cat]?.[+idx];
+          if (!it) continue;
+          const name = itemName(it);
+          const unit = calcItemUnitPrice(it, entry.selections);
+          sum += unit * qty;
+          const optText = summarizeSelections(it, entry.selections);
+          const noteText = (entry.note || '').trim();
+          const codeHtml = it.code ? ` (${it.code})` : '';
+          const el = document.createElement('div');
+          el.className = 'line';
+          el.innerHTML = `
+            <div>
+              <strong>${escapeHtml(name)}${codeHtml}</strong>
+              ${optText ? `<div class="muted">${optText}</div>` : ``}
+              ${noteText ? `<div class="muted">✎ ${escapeHtml(noteText)}</div>` : ``}
+              <div class="muted">${fmt(unit)} × ${qty}</div>
+            </div>
+            <div class="qty" data-qty="${id}">
+              <button data-dec="${id}">−</button>
+              <span>${qty}</span>
+              <button data-inc="${id}">+</button>
+            </div>`;
+          lines.appendChild(el);
+        }
+        
+        let deliveryFee = 0;
+        let deliveryText = '';
+        if (orderType === 'delivery') {
+          if (sum >= FREE_DELIVERY_MIN) {
+            deliveryFee = 0;
+            deliveryText = `0 ${CURRENCY} (${t.freeDelivery})`;
+          } else {
+            deliveryFee = DELIVERY_PRICE;
+            deliveryText = `${DELIVERY_PRICE} ${CURRENCY}`;
+          }
+        }
+        
+        const totalWithDelivery = sum + deliveryFee;
+        
+        let metaText = `${t.total}: ${fmt(sum)}`;
+        if (orderType === 'delivery') {
+          metaText += `<br>${t.deliveryPrice}: ${deliveryText}`;
+          metaText += `<br><strong>${t.total} с доставкой: ${fmt(totalWithDelivery)}</strong>`;
+        }
+        
+        $('#cartMeta').innerHTML = metaText;
+      }
+
       function renderFab(){
         let items = 0, sum = 0;
         for (const [id, entry] of cart){
@@ -727,52 +872,6 @@
           badge.textContent = items;
           badge.style.display = items > 0 ? 'flex' : 'none';
         }
-        const meta = $('#cartMeta');
-        if (meta){
-          const s = L().sheet;
-          meta.textContent = `${s.total}: ${fmt(sum)}`;
-        }
-      }
-
-      function renderCartSheet(){
-        const t = L().sheet;
-        const lines = $('#cartLines');
-        if (!lines) return;
-        if (cart.size === 0){
-          lines.innerHTML = `<div class="muted">${t.empty}</div>`;
-          $('#cartMeta').textContent = `${t.total}: ${fmt(0)}`;
-          return;
-        }
-        let sum = 0;
-        lines.innerHTML = '';
-        for (const [id, entry] of cart){
-          const qty = entry?.qty || 0;
-          if (qty<=0) continue;
-          const [cat, idx] = id.split(':');
-          const it = menuData[cat]?.[+idx];
-          if (!it) continue;
-          const name = itemName(it);
-          const unit = calcItemUnitPrice(it, entry.selections);
-          sum += unit * qty;
-          const optText = summarizeSelections(it, entry.selections);
-          const noteText = (entry.note || '').trim();
-          const el = document.createElement('div');
-          el.className = 'line';
-          el.innerHTML = `
-            <div>
-              <strong>${name}</strong>
-              ${optText ? `<div class="muted">${optText}</div>` : ``}
-              ${noteText ? `<div class="muted">✎ ${escapeHtml(noteText)}</div>` : ``}
-              <div class="muted">${fmt(unit)} × ${qty}</div>
-            </div>
-            <div class="qty" data-qty="${id}">
-              <button data-dec="${id}">−</button>
-              <span>${qty}</span>
-              <button data-inc="${id}">+</button>
-            </div>`;
-          lines.appendChild(el);
-        }
-        $('#cartMeta').textContent = `${t.total}: ${fmt(sum)}`;
       }
 
       function openSheet(){
@@ -990,13 +1089,20 @@
           if (img) buildThumb(img, it.key);
         }
 
-        dishDesc.textContent = it.short || it.desc || '';
         try{
           const descs = await loadDescriptions();
           const entry = it.key ? descs[it.key] : null;
-          const text = entry?.description?.[LANG] || entry?.description?.ru || '';
-          if (text) dishDesc.textContent = text;
-        }catch(e){}
+          const text = entry?.description?.[LANG] || entry?.description?.ru || it.short || it.desc || '';
+          const ingredients = entry?.ingredients?.[LANG] || entry?.ingredients?.ru || '';
+          
+          let fullDesc = text;
+          if (ingredients) {
+            fullDesc += `\n\n📋 ${L().common.ingredients}: ${ingredients}`;
+          }
+          dishDesc.textContent = fullDesc;
+        }catch(e){
+          dishDesc.textContent = it.short || it.desc || '';
+        }
 
         renderDishOptions(it, ctx.tempSel);
         dishNote.value = ctx.tempNote || '';
@@ -1207,19 +1313,28 @@
         if (tableNo) tableNo.required = (v === 'on_site');
         if (pickupIn) pickupIn.required = (v === 'takeaway');
         if (address) address.required = (v === 'delivery');
-        phoneHint.textContent = (v === 'on_site') ? c.common.optional : c.common.required;
+        
+        if (v === 'delivery') {
+          phoneHint.textContent = c.common.required;
+          phone.required = true;
+        } else if (v === 'takeaway') {
+          phoneHint.textContent = c.common.required;
+          phone.required = true;
+        } else {
+          phoneHint.textContent = c.common.optional;
+          phone.required = false;
+        }
+        
         tableHint.textContent = c.common.required;
         pickupHint.textContent = c.common.required;
         addrHint.textContent = c.common.required;
+        
+        renderCartSheet();
       }
 
       otWrap?.addEventListener('click', e=>{
         const b = e.target.closest('[data-ot]');
         if (!b) return;
-        if (b.dataset.ot === 'delivery' || b.disabled){
-          alert(L().deliveryOff);
-          return;
-        }
         $$('#orderType .chip').forEach(x => x.classList.remove('active'));
         b.classList.add('active');
         setOrderType(b.dataset.ot);
@@ -1272,6 +1387,9 @@
 
         const csTitle = $('#catSheetTitle');
         if (csTitle) csTitle.textContent = t.navMenu || 'Категории';
+        
+        const bankTitle = $('#bankSheetTitle');
+        if (bankTitle) bankTitle.textContent = 'Выберите способ оплаты';
 
         renderPills();
         renderMenu();
@@ -1303,11 +1421,18 @@
           return;
         }
         const when = new Date(rec.created_at).toLocaleString();
-        const total = Number(rec.total||0).toFixed(2);
+        const total = Number(rec.total || rec.subtotal + (rec.delivery_fee||0)).toFixed(2);
+        
+        let deliveryInfo = '';
+        if (rec.delivery_fee !== undefined) {
+          deliveryInfo = `<div class="muted">Стоимость доставки: ${(rec.delivery_fee||0).toFixed(2)} ${CURRENCY}</div>`;
+        }
+        
         statusResultEl.innerHTML = `
           <div class="status-card">
             <div><b>Код:</b> ${escapeHtml(rec.code)} <span class="pill-mini">${escapeHtml(rec.status||'—')}</span></div>
             <div class="muted">ID: ${escapeHtml(rec.id)} · ${escapeHtml(when)}</div>
+            ${deliveryInfo}
             <div class="muted">Итого: ${total} ${escapeHtml(rec.currency||CURRENCY)}</div>
             ${rec.receipt_link ? `
             <div style="margin-top:10px">
@@ -1434,25 +1559,33 @@
 
       function buildVietnameseOrderText(orderPayload){
         const total = Number(orderPayload.total || 0).toFixed(2);
+        const subtotal = Number(orderPayload.subtotal || orderPayload.total || 0).toFixed(2);
+        const deliveryFee = Number(orderPayload.delivery_fee || 0).toFixed(2);
 
         const meta = [];
         if (orderPayload.type === "on_site" && orderPayload.table) meta.push(`Bàn: <b>${escapeHtml(orderPayload.table)}</b>`);
         if (orderPayload.type === "takeaway" && orderPayload.pickup_in) meta.push(`Nhận sau: <b>${escapeHtml(orderPayload.pickup_in)} phút</b>`);
         if (orderPayload.type === "delivery" && orderPayload.address) meta.push(`Địa chỉ: <b>${escapeHtml(orderPayload.address)}</b>`);
         if (orderPayload.phone) meta.push(`SĐT: <b>${escapeHtml(orderPayload.phone)}</b>`);
+        if (orderPayload.type === "delivery" && deliveryFee > 0) {
+          meta.push(`Phí giao hàng: <b>${deliveryFee} ${CURRENCY}</b>`);
+        }
 
         const lines = (orderPayload.items || []).map(itm=>{
           const found = itm.key ? findByKey(itm.key) : null;
           const optText = found?.it ? summarizeSelectionsVI(found.it, itm.selections) : '';
           const note = (itm.note || "").trim();
           const extra = [optText ? `(${escapeHtml(optText)})` : '', note ? `📝 ${escapeHtml(note)}` : ''].filter(Boolean).join(' ');
-          return `• ${escapeHtml(itm.name || "Món")} ${extra} — ${Number(itm.price || 0).toFixed(2)} ${CURRENCY} × ${Number(itm.qty || 0)}`;
+          const code = itm.code ? `(${escapeHtml(itm.code)})` : '';
+          return `• ${escapeHtml(itm.name)} ${code} ${extra} — ${Number(itm.price || 0).toFixed(2)} ${CURRENCY} × ${Number(itm.qty || 0)}`;
         }).join("\n") || "—";
 
         return `<b>CYBER DRAGON — Đơn mới</b>
 ID: <code>${escapeHtml(orderPayload.id)}</code>
 Code: <b>${escapeHtml(orderPayload.code)}</b>
-Tổng: <b>${total} ${CURRENCY}</b>
+Tạm tính: <b>${subtotal} ${CURRENCY}</b>
+${deliveryFee > 0 ? `Phí giao hàng: <b>${deliveryFee} ${CURRENCY}</b>` : ''}
+Tổng cộng: <b>${total} ${CURRENCY}</b>
 Hình thức: <b>${viType(orderPayload.type)}</b>
 ${meta.join("\n")}
 <b>Món:</b>
@@ -1477,38 +1610,6 @@ ${lines}`;
         }
       }
 
-      function cartSummary(){
-        let itemsCount = 0, sum = 0;
-        const lines = [];
-        const items = [];
-        for (const [id, entry] of cart){
-          const qty = entry?.qty || 0;
-          if (qty<=0) continue;
-          const [cat, idx] = id.split(':');
-          const it = menuData[cat]?.[+idx];
-          if (!it) continue;
-          const name = itemName(it);
-          const unit = calcItemUnitPrice(it, entry.selections);
-          const key = it.key || it.id || it.code || '';
-          const optText = summarizeSelections(it, entry.selections);
-          const noteText = (entry.note || '').trim();
-          itemsCount += qty;
-          sum += unit * qty;
-          const extra = [optText ? `(${optText})` : '', noteText ? `[${noteText}]` : ''].filter(Boolean).join(' ');
-          const isCustom = (Array.isArray(it.tags) && it.tags.includes('custom')) || String(it.key||'').startsWith('custom_') || !!it.is_custom_builder;
-          if (isCustom){
-            const optLines = summarizeSelectionsLines(it, entry.selections);
-            lines.push(`• ${name} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
-            for (const l of optLines){ lines.push(` └ ${l}`); }
-            if (noteText) lines.push(` └ Note: ${noteText}`);
-          } else {
-            lines.push(`• ${name} ${extra} — ${unit.toFixed(2)} ${CURRENCY} × ${qty}`);
-          }
-          items.push({ name, price: unit, qty, key, selections: entry.selections || {}, note: noteText });
-        }
-        return {itemsCount,sum,lines,items};
-      }
-
       function generateShortCode(){
         const letters = 'abcdefghijklmnopqrstuvwxyz';
         const letter = letters[Math.floor(Math.random() * letters.length)];
@@ -1526,10 +1627,6 @@ ${lines}`;
         const s = L().sheet;
         const ot = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
 
-        if (ot === 'delivery'){
-          alert(L().deliveryOff);
-          return;
-        }
         if (ot === 'on_site' && !tableNo.value.trim()){ alert(s.errTable); return; }
         if (ot === 'takeaway'){
           if (!pickupIn.value.trim()){ alert(s.errPickup); return; }
@@ -1540,13 +1637,21 @@ ${lines}`;
           if (!phone.value.trim()){ alert(s.errPhone); return; }
         }
 
-        const {sum,lines,items} = cartSummary();
+        const {sum, lines, items, deliveryFee, totalWithDelivery} = cartSummary(ot);
         const typeStr = ot === 'on_site' ? s.onSite : ot === 'takeaway' ? s.takeaway : s.delivery;
         const meta = [];
         if (ot === 'on_site') meta.push(`${s.table}: ${tableNo.value.trim()}`);
-        if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()}`);
+        if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()} мин`);
         if (ot === 'delivery') meta.push(`${s.address}: ${address.value.trim()}`);
         if (phone.value.trim()) meta.push(`${s.phone}: ${phone.value.trim()}`);
+        
+        if (ot === 'delivery') {
+          if (deliveryFee > 0) {
+            meta.push(`${s.deliveryPrice}: ${deliveryFee} ${CURRENCY}`);
+          } else {
+            meta.push(`${s.freeDelivery}`);
+          }
+        }
 
         const ordId = 'CD-'+new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
         const orderCode = generateShortCode();
@@ -1555,7 +1660,9 @@ ${lines}`;
 `<b>CYBER DRAGON dlv — New order</b>
 ID: <code>${ordId}</code>
 Code: <b>${orderCode}</b>
-${s.total}: <b>${sum.toFixed(2)} ${CURRENCY}</b>
+${s.total} (без доставки): <b>${sum.toFixed(2)} ${CURRENCY}</b>
+${ot === 'delivery' ? `${s.deliveryPrice}: <b>${deliveryFee} ${CURRENCY}</b>\n` : ''}
+<b>Итого к оплате: ${totalWithDelivery.toFixed(2)} ${CURRENCY}</b>
 Type: <b>${typeStr}</b>
 ${meta.join('\n')}
 <b>Items:</b>
@@ -1571,7 +1678,9 @@ ${lines.join('\n') || '—'}`;
           address: ot==='delivery' ? address.value.trim() : '',
           phone: phone.value.trim(),
           items,
-          total: sum,
+          subtotal: sum,
+          delivery_fee: deliveryFee,
+          total: totalWithDelivery,
           created_at: new Date().toISOString()
         };
 
@@ -1588,7 +1697,9 @@ ${lines.join('\n') || '—'}`;
           code: orderCode,
           id: ordId,
           created_at: orderPayload.created_at,
-          total: sum,
+          subtotal: sum,
+          delivery_fee: deliveryFee,
+          total: totalWithDelivery,
           currency: CURRENCY,
           type: ot,
           meta,
@@ -1606,7 +1717,7 @@ ${lines.join('\n') || '—'}`;
         else if (tgRes?.ok || tgResVN?.ok || sheetRes?.ok || sheetRes?.id) icon = '✔…';
         else icon = '…';
 
-        alert(`${icon} ID: ${ordId} • ${s.total}: ${sum.toFixed(2)} ${CURRENCY}`);
+        alert(`${icon} ID: ${ordId} • Итого: ${totalWithDelivery.toFixed(2)} ${CURRENCY}`);
 
         if (statusResultEl){
           statusResultEl.innerHTML = `
@@ -1789,8 +1900,73 @@ ${lines.join('\n') || '—'}`;
           if ($('#moreSheet')?.classList.contains('open')) closeMoreSheet();
           if ($('#dishSheet')?.classList.contains('open')) closeDishSheet();
           if (langPopup?.classList.contains('show')) langPopup.classList.remove('show');
+          if ($('#bankSheet')?.classList.contains('open')) closeBankSheet();
         }
       });
+
+      /* BANK SELECTION MODAL */
+      const bankOverlay = $('#bankOverlay');
+      const bankSheet = $('#bankSheet');
+      const bankSheetClose = $('#bankSheetClose');
+      const bankList = $('#bankList');
+      const paySwitcher = $('#paySwitcher');
+
+      const payItems = [
+        { name: 'Apple Pay', icon: 'images/icon/applepay.png', link: UNIVERSAL_PAY_LINK },
+        { name: 'Google Pay', icon: 'images/icon/gpay.png', link: UNIVERSAL_PAY_LINK },
+        { name: 'Privat24', icon: 'images/icon/privat24.png', link: UNIVERSAL_PAY_LINK },
+        { name: 'Monobank', icon: 'images/icon/monobank.png', link: UNIVERSAL_PAY_LINK }
+      ];
+
+      function renderBankList() {
+        if (!bankList) return;
+        bankList.innerHTML = payItems.map(item => `
+          <button class="chip bank-option" data-link="${item.link}" style="display:flex; align-items:center; gap:12px; width:100%; justify-content:flex-start;">
+            <img src="${item.icon}" alt="${item.name}" style="width:24px; height:24px;">
+            ${item.name}
+          </button>
+        `).join('');
+      }
+
+      function openBankSheet() {
+        document.body.classList.add('sheet-open');
+        bankOverlay?.classList.add('show');
+        bankSheet?.classList.add('open');
+      }
+
+      function closeBankSheet() {
+        document.body.classList.remove('sheet-open');
+        bankOverlay?.classList.remove('show');
+        bankSheet?.classList.remove('open');
+      }
+
+      if (paySwitcher) {
+        paySwitcher.addEventListener('click', (e) => {
+          e.preventDefault();
+          openBankSheet();
+        });
+      }
+
+      bankOverlay?.addEventListener('click', closeBankSheet);
+      bankSheetClose?.addEventListener('click', closeBankSheet);
+
+      bankList?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.bank-option');
+        if (!btn) return;
+        const link = btn.dataset.link;
+        if (link) {
+          window.open(link, '_blank', 'noopener,noreferrer');
+        }
+        closeBankSheet();
+      });
+
+      const payIcon = $('#payIcon');
+      const payText = $('#payText');
+      if (payIcon && payText && payItems[0]) {
+        payIcon.src = payItems[0].icon;
+        payIcon.alt = payItems[0].name;
+        payText.textContent = payItems[0].name;
+      }
 
       (function(){
         const cartSheet = $('#sheet');
@@ -1799,6 +1975,8 @@ ${lines.join('\n') || '—'}`;
         const catOverlay = $('#catOverlay');
         const moreSheet = $('#moreSheet');
         const moreOverlay = $('#moreOverlay');
+        const bankSheetEl = $('#bankSheet');
+        const bankOverlayEl = $('#bankOverlay');
         const DRAG_START_ZONE = 40;
         const DISMISS_Y = 120;
         const MAX_DRAG = 280;
@@ -1867,6 +2045,7 @@ ${lines.join('\n') || '—'}`;
         attachSwipe(cartSheet, cartOverlay, closeSheet);
         attachSwipe(catSheet, catOverlay, closeCatSheet);
         attachSwipe(moreSheet, moreOverlay, closeMoreSheet);
+        attachSwipe(bankSheetEl, bankOverlayEl, closeBankSheet);
       })();
 
       (function(){
@@ -1881,61 +2060,6 @@ ${lines.join('\n') || '—'}`;
         };
         window.addEventListener('touchstart', once, {once:true, passive:true});
         window.addEventListener('click', once, {once:true, passive:true});
-      })();
-
-      /* ===== PAY SWITCHER ===== */
-      (function(){
-        const paySwitcher = document.getElementById('paySwitcher');
-        const payIcon = document.getElementById('payIcon');
-        const payText = document.getElementById('payText');
-        if (!paySwitcher || !payIcon || !payText) return;
-
-        const payItems = [
-          {
-            name: 'Apple Pay',
-            icon: 'images/icon/applepay.png',
-            link: UNIVERSAL_PAY_LINK
-          },
-          {
-            name: 'Google Pay',
-            icon: 'images/icon/gpay.png',
-            link: UNIVERSAL_PAY_LINK
-          },
-          {
-            name: 'Privat24',
-            icon: 'images/icon/privat24.png',
-            link: UNIVERSAL_PAY_LINK
-          },
-          {
-            name: 'Monobank',
-            icon: 'images/icon/monobank.png',
-            link: UNIVERSAL_PAY_LINK
-          }
-        ];
-
-        let payIndex = 0;
-
-        function applyPayItem(item){
-          payIcon.src = item.icon;
-          payIcon.alt = item.name;
-          payText.textContent = item.name;
-          paySwitcher.setAttribute('aria-label', item.name);
-          paySwitcher.href = item.link || '#';
-          paySwitcher.target = '_blank';
-          paySwitcher.rel = 'noopener noreferrer';
-        }
-
-        function nextPayItem(){
-          paySwitcher.classList.add('switching');
-          setTimeout(() => {
-            payIndex = (payIndex + 1) % payItems.length;
-            applyPayItem(payItems[payIndex]);
-            paySwitcher.classList.remove('switching');
-          }, 220);
-        }
-
-        applyPayItem(payItems[0]);
-        setInterval(nextPayItem, 2200);
       })();
 
       (function init(){
@@ -1977,9 +2101,6 @@ ${lines.join('\n') || '—'}`;
           }
         }catch(e){}
 
-        const heroClosed = localStorage.getItem(HERO_KEY) === '1';
-        document.body.classList.toggle('hero-closed', heroClosed);
-
         if (selA) selA.value = LANG;
         if (selB) selB.value = LANG;
 
@@ -1988,6 +2109,7 @@ ${lines.join('\n') || '—'}`;
         if (langFlagEl) langFlagEl.textContent = flag;
 
         setUITexts();
+        renderBankList();
 
         const header = $('.header');
         const catNav = $('.cat-nav');
@@ -2001,4 +2123,3 @@ ${lines.join('\n') || '—'}`;
     </script>
   </div>
 </body>
-</html>

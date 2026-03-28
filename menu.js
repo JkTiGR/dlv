@@ -3,6 +3,7 @@ const menuData = {
   pho_soups: [
     {
       key: "pho_ga_xao",
+      code: "PHG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -16,6 +17,7 @@ const menuData = {
     },
     {
       key: "pho_bo_xao",
+      code: "PHB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -29,6 +31,7 @@ const menuData = {
     },
     {
       key: "pho_heo_xao",
+      code: "PHH",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -42,6 +45,7 @@ const menuData = {
     },
     {
       key: "pho_tom",
+      code: "PHT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -55,6 +59,7 @@ const menuData = {
     },
     {
       key: "pho_mix",
+      code: "PHM",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -71,6 +76,7 @@ const menuData = {
   bun_soups: [
     {
       key: "bun_ga_xao",
+      code: "BUG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -84,6 +90,7 @@ const menuData = {
     },
     {
       key: "bun_bo_xao",
+      code: "BUB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -97,6 +104,7 @@ const menuData = {
     },
     {
       key: "bun_heo_xao",
+      code: "BUH",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -110,6 +118,7 @@ const menuData = {
     },
     {
       key: "bun_tom",
+      code: "BUT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -123,6 +132,7 @@ const menuData = {
     },
     {
       key: "bun_mix",
+      code: "BUM",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -139,6 +149,7 @@ const menuData = {
   salat_bun: [
     {
       key: "salat_bun_ga",
+      code: "SBG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -152,6 +163,7 @@ const menuData = {
     },
     {
       key: "salat_bun_bo",
+      code: "SBB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -165,6 +177,7 @@ const menuData = {
     },
     {
       key: "salat_bun_tom",
+      code: "SBT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -178,6 +191,7 @@ const menuData = {
     },
     {
       key: "salat_bun_heo",
+      code: "SBH",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -191,6 +205,7 @@ const menuData = {
     },
     {
       key: "salat_bun_nem",
+      code: "SBN",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -204,6 +219,7 @@ const menuData = {
     },
     {
       key: "salat_bun_mix",
+      code: "SBM",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -220,6 +236,7 @@ const menuData = {
   mien_soups: [
     {
       key: "mien_ga_xao",
+      code: "MIG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -233,6 +250,7 @@ const menuData = {
     },
     {
       key: "mien_bo_xao",
+      code: "MIB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -246,6 +264,7 @@ const menuData = {
     },
     {
       key: "mien_tom",
+      code: "MIT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -259,6 +278,7 @@ const menuData = {
     },
     {
       key: "mien_heo_xao",
+      code: "MIH",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -272,6 +292,7 @@ const menuData = {
     },
     {
       key: "mien_mix",
+      code: "MIM",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -288,6 +309,7 @@ const menuData = {
   mi_soups: [
     {
       key: "mi_xao_ga",
+      code: "MXG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -301,6 +323,7 @@ const menuData = {
     },
     {
       key: "mi_xao_bo",
+      code: "MXB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -314,6 +337,7 @@ const menuData = {
     },
     {
       key: "mi_xao_heo",
+      code: "MXH",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -327,6 +351,7 @@ const menuData = {
     },
     {
       key: "mi_xao_tom",
+      code: "MXT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -340,6 +365,7 @@ const menuData = {
     },
     {
       key: "mi_xao_mix",
+      code: "MXM",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -357,6 +383,7 @@ const menuData = {
   wok_fried_pho: [
     {
       key: "pho_xao_ga",
+      code: "PXG",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -370,6 +397,7 @@ const menuData = {
     },
     {
       key: "pho_xao_bo",
+      code: "PXB",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -383,6 +411,7 @@ const menuData = {
     },
     {
       key: "pho_xao_heo",
+      code: "PXH",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -396,6 +425,7 @@ const menuData = {
     },
     {
       key: "pho_xao_tom",
+      code: "PXT",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -409,6 +439,7 @@ const menuData = {
     },
     {
       key: "pho_xao_mix",
+      code: "PXM",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -425,6 +456,7 @@ const menuData = {
   wok_fried_mien: [
     {
       key: "mien_xao_ga",
+      code: "MXG",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -438,6 +470,7 @@ const menuData = {
     },
     {
       key: "mien_xao_bo",
+      code: "MXB",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -451,6 +484,7 @@ const menuData = {
     },
     {
       key: "mien_xao_heo",
+      code: "MXH",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -464,6 +498,7 @@ const menuData = {
     },
     {
       key: "mien_xao_tom",
+      code: "MXT",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -477,6 +512,7 @@ const menuData = {
     },
     {
       key: "mien_xao_mix",
+      code: "MXM",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -493,6 +529,7 @@ const menuData = {
   wok_fried_mi: [
     {
       key: "mi_xao_ga",
+      code: "MXG",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -506,6 +543,7 @@ const menuData = {
     },
     {
       key: "mi_xao_bo",
+      code: "MXB",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -519,6 +557,7 @@ const menuData = {
     },
     {
       key: "mi_xao_heo",
+      code: "MXH",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -532,6 +571,7 @@ const menuData = {
     },
     {
       key: "mi_xao_tom",
+      code: "MXT",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -545,6 +585,7 @@ const menuData = {
     },
     {
       key: "mi_xao_mix",
+      code: "MXM",
       price: 200,
       weight: 700,
       spicy: 1,
@@ -562,6 +603,7 @@ const menuData = {
   rice_braised: [
     {
       key: "com_thit_ga_xao",
+      code: "CTG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -575,6 +617,7 @@ const menuData = {
     },
     {
       key: "com_thit_bo_xao",
+      code: "CTB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -588,6 +631,7 @@ const menuData = {
     },
     {
       key: "com_thit_heo_xao",
+      code: "CTH",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -601,6 +645,7 @@ const menuData = {
     },
     {
       key: "com_tom",
+      code: "CTO",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -614,6 +659,7 @@ const menuData = {
     },
     {
       key: "com_nem",
+      code: "CNE",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -627,6 +673,7 @@ const menuData = {
     },
     {
       key: "com_mix",
+      code: "CMX",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -643,6 +690,7 @@ const menuData = {
   fried_rice: [
     {
       key: "com_rang_ga",
+      code: "CRG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -656,6 +704,7 @@ const menuData = {
     },
     {
       key: "com_rang_bo",
+      code: "CRB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -669,6 +718,7 @@ const menuData = {
     },
     {
       key: "com_rang_tom",
+      code: "CRT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -682,6 +732,7 @@ const menuData = {
     },
     {
       key: "com_rang_heo",
+      code: "CRH",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -695,6 +746,7 @@ const menuData = {
     },
     {
       key: "com_rang_nem",
+      code: "CRN",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -708,6 +760,7 @@ const menuData = {
     },
     {
       key: "com_rang_mix",
+      code: "CRM",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -725,6 +778,7 @@ const menuData = {
   appetizers: [
     {
       key: "nem_ran",
+      code: "NER",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -738,6 +792,7 @@ const menuData = {
     },
     {
       key: "spring_rolls",
+      code: "SPR",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -755,6 +810,7 @@ const menuData = {
   drinks: [
     {
       key: "bo_huc",
+      code: "BOH",
       price: 80,
       weight: 250,
       spicy: 0,
@@ -768,6 +824,7 @@ const menuData = {
     },
     {
       key: "caphe_viet",
+      code: "CAF",
       price: 50,
       weight: 250,
       spicy: 0,
@@ -781,6 +838,7 @@ const menuData = {
     },
     {
       key: "pepsi_03_sklo",
+      code: "PS0",
       price: 69,
       weight: 300,
       spicy: 0,
@@ -794,6 +852,7 @@ const menuData = {
     },
     {
       key: "pepsi_033_jb",
+      code: "P33",
       price: 59,
       weight: 330,
       spicy: 0,
@@ -807,6 +866,7 @@ const menuData = {
     },
     {
       key: "pepsi_05",
+      code: "P05",
       price: 69,
       weight: 500,
       spicy: 0,
@@ -820,6 +880,7 @@ const menuData = {
     },
     {
       key: "pepsi_black_05",
+      code: "PB5",
       price: 69,
       weight: 500,
       spicy: 0,
@@ -833,6 +894,7 @@ const menuData = {
     },
     {
       key: "pepsi_cherry_05",
+      code: "PC5",
       price: 69,
       weight: 500,
       spicy: 0,
@@ -846,6 +908,7 @@ const menuData = {
     },
     {
       key: "mirinda_orange_05",
+      code: "MO5",
       price: 69,
       weight: 500,
       spicy: 0,
@@ -859,6 +922,7 @@ const menuData = {
     },
     {
       key: "seven_up_05",
+      code: "SU5",
       price: 69,
       weight: 500,
       spicy: 0,
@@ -872,6 +936,7 @@ const menuData = {
     },
     {
       key: "karpatska_djerelna_negaz_05",
+      code: "KDN",
       price: 39,
       weight: 500,
       spicy: 0,
@@ -885,6 +950,7 @@ const menuData = {
     },
     {
       key: "karpatska_djerelna_gaz_05",
+      code: "KDG",
       price: 39,
       weight: 500,
       spicy: 0,
@@ -898,6 +964,7 @@ const menuData = {
     },
     {
       key: "sadochok_multifrukht_05",
+      code: "SML",
       price: 69,
       weight: 500,
       spicy: 0,
@@ -911,6 +978,7 @@ const menuData = {
     },
     {
       key: "sadochok_tomatniy_05",
+      code: "STO",
       price: 75,
       weight: 500,
       spicy: 0,
@@ -1135,6 +1203,7 @@ const menuData = {
     return {
       id: meta.id,
       key: meta.key,
+      code: "CUS_" + catKey.substring(0,3).toUpperCase(),
       name: meta.name_ru,
       image: meta.image,
       price: (meta.price ?? 120),
@@ -1147,7 +1216,7 @@ const menuData = {
       base: baseForThis,
       translations: {
         ru: meta.name_ru,
-        ua: meta.name_ru,   // если захочешь — позже добавим нормальные переводы
+        ua: meta.name_ru,
         vn: "Tự chọn"
       },
       short: `База: ${baseForThis}`
