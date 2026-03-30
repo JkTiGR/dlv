@@ -3,7 +3,7 @@ const menuData = {
   pho_soups: [
     {
       key: "pho_ga_xao",
-      code: "PHG",
+      code: "PGx",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -17,7 +17,7 @@ const menuData = {
     },
     {
       key: "pho_bo_xao",
-      code: "PHB",
+      code: "PBx",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -31,7 +31,7 @@ const menuData = {
     },
     {
       key: "pho_heo_xao",
-      code: "PHH",
+      code: "PLx",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -45,7 +45,7 @@ const menuData = {
     },
     {
       key: "pho_tom",
-      code: "PHT",
+      code: "PT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -59,7 +59,7 @@ const menuData = {
     },
     {
       key: "pho_mix",
-      code: "PHM",
+      code: "PMix",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -76,7 +76,7 @@ const menuData = {
   bun_soups: [
     {
       key: "bun_ga_xao",
-      code: "BUG",
+      code: "BGx",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -90,7 +90,7 @@ const menuData = {
     },
     {
       key: "bun_bo_xao",
-      code: "BUB",
+      code: "BBx",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -104,7 +104,7 @@ const menuData = {
     },
     {
       key: "bun_heo_xao",
-      code: "BUH",
+      code: "BLx",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -118,7 +118,7 @@ const menuData = {
     },
     {
       key: "bun_tom",
-      code: "BUT",
+      code: "BT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -132,7 +132,7 @@ const menuData = {
     },
     {
       key: "bun_mix",
-      code: "BUM",
+      code: "BMix",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -149,7 +149,7 @@ const menuData = {
   salat_bun: [
     {
       key: "salat_bun_ga",
-      code: "SBG",
+      code: "BsG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -163,7 +163,7 @@ const menuData = {
     },
     {
       key: "salat_bun_bo",
-      code: "SBB",
+      code: "BsB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -177,7 +177,7 @@ const menuData = {
     },
     {
       key: "salat_bun_tom",
-      code: "SBT",
+      code: "BsT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -191,7 +191,7 @@ const menuData = {
     },
     {
       key: "salat_bun_heo",
-      code: "SBH",
+      code: "BsL",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -205,7 +205,7 @@ const menuData = {
     },
     {
       key: "salat_bun_nem",
-      code: "SBN",
+      code: "BsN",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -219,7 +219,7 @@ const menuData = {
     },
     {
       key: "salat_bun_mix",
-      code: "SBM",
+      code: "BsMix",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -236,7 +236,7 @@ const menuData = {
   mien_soups: [
     {
       key: "mien_ga_xao",
-      code: "MIG",
+      code: "MnG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -250,7 +250,7 @@ const menuData = {
     },
     {
       key: "mien_bo_xao",
-      code: "MIB",
+      code: "MnB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -264,7 +264,7 @@ const menuData = {
     },
     {
       key: "mien_tom",
-      code: "MIT",
+      code: "MnT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -278,7 +278,7 @@ const menuData = {
     },
     {
       key: "mien_heo_xao",
-      code: "MIH",
+      code: "MnL",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -292,7 +292,7 @@ const menuData = {
     },
     {
       key: "mien_mix",
-      code: "MIM",
+      code: "MnMIX",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -309,7 +309,7 @@ const menuData = {
   mi_soups: [
     {
       key: "mi_xao_ga",
-      code: "MXG",
+      code: "MTxG",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -323,7 +323,7 @@ const menuData = {
     },
     {
       key: "mi_xao_bo",
-      code: "MXB",
+      code: "MTxB",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -337,7 +337,7 @@ const menuData = {
     },
     {
       key: "mi_xao_heo",
-      code: "MXH",
+      code: "MTxL",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -351,7 +351,7 @@ const menuData = {
     },
     {
       key: "mi_xao_tom",
-      code: "MXT",
+      code: "MTxT",
       price: 200,
       weight: 700,
       spicy: 0,
@@ -365,7 +365,7 @@ const menuData = {
     },
     {
       key: "mi_xao_mix",
-      code: "MXM",
+      code: "MTM",
       price: 200,
       weight: 700,
       spicy: 0,
