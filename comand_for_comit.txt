@@ -2,10 +2,6 @@ git branch -M main
 git remote remove origin 2>/dev/null
 git remote add origin https://github.com/JkTiGR/cyber_dragon.git
 
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git push -u origin main
 
 ОБНОВИ tak chto by eti bludo kak obuchnuy bludo:
 {
@@ -23,6 +19,7 @@ i dlya vseh
 Собери сам Холодный Бун
 Собери сам Бун Бо Хюэ
 Собери сам Бун Ча Ка
+
 Собери сам Миен (супы)
 Собери сам Ми (супы)
 Собери сам ВОК: жареный Фо
@@ -50,3 +47,4 @@ images/build_rice_stewed.png
 images/build_rice_fried.png
 images/build_snacks.png
 images/build_spring_roll.png
+

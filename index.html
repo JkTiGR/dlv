@@ -38,7 +38,7 @@
     <!-- Header -->
     <header class="header">
       <div class="bar">
-        <h1 class="brand" id="brandTap"> <img class="mark" src="logo.png" alt="Logo"> CYBER DRAGON</h1>
+        <h1 class="brand" id="brandTap"> <img class="mark" src="logo.png" alt="Logo"></h1>
 
         <div class="lang">
           <select id="langSel" aria-label="Language">
@@ -69,12 +69,12 @@
 
     <!-- Hero -->
     <div class="hero">
-      <video class="promo" autoplay muted loop playsinline preload="auto">
+      <video class="promo" autoplay muted loop playsinline preload="auto" id="heroVideo">
         <source src="promo.mp4" type="video/mp4" />
+        Ваш браузер не поддерживает видео.
       </video>
 
       <div class="social">
-        <!-- Universal bank QR switcher with modal -->
         <a href="#" class="social-link pay-switcher" id="paySwitcher" aria-label="Payment methods">
           <img id="payIcon" src="images/icon/applepay.png" alt="Apple Pay" class="pay-icon">
           <span id="payText" class="pay-text">Apple Pay</span>
@@ -1776,28 +1776,7 @@ ${lines.join('\n') || '—'}`;
 
       window.addEventListener('scroll', debounce(updateActive,50));
 
-      function islandThreshold(){ return 80; }
-      let islandActive = false;
-
-      const onScrollIsland = (() => {
-        let ticking = false;
-        return () => {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(() => {
-            const needIsland = window.scrollY > islandThreshold();
-            if (needIsland !== islandActive){
-              islandActive = needIsland;
-              document.body.classList.toggle('island', islandActive);
-            }
-            ticking = false;
-          });
-        };
-      })();
-
-      window.addEventListener('scroll', onScrollIsland, {passive:true});
-      window.addEventListener('resize', onScrollIsland);
-      onScrollIsland();
+      // Island mode полностью удалён
 
       const dockCat = $('#dockCat');
       const dockView = $('#dockView');
@@ -1884,7 +1863,6 @@ ${lines.join('\n') || '—'}`;
 
       const brandEl = $('#brandTap');
       brandEl?.addEventListener('click', (e)=>{
-        if (!document.body.classList.contains('island')) return;
         e.preventDefault();
         window.scrollTo({top:0, behavior:'smooth'});
       });
@@ -1968,6 +1946,30 @@ ${lines.join('\n') || '—'}`;
         payText.textContent = payItems[0].name;
       }
 
+      /* АВТОВОСПРОИЗВЕДЕНИЕ ВИДЕО (без клика) */
+      (function autoPlayVideo() {
+        const video = document.getElementById('heroVideo');
+        if (!video) return;
+        const startVideo = () => {
+          video.play().catch(() => {
+            console.log('Autoplay blocked, will play on user interaction');
+            const once = () => {
+              video.play();
+              window.removeEventListener('touchstart', once);
+              window.removeEventListener('click', once);
+            };
+            window.addEventListener('touchstart', once, { once: true });
+            window.addEventListener('click', once, { once: true });
+          });
+        };
+        if (video.readyState >= 2) {
+          startVideo();
+        } else {
+          video.addEventListener('loadedmetadata', startVideo);
+        }
+      })();
+
+      /* SWIPE ДЛЯ ВСЕХ SHEET */
       (function(){
         const cartSheet = $('#sheet');
         const cartOverlay = $('#overlay');
@@ -2048,20 +2050,6 @@ ${lines.join('\n') || '—'}`;
         attachSwipe(bankSheetEl, bankOverlayEl, closeBankSheet);
       })();
 
-      (function(){
-        const v = document.querySelector('video.promo');
-        if (!v) return;
-        const tryPlay = () => v.play().catch(()=>{});
-        tryPlay();
-        const once = () => {
-          tryPlay();
-          window.removeEventListener('touchstart', once);
-          window.removeEventListener('click', once);
-        };
-        window.addEventListener('touchstart', once, {once:true, passive:true});
-        window.addEventListener('click', once, {once:true, passive:true});
-      })();
-
       (function init(){
         loadCart();
 
@@ -2123,3 +2111,4 @@ ${lines.join('\n') || '—'}`;
     </script>
   </div>
 </body>
+</html>
