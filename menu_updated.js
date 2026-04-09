@@ -810,8 +810,8 @@ const menuData = {
       "spicy": 1,
       "tags": [],
       "translations": {
-        "ru": "Жареный Фо с говядиной",
-        "ua": "Смажений Фо з яловичиною",
+        "ru": "Жареный Phở с говядиной",
+        "ua": "Смажений Phở з яловичиною",
         "vn": "Phở xào bò"
       },
       "short": {
@@ -828,8 +828,8 @@ const menuData = {
       "spicy": 1,
       "tags": [],
       "translations": {
-        "ru": "Жареный Фо со свининой",
-        "ua": "Смажений Фо зі свининою",
+        "ru": "Жареный Phở со свининой",
+        "ua": "Смажений Phở зі свининою",
         "vn": "Phở xào heo"
       },
       "short": {
@@ -846,8 +846,8 @@ const menuData = {
       "spicy": 1,
       "tags": [],
       "translations": {
-        "ru": "Жареный Фо с курицей",
-        "ua": "Смажений Фо з куркою",
+        "ru": "Жареный Phở с курицей",
+        "ua": "Смажений Phở з куркою",
         "vn": "Phở xào gà"
       },
       "short": {
@@ -866,8 +866,8 @@ const menuData = {
         "popular"
       ],
       "translations": {
-        "ru": "Жареный Фо с курицей в панировке",
-        "ua": "Смажений Фо з куркою в паніровці",
+        "ru": "Жареный Phở с курицей в панировке",
+        "ua": "Смажений Phở з куркою в паніровці",
         "vn": "Phở xào gà chiên xù"
       },
       "short": {
@@ -884,8 +884,8 @@ const menuData = {
       "spicy": 1,
       "tags": [],
       "translations": {
-        "ru": "Жареный Фо с креветками",
-        "ua": "Смажений Фо з креветками",
+        "ru": "Жареный Phở с креветками",
+        "ua": "Смажений Phở з креветками",
         "vn": "Phở xào tôm"
       },
       "short": {
@@ -904,8 +904,8 @@ const menuData = {
         "chef"
       ],
       "translations": {
-        "ru": "Жареный Фо MIX",
-        "ua": "Смажений Фо мікс",
+        "ru": "Жареный Phở MIX",
+        "ua": "Смажений Phở мікс",
         "vn": "Phở xào mix"
       },
       "short": {
@@ -1228,8 +1228,8 @@ const menuData = {
       "spicy": 0,
       "tags": [],
       "translations": {
-        "ru": "бао",
-        "ua": "бао",
+        "ru": "Bánh bao",
+        "ua": "Bánh bao",
         "vn": "Bánh bao"
       },
       "short": {

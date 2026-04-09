@@ -379,7 +379,7 @@
       async function loadDescriptions() {
         if (DESCS) return DESCS;
         try {
-          const resp = await fetch('descriptions.json');
+          const resp = await fetch('descriptions.json', { cache: 'no-store' });
           if (resp.ok) {
             DESCS = await resp.json();
             return DESCS;
@@ -389,6 +389,55 @@
         }
         DESCS = {};
         return DESCS;
+      }
+
+      function textByLang(val){
+        if (!val) return '';
+        if (typeof val === 'string') return val;
+        if (typeof val === 'object') return val?.[LANG] || val?.ru || val?.ua || val?.vn || '';
+        return String(val || '');
+      }
+
+      function getDescEntry(it){
+        if (!it?.key) return null;
+        return (DESCS && DESCS[it.key]) ? DESCS[it.key] : null;
+      }
+
+      function getDishDescription(it){
+        const entry = getDescEntry(it);
+        return textByLang(entry?.description) || textByLang(it?.short) || textByLang(it?.desc) || '';
+      }
+
+      function getDishIngredients(it){
+        const entry = getDescEntry(it);
+        return textByLang(entry?.ingredients) || '';
+      }
+
+      function isBuilderItem(it){
+        if (!it) return false;
+        const key = String(it.key || '').toLowerCase();
+        const tags = Array.isArray(it.tags) ? it.tags.map(x => String(x).toLowerCase()) : [];
+        const nameRu = String(it?.translations?.ru || '').toLowerCase();
+        const nameUa = String(it?.translations?.ua || '').toLowerCase();
+        const nameVn = String(it?.translations?.vn || '').toLowerCase();
+        return (
+          key === 'pho_custom' ||
+          key.startsWith('custom_') ||
+          key.startsWith('build_') ||
+          !!it.is_custom_builder ||
+          tags.includes('custom') ||
+          nameRu.includes('собери сам') ||
+          nameUa.includes('збери сам') ||
+          nameVn.includes('tự chọn')
+        );
+      }
+
+      function sanitizeMenuData(){
+        if (!menuData || typeof menuData !== 'object') return;
+        for (const [cat, arr] of Object.entries(menuData)){
+          if (!Array.isArray(arr)) continue;
+          menuData[cat] = arr.filter(it => !isBuilderItem(it));
+        }
       }
 
       const CAT_LABELS = {
@@ -477,8 +526,7 @@
       }
 
       const itemName = it =>
-        it?.translations?.[LANG] ||
-        it?.translations?.ru ||
+        textByLang(it?.translations) ||
         it?.key?.replaceAll('_',' ') ||
         '';
 
@@ -536,7 +584,7 @@
       }
 
       function renderPills(){
-        const keys = Object.keys(menuData || {});
+        const keys = Object.keys(menuData || {}).filter(k => Array.isArray(menuData[k]) && menuData[k].some(it => !isBuilderItem(it)));
         const el = $('#catPills');
         if (!el) return;
         el.innerHTML = keys.map((k,i) =>
@@ -602,7 +650,7 @@
         return base;
       }
 
-      const TOP_KEYS = ['pho_bo_xao','mi_xao_tom','mien_xao_heo','com_rang_ga','salat_bun_nem'];
+      const TOP_KEYS = ['pho_bo_xao','banh_bao','com_rang_tom','mien_xao_tom','salat_bun_nem','nem_ran','ga_chien_xu'];
 
       function findByKey(key){
         for (const [cat, arr] of Object.entries(menuData||{})){
@@ -625,7 +673,7 @@
                <button data-inc="${id}">+</button>
              </div>`
           : `<button class="add" data-add="${id}">${t.ui.add}</button>`;
-        const shortDesc = (it && (it.short || it.desc || '')) || '';
+        const shortDesc = getDishDescription(it);
         const metaHtml = buildMeta(it);
         const codeHtml = it.code ? `<span class="code">${it.code}</span>` : '';
         return `
@@ -687,10 +735,12 @@
         });
       }
 
-      function renderMenu(){
+      async function renderMenu(){
         const content = $('#content');
         if (!content) return;
         content.innerHTML = '';
+
+        await loadDescriptions();
 
         const q = (document.getElementById('searchIn')?.value || '').trim().toLowerCase();
         localStorage.setItem(SEARCH_KEY, q);
@@ -699,9 +749,11 @@
           const res = [];
           for (const [cat, arr] of Object.entries(menuData || {})){
             (arr||[]).forEach((it, idx)=>{
+              if (isBuilderItem(it)) return;
               const name = itemName(it).toLowerCase();
-              const short = String(it.short||'').toLowerCase();
-              if (name.includes(q) || short.includes(q)){
+              const desc = getDishDescription(it).toLowerCase();
+              const ingredients = getDishIngredients(it).toLowerCase();
+              if (name.includes(q) || desc.includes(q) || ingredients.includes(q)){
                 const id = `${cat}:${idx}`;
                 res.push(cardHtml(it, id, false));
               }
@@ -729,8 +781,11 @@
 
         const keys = Object.keys(menuData || {});
         keys.forEach(k => {
-          const items = (menuData[k] || []).map((it, idx) => {
-            const id = `${k}:${idx}`;
+          const safeItems = (menuData[k] || []).filter(it => !isBuilderItem(it));
+          if (!safeItems.length) return;
+          const items = safeItems.map((it, idx) => {
+            const originalIdx = (menuData[k] || []).indexOf(it);
+            const id = `${k}:${originalIdx}`;
             return cardHtml(it, id, idx===0);
           });
           renderSection(content, catLabel(k), items);
@@ -1090,18 +1145,18 @@
         }
 
         try{
-          const descs = await loadDescriptions();
-          const entry = it.key ? descs[it.key] : null;
-          const text = entry?.description?.[LANG] || entry?.description?.ru || it.short || it.desc || '';
-          const ingredients = entry?.ingredients?.[LANG] || entry?.ingredients?.ru || '';
-          
+          await loadDescriptions();
+          const text = getDishDescription(it);
+          const ingredients = getDishIngredients(it);
           let fullDesc = text;
           if (ingredients) {
-            fullDesc += `\n\n📋 ${L().common.ingredients}: ${ingredients}`;
+            fullDesc += `
+
+📋 ${L().common.ingredients}: ${ingredients}`;
           }
-          dishDesc.textContent = fullDesc;
+          dishDesc.textContent = fullDesc || '—';
         }catch(e){
-          dishDesc.textContent = it.short || it.desc || '';
+          dishDesc.textContent = textByLang(it.short) || textByLang(it.desc) || '—';
         }
 
         renderDishOptions(it, ctx.tempSel);
@@ -2053,41 +2108,7 @@ ${lines.join('\n') || '—'}`;
       (function init(){
         loadCart();
 
-        try{
-          const arr = menuData?.pho_soups;
-          if (Array.isArray(arr) && !arr.some(x => x && x.key === 'pho_custom')){
-            arr.unshift({
-              key:'pho_custom',
-              price: 160,
-              weight: 450,
-              spicy: 0,
-              tags:['chef','popular'],
-              translations:{
-                ru:'Pho — Собери сам',
-                ua:'Pho — Збери сам',
-                vn:'Phở — Tự chọn',
-              },
-              short:'Бульон + лапша. Выбираешь мясо/тофу/креветки и добавки.',
-              options:[
-                {id:'protein', title:{ru:'Белок',ua:'Білок',vn:'Đạm'}, required:true, multi:true, max:2,
-                  items:[
-                    {id:'beef', label:{ru:'Говядина',ua:'Яловичина',vn:'Bò'}, price_delta:40},
-                    {id:'chicken', label:{ru:'Курица',ua:'Курка',vn:'Gà'}, price_delta:30},
-                    {id:'pork', label:{ru:'Свинина',ua:'Свинина',vn:'Heo'}, price_delta:30},
-                    {id:'shrimp', label:{ru:'Креветки',ua:'Креветки',vn:'Tôm'}, price_delta:50},
-                    {id:'tofu', label:{ru:'Тофу',ua:'Тофу',vn:'Đậu phụ'}, price_delta:20},
-                  ]},
-                {id:'extras', title:{ru:'Добавки',ua:'Додатки',vn:'Thêm'}, required:false, multi:true, max:5,
-                  items:[
-                    {id:'corn', label:{ru:'Кукуруза',ua:'Кукурудза',vn:'Bắp'}, price_delta:15},
-                    {id:'scallion', label:{ru:'Зелёный лук',ua:'Зелена цибуля',vn:'Hành lá'}, price_delta:10},
-                    {id:'onion', label:{ru:'Лук',ua:'Цибуля',vn:'Hành'}, price_delta:8},
-                    {id:'peanut', label:{ru:'Арахис',ua:'Арахіс',vn:'Đậu phộng'}, price_delta:12},
-                  ]}
-              ]
-            });
-          }
-        }catch(e){}
+        sanitizeMenuData();
 
         if (selA) selA.value = LANG;
         if (selB) selB.value = LANG;
