@@ -4,7 +4,7 @@ const menuData = {
       "key": "pho_bo_xao",
       "code": "PBx",
       "price": 200,
-      "weight": 700,
+      "weight": 800,
       "spicy": 0,
       "tags": [
         "popular"
@@ -24,7 +24,7 @@ const menuData = {
       "key": "pho_heo_xao",
       "code": "PLx",
       "price": 200,
-      "weight": 700,
+      "weight": 800,
       "spicy": 0,
       "tags": [],
       "translations": {
@@ -42,7 +42,7 @@ const menuData = {
       "key": "pho_ga_xao",
       "code": "PGx",
       "price": 200,
-      "weight": 700,
+      "weight": 800,
       "spicy": 0,
       "tags": [],
       "translations": {
@@ -60,7 +60,7 @@ const menuData = {
       "key": "pho_tom",
       "code": "PT",
       "price": 200,
-      "weight": 700,
+      "weight": 750,
       "spicy": 0,
       "tags": [],
       "translations": {
@@ -120,7 +120,7 @@ const menuData = {
       "key": "mi_soup_bo",
       "code": "MB",
       "price": 200,
-      "weight": 700,
+      "weight": 800,
       "spicy": 0,
       "tags": [],
       "translations": {
@@ -138,7 +138,7 @@ const menuData = {
       "key": "mi_soup_heo",
       "code": "ML",
       "price": 200,
-      "weight": 700,
+      "weight": 800,
       "spicy": 0,
       "tags": [],
       "translations": {
@@ -156,7 +156,7 @@ const menuData = {
       "key": "mi_soup_ga",
       "code": "MG",
       "price": 200,
-      "weight": 700,
+      "weight": 800,
       "spicy": 0,
       "tags": [],
       "translations": {
@@ -174,7 +174,7 @@ const menuData = {
       "key": "mi_soup_tom",
       "code": "MT",
       "price": 200,
-      "weight": 700,
+      "weight": 750,
       "spicy": 0,
       "tags": [],
       "translations": {
@@ -577,7 +577,7 @@ const menuData = {
     {
       "key": "mien_xao_bo",
       "code": "MXB",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -595,7 +595,7 @@ const menuData = {
     {
       "key": "mien_xao_heo",
       "code": "MXH",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -613,7 +613,7 @@ const menuData = {
     {
       "key": "mien_xao_ga",
       "code": "MXG",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -631,7 +631,7 @@ const menuData = {
     {
       "key": "mien_xao_ga_chien_xu",
       "code": "MXGCx",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [
@@ -651,7 +651,7 @@ const menuData = {
     {
       "key": "mien_xao_tom",
       "code": "MXT",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -669,7 +669,7 @@ const menuData = {
     {
       "key": "mien_xao_mix",
       "code": "MXMix",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [
@@ -691,7 +691,7 @@ const menuData = {
     {
       "key": "mi_xao_bo",
       "code": "MIXB",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -709,7 +709,7 @@ const menuData = {
     {
       "key": "mi_xao_heo",
       "code": "MIXL",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -727,7 +727,7 @@ const menuData = {
     {
       "key": "mi_xao_ga",
       "code": "MIXG",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -745,7 +745,7 @@ const menuData = {
     {
       "key": "mi_xao_ga_chien_xu",
       "code": "MIXGCx",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [
@@ -765,7 +765,7 @@ const menuData = {
     {
       "key": "mi_xao_tom",
       "code": "MIXT",
-      "price": 200,
+      "price": 270,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -783,7 +783,7 @@ const menuData = {
     {
       "key": "mi_xao_mix",
       "code": "MIXMix",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [
@@ -805,7 +805,7 @@ const menuData = {
     {
       "key": "pho_xao_bo",
       "code": "PXB",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -823,7 +823,7 @@ const menuData = {
     {
       "key": "pho_xao_heo",
       "code": "PXH",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -841,7 +841,7 @@ const menuData = {
     {
       "key": "pho_xao_ga",
       "code": "PXG",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -859,7 +859,7 @@ const menuData = {
     {
       "key": "pho_xao_ga_chien_xu",
       "code": "PXGCx",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [
@@ -879,7 +879,7 @@ const menuData = {
     {
       "key": "pho_xao_tom",
       "code": "PXT",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [],
@@ -897,7 +897,7 @@ const menuData = {
     {
       "key": "pho_xao_mix",
       "code": "PXMix",
-      "price": 200,
+      "price": 250,
       "weight": 700,
       "spicy": 1,
       "tags": [
