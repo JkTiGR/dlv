@@ -1,0 +1,1371 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f1728" />
+  <title>DLV Contron Panel</title>
+  <link rel="icon" href="logo.png" />
+  <style>
+    :root {
+      --bg: #0a1020;
+      --bg-2: #111a33;
+      --panel: rgba(13, 20, 40, 0.9);
+      --line: rgba(255, 255, 255, 0.1);
+      --text: #ecf2ff;
+      --muted: #96a5c7;
+      --accent: #6ec7ff;
+      --accent-2: #ffb46f;
+      --paper: #ffffff;
+      --paper-2: #eef2f7;
+      --paper-3: #d8dee9;
+      --ink: #10192b;
+      --sheet-blue: #27496d;
+      --full: #2ee25a;
+      --ok: #f6ed4b;
+      --min: #ff3d2f;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
+      --radius: 26px;
+      --font-head: "Space Grotesk", "Segoe UI", sans-serif;
+      --font-body: "Manrope", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(110, 199, 255, 0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255, 180, 111, 0.16), transparent 24%),
+        linear-gradient(180deg, #060a14 0%, var(--bg) 48%, var(--bg-2) 100%);
+      color: var(--text);
+      font-family: var(--font-body);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.48;
+    }
+
+    body::before {
+      top: -120px;
+      left: -90px;
+      background: rgba(110, 199, 255, 0.12);
+    }
+
+    body::after {
+      right: -120px;
+      bottom: -120px;
+      background: rgba(255, 180, 111, 0.12);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1500px, calc(100vw - 28px));
+      margin: 18px auto 28px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .topbar,
+    .sheet-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(23, 32, 58, 0.74), rgba(11, 18, 35, 0.68));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px) saturate(150%);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+    }
+
+    .topbar::before,
+    .sheet-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(110, 199, 255, 0.12), transparent 28%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      padding: 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .topbar-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(110, 199, 255, 0.95), rgba(255, 180, 111, 0.92));
+      color: #05101b;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-family: var(--font-head);
+      letter-spacing: 0.08em;
+    }
+
+    .brand h1,
+    .sheet-title {
+      margin: 0;
+      font-family: var(--font-head);
+      letter-spacing: -0.04em;
+    }
+
+    .brand h1 {
+      font-size: clamp(28px, 3.4vw, 40px);
+    }
+
+    .brand p,
+    .meta-note,
+    .save-note,
+    .search-label {
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border: 0;
+      border-radius: 14px;
+      padding: 11px 16px;
+      color: var(--text);
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+    }
+
+    .btn.primary {
+      color: #04101a;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid var(--line);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) repeat(4, minmax(160px, 0.6fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+
+    .input {
+      width: 100%;
+      min-height: 46px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .input:focus {
+      border-color: rgba(110, 199, 255, 0.58);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 14px 16px;
+    }
+
+    .stat .k {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat .v {
+      font-size: clamp(22px, 3vw, 30px);
+      font-family: var(--font-head);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .stat.full .v {
+      color: #8fff9e;
+    }
+
+    .stat.ok .v {
+      color: #fff38d;
+    }
+
+    .stat.min .v {
+      color: #ff9d95;
+    }
+
+    .sheet-panel {
+      padding: 16px;
+    }
+
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .sheet-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .legend-swatch.full {
+      background: var(--full);
+    }
+
+    .legend-swatch.ok {
+      background: var(--ok);
+    }
+
+    .legend-swatch.min {
+      background: var(--min);
+    }
+
+    .sheet-wrap {
+      overflow: auto;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08)),
+        rgba(220, 227, 236, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.24),
+        0 18px 36px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .sheet {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .sheet col.rownum {
+      width: 54px;
+    }
+
+    .sheet col.ru {
+      width: 40%;
+    }
+
+    .sheet col.vn {
+      width: 32%;
+    }
+
+    .sheet col.status {
+      width: 5%;
+    }
+
+    .sheet col.date {
+      width: 18%;
+    }
+
+    .sheet th,
+    .sheet td {
+      height: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.82);
+      vertical-align: middle;
+      padding: 0;
+      background: var(--paper);
+    }
+
+    .sheet thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      font-size: 15px;
+      font-weight: 800;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .sheet .rownum {
+      position: sticky;
+      left: 0;
+      z-index: 3;
+      width: 54px;
+      min-width: 54px;
+      text-align: center;
+      font-size: 13px;
+      color: #5f6368;
+      background: #f1f3f4;
+      border-color: rgba(0, 0, 0, 0.16);
+    }
+
+    .rownum-box {
+      position: relative;
+      min-height: 40px;
+      display: grid;
+      place-items: center;
+    }
+
+    .rownum-value {
+      display: inline-block;
+      transition: transform 0.14s ease;
+    }
+
+    .row-delete {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 18px;
+      height: 18px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 61, 47, 0.16);
+      color: #a62015;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.14s ease, transform 0.14s ease, background 0.14s ease;
+    }
+
+    .data-row:hover .row-delete,
+    .data-row:focus-within .row-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .data-row:hover .rownum-value,
+    .data-row:focus-within .rownum-value {
+      transform: translateX(-4px);
+    }
+
+    .row-delete:hover {
+      background: rgba(255, 61, 47, 0.24);
+      transform: scale(1.06);
+    }
+
+    .sheet thead .rownum {
+      z-index: 4;
+      background: #e7ebef;
+    }
+
+    .head-main {
+      color: #fff;
+      background: var(--sheet-blue) !important;
+    }
+
+    .head-status {
+      color: #05120a;
+    }
+
+    .head-status.full {
+      background: var(--full) !important;
+    }
+
+    .head-status.ok {
+      background: var(--ok) !important;
+    }
+
+    .head-status.min {
+      background: var(--min) !important;
+      color: #240000;
+    }
+
+    .head-date {
+      background: #ffffff !important;
+    }
+
+    .data-row:nth-child(even) td:not(.rownum) {
+      background: var(--paper-2);
+    }
+
+    .data-row:hover td:not(.rownum) {
+      background: #eaf4ff;
+    }
+
+    .section-row td:not(.rownum) {
+      background: #ffffff;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+
+    .gap-row td:not(.rownum) {
+      background: #ffffff;
+      height: 28px;
+    }
+
+    .add-row td:not(.rownum) {
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .cell-editor {
+      min-height: 40px;
+      padding: 9px 10px;
+      outline: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .cell-editor:empty::before {
+      content: attr(data-placeholder);
+      color: #9da8b8;
+    }
+
+    .status-cell {
+      padding: 0;
+      text-align: center;
+    }
+
+    .status-toggle {
+      width: 100%;
+      height: 100%;
+      min-height: 40px;
+      border: 0;
+      background: transparent;
+      color: transparent;
+      font-size: 0;
+      transition: background 0.14s ease;
+    }
+
+    .status-toggle.selected.full {
+      background: rgba(46, 226, 90, 0.82);
+      box-shadow: inset 0 0 0 2px rgba(18, 93, 29, 0.22);
+    }
+
+    .status-toggle.selected.ok {
+      background: rgba(246, 237, 75, 0.9);
+      box-shadow: inset 0 0 0 2px rgba(128, 110, 8, 0.18);
+    }
+
+    .status-toggle.selected.min {
+      background: rgba(255, 61, 47, 0.82);
+      box-shadow: inset 0 0 0 2px rgba(125, 16, 7, 0.18);
+    }
+
+    .date-input {
+      width: 100%;
+      height: 40px;
+      padding: 0 10px;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .date-input::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.72;
+    }
+
+    .add-btn {
+      width: 100%;
+      min-height: 40px;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .add-btn:hover {
+      background: #eef6ff;
+    }
+
+    .empty-state {
+      padding: 28px 20px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .toast-wrap {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 10;
+      display: grid;
+      gap: 10px;
+      width: min(360px, calc(100vw - 24px));
+    }
+
+    .toast {
+      padding: 13px 14px;
+      border-radius: 16px;
+      color: var(--text);
+      background: rgba(11, 18, 35, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      animation: toast-in 0.18s ease;
+    }
+
+    @keyframes toast-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1120px) {
+      .toolbar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 780px) {
+      .page {
+        width: min(100vw, calc(100vw - 12px));
+        margin: 6px auto 18px;
+      }
+
+      .topbar,
+      .sheet-panel {
+        border-radius: 18px;
+      }
+
+      .topbar {
+        padding: 14px;
+      }
+
+      .sheet-panel {
+        padding: 10px;
+      }
+
+      .toolbar,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-actions {
+        justify-content: flex-start;
+      }
+
+      .legend {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="topbar">
+      <div class="topbar-head">
+        <div class="brand">
+          <div class="brand-mark">DLV</div>
+          <div>
+            <h1>Contron Panel</h1>
+            <p>Складской контроль по продуктам и расходникам: RU/VN позиции, статус наличия и дата последней проверки.</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <a class="btn secondary" href="DLV_KASSA.html">Открыть Kassa</a>
+          <a class="btn ghost" href="index.html">Открыть Menu</a>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="field">
+          <label class="search-label" for="searchInput">Поиск позиции</label>
+          <input class="input" id="searchInput" type="search" placeholder="Например: говядина, hành, dầu, internet..." />
+        </div>
+
+        <div class="field">
+          <label>Сегодня</label>
+          <input class="input" id="todayLabel" type="text" readonly />
+        </div>
+
+        <div class="field">
+          <label>Состояние</label>
+          <input class="input" id="saveLabel" type="text" readonly />
+        </div>
+
+        <div class="field">
+          <label>Экспорт</label>
+          <button class="btn primary" id="copyTsvBtn" type="button">Скопировать TSV</button>
+        </div>
+
+        <div class="field">
+          <label>Сброс</label>
+          <button class="btn secondary" id="clearStatusBtn" type="button">Очистить статусы</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="k">Всего позиций</div>
+          <div class="v" id="statAll">0</div>
+        </div>
+        <div class="stat full">
+          <div class="k">Full</div>
+          <div class="v" id="statFull">0</div>
+        </div>
+        <div class="stat ok">
+          <div class="k">Ok</div>
+          <div class="v" id="statOk">0</div>
+        </div>
+        <div class="stat min">
+          <div class="k">Min</div>
+          <div class="v" id="statMin">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">Показано после поиска</div>
+          <div class="v" id="statVisible">0</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet-panel">
+      <div class="sheet-head">
+        <div>
+          <h2 class="sheet-title">Product Control Sheet</h2>
+          <p class="meta-note">Нажми на `full`, `ok` или `min`, чтобы отметить запас. Дата обновляется автоматически, названия можно редактировать прямо в таблице.</p>
+        </div>
+
+        <div class="legend">
+          <span class="legend-item"><span class="legend-swatch full"></span> full</span>
+          <span class="legend-item"><span class="legend-swatch ok"></span> ok</span>
+          <span class="legend-item"><span class="legend-swatch min"></span> min</span>
+        </div>
+      </div>
+
+      <div class="sheet-wrap">
+        <table class="sheet">
+          <colgroup>
+            <col class="rownum" />
+            <col class="ru" />
+            <col class="vn" />
+            <col class="status" />
+            <col class="status" />
+            <col class="status" />
+            <col class="date" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="rownum">1</th>
+              <th class="head-main">Product RU</th>
+              <th class="head-main">Tên sản phẩm VN</th>
+              <th class="head-status full">full</th>
+              <th class="head-status ok">ok</th>
+              <th class="head-status min">min</th>
+              <th class="head-date">date</th>
+            </tr>
+          </thead>
+          <tbody id="sheetBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+  <script>
+    const STORAGE_KEY = "DLV_CONTRON_PANEL_V1";
+    const STATUS_KEYS = ["full", "ok", "min"];
+
+    const INITIAL_SECTIONS = [
+      {
+        key: "protein",
+        title: "",
+        items: [
+          { ru: "Говядина", vn: "Thịt bò" },
+          { ru: "Курица", vn: "Thịt gà" },
+          { ru: "Свинина", vn: "Thịt heo" },
+          { ru: "Говяжьи кости", vn: "Xương bò" },
+          { ru: "Куриные кости", vn: "Xương gà" },
+          { ru: "Креветки", vn: "Tôm" },
+          { ru: "nem", vn: "nem" }
+        ]
+      },
+      {
+        key: "vegetables",
+        title: "",
+        items: [
+          { ru: "Лук красный + белый", vn: "Hành củ tím + trắng" },
+          { ru: "Пекинская капуста", vn: "Rau Bắc Kinh" },
+          { ru: "Морковь + сельдерей", vn: "Cà rốt + cần tây" },
+          { ru: "Кукуруза + зелёный горох", vn: "Ngô + đỗ xanh" },
+          { ru: "Салат", vn: "Rau xà lách" },
+          { ru: "Зелёный лук", vn: "Hành lá" },
+          { ru: "Кинза", vn: "Lá mùi" },
+          { ru: "Имбирь", vn: "Gừng" },
+          { ru: "Чеснок", vn: "Tỏi" },
+          { ru: "Овощи микс", vn: "Rau củ mix" }
+        ]
+      },
+      {
+        key: "base",
+        title: "",
+        items: [
+          { ru: "Яйца", vn: "Trứng" },
+          { ru: "Рис", vn: "Gạo" },
+          { ru: "кунжут", vn: "hạt vừng" }
+        ]
+      },
+      {
+        key: "spices",
+        title: "Специи/Gia vị",
+        items: [
+          { ru: "Соус чили ostry", vn: "Sốt chili cai" },
+          { ru: "soeevoy", vn: "Sốt sidau" },
+          { ru: "Маринованная морковь", vn: "carot ngâm" },
+          { ru: "Маринованный чеснок", vn: "tỏi ngâm" },
+          { ru: "Корица", vn: "Hoa quế" },
+          { ru: "Масло 5L", vn: "Dầu 5L" },
+          { ru: "Масло 5kg", vn: "bơ 5kg" }
+        ]
+      },
+      {
+        key: "supplies",
+        title: "",
+        items: [
+          { ru: "Боксы на вынос rice", vn: "Hộp com mang đi" },
+          { ru: "Суповые боксы", vn: "Hộp súp" },
+          { ru: "Крышки", vn: "Nắp" },
+          { ru: "Ложки / вилки", vn: "Muỗng / nĩa" },
+          { ru: "Пакеты", vn: "Túi" },
+          { ru: "Средство для мытья посуды", vn: "Nước rửa bát" },
+          { ru: "Тряпки", vn: "Khăn lau" },
+          { ru: "Мусорные пакеты", vn: "Túi rác" }
+        ]
+      },
+      {
+        key: "dry",
+        title: "hang kho",
+        items: [
+          { ru: "Лапша phở", vn: "Phở khô" },
+          { ru: "Лапша bún", vn: "Bún khô" },
+          { ru: "Стеклянная лапша", vn: "Miến khô" },
+          { ru: "Быстрая лапша", vn: "Mì tôm khô" },
+          { ru: "Яичная лапша", vn: "Mì trứng / mì sợi" },
+          { ru: "Hạt nêm", vn: "Hạt nêm" },
+          { ru: "Куркума", vn: "Bột nghệ" },
+          { ru: "Панировка", vn: "Bột chiên xù" },
+          { ru: "Приправи Суміш спецій", vn: "" },
+          { ru: "Приправа курки суміш", vn: "" },
+          { ru: "до шашлыку", vn: "" },
+          { ru: "муки", vn: "bột mì" }
+        ]
+      },
+      {
+        key: "service",
+        title: "",
+        items: [
+          { ru: "Газ", vn: "Gas" },
+          { ru: "Бензин для генератора", vn: "Xăng máy phát điện" },
+          { ru: "Интернет", vn: "Internet" }
+        ]
+      },
+      {
+        key: "drinks",
+        title: "water/nuoc",
+        items: [
+          { ru: "вьетнамский кофе.", vn: "ca_phe_viet" },
+          { ru: "Энергетический напиток", vn: "BO HUC" },
+          { ru: "Pepsi", vn: "Pepsi" },
+          { ru: "water", vn: "nuoc" }
+        ]
+      }
+    ];
+
+    const state = {
+      sections: loadSections(),
+      search: "",
+      saveText: ""
+    };
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+    function uid(prefix = "id") {
+      return `${prefix}-${Math.random().toString(36).slice(2, 9)}-${Date.now().toString(36)}`;
+    }
+
+    function deepClone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function todayValue() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function fmtSavedAt(value = new Date()) {
+      return value.toLocaleString("ru-RU", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function normalizeStatus(value) {
+      return STATUS_KEYS.includes(value) ? value : "";
+    }
+
+    function normalizeItem(item) {
+      return {
+        id: item.id || uid("item"),
+        ru: String(item.ru || "").trim(),
+        vn: String(item.vn || "").trim(),
+        status: normalizeStatus(item.status),
+        date: String(item.date || "").trim()
+      };
+    }
+
+    function normalizeSection(section) {
+      return {
+        key: section.key || uid("section"),
+        title: String(section.title || ""),
+        items: Array.isArray(section.items) ? section.items.map(normalizeItem) : []
+      };
+    }
+
+    function seedSections() {
+      return deepClone(INITIAL_SECTIONS).map(normalizeSection);
+    }
+
+    function mergeWithSeedSections(sections) {
+      const current = Array.isArray(sections) ? sections.map(normalizeSection) : [];
+      const defaults = seedSections();
+      const usedKeys = new Set();
+      const merged = defaults.map(defaultSection => {
+        const existing = current.find(section => section.key === defaultSection.key);
+        usedKeys.add(defaultSection.key);
+        if (!existing) return defaultSection;
+
+        const nextItems = [...existing.items];
+        defaultSection.items.forEach(defaultItem => {
+          const present = nextItems.some(item => item.ru === defaultItem.ru && item.vn === defaultItem.vn);
+          if (!present) nextItems.push(defaultItem);
+        });
+
+        return {
+          key: existing.key,
+          title: existing.title || defaultSection.title,
+          items: nextItems
+        };
+      });
+
+      current.forEach(section => {
+        if (!usedKeys.has(section.key)) merged.push(section);
+      });
+
+      return merged;
+    }
+
+    function loadSections() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        if (!Array.isArray(parsed) || !parsed.length) return seedSections();
+        return mergeWithSeedSections(parsed);
+      } catch (_) {
+        return seedSections();
+      }
+    }
+
+    function saveSections() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sections));
+      state.saveText = `Локально сохранено: ${fmtSavedAt()}`;
+      const saveLabel = $("#saveLabel");
+      if (saveLabel) saveLabel.value = state.saveText;
+    }
+
+    function showToast(text) {
+      const wrap = $("#toastWrap");
+      const el = document.createElement("div");
+      el.className = "toast";
+      el.textContent = text;
+      wrap.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(6px)";
+        setTimeout(() => el.remove(), 180);
+      }, 2200);
+    }
+
+    function findItem(sectionKey, itemId) {
+      const section = state.sections.find(entry => entry.key === sectionKey);
+      if (!section) return null;
+      const item = section.items.find(entry => entry.id === itemId);
+      return item ? { section, item } : null;
+    }
+
+    function visibleSections() {
+      const q = state.search.trim().toLowerCase();
+      if (!q) return state.sections;
+      return state.sections
+        .map(section => ({
+          ...section,
+          items: section.items.filter(item => {
+            const hay = [item.ru, item.vn, item.status, item.date].join(" ").toLowerCase();
+            return hay.includes(q);
+          })
+        }))
+        .filter(section => section.items.length);
+    }
+
+    function buildTableRows() {
+      const sections = visibleSections();
+      if (!sections.length) {
+        return `
+          <tr>
+            <td class="rownum">2</td>
+            <td colspan="6" class="empty-state">Ничего не найдено по текущему поиску.</td>
+          </tr>
+        `;
+      }
+
+      let html = "";
+      let rowNo = 2;
+
+      sections.forEach((section, sectionIndex) => {
+        if (sectionIndex > 0) {
+          html += `
+            <tr class="gap-row">
+              <td class="rownum">${rowNo++}</td>
+              <td colspan="6"></td>
+            </tr>
+          `;
+        }
+
+        if (section.title) {
+          html += `
+            <tr class="section-row">
+              <td class="rownum">${rowNo++}</td>
+              <td colspan="6">${escapeHtml(section.title)}</td>
+            </tr>
+          `;
+        }
+
+        section.items.forEach(item => {
+          html += `
+            <tr class="data-row">
+              <td class="rownum">
+                <div class="rownum-box">
+                  <span class="rownum-value">${rowNo++}</span>
+                  <button
+                    class="row-delete"
+                    type="button"
+                    data-delete-item
+                    data-section-key="${escapeHtml(section.key)}"
+                    data-item-id="${escapeHtml(item.id)}"
+                    aria-label="Удалить строку"
+                  >×</button>
+                </div>
+              </td>
+              <td>
+                <div
+                  class="cell-editor"
+                  contenteditable="true"
+                  spellcheck="false"
+                  data-field="ru"
+                  data-section-key="${escapeHtml(section.key)}"
+                  data-item-id="${escapeHtml(item.id)}"
+                  data-placeholder="Product RU"
+                >${escapeHtml(item.ru)}</div>
+              </td>
+              <td>
+                <div
+                  class="cell-editor"
+                  contenteditable="true"
+                  spellcheck="false"
+                  data-field="vn"
+                  data-section-key="${escapeHtml(section.key)}"
+                  data-item-id="${escapeHtml(item.id)}"
+                  data-placeholder="Tên sản phẩm VN"
+                >${escapeHtml(item.vn)}</div>
+              </td>
+              ${STATUS_KEYS.map(status => `
+                <td class="status-cell">
+                  <button
+                    class="status-toggle ${status} ${item.status === status ? "selected" : ""}"
+                    type="button"
+                    data-set-status="${status}"
+                    data-section-key="${escapeHtml(section.key)}"
+                    data-item-id="${escapeHtml(item.id)}"
+                    aria-label="${status}"
+                  ></button>
+                </td>
+              `).join("")}
+              <td>
+                <input
+                  class="date-input"
+                  type="date"
+                  value="${escapeHtml(item.date)}"
+                  data-date-input
+                  data-section-key="${escapeHtml(section.key)}"
+                  data-item-id="${escapeHtml(item.id)}"
+                />
+              </td>
+            </tr>
+          `;
+        });
+
+        html += `
+          <tr class="add-row">
+            <td class="rownum">${rowNo++}</td>
+            <td colspan="6">
+              <button class="add-btn" type="button" data-add-item="${escapeHtml(section.key)}">+them/ADD</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      return html;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderStats() {
+      const allItems = state.sections.flatMap(section => section.items);
+      const visibleItems = visibleSections().flatMap(section => section.items);
+      $("#statAll").textContent = String(allItems.length);
+      $("#statFull").textContent = String(allItems.filter(item => item.status === "full").length);
+      $("#statOk").textContent = String(allItems.filter(item => item.status === "ok").length);
+      $("#statMin").textContent = String(allItems.filter(item => item.status === "min").length);
+      $("#statVisible").textContent = String(visibleItems.length);
+    }
+
+    function renderTable() {
+      $("#sheetBody").innerHTML = buildTableRows();
+    }
+
+    function renderAll() {
+      renderStats();
+      renderTable();
+      $("#todayLabel").value = fmtSavedAt(new Date()).slice(0, 10).replace(/,/g, "");
+      $("#saveLabel").value = state.saveText || "Автосохранение включено";
+    }
+
+    function updateTextField(sectionKey, itemId, field, value) {
+      const found = findItem(sectionKey, itemId);
+      if (!found) return;
+      found.item[field] = String(value || "").replace(/\s+/g, " ").trim();
+      saveSections();
+      renderStats();
+    }
+
+    function setStatus(sectionKey, itemId, nextStatus) {
+      const found = findItem(sectionKey, itemId);
+      if (!found) return;
+      const finalStatus = found.item.status === nextStatus ? "" : nextStatus;
+      found.item.status = finalStatus;
+      found.item.date = finalStatus ? todayValue() : "";
+      saveSections();
+      renderAll();
+    }
+
+    function setDate(sectionKey, itemId, value) {
+      const found = findItem(sectionKey, itemId);
+      if (!found) return;
+      found.item.date = String(value || "");
+      saveSections();
+      renderStats();
+    }
+
+    function addItem(sectionKey) {
+      const section = state.sections.find(entry => entry.key === sectionKey);
+      if (!section) return;
+      const item = {
+        id: uid("item"),
+        ru: "",
+        vn: "",
+        status: "",
+        date: ""
+      };
+      section.items.push(item);
+      if (state.search) {
+        state.search = "";
+        $("#searchInput").value = "";
+      }
+      saveSections();
+      renderAll();
+
+      const target = document.querySelector(`[data-field="ru"][data-item-id="${CSS.escape(item.id)}"]`);
+      if (target) {
+        target.focus();
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(target);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+      showToast("Новая позиция добавлена");
+    }
+
+    function deleteItem(sectionKey, itemId) {
+      const section = state.sections.find(entry => entry.key === sectionKey);
+      if (!section) return;
+      const index = section.items.findIndex(entry => entry.id === itemId);
+      if (index === -1) return;
+
+      const item = section.items[index];
+      const label = item.ru || item.vn || "эту строку";
+      if (!confirm(`Удалить ${label}?`)) return;
+
+      section.items.splice(index, 1);
+      saveSections();
+      renderAll();
+      showToast("Строка удалена");
+    }
+
+    function clearStatuses() {
+      state.sections.forEach(section => {
+        section.items.forEach(item => {
+          item.status = "";
+          item.date = "";
+        });
+      });
+      saveSections();
+      renderAll();
+      showToast("Все статусы очищены");
+    }
+
+    async function copyTsv() {
+      const lines = [];
+      lines.push(["Product RU", "Tên sản phẩm VN", "full", "ok", "min", "date"].join("\t"));
+
+      state.sections.forEach(section => {
+        if (section.title) lines.push([section.title, "", "", "", "", ""].join("\t"));
+        section.items.forEach(item => {
+          lines.push([
+            item.ru,
+            item.vn,
+            item.status === "full" ? "x" : "",
+            item.status === "ok" ? "x" : "",
+            item.status === "min" ? "x" : "",
+            item.date
+          ].join("\t"));
+        });
+        lines.push(["+them/ADD", "", "", "", "", ""].join("\t"));
+        lines.push(["", "", "", "", "", ""].join("\t"));
+      });
+
+      const payload = lines.join("\n");
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(payload);
+        } else {
+          const textarea = document.createElement("textarea");
+          textarea.value = payload;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          document.execCommand("copy");
+          textarea.remove();
+        }
+        showToast("Таблица скопирована в TSV");
+      } catch (_) {
+        showToast("Не удалось скопировать таблицу");
+      }
+    }
+
+    function bindEvents() {
+      $("#searchInput").addEventListener("input", event => {
+        state.search = event.target.value || "";
+        renderAll();
+      });
+
+      $("#copyTsvBtn").addEventListener("click", copyTsv);
+
+      $("#clearStatusBtn").addEventListener("click", () => {
+        const hasMarked = state.sections.some(section => section.items.some(item => item.status || item.date));
+        if (!hasMarked) {
+          showToast("Статусы уже пустые");
+          return;
+        }
+        if (confirm("Очистить все full / ok / min и даты?")) {
+          clearStatuses();
+        }
+      });
+
+      $("#sheetBody").addEventListener("click", event => {
+        const statusBtn = event.target.closest("[data-set-status]");
+        if (statusBtn) {
+          setStatus(statusBtn.dataset.sectionKey, statusBtn.dataset.itemId, statusBtn.dataset.setStatus);
+          return;
+        }
+
+        const deleteBtn = event.target.closest("[data-delete-item]");
+        if (deleteBtn) {
+          deleteItem(deleteBtn.dataset.sectionKey, deleteBtn.dataset.itemId);
+          return;
+        }
+
+        const addBtn = event.target.closest("[data-add-item]");
+        if (addBtn) addItem(addBtn.dataset.addItem);
+      });
+
+      $("#sheetBody").addEventListener("change", event => {
+        const input = event.target.closest("[data-date-input]");
+        if (!input) return;
+        setDate(input.dataset.sectionKey, input.dataset.itemId, input.value);
+      });
+
+      $("#sheetBody").addEventListener("keydown", event => {
+        const editor = event.target.closest("[contenteditable][data-field]");
+        if (!editor) return;
+        if (event.key === "Enter") {
+          event.preventDefault();
+          editor.blur();
+        }
+      });
+
+      $("#sheetBody").addEventListener("blur", event => {
+        const editor = event.target.closest("[contenteditable][data-field]");
+        if (!editor) return;
+        updateTextField(editor.dataset.sectionKey, editor.dataset.itemId, editor.dataset.field, editor.textContent);
+      }, true);
+    }
+
+    function init() {
+      state.saveText = "Автосохранение включено";
+      renderAll();
+      bindEvents();
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -121,7 +121,7 @@
 
     <!-- CONTACT SECTION -->
     <section id="contactSection" class="contact glass">
-      <h2 style="margin:0 0 10px 0;">📞 CONTACT</h2>
+      <h2 style="margin:0 0 10px 0;" id="contactTitle">📞 CONTACT</h2>
 
       <a class="more-row" href="tel:+380632637999" style="border-top:none">
         <span class="more-left">
@@ -314,6 +314,11 @@
       const I18N = {
         ru:{
           navHome:'Главная',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакты',
+          contactTitle:'Контакты',
+          bankSheetTitle:'Выберите способ оплаты',
+          statusBtn:'Статус',
+          searchPlaceholder:'Поиск блюда / Search…',
+          statusPlaceholder:'Код заказа (например, a123)',
           ui:{add:'Добавить',more:'Подробнее',itemsShort:'шт.',viewList:'Вид списком',viewGrid:'Вид сеткой'},
           sheet:{
             title:'Ваш заказ',empty:'Корзина пуста.',orderType:'Тип заказа',
@@ -334,6 +339,11 @@
         },
         ua:{
           navHome:'Головна',navMenu:'Меню',navKaraoke:'Караоке',navContact:'Контакти',
+          contactTitle:'Контакти',
+          bankSheetTitle:'Оберіть спосіб оплати',
+          statusBtn:'Статус',
+          searchPlaceholder:'Пошук страви / Search…',
+          statusPlaceholder:'Код замовлення (наприклад, a123)',
           ui:{add:'Додати',more:'Докладніше',itemsShort:'шт.',viewList:'Вигляд списком',viewGrid:'Вигляд сіткою'},
           sheet:{
             title:'Ваше замовлення',empty:'Кошик порожній.',orderType:'Тип замовлення',
@@ -354,6 +364,11 @@
         },
         vn:{
           navHome:'Trang chủ',navMenu:'Thực đơn',navKaraoke:'Karaoke',navContact:'Liên hệ',
+          contactTitle:'Liên hệ',
+          bankSheetTitle:'Chọn phương thức thanh toán',
+          statusBtn:'Trạng thái',
+          searchPlaceholder:'Tìm món / Search…',
+          statusPlaceholder:'Mã đơn hàng (ví dụ: a123)',
           ui:{add:'Thêm',more:'Chi tiết',itemsShort:'món',viewList:'Dạng danh sách',viewGrid:'Dạng lưới'},
           sheet:{
             title:'Đơn hàng của bạn',empty:'Giỏ hàng trống.',orderType:'Hình thức đặt',
@@ -395,6 +410,13 @@
         if (!val) return '';
         if (typeof val === 'string') return val;
         if (typeof val === 'object') return val?.[LANG] || val?.ru || val?.ua || val?.vn || '';
+        return String(val || '');
+      }
+
+      function textByLocale(val, locale){
+        if (!val) return '';
+        if (typeof val === 'string') return val;
+        if (typeof val === 'object') return val?.[locale] || val?.ua || val?.ru || val?.vn || '';
         return String(val || '');
       }
 
@@ -527,6 +549,11 @@
 
       const itemName = it =>
         textByLang(it?.translations) ||
+        it?.key?.replaceAll('_',' ') ||
+        '';
+
+      const itemNameByLocale = (it, locale='ru') =>
+        textByLocale(it?.translations, locale) ||
         it?.key?.replaceAll('_',' ') ||
         '';
 
@@ -1444,7 +1471,16 @@
         if (csTitle) csTitle.textContent = t.navMenu || 'Категории';
         
         const bankTitle = $('#bankSheetTitle');
-        if (bankTitle) bankTitle.textContent = 'Выберите способ оплаты';
+        if (bankTitle) bankTitle.textContent = t.bankSheetTitle || 'Выберите способ оплаты';
+        const contactTitle = $('#contactTitle');
+        if (contactTitle) contactTitle.textContent = '📞 ' + (t.contactTitle || t.navContact || 'CONTACT');
+
+        const searchInputEl = $('#searchIn');
+        const statusInputEl = $('#statusCode');
+        const statusButtonEl = $('#statusBtn');
+        if (statusButtonEl) statusButtonEl.textContent = t.statusBtn || 'Статус';
+        if (searchInputEl) searchInputEl.placeholder = t.searchPlaceholder || 'Поиск блюда / Search…';
+        if (statusInputEl) statusInputEl.placeholder = t.statusPlaceholder || 'Код заказа (например, a123)';
 
         renderPills();
         renderMenu();
@@ -1579,7 +1615,73 @@
         return { ok: true, data };
       }
 
-      async function sendOrderToTelegram(text) {
+      function uaType(ot){
+        if (ot === "on_site") return "У закладі";
+        if (ot === "takeaway") return "На виніс";
+        if (ot === "delivery") return "Доставка";
+        return ot || "—";
+      }
+
+      function summarizeSelectionsLocalized(it, selections, locale){
+        const opts = normalizeOptions(it);
+        const sel = selections || {};
+        const parts = [];
+        for (const g of opts){
+          const gid = g.id || g.key || g.name || '';
+          const picked = sel[gid];
+          if (!picked) continue;
+          const pickArr = Array.isArray(picked) ? picked : [picked];
+          const gTitle = textByLocale(g.title, locale) || gid;
+          const names = pickArr.map(oid=>{
+            const item = (g.items||[]).find(x => (x.id||x.key)===oid);
+            return textByLocale(item?.label, locale) || item?.name || oid;
+          });
+          parts.push(`${gTitle}: ${names.join(", ")}`);
+        }
+        return parts.join(" · ");
+      }
+
+      function buildUkrainianOrderText(orderPayload){
+        const total = Number(orderPayload.total || 0).toFixed(2);
+        const subtotal = Number(orderPayload.subtotal || orderPayload.total || 0).toFixed(2);
+        const deliveryFee = Number(orderPayload.delivery_fee || 0).toFixed(2);
+        const paymentType = String(orderPayload.payment_type || 'card').toLowerCase() === 'cash' ? 'Готівка' : 'Картка';
+
+        const meta = [];
+        if (orderPayload.type === "on_site" && orderPayload.table) meta.push(`Стіл: <b>${escapeHtml(orderPayload.table)}</b>`);
+        if (orderPayload.type === "takeaway" && orderPayload.pickup_in) meta.push(`Забрати через: <b>${escapeHtml(orderPayload.pickup_in)} хв</b>`);
+        if (orderPayload.type === "delivery" && orderPayload.address) meta.push(`Адреса: <b>${escapeHtml(orderPayload.address)}</b>`);
+        if (orderPayload.phone) meta.push(`Телефон: <b>${escapeHtml(orderPayload.phone)}</b>`);
+        meta.push(`Оплата: <b>${paymentType}</b>`);
+        if (orderPayload.type === "delivery" && deliveryFee > 0) {
+          meta.push(`Вартість доставки: <b>${deliveryFee} ${CURRENCY}</b>`);
+        }
+
+        const lines = (orderPayload.items || []).map(itm=>{
+          const found = itm.key ? findByKey(itm.key) : null;
+          const localizedName = found?.it ? itemNameByLocale(found.it, 'ua') : (itm.name || '—');
+          const optText = found?.it ? summarizeSelectionsLocalized(found.it, itm.selections, 'ua') : '';
+          const note = (itm.note || "").trim();
+          const extra = [optText ? `(${escapeHtml(optText)})` : '', note ? `📝 ${escapeHtml(note)}` : ''].filter(Boolean).join(' ');
+          const code = itm.code ? `(${escapeHtml(itm.code)})` : '';
+          return `• ${escapeHtml(localizedName)} ${code} ${extra} — ${Number(itm.price || 0).toFixed(2)} ${CURRENCY} × ${Number(itm.qty || 0)}`;
+        }).join("\n") || "—";
+
+        return `<b>CYBER DRAGON — Нове замовлення</b>
+ID: <code>${escapeHtml(orderPayload.id)}</code>
+Code: <b>${escapeHtml(orderPayload.code)}</b>
+Сума страв: <b>${subtotal} ${CURRENCY}</b>
+${deliveryFee > 0 ? `Вартість доставки: <b>${deliveryFee} ${CURRENCY}</b>` : ''}
+Разом до оплати: <b>${total} ${CURRENCY}</b>
+Тип: <b>${uaType(orderPayload.type)}</b>
+${meta.join("\n")}
+<b>Позиції:</b>
+${lines}`;
+      }
+
+      async function sendOrderToTelegram(orderPayload) {
+        if (!TG.CHAT_ID) return { ok:false, reason:"TG.CHAT_ID is empty" };
+        const text = buildUkrainianOrderText(orderPayload);
         return sendTelegramMessage(TG.CHAT_ID, text);
       }
 
@@ -1616,12 +1718,14 @@
         const total = Number(orderPayload.total || 0).toFixed(2);
         const subtotal = Number(orderPayload.subtotal || orderPayload.total || 0).toFixed(2);
         const deliveryFee = Number(orderPayload.delivery_fee || 0).toFixed(2);
+        const paymentType = String(orderPayload.payment_type || 'card').toLowerCase() === 'cash' ? 'Tiền mặt' : 'Thẻ';
 
         const meta = [];
         if (orderPayload.type === "on_site" && orderPayload.table) meta.push(`Bàn: <b>${escapeHtml(orderPayload.table)}</b>`);
         if (orderPayload.type === "takeaway" && orderPayload.pickup_in) meta.push(`Nhận sau: <b>${escapeHtml(orderPayload.pickup_in)} phút</b>`);
         if (orderPayload.type === "delivery" && orderPayload.address) meta.push(`Địa chỉ: <b>${escapeHtml(orderPayload.address)}</b>`);
         if (orderPayload.phone) meta.push(`SĐT: <b>${escapeHtml(orderPayload.phone)}</b>`);
+        meta.push(`Thanh toán: <b>${paymentType}</b>`);
         if (orderPayload.type === "delivery" && deliveryFee > 0) {
           meta.push(`Phí giao hàng: <b>${deliveryFee} ${CURRENCY}</b>`);
         }
@@ -1693,7 +1797,6 @@ ${lines}`;
         }
 
         const {sum, lines, items, deliveryFee, totalWithDelivery} = cartSummary(ot);
-        const typeStr = ot === 'on_site' ? s.onSite : ot === 'takeaway' ? s.takeaway : s.delivery;
         const meta = [];
         if (ot === 'on_site') meta.push(`${s.table}: ${tableNo.value.trim()}`);
         if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()} мин`);
@@ -1711,23 +1814,14 @@ ${lines}`;
         const ordId = 'CD-'+new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
         const orderCode = generateShortCode();
 
-        const text =
-`<b>CYBER DRAGON dlv — New order</b>
-ID: <code>${ordId}</code>
-Code: <b>${orderCode}</b>
-${s.total} (без доставки): <b>${sum.toFixed(2)} ${CURRENCY}</b>
-${ot === 'delivery' ? `${s.deliveryPrice}: <b>${deliveryFee} ${CURRENCY}</b>\n` : ''}
-<b>Итого к оплате: ${totalWithDelivery.toFixed(2)} ${CURRENCY}</b>
-Type: <b>${typeStr}</b>
-${meta.join('\n')}
-<b>Items:</b>
-${lines.join('\n') || '—'}`;
-
         const orderPayload = {
           id: ordId,
           code: orderCode,
           status: 'NEW',
           type: ot,
+          payment_type: 'card',
+          payment_cash: 0,
+          payment_card: totalWithDelivery,
           table: ot==='on_site' ? tableNo.value.trim() : '',
           pickup_in: ot==='takeaway' ? pickupIn.value.trim() : '',
           address: ot==='delivery' ? address.value.trim() : '',
@@ -1740,7 +1834,7 @@ ${lines.join('\n') || '—'}`;
         };
 
         const [tgRes, tgResVN, sheetRes] = await Promise.all([
-          sendOrderToTelegram(text),
+          sendOrderToTelegram(orderPayload),
           sendOrderToTelegramVN(orderPayload),
           createOrderOnSheet(orderPayload)
         ]);
@@ -1757,6 +1851,9 @@ ${lines.join('\n') || '—'}`;
           total: totalWithDelivery,
           currency: CURRENCY,
           type: ot,
+          payment_type: orderPayload.payment_type,
+          payment_cash: orderPayload.payment_cash,
+          payment_card: orderPayload.payment_card,
           meta,
           items,
           tg: tgRes,
