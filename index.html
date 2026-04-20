@@ -69,10 +69,13 @@
 
     <!-- Hero -->
     <div class="hero">
-      <video class="promo" autoplay muted loop playsinline preload="auto" id="heroVideo">
-        <source src="promo.mp4" type="video/mp4" />
-        Ваш браузер не поддерживает видео.
-      </video>
+      <div class="hero-media" id="heroMedia">
+        <video class="promo promo-video" autoplay muted loop playsinline preload="auto" poster="promo.jpg" id="heroVideo">
+          <source src="promo.mp4" type="video/mp4" />
+          Ваш браузер не поддерживает видео.
+        </video>
+        <img class="promo promo-fallback" id="heroFallback" src="promo.jpg" data-gif-src="promo.gif" alt="Cyber Dragon promo" loading="eager" decoding="async">
+      </div>
 
       <div class="social">
         <a href="#" class="social-link pay-switcher" id="paySwitcher" aria-label="Payment methods">
@@ -2098,26 +2101,65 @@ ${lines}`;
         payText.textContent = payItems[0].name;
       }
 
-      /* АВТОВОСПРОИЗВЕДЕНИЕ ВИДЕО (без клика) */
-      (function autoPlayVideo() {
+      /* HERO VIDEO + GIF FALLBACK */
+      (function initHeroMedia() {
         const video = document.getElementById('heroVideo');
-        if (!video) return;
+        const media = document.getElementById('heroMedia');
+        const fallback = document.getElementById('heroFallback');
+        if (!video || !media || !fallback) return;
+
+        let fallbackShown = false;
+        let interactionBound = false;
+
+        const fallbackTimer = window.setTimeout(() => {
+          if (video.readyState < 2) showFallback();
+        }, 3200);
+
+        function clearFallbackTimer() {
+          window.clearTimeout(fallbackTimer);
+        }
+
+        function bindInteractionPlay() {
+          if (interactionBound || fallbackShown) return;
+          interactionBound = true;
+          const once = () => {
+            video.play().catch(() => {});
+            window.removeEventListener('touchstart', once);
+            window.removeEventListener('click', once);
+          };
+          window.addEventListener('touchstart', once, { once: true });
+          window.addEventListener('click', once, { once: true });
+        }
+
+        function showFallback() {
+          if (fallbackShown) return;
+          fallbackShown = true;
+          clearFallbackTimer();
+          if (fallback.dataset.gifSrc && fallback.src !== fallback.dataset.gifSrc) {
+            fallback.src = fallback.dataset.gifSrc;
+          }
+          media.classList.add('is-fallback');
+          video.pause();
+        }
+
         const startVideo = () => {
+          if (fallbackShown) return;
+          clearFallbackTimer();
           video.play().catch(() => {
             console.log('Autoplay blocked, will play on user interaction');
-            const once = () => {
-              video.play();
-              window.removeEventListener('touchstart', once);
-              window.removeEventListener('click', once);
-            };
-            window.addEventListener('touchstart', once, { once: true });
-            window.addEventListener('click', once, { once: true });
+            bindInteractionPlay();
           });
         };
+
+        video.addEventListener('loadeddata', clearFallbackTimer, { once: true });
+        video.addEventListener('error', showFallback);
+        const source = video.querySelector('source');
+        if (source) source.addEventListener('error', showFallback);
+
         if (video.readyState >= 2) {
           startVideo();
         } else {
-          video.addEventListener('loadedmetadata', startVideo);
+          video.addEventListener('canplay', startVideo, { once: true });
         }
       })();
 

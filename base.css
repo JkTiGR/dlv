@@ -373,7 +373,12 @@ a {
   gap: 14px;
 }
 
+.hero-media {
+  position: relative;
+}
+
 .promo {
+  display: block;
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 26px;
@@ -381,6 +386,18 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: var(--shadow);
   background: #0b0d14;
+}
+
+.promo-fallback {
+  display: none;
+}
+
+.hero-media.is-fallback .promo-video {
+  display: none;
+}
+
+.hero-media.is-fallback .promo-fallback {
+  display: block;
 }
 
 .social {
