@@ -1243,7 +1243,7 @@ const menuData = {
     {
       "key": "bo_huc",
       "code": "BOH",
-      "price": 80,
+      "price": 70,
       "weight": 250,
       "spicy": 0,
       "tags": [],
@@ -1261,7 +1261,7 @@ const menuData = {
     {
       "key": "ca_phe_viet",
       "code": "CPV",
-      "price": 80,
+      "price": 50,
       "weight": 250,
       "spicy": 0,
       "tags": [],
@@ -1279,7 +1279,7 @@ const menuData = {
     {
       "key": "pepsi_03",
       "code": "P03",
-      "price": 69,
+      "price": 40,
       "weight": 300,
       "spicy": 0,
       "tags": [],
@@ -1297,7 +1297,7 @@ const menuData = {
     {
       "key": "pepsi_black",
       "code": "PBL",
-      "price": 69,
+      "price": 40,
       "weight": 500,
       "spicy": 0,
       "tags": [],
@@ -1315,7 +1315,7 @@ const menuData = {
     {
       "key": "mirinda_7up",
       "code": "M7",
-      "price": 69,
+      "price": 40,
       "weight": 500,
       "spicy": 0,
       "tags": [],
@@ -1333,7 +1333,7 @@ const menuData = {
     {
       "key": "water",
       "code": "WTR",
-      "price": 39,
+      "price": 30,
       "weight": 500,
       "spicy": 0,
       "tags": [],
@@ -1351,7 +1351,7 @@ const menuData = {
     {
       "key": "juice",
       "code": "JCE",
-      "price": 69,
+      "price": 50,
       "weight": 500,
       "spicy": 0,
       "tags": [],
