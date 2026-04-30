@@ -8,27 +8,33 @@ html {
 }
 
 :root {
-  --bg: #07080c;
-  --bg-2: #0c1020;
+  --bg: #030000;
+  --bg-2: #160101;
   --text: #ffffff;
-  --muted: #c9c8d4;
+  --muted: #d9a7aa;
 
-  --glass: rgba(255, 255, 255, 0.06);
-  --glass-2: rgba(255, 255, 255, 0.09);
-  --glass-3: rgba(15, 18, 30, 0.72);
-  --glass-4: rgba(8, 10, 18, 0.88);
+  --glass: rgba(255, 40, 32, 0.06);
+  --glass-2: rgba(255, 60, 44, 0.1);
+  --glass-3: rgba(18, 1, 3, 0.82);
+  --glass-4: rgba(5, 0, 0, 0.93);
 
-  --line: rgba(255, 255, 255, 0.12);
-  --line-strong: rgba(255, 255, 255, 0.18);
+  --line: rgba(255, 39, 28, 0.18);
+  --line-strong: rgba(255, 82, 58, 0.32);
 
-  --brandA: #ffebee;
-  --brandB: #ff9d9d;
-  --brandC: #ff4242;
-  --brandD: #b30000;
+  --brandA: #fff1ec;
+  --brandB: #ffb09d;
+  --brandC: #ff160d;
+  --brandD: #830006;
 
-  --ring: rgba(255, 82, 82, 0.28);
-  --shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
-  --shadow-2: 0 10px 24px rgba(0, 0, 0, 0.30);
+  --ring: rgba(255, 42, 31, 0.34);
+  --neon-red: rgba(255, 22, 13, 0.34);
+  --neon-amber: rgba(255, 122, 36, 0.2);
+  --shadow:
+    0 18px 42px rgba(0, 0, 0, 0.52),
+    0 0 28px var(--neon-red);
+  --shadow-2:
+    0 10px 24px rgba(0, 0, 0, 0.38),
+    0 0 18px rgba(255, 22, 13, 0.16);
 
   --radius-xs: 10px;
   --radius-sm: 14px;
@@ -61,9 +67,9 @@ body {
   color: var(--text);
   font: 16px/1.45 Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   background:
-    radial-gradient(1200px 800px at 0% 10%, rgba(33, 92, 255, 0.20), transparent 55%),
-    radial-gradient(900px 700px at 100% 20%, rgba(179, 0, 255, 0.18), transparent 48%),
-    radial-gradient(1000px 700px at 50% 100%, rgba(255, 40, 40, 0.10), transparent 42%),
+    linear-gradient(180deg, rgba(246, 18, 12, 0.58) 0%, rgba(126, 0, 7, 0.3) 31%, rgba(7, 0, 0, 0.82) 74%, #010000 100%),
+    radial-gradient(900px 560px at 14% 0%, rgba(255, 26, 13, 0.36), transparent 62%),
+    radial-gradient(780px 520px at 100% 8%, rgba(255, 115, 36, 0.18), transparent 58%),
     url("fon.png") center/cover fixed no-repeat,
     var(--bg);
   -webkit-tap-highlight-color: transparent;
@@ -78,10 +84,10 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity: 0.28;
+    repeating-linear-gradient(90deg, rgba(255, 38, 24, 0.08) 0 1px, transparent 1px 52px),
+    repeating-linear-gradient(180deg, rgba(255, 38, 24, 0.055) 0 1px, transparent 1px 42px),
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 6px);
+  opacity: 0.58;
 }
 
 body::after {
@@ -91,10 +97,9 @@ body::after {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(800px 500px at 50% -10%, rgba(255, 255, 255, 0.06), transparent 60%),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02), transparent 16%, transparent 84%, rgba(255, 255, 255, 0.02));
-  mix-blend-mode: screen;
-  opacity: 0.6;
+    linear-gradient(180deg, rgba(255, 24, 12, 0.16) 0%, transparent 34%, rgba(0, 0, 0, 0.46) 72%, rgba(0, 0, 0, 0.88) 100%),
+    repeating-linear-gradient(90deg, transparent 0 19px, rgba(0, 0, 0, 0.16) 19px 20px);
+  opacity: 0.86;
 }
 
 img {
@@ -174,13 +179,20 @@ a {
 .glass {
   background: var(--glass-3);
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-2);
+  box-shadow:
+    var(--shadow-2),
+    inset 0 0 0 1px rgba(255, 92, 70, 0.16),
+    inset 0 0 18px rgba(255, 22, 13, 0.06),
+    0 0 18px rgba(255, 22, 13, 0.12);
 }
 
 .glass-nav {
-  background: rgba(13, 16, 28, 0.78);
+  background: rgba(22, 3, 6, 0.82);
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-2);
+  box-shadow:
+    var(--shadow-2),
+    inset 0 0 0 1px rgba(255, 92, 70, 0.14),
+    0 0 16px rgba(255, 22, 13, 0.12);
 }
 
 /* =========================================================
@@ -205,11 +217,12 @@ a {
   padding: 10px 12px;
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(180deg, rgba(20, 24, 39, 0.92), rgba(10, 12, 22, 0.78));
+    linear-gradient(180deg, rgba(31, 5, 8, 0.94), rgba(11, 1, 2, 0.82));
   border: 1px solid var(--line-strong);
   box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 10px 28px rgba(0, 0, 0, 0.42),
+    0 0 26px rgba(255, 22, 13, 0.2),
+    inset 0 1px 0 rgba(255, 104, 82, 0.14),
     inset 0 -1px 0 rgba(0, 0, 0, 0.25);
   overflow: visible;
 }
@@ -221,9 +234,9 @@ a {
   border-radius: inherit;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 24%, transparent 76%, rgba(255, 255, 255, 0.04)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 38%);
-  opacity: 0.75;
+    linear-gradient(90deg, rgba(255, 22, 13, 0.22), transparent 18%, transparent 82%, rgba(255, 122, 36, 0.12)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 38%);
+  opacity: 0.82;
 }
 
 .brand {
@@ -837,14 +850,20 @@ main#content {
   background:
     linear-gradient(180deg, rgba(30, 34, 54, 0.74), rgba(18, 21, 36, 0.84));
   border: 1px solid rgba(255, 255, 255, 0.11);
-  box-shadow: var(--shadow-2);
+  box-shadow:
+    var(--shadow-2),
+    0 0 18px rgba(255, 22, 13, 0.1);
   overflow: hidden;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 92, 70, 0.34);
+  box-shadow:
+    var(--shadow-2),
+    0 0 22px rgba(255, 22, 13, 0.2),
+    0 0 36px rgba(255, 122, 36, 0.08);
 }
 
 .card::before {
@@ -856,6 +875,20 @@ main#content {
     radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.08), transparent 30%),
     linear-gradient(135deg, rgba(255, 80, 80, 0.10), transparent 35%, transparent 70%, rgba(255, 255, 255, 0.03));
   opacity: 0.85;
+}
+
+.card::after,
+.sheet::after,
+.bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 92, 70, 0.18),
+    inset 0 0 18px rgba(255, 22, 13, 0.08);
+  opacity: 0.7;
 }
 
 .card.featured {
@@ -1242,6 +1275,20 @@ main#content {
   border-radius: 16px;
   outline: none;
   padding: 12px 14px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus,
+.dish-note textarea:focus,
+.searchbar:focus-within,
+.statusbar:focus-within {
+  border-color: rgba(255, 92, 70, 0.42);
+  box-shadow:
+    0 0 0 3px rgba(255, 22, 13, 0.08),
+    0 0 18px rgba(255, 22, 13, 0.14),
+    inset 0 0 14px rgba(255, 22, 13, 0.06);
 }
 
 .field textarea,
@@ -1274,7 +1321,15 @@ main#content {
       rgba(180, 0, 0, 0.98) 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 10px 18px rgba(255, 60, 60, 0.18);
+    0 10px 18px rgba(255, 60, 60, 0.18),
+    0 0 20px rgba(255, 22, 13, 0.22);
+}
+
+.btn.primary:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 12px 22px rgba(255, 60, 60, 0.22),
+    0 0 28px rgba(255, 22, 13, 0.28);
 }
 
 .btn.ghost {

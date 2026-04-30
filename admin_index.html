@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0b0f1a">
+  <meta name="theme-color" content="#080101">
   <title>CYBER DRAGON — Admin Panel</title>
   <link rel="icon" href="logo.png">
   <style>
@@ -14,7 +14,12 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0a0c15 0%, #0f1220 100%);
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 38, 24, 0.07) 0 1px, transparent 1px 52px),
+        repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0 1px, transparent 1px 6px),
+        linear-gradient(180deg, rgba(246, 18, 12, 0.5) 0%, rgba(118, 0, 6, 0.2) 34%, rgba(7, 0, 0, 0.88) 78%, #010000 100%),
+        radial-gradient(900px 560px at 8% 0%, rgba(255, 26, 13, 0.26), transparent 62%),
+        linear-gradient(135deg, #030000 0%, #170101 100%);
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       color: #fff;
       min-height: 100vh;
@@ -23,12 +28,13 @@
 
     /* Header */
     .admin-header {
-      background: rgba(15, 18, 30, 0.9);
+      background: rgba(24, 4, 7, 0.92);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 58, 45, 0.14);
       border-radius: 24px;
       padding: 20px 24px;
       margin-bottom: 24px;
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.42), 0 0 26px rgba(255, 22, 13, 0.18);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -50,10 +56,11 @@
     .logo h1 {
       font-size: 1.5rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #fff, #ff6b6b);
+      background: linear-gradient(135deg, #fff3ef, #ff2a1f);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(255, 22, 13, 0.26));
     }
 
     .stats {
@@ -67,12 +74,13 @@
       padding: 12px 20px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 18px rgba(255, 22, 13, 0.1);
     }
 
     .stat-number {
       font-size: 1.8rem;
       font-weight: 800;
-      color: #ff6b6b;
+      color: #ff4a3a;
     }
 
     .stat-label {
@@ -90,6 +98,8 @@
     }
 
     .tab-btn {
+      display: inline-flex;
+      align-items: center;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 12px 24px;
@@ -98,6 +108,7 @@
       font-weight: 600;
       transition: all 0.2s ease;
       color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
     }
 
     .tab-btn:hover {
@@ -106,15 +117,15 @@
     }
 
     .tab-btn.active {
-      background: linear-gradient(90deg, #ff6b6b, #ff4242);
+      background: linear-gradient(90deg, #ff2a1f, #ff9a3d);
       border-color: transparent;
       color: white;
-      box-shadow: 0 4px 15px rgba(255, 66, 66, 0.3);
+      box-shadow: 0 4px 18px rgba(255, 42, 31, 0.34), 0 0 24px rgba(255, 22, 13, 0.24);
     }
 
     /* Filters */
     .filters {
-      background: rgba(15, 18, 30, 0.8);
+      background: rgba(24, 4, 7, 0.84);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
@@ -275,7 +286,7 @@
     }
     .btn-update:hover {
       background: #f1c40f;
-      color: #0a0c15;
+      color: #170405;
     }
 
     .btn-complete {
@@ -318,8 +329,8 @@
     }
 
     .modal-content {
-      background: linear-gradient(135deg, #121624, #0a0c15);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: linear-gradient(135deg, #210507, #080101);
+      border: 1px solid rgba(255, 58, 45, 0.18);
       border-radius: 28px;
       max-width: 600px;
       width: 90%;
@@ -440,6 +451,7 @@
     <button class="tab-btn" data-tab="ready">✅ Готовы</button>
     <button class="tab-btn" data-tab="completed">✔️ Завершены</button>
     <button class="tab-btn" data-tab="cancelled">❌ Отменены</button>
+    <a class="tab-btn" href="menu_control.html">🍜 Управление меню</a>
   </div>
 
   <div class="filters">
@@ -488,8 +500,13 @@
   <script>
     // Конфигурация
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
+    const LOCAL_API_BASE = `${window.location.origin}/api/local-orders`;
+    const LOCAL_EVENTS_URL = `${window.location.origin}/api/local-events`;
+    const ORDERS_KEY = 'CD_ORDERS_V1';
     let orders = [];
     let currentTab = 'all';
+    let eventSource = null;
+    let liveReloadTimer = null;
 
     // Статусы заказов
     const STATUSES = {
@@ -497,40 +514,147 @@
       CONFIRMED: { label: 'Подтверждён', color: 'confirmed', next: 'COOKING' },
       COOKING: { label: 'Готовится', color: 'cooking', next: 'READY' },
       READY: { label: 'Готов к выдаче', color: 'ready', next: 'COMPLETED' },
+      HANDED: { label: 'Выдано', color: 'completed', next: null },
       COMPLETED: { label: 'Завершён', color: 'completed', next: null },
       CANCELLED: { label: 'Отменён', color: 'cancelled', next: null }
     };
 
+    function normalizeStatus(value) {
+      const raw = String(value || '').trim().toUpperCase();
+      if (!raw || raw === 'SENT' || raw === 'FAILED') return 'NEW';
+      if (raw === 'DONE') return 'HANDED';
+      return raw;
+    }
+
+    function normalizeOrder(raw) {
+      const code = String(raw?.code || raw?.order_code || raw?.id || '').trim();
+      const id = String(raw?.id || raw?.order_id || code).trim();
+      return {
+        ...raw,
+        id,
+        code: code || id,
+        status: normalizeStatus(raw?.status),
+        created_at: raw?.created_at || raw?.createdAt || new Date().toISOString(),
+        updated_at: raw?.updated_at || raw?.updatedAt || raw?.created_at || new Date().toISOString(),
+        items: Array.isArray(raw?.items) ? raw.items : []
+      };
+    }
+
+    function loadLocalOrders() {
+      try {
+        return JSON.parse(localStorage.getItem(ORDERS_KEY) || '{}') || {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveLocalOrders(map) {
+      try {
+        localStorage.setItem(ORDERS_KEY, JSON.stringify(map || {}));
+      } catch (_) {}
+    }
+
+    function ordersToMap(list) {
+      const map = {};
+      for (const raw of list || []) {
+        const order = normalizeOrder(raw);
+        if (!order.code) continue;
+        map[order.code] = order;
+      }
+      return map;
+    }
+
+    function orderStamp(order) {
+      const stamp = new Date(order?.updated_at || order?.created_at).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
+    }
+
+    function mergeOrderMaps(...sources) {
+      const merged = new Map();
+
+      for (const source of sources) {
+        const values = Array.isArray(source) ? source : Object.values(source || {});
+
+        for (const raw of values) {
+          const order = normalizeOrder(raw);
+          const key = order.code || order.id;
+          if (!key) continue;
+
+          if (!merged.has(key)) {
+            merged.set(key, order);
+            continue;
+          }
+
+          const current = merged.get(key);
+          const useIncoming = orderStamp(order) >= orderStamp(current);
+          const primary = useIncoming ? order : current;
+          const fallback = useIncoming ? current : order;
+          merged.set(key, {
+            ...fallback,
+            ...primary,
+            sync: {
+              ...(fallback.sync || {}),
+              ...(primary.sync || {})
+            }
+          });
+        }
+      }
+
+      return Array.from(merged.values()).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+
+    async function fetchOrdersRemote() {
+      const response = await fetch(API_BASE + '?action=get_orders', { cache: 'no-store' });
+      return response.json();
+    }
+
+    async function fetchOrdersLocalBridge() {
+      const response = await fetch(LOCAL_API_BASE, { cache: 'no-store' });
+      return response.json();
+    }
+
+    async function pushOrderToLocalBridge(order) {
+      const response = await fetch(LOCAL_API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
+      return response.json();
+    }
+
     // Загрузка заказов
     async function loadOrders() {
-      try {
-        const response = await fetch(API_BASE + '?action=get_orders');
-        const data = await response.json();
-        
-        if (data.orders && Array.isArray(data.orders)) {
-          orders = data.orders;
-        } else if (localStorage.getItem('CD_ORDERS_V1')) {
-          // Fallback на локальное хранилище
-          const localOrders = JSON.parse(localStorage.getItem('CD_ORDERS_V1') || '{}');
-          orders = Object.values(localOrders);
-        } else {
-          orders = [];
-        }
-        
-        // Сортируем по дате (новые сверху)
-        orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        
-        updateStats();
-        renderOrders();
-      } catch (error) {
-        console.error('Error loading orders:', error);
-        // Показываем локальные заказы если API недоступен
-        const localOrders = JSON.parse(localStorage.getItem('CD_ORDERS_V1') || '{}');
-        orders = Object.values(localOrders);
-        orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        updateStats();
-        renderOrders();
-      }
+      const localMap = loadLocalOrders();
+      const [remoteResult, bridgeResult] = await Promise.allSettled([
+        fetchOrdersRemote(),
+        fetchOrdersLocalBridge()
+      ]);
+
+      const remoteData = remoteResult.status === 'fulfilled' ? remoteResult.value : null;
+      const bridgeData = bridgeResult.status === 'fulfilled' ? bridgeResult.value : null;
+      const remoteOrders = Array.isArray(remoteData?.orders) ? remoteData.orders : [];
+      const bridgeMap = ordersToMap(Array.isArray(bridgeData?.orders) ? bridgeData.orders : []);
+
+      orders = mergeOrderMaps(remoteOrders, bridgeMap, localMap);
+      saveLocalOrders(ordersToMap(orders));
+      updateStats();
+      renderOrders();
+    }
+
+    function scheduleLiveReload(delay = 220) {
+      clearTimeout(liveReloadTimer);
+      liveReloadTimer = setTimeout(() => {
+        loadOrders();
+      }, delay);
+    }
+
+    function connectLocalEvents() {
+      if (!window.EventSource || !LOCAL_EVENTS_URL.startsWith('http')) return;
+      if (eventSource) eventSource.close();
+
+      eventSource = new EventSource(LOCAL_EVENTS_URL);
+      eventSource.addEventListener('orders_updated', () => scheduleLiveReload());
+      eventSource.addEventListener('ready', () => scheduleLiveReload(80));
     }
 
     // Обновление статистики
@@ -592,6 +716,26 @@
 
     // Обновление статуса заказа
     async function updateOrderStatus(orderId, newStatus) {
+      const orderIndex = orders.findIndex(o => o.id === orderId || o.code === orderId);
+      if (orderIndex === -1) {
+        showNotification('Заказ не найден', 'error');
+        return;
+      }
+
+      const order = normalizeOrder({
+        ...orders[orderIndex],
+        status: newStatus,
+        updated_at: new Date().toISOString()
+      });
+      orders[orderIndex] = order;
+      saveLocalOrders(ordersToMap(orders));
+      renderOrders();
+      updateStats();
+
+      await pushOrderToLocalBridge(order).catch(error => {
+        console.error('Local bridge update failed:', error);
+      });
+
       try {
         const response = await fetch(API_BASE, {
           method: 'POST',
@@ -602,29 +746,11 @@
             status: newStatus
           })
         });
-        
-        const result = await response.json();
-        
-        // Обновляем локально
-        const orderIndex = orders.findIndex(o => o.id === orderId || o.code === orderId);
-        if (orderIndex !== -1) {
-          orders[orderIndex].status = newStatus;
-          // Обновляем localStorage
-          const localOrders = JSON.parse(localStorage.getItem('CD_ORDERS_V1') || '{}');
-          if (localOrders[orders[orderIndex].code]) {
-            localOrders[orders[orderIndex].code].status = newStatus;
-            localStorage.setItem('CD_ORDERS_V1', JSON.stringify(localOrders));
-          }
-        }
-        
-        renderOrders();
-        updateStats();
-        
-        // Показываем уведомление
+        await response.json();
         showNotification(`Статус заказа обновлён на ${STATUSES[newStatus]?.label || newStatus}`);
       } catch (error) {
         console.error('Error updating order status:', error);
-        showNotification('Ошибка при обновлении статуса', 'error');
+        showNotification(`Статус обновлён локально: ${STATUSES[newStatus]?.label || newStatus}`, 'success');
       }
     }
 
@@ -714,14 +840,17 @@
         <div class="order-detail-row">
           <div class="order-detail-label">Состав заказа</div>
           <div class="items-list">
-            ${order.items?.map(item => `
-              <div class="item-row">
-                <strong>${escapeHtml(item.name)}</strong> ${item.code ? `(${item.code})` : ''}<br>
-                <span class="muted">${item.price.toFixed(2)} грн × ${item.qty} = ${(item.price * item.qty).toFixed(2)} грн</span>
-                ${item.selections ? `<div class="muted" style="font-size:0.8rem">${formatSelections(item.selections)}</div>` : ''}
-                ${item.note ? `<div class="muted" style="font-size:0.8rem">📝 ${escapeHtml(item.note)}</div>` : ''}
-              </div>
-            `).join('') || '<div class="muted">Нет позиций</div>'}
+            ${order.items?.flatMap(item => {
+              const qty = Math.max(1, Number(item.qty || 1));
+              const copies = Number.isInteger(qty) && qty > 1 ? qty : 1;
+              return Array.from({ length: copies }, () => `
+                <div class="item-row">
+                  <strong>${escapeHtml(item.code || "—")} ${escapeHtml(item.name || item.code || "Позиция")}</strong>
+                  ${item.selections ? `<div class="muted" style="font-size:0.8rem">${formatSelections(item.selections)}</div>` : ''}
+                  ${item.note ? `<div class="muted" style="font-size:0.8rem">📝 ${escapeHtml(item.note)}</div>` : ''}
+                </div>
+              `);
+            }).join('') || '<div class="muted">Нет позиций</div>'}
           </div>
         </div>
         <div class="order-detail-row">
@@ -816,7 +945,7 @@
                 <td>
                   <div class="action-buttons">
                     <button class="btn-sm btn-view" onclick="openModal(${JSON.stringify(order).replace(/"/g, '&quot;')})">👁️</button>
-                    ${order.status !== 'CANCELLED' && order.status !== 'COMPLETED' ? `
+                    ${order.status !== 'CANCELLED' && order.status !== 'COMPLETED' && order.status !== 'HANDED' ? `
                       ${STATUSES[order.status]?.next ? `
                         <button class="btn-sm btn-update" onclick="updateOrderStatus('${order.id || order.code}', '${STATUSES[order.status].next}')">
                           → ${STATUSES[STATUSES[order.status].next]?.label || 'Далее'}
@@ -835,7 +964,17 @@
 
     // Инициализация
     function init() {
-      // Загружаем заказы
+      window.addEventListener('storage', (event) => {
+        if (event.key !== ORDERS_KEY) return;
+        orders = mergeOrderMaps(loadLocalOrders());
+        updateStats();
+        renderOrders();
+      });
+      window.addEventListener('beforeunload', () => {
+        if (eventSource) eventSource.close();
+      });
+
+      connectLocalEvents();
       loadOrders();
       
       // Обработчики вкладок
@@ -870,5 +1009,6 @@
     
     init();
   </script>
+  <script src="dlv_burger_menu.js"></script>
 </body>
 </html>

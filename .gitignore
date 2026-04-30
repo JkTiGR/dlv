@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.log
+*.tmp
+.DS_Store
+
+# Local runtime data, cache and private order state.
+dlv_local_orders.json
+dlv_menu_availability.json
+po.db
+dlv_po/data/po.db
+
+# Local editor/workstation files.
+.vscode/
+*.code-workspace
+DLV_autostart.desktop
+start_dlv_autostart.sh

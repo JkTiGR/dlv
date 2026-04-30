@@ -1123,6 +1123,24 @@ const menuData = {
       }
     },
     {
+      "key": "com_rang_rau",
+      "code": "CRC",
+      "price": 200,
+      "weight": 700,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Жареный рис с овощами",
+        "ua": "Смажений рис з овочами",
+        "vn": "Cơm rang rau"
+      },
+      "short": {
+        "ru": "Рис, овощи и соус.",
+        "ua": "Рис, овочі та соус.",
+        "vn": "Cơm rang với rau củ và nước sốt."
+      }
+    },
+    {
       "key": "com_rang_tom",
       "code": "CRT",
       "price": 200,
@@ -1280,36 +1298,126 @@ const menuData = {
       "key": "pepsi_03",
       "code": "P03",
       "price": 40,
-      "weight": 300,
+      "weight": 330,
       "spicy": 0,
       "tags": [],
       "translations": {
-        "ru": "Pepsi 0.3",
-        "ua": "Pepsi 0.3",
-        "vn": "Pepsi 0.3"
+        "ru": "Pepsi-Cola 0.33",
+        "ua": "Pepsi-Cola 0.33",
+        "vn": "Pepsi-Cola 0.33"
       },
       "short": {
-        "ru": "Pepsi 0.3 / 0.33 / 0.5.",
-        "ua": "Pepsi 0.3 / 0.33 / 0.5.",
-        "vn": "Pepsi 0.3 / 0.33 / 0.5."
+        "ru": "Pepsi-Cola 0.33 л. Наценка ориентир +100-150% от закупки.",
+        "ua": "Pepsi-Cola 0.33 л. Націнка орієнтир +100-150% від закупівлі.",
+        "vn": "Pepsi-Cola 0.33 l. Gia ban cong them khoang 100-150%."
       }
     },
     {
       "key": "pepsi_black",
       "code": "PBL",
-      "price": 40,
+      "price": 45,
       "weight": 500,
       "spicy": 0,
       "tags": [],
       "translations": {
-        "ru": "Pepsi Black / Pepsi Cherry",
-        "ua": "Pepsi Black / Pepsi Cherry",
-        "vn": "Pepsi Black / Pepsi Cherry"
+        "ru": "Pepsi Black 0.5",
+        "ua": "Pepsi Black 0.5",
+        "vn": "Pepsi Black 0.5"
       },
       "short": {
-        "ru": "Pepsi Black или Pepsi Cherry.",
-        "ua": "Pepsi Black або Pepsi Cherry.",
-        "vn": "Pepsi Black hoặc Pepsi Cherry."
+        "ru": "Pepsi Black 0.5 л. Наценка ориентир +100-150% от закупки.",
+        "ua": "Pepsi Black 0.5 л. Націнка орієнтир +100-150% від закупівлі.",
+        "vn": "Pepsi Black 0.5 l. Gia ban cong them khoang 100-150%."
+      }
+    },
+    {
+      "key": "pepsi_cream_soda_033",
+      "code": "PCS33",
+      "price": 45,
+      "weight": 330,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Pepsi Cream Soda 0.33",
+        "ua": "Pepsi Cream Soda 0.33",
+        "vn": "Pepsi Cream Soda 0.33"
+      },
+      "short": {
+        "ru": "Pepsi Cream Soda 0.33 л, серия Treats. Наценка ориентир +100-150% от закупки.",
+        "ua": "Pepsi Cream Soda 0.33 л, серія Treats. Націнка орієнтир +100-150% від закупівлі.",
+        "vn": "Pepsi Cream Soda 0.33 l, dong Treats. Gia ban cong them khoang 100-150%."
+      }
+    },
+    {
+      "key": "pepsi_strawberry_cream_033",
+      "code": "PSC33",
+      "price": 45,
+      "weight": 330,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Pepsi Клубника и сливки 0.33",
+        "ua": "Pepsi Полуниця та вершки 0.33",
+        "vn": "Pepsi Dau tay kem 0.33"
+      },
+      "short": {
+        "ru": "Pepsi Treats 0.33 л со вкусом клубники и сливок. Наценка ориентир +100-150% от закупки.",
+        "ua": "Pepsi Treats 0.33 л зі смаком полуниці та вершків. Націнка орієнтир +100-150% від закупівлі.",
+        "vn": "Pepsi Treats 0.33 l vi dau tay va kem. Gia ban cong them khoang 100-150%."
+      }
+    },
+    {
+      "key": "pepsi_zero_033",
+      "code": "PZ33",
+      "price": 40,
+      "weight": 330,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Pepsi Zero Sugar 0.33",
+        "ua": "Pepsi Нуль цукру 0.33",
+        "vn": "Pepsi Zero Sugar 0.33"
+      },
+      "short": {
+        "ru": "Pepsi Zero Sugar 0.33 л. Наценка ориентир +100-150% от закупки.",
+        "ua": "Pepsi Нуль цукру 0.33 л. Націнка орієнтир +100-150% від закупівлі.",
+        "vn": "Pepsi Zero Sugar 0.33 l. Gia ban cong them khoang 100-150%."
+      }
+    },
+    {
+      "key": "pepsi_cola_05",
+      "code": "P50",
+      "price": 45,
+      "weight": 500,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Pepsi-Cola 0.5",
+        "ua": "Pepsi-Cola 0.5",
+        "vn": "Pepsi-Cola 0.5"
+      },
+      "short": {
+        "ru": "Pepsi-Cola 0.5 л. Наценка ориентир +100-150% от закупки.",
+        "ua": "Pepsi-Cola 0.5 л. Націнка орієнтир +100-150% від закупівлі.",
+        "vn": "Pepsi-Cola 0.5 l. Gia ban cong them khoang 100-150%."
+      }
+    },
+    {
+      "key": "pepsi_tropical_05",
+      "code": "PTR50",
+      "price": 45,
+      "weight": 500,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Pepsi Tropical 0.5",
+        "ua": "Pepsi Tropical 0.5",
+        "vn": "Pepsi Tropical 0.5"
+      },
+      "short": {
+        "ru": "Pepsi Tropical 0.5 л. Наценка ориентир +100-150% от закупки.",
+        "ua": "Pepsi Tropical 0.5 л. Націнка орієнтир +100-150% від закупівлі.",
+        "vn": "Pepsi Tropical 0.5 l. Gia ban cong them khoang 100-150%."
       }
     },
     {
@@ -1333,7 +1441,7 @@ const menuData = {
     {
       "key": "water",
       "code": "WTR",
-      "price": 30,
+      "price": 35,
       "weight": 500,
       "spicy": 0,
       "tags": [],
@@ -1365,6 +1473,60 @@ const menuData = {
         "ua": "Мультифрукт або томатний сік.",
         "vn": "Nước ép nhiều trái cây hoặc cà chua."
       }
+    },
+    {
+      "key": "juice_tomato_05",
+      "code": "JT50",
+      "price": 46,
+      "weight": 500,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Сок Садочок томатный 0.5",
+        "ua": "Сік Садочок томатний 0.5",
+        "vn": "Nuoc ep ca chua Sadochok 0.5"
+      },
+      "short": {
+        "ru": "Томатный сок Садочок 0.5 л. Наценка +45% от закупки.",
+        "ua": "Томатний сік Садочок 0.5 л. Націнка +45% від закупівлі.",
+        "vn": "Nuoc ep ca chua Sadochok 0.5 l. Gia ban cong them 45%."
+      }
+    },
+    {
+      "key": "juice_apple_grape_05",
+      "code": "JAG50",
+      "price": 43,
+      "weight": 500,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Сок Садочок яблочно-виноградный 0.5",
+        "ua": "Сік Садочок яблучно-виноградний 0.5",
+        "vn": "Nuoc ep tao nho Sadochok 0.5"
+      },
+      "short": {
+        "ru": "Яблочно-виноградный сок Садочок 0.5 л. Наценка +45% от закупки.",
+        "ua": "Яблучно-виноградний сік Садочок 0.5 л. Націнка +45% від закупівлі.",
+        "vn": "Nuoc ep tao nho Sadochok 0.5 l. Gia ban cong them 45%."
+      }
+    },
+    {
+      "key": "juice_multifruit_05",
+      "code": "JM50",
+      "price": 43,
+      "weight": 500,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Сок Садочок мультифрукт 0.5",
+        "ua": "Сік Садочок мультифрукт 0.5",
+        "vn": "Nuoc ep da trai cay Sadochok 0.5"
+      },
+      "short": {
+        "ru": "Мультифруктовый сок Садочок 0.5 л. Наценка +45% от закупки.",
+        "ua": "Мультифруктовий сік Садочок 0.5 л. Націнка +45% від закупівлі.",
+        "vn": "Nuoc ep da trai cay Sadochok 0.5 l. Gia ban cong them 45%."
+      }
     }
   ]
 };
@@ -1390,4 +1552,7 @@ const menuData = {
   Object.keys(menuData).forEach(k => { if (!out[k]) out[k] = menuData[k]; });
   for (const k of Object.keys(menuData)) delete menuData[k];
   for (const k of Object.keys(out)) menuData[k] = out[k];
+  if (typeof window !== 'undefined') {
+    window.menuData = menuData;
+  }
 })();

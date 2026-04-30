@@ -3,28 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0f1728" />
+  <meta name="theme-color" content="#080101" />
   <title>DLV Contron Panel</title>
   <link rel="icon" href="logo.png" />
   <style>
     :root {
-      --bg: #0a1020;
-      --bg-2: #111a33;
-      --panel: rgba(13, 20, 40, 0.9);
-      --line: rgba(255, 255, 255, 0.1);
-      --text: #ecf2ff;
-      --muted: #96a5c7;
-      --accent: #6ec7ff;
-      --accent-2: #ffb46f;
+      --bg: #030000;
+      --bg-2: #170101;
+      --panel: rgba(18, 1, 3, 0.92);
+      --line: rgba(255, 39, 28, 0.17);
+      --text: #fff2ee;
+      --muted: #d1a1a4;
+      --accent: #ff160d;
+      --accent-2: #ff7a24;
       --paper: #ffffff;
       --paper-2: #eef2f7;
       --paper-3: #d8dee9;
-      --ink: #10192b;
-      --sheet-blue: #27496d;
+      --ink: #210507;
+      --sheet-blue: #7e1115;
       --full: #2ee25a;
       --ok: #f6ed4b;
       --min: #ff3d2f;
-      --shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
+      --neon-red: rgba(255, 22, 13, 0.32);
+      --neon-amber: rgba(255, 122, 36, 0.22);
+      --shadow:
+        0 30px 80px rgba(0, 0, 0, 0.36),
+        0 0 28px var(--neon-red);
       --radius: 26px;
       --font-head: "Space Grotesk", "Segoe UI", sans-serif;
       --font-body: "Manrope", "Segoe UI", sans-serif;
@@ -39,9 +43,9 @@
       margin: 0;
       min-height: 100%;
       background:
-        radial-gradient(circle at top left, rgba(110, 199, 255, 0.18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(255, 180, 111, 0.16), transparent 24%),
-        linear-gradient(180deg, #060a14 0%, var(--bg) 48%, var(--bg-2) 100%);
+        linear-gradient(180deg, rgba(246, 18, 12, 0.48) 0%, rgba(118, 0, 6, 0.2) 34%, rgba(7, 0, 0, 0.88) 78%, #010000 100%),
+        radial-gradient(900px 560px at 0% 0%, rgba(255, 26, 13, 0.28), transparent 62%),
+        linear-gradient(180deg, #080000 0%, var(--bg) 48%, var(--bg-2) 100%);
       color: var(--text);
       font-family: var(--font-body);
     }
@@ -50,25 +54,24 @@
     body::after {
       content: "";
       position: fixed;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      filter: blur(100px);
+      inset: 0;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.48;
     }
 
     body::before {
-      top: -120px;
-      left: -90px;
-      background: rgba(110, 199, 255, 0.12);
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 38, 24, 0.07) 0 1px, transparent 1px 52px),
+        repeating-linear-gradient(180deg, rgba(255, 38, 24, 0.05) 0 1px, transparent 1px 42px),
+        repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 6px);
+      opacity: 0.58;
     }
 
     body::after {
-      right: -120px;
-      bottom: -120px;
-      background: rgba(255, 180, 111, 0.12);
+      background:
+        linear-gradient(180deg, transparent 0%, transparent 44%, rgba(0, 0, 0, 0.42) 74%, rgba(0, 0, 0, 0.9) 100%),
+        repeating-linear-gradient(90deg, transparent 0 19px, rgba(0, 0, 0, 0.14) 19px 20px);
+      opacity: 0.82;
     }
 
     button,
@@ -96,7 +99,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background:
-        linear-gradient(180deg, rgba(23, 32, 58, 0.74), rgba(11, 18, 35, 0.68));
+        linear-gradient(180deg, rgba(39, 7, 10, 0.78), rgba(13, 2, 3, 0.72));
       box-shadow: var(--shadow);
       backdrop-filter: blur(22px) saturate(150%);
       -webkit-backdrop-filter: blur(22px) saturate(150%);
@@ -108,9 +111,23 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 30%),
-        radial-gradient(circle at top right, rgba(110, 199, 255, 0.12), transparent 28%);
+        linear-gradient(135deg, rgba(255, 120, 88, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(255, 42, 31, 0.16), transparent 30%);
       pointer-events: none;
+    }
+
+    .topbar::after,
+    .sheet-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 92, 70, 0.2),
+        inset 0 0 22px rgba(255, 22, 13, 0.08),
+        0 0 22px rgba(255, 22, 13, 0.12);
+      opacity: 0.7;
     }
 
     .topbar {
@@ -138,8 +155,8 @@
       height: 56px;
       border-radius: 18px;
       background:
-        linear-gradient(135deg, rgba(110, 199, 255, 0.95), rgba(255, 180, 111, 0.92));
-      color: #05101b;
+        linear-gradient(135deg, rgba(255, 42, 31, 0.96), rgba(255, 154, 61, 0.94));
+      color: #1a0304;
       display: grid;
       place-items: center;
       font-weight: 900;
@@ -152,6 +169,7 @@
       margin: 0;
       font-family: var(--font-head);
       letter-spacing: -0.04em;
+      text-shadow: 0 0 18px rgba(255, 22, 13, 0.22);
     }
 
     .brand h1 {
@@ -191,12 +209,20 @@
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24), 0 0 18px rgba(255, 22, 13, 0.2);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      transform: none;
+      box-shadow: none;
     }
 
     .btn.primary {
       color: #04101a;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 20px rgba(255, 22, 13, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.22);
     }
 
     .btn.secondary {
@@ -242,8 +268,9 @@
     }
 
     .input:focus {
-      border-color: rgba(110, 199, 255, 0.58);
+      border-color: rgba(255, 58, 45, 0.58);
       background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(255, 22, 13, 0.1), 0 0 18px rgba(255, 22, 13, 0.16);
     }
 
     .stats {
@@ -286,6 +313,111 @@
 
     .sheet-panel {
       padding: 16px;
+    }
+
+    .stock-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stock-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .stock-card.warn {
+      border-color: rgba(246, 237, 75, 0.34);
+      background: rgba(246, 237, 75, 0.08);
+    }
+
+    .stock-card.danger {
+      border-color: rgba(255, 61, 47, 0.36);
+      background: rgba(255, 61, 47, 0.08);
+    }
+
+    .stock-card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .stock-card-title {
+      display: grid;
+      gap: 4px;
+    }
+
+    .stock-card-title strong {
+      font-size: 18px;
+      font-family: var(--font-head);
+      letter-spacing: -0.03em;
+    }
+
+    .stock-card-title span,
+    .stock-card-title .meta-note {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .stock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .stock-card.ok .stock-badge {
+      color: #8fff9e;
+    }
+
+    .stock-card.warn .stock-badge {
+      color: #fff38d;
+    }
+
+    .stock-card.danger .stock-badge {
+      color: #ffb6af;
+    }
+
+    .stock-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stock-mini {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 10px 12px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .stock-mini .k {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stock-mini .v {
+      font-size: 16px;
+      font-weight: 800;
+      font-family: var(--font-head);
+      letter-spacing: -0.03em;
     }
 
     .sheet-head {
@@ -362,16 +494,28 @@
       background: var(--paper);
     }
 
+    .sheet[data-mode="portions"] {
+      min-width: 1450px;
+    }
+
+    .sheet[data-mode="losses"] {
+      min-width: 2100px;
+    }
+
     .sheet col.rownum {
       width: 54px;
     }
 
+    .sheet col.code {
+      width: 11%;
+    }
+
     .sheet col.ru {
-      width: 40%;
+      width: 32%;
     }
 
     .sheet col.vn {
-      width: 32%;
+      width: 30%;
     }
 
     .sheet col.status {
@@ -380,6 +524,10 @@
 
     .sheet col.date {
       width: 18%;
+    }
+
+    .sheet col.data {
+      width: 8%;
     }
 
     .sheet th,
@@ -575,6 +723,132 @@
       opacity: 0.72;
     }
 
+    .data-input {
+      width: 100%;
+      height: 40px;
+      padding: 6px 8px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--ink);
+      outline: none;
+      font-size: 13px;
+    }
+
+    .data-input:focus {
+      border-color: rgba(255, 58, 45, 0.5);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(255, 22, 13, 0.1), 0 0 16px rgba(255, 22, 13, 0.14);
+    }
+
+    .data-input:disabled {
+      cursor: not-allowed;
+      color: #7b8799;
+      background: rgba(235, 239, 245, 0.92);
+    }
+
+    .muted-text {
+      color: #64748b;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .cell-stack {
+      display: grid;
+      gap: 8px;
+      min-height: 40px;
+      padding: 8px 10px;
+    }
+
+    .cell-stack.tight {
+      gap: 6px;
+      padding: 6px 8px;
+    }
+
+    .cell-stack .cell-editor {
+      min-height: 58px;
+      padding: 8px 10px;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .cell-stack .cell-editor.compact {
+      min-height: 48px;
+    }
+
+    .photo-tools {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .photo-btn,
+    .photo-link,
+    .photo-remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 8px 11px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.82);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .photo-remove {
+      background: rgba(255, 61, 47, 0.12);
+      color: #8a1c12;
+    }
+
+    .photo-note {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #334155;
+    }
+
+    .photo-note.warning {
+      color: #8a1c12;
+      font-weight: 700;
+    }
+
+    .metric-cell {
+      padding: 0 10px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-cell.strong {
+      font-weight: 800;
+    }
+
+    .product-cell {
+      padding: 8px 10px;
+      line-height: 1.4;
+    }
+
+    .product-cell .product-vn {
+      color: #58667a;
+      font-size: 12px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .add-btn {
       width: 100%;
       min-height: 40px;
@@ -637,6 +911,91 @@
       }
     }
 
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-tab {
+      padding: 9px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .mode-tab:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .mode-tab.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #04101a;
+      border-color: transparent;
+    }
+
+    .diff-ok {
+      color: #8fff9e;
+    }
+
+    .diff-warning {
+      color: #fff38d;
+    }
+
+    .diff-alert {
+      color: #ff9d95;
+    }
+
+    .loss-ok {
+      color: #1f8f41;
+    }
+
+    .loss-warning {
+      color: #9a7c00;
+    }
+
+    .loss-alert {
+      color: #b42318;
+    }
+
+    .table-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      min-height: 34px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .table-status.ok {
+      color: #136b33;
+      background: rgba(46, 226, 90, 0.16);
+      border-color: rgba(46, 226, 90, 0.28);
+    }
+
+    .table-status.warn {
+      color: #8a7100;
+      background: rgba(246, 237, 75, 0.2);
+      border-color: rgba(246, 237, 75, 0.34);
+    }
+
+    .table-status.danger {
+      color: #a32418;
+      background: rgba(255, 61, 47, 0.14);
+      border-color: rgba(255, 61, 47, 0.28);
+    }
+
     @media (max-width: 780px) {
       .page {
         width: min(100vw, calc(100vw - 12px));
@@ -657,7 +1016,9 @@
       }
 
       .toolbar,
-      .stats {
+      .stats,
+      .stock-summary-grid,
+      .stock-card-grid {
         grid-template-columns: 1fr;
       }
 
@@ -667,6 +1028,15 @@
 
       .legend {
         gap: 8px;
+      }
+
+      .mode-tabs {
+        gap: 6px;
+      }
+
+      .mode-tab {
+        padding: 8px 12px;
+        font-size: 12px;
       }
     }
   </style>
@@ -685,6 +1055,7 @@
 
         <div class="topbar-actions">
           <a class="btn secondary" href="DLV_KASSA.html">Открыть Kassa</a>
+          <button class="btn secondary" id="sendScreenshotBtn" type="button">Full screenshot в VN</button>
           <a class="btn ghost" href="index.html">Открыть Menu</a>
         </div>
       </div>
@@ -709,32 +1080,27 @@
           <label>Экспорт</label>
           <button class="btn primary" id="copyTsvBtn" type="button">Скопировать TSV</button>
         </div>
-
-        <div class="field">
-          <label>Сброс</label>
-          <button class="btn secondary" id="clearStatusBtn" type="button">Очистить статусы</button>
-        </div>
       </div>
 
       <div class="stats">
         <div class="stat">
-          <div class="k">Всего позиций</div>
+          <div class="k" id="statAllLabel">Всего позиций</div>
           <div class="v" id="statAll">0</div>
         </div>
         <div class="stat full">
-          <div class="k">Full</div>
+          <div class="k" id="statFullLabel">Green</div>
           <div class="v" id="statFull">0</div>
         </div>
         <div class="stat ok">
-          <div class="k">Ok</div>
+          <div class="k" id="statOkLabel">Yellow</div>
           <div class="v" id="statOk">0</div>
         </div>
         <div class="stat min">
-          <div class="k">Min</div>
+          <div class="k" id="statMinLabel">Red</div>
           <div class="v" id="statMin">0</div>
         </div>
         <div class="stat">
-          <div class="k">Показано после поиска</div>
+          <div class="k" id="statVisibleLabel">Порций осталось</div>
           <div class="v" id="statVisible">0</div>
         </div>
       </div>
@@ -743,37 +1109,50 @@
     <section class="sheet-panel">
       <div class="sheet-head">
         <div>
-          <h2 class="sheet-title">Product Control Sheet</h2>
-          <p class="meta-note">Нажми на `full`, `ok` или `min`, чтобы отметить запас. Дата обновляется автоматически, названия можно редактировать прямо в таблице.</p>
+          <h2 class="sheet-title">Автосписание из кассы</h2>
+          <p class="meta-note">Расход считается автоматически по заказам из `CD_ORDERS_V1`. Если в item уже есть `stock_usage` и `base_usage`, они берутся напрямую. Иначе включается fallback по коду блюда и модификаторам.</p>
         </div>
 
         <div class="legend">
-          <span class="legend-item"><span class="legend-swatch full"></span> full</span>
-          <span class="legend-item"><span class="legend-swatch ok"></span> ok</span>
-          <span class="legend-item"><span class="legend-swatch min"></span> min</span>
+          <span class="legend-item" id="stockSummaryUpdated">Обновление: —</span>
         </div>
       </div>
 
+      <div class="stock-summary-grid" id="stockSummaryGrid"></div>
+    </section>
+
+    <section class="sheet-panel">
+      <div class="sheet-head">
+        <div>
+          <h2 class="sheet-title" id="sheetTitle">Склад по продуктам</h2>
+          <p class="meta-note" id="modeDescription">Склад по продуктам: code, RU/VN название, текущий готовый вес/количество и status.</p>
+        </div>
+      </div>
+
+      <div class="legend" id="legendWrap">
+        <span class="legend-item">Green = запас нормальный</span>
+        <span class="legend-item">Yellow = осталось мало</span>
+        <span class="legend-item">Red = срочно проверить остаток</span>
+      </div>
+
       <div class="sheet-wrap">
-        <table class="sheet">
+        <table class="sheet" data-mode="products">
           <colgroup>
             <col class="rownum" />
+            <col class="code" />
             <col class="ru" />
             <col class="vn" />
+            <col class="data" />
             <col class="status" />
-            <col class="status" />
-            <col class="status" />
-            <col class="date" />
           </colgroup>
           <thead>
             <tr>
               <th class="rownum">1</th>
+              <th class="head-main">code</th>
               <th class="head-main">Product RU</th>
               <th class="head-main">Tên sản phẩm VN</th>
-              <th class="head-status full">full</th>
-              <th class="head-status ok">ok</th>
-              <th class="head-status min">min</th>
-              <th class="head-date">date</th>
+              <th class="head-main">kolichestvo Сейчас</th>
+              <th class="head-date">Status</th>
             </tr>
           </thead>
           <tbody id="sheetBody"></tbody>
@@ -782,11 +1161,42 @@
     </section>
   </div>
 
-  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+  <div class="toast-wrap" id="toastWrap" aria-live="polite" data-html2canvas-ignore="true"></div>
 
+  <script src="dlv_kassa_modifier_logic.js"></script>
   <script>
-    const STORAGE_KEY = "DLV_CONTRON_PANEL_V1";
+    const STORAGE_KEY = "DLV_CONTRON_PANEL_V2";
+    const ORDERS_KEY = "CD_ORDERS_V1";
+    const STOCK_SUMMARY_KEY = "DLV_STOCK_SUMMARY_V1";
+    const LOCAL_API_BASE = window.location.origin.startsWith("http") ? `${window.location.origin}/api/local-orders` : "";
+    const LOCAL_EVENTS_URL = window.location.origin.startsWith("http") ? `${window.location.origin}/api/local-events` : "";
     const STATUS_KEYS = ["full", "ok", "min"];
+    const MODES = ["products", "portions", "losses"];
+    const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
+    // TODO: Move Telegram token to backend proxy.
+    const TG = {
+      BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",
+      CHAT_ID_VN: "-1002156259709",
+      PROXY_URL: ""
+    };
+
+    // Нормы на одну порцию
+    const MEAT_PORTION_NORM = 80;
+    const NEM_PORTION_NORM = 1;
+    const PHO_BAG_GRAMS = 500;
+    const PHO_BAG_PORTIONS = 7;
+    const PHO_DRY_PORTION_NORM = Number((PHO_BAG_GRAMS / PHO_BAG_PORTIONS).toFixed(2));
+
+    const PORTION_NORMS_DB = {
+      "Говядина / Thịt bò": { norm: MEAT_PORTION_NORM, unit: "г" },
+      "Курица / Thịt gà": { norm: MEAT_PORTION_NORM, unit: "г" },
+      "Свинина / Thịt heo": { norm: MEAT_PORTION_NORM, unit: "г" },
+      "nem / nem": { norm: NEM_PORTION_NORM, unit: "шт" },
+      "Лапша phở / Phở khô": { norm: PHO_DRY_PORTION_NORM, unit: "г" },
+      "Рис / Cơm rang": { norm: 300, unit: "г" },
+      "Салат / Rau xà lách": { norm: 100, unit: "г" },
+      "Бульон / Nước xương": { norm: 450, unit: "мл" }
+    };
 
     const INITIAL_SECTIONS = [
       {
@@ -824,6 +1234,7 @@
         items: [
           { ru: "Яйца", vn: "Trứng" },
           { ru: "Рис", vn: "Gạo" },
+          { ru: "Бульон", vn: "Nước xương" },
           { ru: "кунжут", vn: "hạt vừng" }
         ]
       },
@@ -887,7 +1298,16 @@
         items: [
           { ru: "вьетнамский кофе.", vn: "ca_phe_viet" },
           { ru: "Энергетический напиток", vn: "BO HUC" },
-          { ru: "Pepsi", vn: "Pepsi" },
+          { ru: "Pepsi Cream Soda 0.33", vn: "Pepsi Cream Soda 0.33", purchased: 12, remainder: 12, portion_norm: 1, unit: "шт" },
+          { ru: "Pepsi Клубника и сливки 0.33", vn: "Pepsi Strawberry Cream 0.33", purchased: 12, remainder: 12, portion_norm: 1, unit: "шт" },
+          { ru: "Pepsi Zero Sugar 0.33", vn: "Pepsi Zero Sugar 0.33", purchased: 12, remainder: 12, portion_norm: 1, unit: "шт" },
+          { ru: "Pepsi-Cola 0.33", vn: "Pepsi-Cola 0.33", purchased: 12, remainder: 12, portion_norm: 1, unit: "шт" },
+          { ru: "Pepsi Black 0.5", vn: "Pepsi Black 0.5", purchased: 12, remainder: 12, portion_norm: 1, unit: "шт" },
+          { ru: "Pepsi-Cola 0.5", vn: "Pepsi-Cola 0.5", purchased: 12, remainder: 12, portion_norm: 1, unit: "шт" },
+          { ru: "Pepsi Tropical 0.5", vn: "Pepsi Tropical 0.5", purchased: 12, remainder: 12, portion_norm: 1, unit: "шт" },
+          { ru: "Сок Садочок томатный 0.5", vn: "Nuoc ep ca chua Sadochok 0.5", purchased: 5, remainder: 5, portion_norm: 1, unit: "шт" },
+          { ru: "Сок Садочок яблочно-виноградный 0.5", vn: "Nuoc ep tao nho Sadochok 0.5", purchased: 5, remainder: 5, portion_norm: 1, unit: "шт" },
+          { ru: "Сок Садочок мультифрукт 0.5", vn: "Nuoc ep da trai cay Sadochok 0.5", purchased: 5, remainder: 5, portion_norm: 1, unit: "шт" },
           { ru: "water", vn: "nuoc" }
         ]
       }
@@ -896,11 +1316,22 @@
     const state = {
       sections: loadSections(),
       search: "",
-      saveText: ""
+      saveText: "",
+      mode: "products",
+      stockSummary: {
+        updated_at: "",
+        stock: {}
+      },
+      bridgeOrders: [],
+      eventSource: null,
+      hiddenRenderQueued: false
     };
 
     const $ = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+    let html2canvasLoader = null;
+    let lastStockSummarySignature = "";
+    let externalRenderTimer = null;
 
     function uid(prefix = "id") {
       return `${prefix}-${Math.random().toString(36).slice(2, 9)}-${Date.now().toString(36)}`;
@@ -910,12 +1341,26 @@
       return JSON.parse(JSON.stringify(value));
     }
 
+    function toFiniteNumber(value) {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function roundMetric(value, precision = 2) {
+      const factor = 10 ** precision;
+      return Math.round(toFiniteNumber(value) * factor) / factor;
+    }
+
     function todayValue() {
       const now = new Date();
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, "0");
       const day = String(now.getDate()).padStart(2, "0");
       return `${year}-${month}-${day}`;
+    }
+
+    function timeValue(date = new Date()) {
+      return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
     }
 
     function fmtSavedAt(value = new Date()) {
@@ -932,14 +1377,117 @@
       return STATUS_KEYS.includes(value) ? value : "";
     }
 
+    function normalizeLookup(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-zа-яё0-9]+/gi, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function portionDefaultsForItem(ru, vn) {
+      const combined = `${String(ru || "").trim()} / ${String(vn || "").trim()}`.replace(/\s+/g, " ").trim();
+      if (PORTION_NORMS_DB[combined]) return PORTION_NORMS_DB[combined];
+
+      const haystack = normalizeLookup(`${ru} ${vn}`);
+      if (haystack.includes("nuoc xuong") || haystack.includes("бульон")) return { norm: 450, unit: "мл" };
+      if (
+        haystack.includes("ca phe viet") ||
+        haystack.includes("bo huc") ||
+        haystack.includes("pepsi") ||
+        haystack.includes("mirinda") ||
+        haystack.includes("7up") ||
+        haystack.includes("water") ||
+        haystack === "nuoc" ||
+        haystack.includes("sadochok") ||
+        haystack.includes("сок садочок")
+      ) {
+        return { norm: 1, unit: "шт" };
+      }
+      if (haystack.includes("говядина") || haystack.includes("thit bo")) return { norm: MEAT_PORTION_NORM, unit: "г" };
+      if (haystack.includes("курица") || haystack.includes("thit ga")) return { norm: MEAT_PORTION_NORM, unit: "г" };
+      if (haystack.includes("свинина") || haystack.includes("thit heo")) return { norm: MEAT_PORTION_NORM, unit: "г" };
+      if (haystack === "nem" || haystack.includes(" nem ")) return { norm: NEM_PORTION_NORM, unit: "шт" };
+      if (haystack.includes("салат") || haystack.includes("rau xa lach")) return { norm: 100, unit: "г" };
+      if (haystack === "рис gao" || haystack === "рис") return { norm: 300, unit: "г" };
+      if (haystack.includes("pho kho")) {
+        return { norm: PHO_DRY_PORTION_NORM, unit: "г" };
+      }
+      if (haystack.includes("bun kho") || haystack.includes("mien kho") || haystack.includes("mi tom kho")) {
+        return { norm: 300, unit: "г" };
+      }
+      if (haystack.includes("xuong")) return { norm: 450, unit: "мл" };
+      return null;
+    }
+
+    function applyPortionDefaults(item) {
+      const defaults = portionDefaultsForItem(item?.ru, item?.vn);
+      if (!defaults) return false;
+
+      let changed = false;
+      if (toFiniteNumber(item.portion_norm) <= 0 && defaults.norm > 0) {
+        item.portion_norm = defaults.norm;
+        changed = true;
+      }
+      if (!String(item.unit || "").trim()) {
+        item.unit = defaults.unit;
+        changed = true;
+      }
+      return changed;
+    }
+
     function normalizeItem(item) {
+      const defaults = portionDefaultsForItem(item.ru, item.vn);
       return {
         id: item.id || uid("item"),
+        code: String(item.code || "").trim(),
         ru: String(item.ru || "").trim(),
         vn: String(item.vn || "").trim(),
         status: normalizeStatus(item.status),
-        date: String(item.date || "").trim()
+        date: String(item.date || "").trim(),
+        beginning: toFiniteNumber(item.beginning),
+        purchased: toFiniteNumber(item.purchased),
+        remainder: toFiniteNumber(item.remainder),
+        sold_by_cash: toFiniteNumber(item.sold_by_cash),
+        price: toFiniteNumber(item.price),
+        portion_norm: toFiniteNumber(item.portion_norm || defaults?.norm || 0),
+        unit: String(item.unit || defaults?.unit || "г"),
+        purchased_weight: toFiniteNumber(item.purchased_weight ?? item.purchased),
+        clean_weight: toFiniteNumber(item.clean_weight),
+        prep_date: String(item.prep_date || "").trim(),
+        prep_time: String(item.prep_time || "").trim(),
+        responsible: String(item.responsible || "").trim(),
+        prep_comment: String(item.prep_comment || "").trim(),
+        scale_photo: String(item.scale_photo || "").trim(),
+        scale_photo_name: String(item.scale_photo_name || "").trim()
       };
+    }
+
+    function itemHasSavedNumbers(item) {
+      return [
+        item?.beginning,
+        item?.purchased,
+        item?.remainder,
+        item?.sold_by_cash,
+        item?.price,
+        item?.purchased_weight,
+        item?.clean_weight
+      ].some(value => toFiniteNumber(value) > 0);
+    }
+
+    function migrateDrinkItems(sections) {
+      const drinks = sections.find(section => section.key === "drinks");
+      if (!drinks) return sections;
+
+      drinks.items = drinks.items.filter(item => {
+        const key = normalizeLookup(`${item.ru} ${item.vn}`);
+        const isEmptyLegacyPepsi = key === "pepsi" && !itemHasSavedNumbers(item);
+        return !isEmptyLegacyPepsi;
+      });
+
+      return sections;
     }
 
     function normalizeSection(section) {
@@ -948,6 +1496,47 @@
         title: String(section.title || ""),
         items: Array.isArray(section.items) ? section.items.map(normalizeItem) : []
       };
+    }
+
+    const STOCK_CODE_ALIASES = {
+      b: "bo",
+      bo: "bo",
+      beef: "bo",
+      g: "ga",
+      ga: "ga",
+      chicken: "ga",
+      l: "heo",
+      h: "heo",
+      heo: "heo",
+      pork: "heo",
+      t: "tom",
+      tom: "tom",
+      shrimp: "tom",
+      gx: "ga_xu",
+      ga_xu: "ga_xu",
+      gaxu: "ga_xu",
+      r: "rau",
+      rau: "rau",
+      c: "com",
+      com: "com",
+      cr: "com_rang",
+      comrang: "com_rang",
+      com_rang: "com_rang",
+      p: "pho",
+      pho: "pho",
+      bun: "bun",
+      mn: "mien",
+      mien: "mien",
+      mi: "mi",
+      nem: "nem",
+      broth: "nuoc_xuong",
+      nuoc_xuong: "nuoc_xuong"
+    };
+
+    function normalizeStockCode(value) {
+      const raw = String(value || "").trim().toLowerCase().replace(/[\s-]+/g, "_");
+      if (!raw) return "";
+      return STOCK_CODE_ALIASES[raw] || raw;
     }
 
     function seedSections() {
@@ -980,7 +1569,7 @@
         if (!usedKeys.has(section.key)) merged.push(section);
       });
 
-      return merged;
+      return migrateDrinkItems(merged);
     }
 
     function loadSections() {
@@ -994,8 +1583,14 @@
     }
 
     function saveSections() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sections));
-      state.saveText = `Локально сохранено: ${fmtSavedAt()}`;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sections));
+        state.saveText = `Локально сохранено: ${fmtSavedAt()}`;
+      } catch (error) {
+        state.saveText = "Ошибка локального сохранения";
+        showToast("Не удалось сохранить локально. Возможно, фото заняло слишком много места.");
+      }
+
       const saveLabel = $("#saveLabel");
       if (saveLabel) saveLabel.value = state.saveText;
     }
@@ -1013,11 +1608,796 @@
       }, 2200);
     }
 
+    function modifierApi() {
+      return window.DLV_MODIFIERS || null;
+    }
+
+    function startOfTodayStamp() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return today.getTime();
+    }
+
+    function normalizeOrderStatus(value) {
+      const raw = String(value || "").trim().toUpperCase();
+      if (!raw) return "NEW";
+      if (raw === "COMPLETED" || raw === "DONE") return "HANDED";
+      if (raw === "CONFIRMED") return "COOKING";
+      if (raw === "SENT" || raw === "FAILED") return "NEW";
+      return raw;
+    }
+
+    function parseOrderItems(items) {
+      if (Array.isArray(items)) return items;
+      if (typeof items === "string") {
+        try {
+          const parsed = JSON.parse(items);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+          return [];
+        }
+      }
+      return [];
+    }
+
+    function normalizeStoredOrder(order) {
+      return {
+        status: normalizeOrderStatus(order?.status),
+        created_at: order?.created_at || order?.createdAt || "",
+        items: parseOrderItems(order?.items)
+      };
+    }
+
+    function orderStorageKey(order, index) {
+      return String(order?.code || order?.id || order?.order_id || `order-${index}`);
+    }
+
+    function orderStamp(order) {
+      const stamp = new Date(order?.updated_at || order?.created_at || order?.createdAt || 0).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
+    }
+
+    function mergeOrderSources(...sources) {
+      const merged = new Map();
+      sources.forEach(source => {
+        const orders = Array.isArray(source) ? source : Object.values(source || {});
+        orders.forEach((order, index) => {
+          const key = orderStorageKey(order, index);
+          const current = merged.get(key);
+          if (!current || orderStamp(order) >= orderStamp(current)) {
+            merged.set(key, order);
+          }
+        });
+      });
+      return Array.from(merged.values());
+    }
+
+    function loadStoredOrders() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ORDERS_KEY) || "{}");
+        return mergeOrderSources(parsed, state.bridgeOrders).map(normalizeStoredOrder);
+      } catch (_) {
+        return mergeOrderSources(state.bridgeOrders).map(normalizeStoredOrder);
+      }
+    }
+
+    async function refreshBridgeOrders(shouldRender = true) {
+      if (!LOCAL_API_BASE) return false;
+
+      try {
+        const response = await fetch(LOCAL_API_BASE, { cache: "no-store" });
+        if (!response.ok) return false;
+        const data = await response.json();
+        const orders = Array.isArray(data?.orders) ? data.orders : [];
+        const nextSignature = JSON.stringify(orders.map(order => ({
+          code: order?.code || order?.id || "",
+          status: order?.status || "",
+          updated_at: order?.updated_at || order?.created_at || "",
+          items: order?.items || []
+        })));
+        const currentSignature = JSON.stringify(state.bridgeOrders.map(order => ({
+          code: order?.code || order?.id || "",
+          status: order?.status || "",
+          updated_at: order?.updated_at || order?.created_at || "",
+          items: order?.items || []
+        })));
+
+        state.bridgeOrders = orders;
+        if (shouldRender && nextSignature !== currentSignature) {
+          renderAll({ forceDom: true });
+        }
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function stockMetaForKey(key) {
+      return modifierApi()?.STOCK_ITEMS?.[key] || { name: key, portionNorm: 0, unit: "" };
+    }
+
+    function trackedStockKeys() {
+      return [
+        "bo",
+        "ga",
+        "heo",
+        "tom",
+        "ga_xu",
+        "nem",
+        "banh_bao",
+        "pho",
+        "bun",
+        "mien",
+        "mi",
+        "com",
+        "com_rang",
+        "rau",
+        "nuoc_xuong",
+        "bo_huc",
+        "ca_phe_viet",
+        "p03",
+        "pbl",
+        "pcs33",
+        "psc33",
+        "pz33",
+        "p50",
+        "ptr50",
+        "soft_drink",
+        "water",
+        "juice",
+        "jt50",
+        "jag50",
+        "jm50"
+      ];
+    }
+
+    const PERSISTENT_STOCK_KEYS = new Set([
+      "bo_huc",
+      "ca_phe_viet",
+      "p03",
+      "pbl",
+      "pcs33",
+      "psc33",
+      "pz33",
+      "p50",
+      "ptr50",
+      "soft_drink",
+      "water",
+      "juice",
+      "jt50",
+      "jag50",
+      "jm50"
+    ]);
+
+    function isPersistentStockKey(stockKey) {
+      return PERSISTENT_STOCK_KEYS.has(stockKey);
+    }
+
+    function inferSectionStockKey(item) {
+      const explicitCode = normalizeStockCode(item?.code);
+      if (explicitCode) return explicitCode;
+
+      const haystack = normalizeLookup(`${item?.ru || ""} ${item?.vn || ""}`);
+      if (haystack.includes("nuoc xuong") || haystack.includes("бульон")) return "nuoc_xuong";
+      if (haystack.includes("ca phe viet")) return "ca_phe_viet";
+      if (haystack.includes("bo huc")) return "bo_huc";
+      if (haystack.includes("cream soda 0 33")) return "pcs33";
+      if (haystack.includes("strawberry cream 0 33") || haystack.includes("клубника") || haystack.includes("полуниц")) return "psc33";
+      if (haystack.includes("zero sugar 0 33") || haystack.includes("нуль цукру 0 33")) return "pz33";
+      if (haystack.includes("pepsi cola 0 33")) return "p03";
+      if (haystack.includes("pepsi black 0 5")) return "pbl";
+      if (haystack.includes("pepsi cola 0 5")) return "p50";
+      if (haystack.includes("pepsi tropical 0 5")) return "ptr50";
+      if (haystack.includes("mirinda") || haystack.includes("7up")) return "soft_drink";
+      if (haystack.includes("ca chua sadochok") || haystack.includes("томат")) return "jt50";
+      if (haystack.includes("tao nho sadochok") || haystack.includes("яблочно") || haystack.includes("виноград")) return "jag50";
+      if (haystack.includes("da trai cay sadochok") || haystack.includes("мультифрукт")) return "jm50";
+      if (haystack.includes("water") || haystack === "nuoc") return "water";
+      if (haystack.includes("juice") || haystack.includes("сок")) return "juice";
+      if (haystack.includes("com rang") || haystack.includes("смажен")) return "com_rang";
+      if (haystack.includes("banh bao") || haystack.includes("бао")) return "banh_bao";
+      if (haystack.includes("nem")) return "nem";
+      if (haystack.includes("thit bo") || haystack.includes("говядина") || haystack.includes("ялович")) return "bo";
+      if (haystack.includes("thit ga") || haystack.includes("курица") || haystack.includes("курка")) return "ga";
+      if (haystack.includes("thit heo") || haystack.includes("свинина")) return "heo";
+      if (haystack.includes("tom") || haystack.includes("кревет")) return "tom";
+      if (haystack.includes("pho")) return "pho";
+      if (haystack.includes("bun")) return "bun";
+      if (haystack.includes("mien") || haystack.includes("стеклян")) return "mien";
+      if (haystack.includes("mi tom") || haystack.includes("mi trung") || haystack.includes("яичн") || haystack.includes("лапша mi")) return "mi";
+      if (haystack.includes("gao") || haystack === "рис" || haystack.includes("рис ")) return "com";
+      if (haystack.includes("rau")) return "rau";
+
+      const api = modifierApi();
+      const byApi = api?.inferStockKeyFromItemText?.(`${item?.ru || ""} ${item?.vn || ""}`);
+      if (byApi) return byApi;
+      return "";
+    }
+
+    function prepStampForItem(item, stockKey = "") {
+      const prepDate = String(item?.prep_date || "").trim();
+      const prepTime = String(item?.prep_time || "").trim();
+      if (prepDate) {
+        const stamp = new Date(`${prepDate}T${prepTime || "00:00:00"}`).getTime();
+        if (Number.isFinite(stamp)) return stamp;
+      }
+      if (isPersistentStockKey(stockKey)) return 0;
+      return startOfTodayStamp();
+    }
+
+    function itemHasInventoryData(item) {
+      return [
+        item?.beginning,
+        item?.purchased,
+        item?.remainder,
+        item?.purchased_weight,
+        item?.clean_weight,
+        item?.portion_norm
+      ].some(value => toFiniteNumber(value) > 0) || Boolean(item?.prep_date || item?.prep_time);
+    }
+
+    function availableStockAmount(item) {
+      if (!item) return 0;
+      if (toFiniteNumber(item.clean_weight) > 0) return roundMetric(item.clean_weight);
+      if (toFiniteNumber(item.remainder) > 0) return roundMetric(item.remainder);
+      if (toFiniteNumber(item.purchased_weight) > 0) return roundMetric(item.purchased_weight);
+      if (toFiniteNumber(item.purchased) > 0) return roundMetric(item.purchased);
+      return roundMetric(item.beginning || 0);
+    }
+
+    function purchasedStockAmount(item) {
+      if (!item) return 0;
+      if (toFiniteNumber(item.purchased_weight) > 0) return roundMetric(item.purchased_weight);
+      if (toFiniteNumber(item.purchased) > 0) return roundMetric(item.purchased);
+      return 0;
+    }
+
+    function pickLatestSectionItemForStock(stockKey) {
+      const matches = state.sections
+        .flatMap(section => section.items)
+        .filter(item => inferSectionStockKey(item) === stockKey);
+
+      if (!matches.length) return null;
+
+      matches.sort((left, right) => (
+        Number(itemHasInventoryData(right)) - Number(itemHasInventoryData(left)) ||
+        prepStampForItem(right, stockKey) - prepStampForItem(left, stockKey) ||
+        availableStockAmount(right) - availableStockAmount(left)
+      ));
+
+      return matches[0] || null;
+    }
+
+    function collectStockInputs() {
+      const inputs = {};
+      trackedStockKeys().forEach(stockKey => {
+        const item = pickLatestSectionItemForStock(stockKey) || (
+          stockKey === "com_rang" ? pickLatestSectionItemForStock("com") : null
+        );
+        if (!item) return;
+
+        const meta = stockMetaForKey(stockKey);
+        const purchased = purchasedStockAmount(item);
+        const clean = availableStockAmount(item);
+        const purchasedWeight = purchased;
+        const cleanWeight = toFiniteNumber(item.clean_weight) > 0 ? roundMetric(item.clean_weight) : clean;
+        const cuttingLoss = purchasedWeight > 0 && cleanWeight > 0
+          ? roundMetric(Math.max(purchasedWeight - cleanWeight, 0))
+          : 0;
+        const cuttingLossPercent = purchasedWeight > 0 && cleanWeight > 0
+          ? roundMetric(cuttingLoss / purchasedWeight * 100)
+          : 0;
+
+        inputs[stockKey] = {
+          key: stockKey,
+          name: item.ru || meta.name || stockKey,
+          purchased,
+          clean,
+          portionNorm: toFiniteNumber(item.portion_norm) > 0 ? roundMetric(item.portion_norm) : roundMetric(meta.portionNorm || 0),
+          unit: item.unit || meta.unit || "",
+          startedAt: prepStampForItem(item, stockKey),
+          purchasedWeight,
+          cleanWeight,
+          cuttingLoss,
+          cuttingLossPercent
+        };
+      });
+      return inputs;
+    }
+
+    function mergeUsageWithThreshold(target, source, stockInputs, createdAt) {
+      const next = { ...(target || {}) };
+      Object.entries(source || {}).forEach(([key, value]) => {
+        const startedAt = stockInputs[key]?.startedAt || startOfTodayStamp();
+        if (createdAt < startedAt) return;
+        next[key] = roundMetric((next[key] || 0) + Number(value || 0));
+      });
+      return next;
+    }
+
+    function buildOrderUsageByStock(stockInputs) {
+      const api = modifierApi();
+      const summary = {
+        stock: {},
+        base: {},
+        total: {},
+        ordersCount: 0
+      };
+
+      loadStoredOrders().forEach(order => {
+        if (order.status === "CANCELLED") return;
+        summary.ordersCount += 1;
+
+        const createdAtRaw = new Date(order.created_at || 0).getTime();
+        const createdAt = Number.isFinite(createdAtRaw) ? createdAtRaw : startOfTodayStamp();
+
+        order.items.forEach(item => {
+          const usage = api?.getStockUsageFromOrderItem?.(item) || { stock: {}, base: {}, total: {} };
+          summary.stock = mergeUsageWithThreshold(summary.stock, usage.stock, stockInputs, createdAt);
+          summary.base = mergeUsageWithThreshold(summary.base, usage.base, stockInputs, createdAt);
+          summary.total = mergeUsageWithThreshold(summary.total, usage.total, stockInputs, createdAt);
+        });
+      });
+
+      return summary;
+    }
+
+    function buildStockSummary() {
+      const stockInputs = collectStockInputs();
+      const orderUsage = buildOrderUsageByStock(stockInputs);
+      const keys = Array.from(new Set([
+        ...trackedStockKeys(),
+        ...Object.keys(stockInputs),
+        ...Object.keys(orderUsage.total || {})
+      ]));
+      const stock = {};
+
+      keys.forEach(key => {
+        const input = stockInputs[key] || {};
+        const meta = stockMetaForKey(key);
+        const used = roundMetric(orderUsage.total?.[key] || 0);
+        const clean = roundMetric(input.clean || 0);
+        const purchased = roundMetric(input.purchased || 0);
+        const portionNorm = roundMetric(input.portionNorm || meta.portionNorm || 0);
+        const remaining = roundMetric(clean - used);
+        const portionsLeft = portionNorm > 0 ? roundMetric(remaining / portionNorm) : 0;
+
+        if (
+          purchased <= 0 &&
+          clean <= 0 &&
+          used <= 0 &&
+          remaining === 0 &&
+          portionNorm <= 0
+        ) {
+          return;
+        }
+
+        stock[key] = {
+          name: input.name || meta.name || key,
+          purchased,
+          clean,
+          used,
+          remaining,
+          portionNorm,
+          portionsLeft,
+          unit: input.unit || meta.unit || "",
+          purchasedWeight: roundMetric(input.purchasedWeight || purchased),
+          cleanWeight: roundMetric(input.cleanWeight || clean),
+          cuttingLoss: roundMetric(input.cuttingLoss || 0),
+          cuttingLossPercent: roundMetric(input.cuttingLossPercent || 0),
+          startedAt: input.startedAt || startOfTodayStamp()
+        };
+      });
+
+      return {
+        updated_at: new Date().toISOString(),
+        stock,
+        usage: {
+          stock: orderUsage.stock,
+          base: orderUsage.base,
+          total: orderUsage.total
+        },
+        ordersCount: orderUsage.ordersCount
+      };
+    }
+
+    function stockSummarySignature(summary) {
+      return JSON.stringify({
+        stock: summary?.stock || {},
+        usage: summary?.usage || {},
+        ordersCount: summary?.ordersCount || 0
+      });
+    }
+
+    function saveStockSummary() {
+      const nextSummary = buildStockSummary();
+      const nextSignature = stockSummarySignature(nextSummary);
+
+      if (nextSignature === lastStockSummarySignature) {
+        state.stockSummary = {
+          ...nextSummary,
+          updated_at: state.stockSummary.updated_at || nextSummary.updated_at
+        };
+        return false;
+      }
+
+      state.stockSummary = nextSummary;
+      lastStockSummarySignature = nextSignature;
+
+      try {
+        localStorage.setItem(STOCK_SUMMARY_KEY, JSON.stringify(state.stockSummary));
+      } catch (_) {
+        showToast("Не удалось обновить DLV_STOCK_SUMMARY_V1");
+      }
+
+      return true;
+    }
+
+    function stockCardTone(entry) {
+      const portionsLeft = Number(entry?.portionsLeft || 0);
+      if (portionsLeft <= 0) return "danger";
+      if (portionsLeft < 3) return "danger";
+      if (portionsLeft < 10) return "warn";
+      return "ok";
+    }
+
+    function renderStockSummary() {
+      const grid = $("#stockSummaryGrid");
+      const updated = $("#stockSummaryUpdated");
+      if (!grid) return;
+
+      const summary = state.stockSummary?.stock || {};
+      const keys = trackedStockKeys().filter(key => summary[key]);
+
+      if (updated) {
+        updated.textContent = `Обновление: ${state.stockSummary?.updated_at ? fmtSavedAt(new Date(state.stockSummary.updated_at)) : "—"}`;
+      }
+
+      if (!keys.length) {
+        grid.innerHTML = `
+          <div class="stock-card">
+            <div class="stock-card-title">
+              <strong>Нет данных по складу</strong>
+              <span>Заполни чистый вес / норму в таблице и создай хотя бы один заказ в кассе.</span>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = keys.map(key => {
+        const entry = summary[key];
+        const tone = stockCardTone(entry);
+        const unit = entry.unit || "";
+        const lossTone = lossPercentClass(entry.cuttingLossPercent || 0);
+
+        return `
+          <article class="stock-card ${tone}">
+            <div class="stock-card-head">
+              <div class="stock-card-title">
+                <strong>${escapeHtml(entry.name || key)}</strong>
+                <span>${escapeHtml(key)} • норма ${escapeHtml(formatMetric(entry.portionNorm || 0))}${escapeHtml(unit)}</span>
+              </div>
+              <span class="stock-badge">${escapeHtml(formatMetric(entry.portionsLeft))} порц.</span>
+            </div>
+
+            <div class="stock-card-grid">
+              <div class="stock-mini">
+                <span class="k">Куплено</span>
+                <span class="v">${escapeHtml(formatMetric(entry.purchased))} ${escapeHtml(unit)}</span>
+              </div>
+              <div class="stock-mini">
+                <span class="k">Чистый вес</span>
+                <span class="v">${escapeHtml(formatMetric(entry.clean))} ${escapeHtml(unit)}</span>
+              </div>
+              <div class="stock-mini">
+                <span class="k">Списано</span>
+                <span class="v">${escapeHtml(formatMetric(entry.used))} ${escapeHtml(unit)}</span>
+              </div>
+              <div class="stock-mini">
+                <span class="k">Остаток</span>
+                <span class="v">${escapeHtml(formatMetric(entry.remaining))} ${escapeHtml(unit)}</span>
+              </div>
+            </div>
+
+            <div class="meta-note">
+              Потери после резки:
+              <span class="${lossTone}">${escapeHtml(formatMetric(entry.cuttingLoss || 0))} ${escapeHtml(unit)} / ${escapeHtml(formatMetric(entry.cuttingLossPercent || 0))}%</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function TG_DOCUMENT_ENDPOINT() {
+      if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
+      if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
+      return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendDocument`;
+    }
+
+    function ensureHtml2Canvas() {
+      if (window.html2canvas) return Promise.resolve(window.html2canvas);
+      if (html2canvasLoader) return html2canvasLoader;
+
+      html2canvasLoader = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = HTML2CANVAS_URL;
+        script.async = true;
+        script.onload = () => {
+          if (window.html2canvas) {
+            resolve(window.html2canvas);
+            return;
+          }
+          reject(new Error("html2canvas loaded without window.html2canvas"));
+        };
+        script.onerror = () => reject(new Error("Не удалось загрузить html2canvas"));
+        document.head.appendChild(script);
+      }).catch(error => {
+        html2canvasLoader = null;
+        throw error;
+      });
+
+      return html2canvasLoader;
+    }
+
+    function nextPaint() {
+      return new Promise(resolve => {
+        requestAnimationFrame(() => requestAnimationFrame(resolve));
+      });
+    }
+
+    async function captureFullPagePng() {
+      const html2canvas = await ensureHtml2Canvas();
+      await nextPaint();
+
+      const root = document.documentElement;
+      const body = document.body;
+      const width = Math.max(root.scrollWidth, body?.scrollWidth || 0, window.innerWidth);
+      const height = Math.max(root.scrollHeight, body?.scrollHeight || 0, window.innerHeight);
+
+      const canvas = await html2canvas(root, {
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        scale: 1,
+        width,
+        height,
+        windowWidth: width,
+        windowHeight: height,
+        scrollX: 0,
+        scrollY: 0
+      });
+
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+          if (blob) {
+            resolve(blob);
+            return;
+          }
+          reject(new Error("Не удалось собрать PNG из canvas"));
+        }, "image/png");
+      });
+    }
+
+    async function sendTelegramDocument(chatId, blob, filename, caption) {
+      const formData = new FormData();
+      formData.append("chat_id", chatId);
+      formData.append("caption", caption);
+      formData.append("document", blob, filename);
+
+      const response = await fetch(TG_DOCUMENT_ENDPOINT(), {
+        method: "POST",
+        body: formData
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch (_) {}
+
+      if (!response.ok || data?.ok === false) {
+        return {
+          ok: false,
+          error: data?.description || `HTTP ${response.status}`
+        };
+      }
+
+      return { ok: true, data };
+    }
+
+    function screenshotStamp() {
+      return new Date().toISOString().replace(/[:.]/g, "-");
+    }
+
+    async function sendFullScreenshotToVN() {
+      const btn = $("#sendScreenshotBtn");
+      if (!btn || btn.dataset.busy === "1") return;
+      if (!TG.CHAT_ID_VN) {
+        showToast("CHAT_ID_VN не задан");
+        return;
+      }
+
+      const originalText = btn.textContent;
+      btn.dataset.busy = "1";
+
+      try {
+        const imageBlob = await captureFullPagePng();
+        btn.disabled = true;
+        btn.textContent = "Отправка...";
+
+        const caption = `DLV Contron full screenshot • ${fmtSavedAt()}`;
+        const result = await sendTelegramDocument(
+          TG.CHAT_ID_VN,
+          imageBlob,
+          `dlv-contron-full-${screenshotStamp()}.png`,
+          caption
+        );
+
+        if (!result.ok) {
+          throw new Error(result.error || "Telegram sendDocument failed");
+        }
+
+        showToast("Full screenshot отправлен в CHAT_ID_VN");
+      } catch (error) {
+        showToast(`Скрин не отправлен: ${error?.message || error}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        delete btn.dataset.busy;
+      }
+    }
+
     function findItem(sectionKey, itemId) {
       const section = state.sections.find(entry => entry.key === sectionKey);
       if (!section) return null;
       const item = section.items.find(entry => entry.id === itemId);
       return item ? { section, item } : null;
+    }
+
+    function calcUsed(item) {
+      return roundMetric(item.beginning + item.purchased - item.remainder);
+    }
+
+    function calcCurrentStock(item) {
+      if (toFiniteNumber(item.clean_weight) > 0) return roundMetric(item.clean_weight);
+      if (toFiniteNumber(item.remainder) > 0) return roundMetric(item.remainder);
+      if (toFiniteNumber(item.purchased_weight) > 0) return roundMetric(item.purchased_weight);
+      return roundMetric(item.beginning + item.purchased);
+    }
+
+    function calcPortionsLeft(item) {
+      if (item.portion_norm <= 0) return 0;
+      return roundMetric(calcCurrentStock(item) / item.portion_norm);
+    }
+
+    function productStatusMeta(item) {
+      const current = calcCurrentStock(item);
+      const portionsLeft = calcPortionsLeft(item);
+
+      if (current <= 0 || portionsLeft <= 0) {
+        return {
+          tone: "danger",
+          label: "Red",
+          note: "остаток закончился"
+        };
+      }
+
+      if (item?.portion_norm > 0) {
+        if (portionsLeft < 3) {
+          return {
+            tone: "danger",
+            label: "Red",
+            note: "меньше 3 порций"
+          };
+        }
+        if (portionsLeft < 10) {
+          return {
+            tone: "warn",
+            label: "Yellow",
+            note: "меньше 10 порций"
+          };
+        }
+        return {
+          tone: "ok",
+          label: "Green",
+          note: "запас нормальный"
+        };
+      }
+
+      if (current < 3) {
+        return {
+          tone: "danger",
+          label: "Red",
+          note: "остаток критичный"
+        };
+      }
+      if (current < 10) {
+        return {
+          tone: "warn",
+          label: "Yellow",
+          note: "остаток низкий"
+        };
+      }
+      return {
+        tone: "ok",
+        label: "Green",
+        note: "запас нормальный"
+      };
+    }
+
+    function hasScalePhoto(item) {
+      return Boolean(item.scale_photo);
+    }
+
+    function hasPrepData(item) {
+      return [
+        item.purchased_weight,
+        item.clean_weight,
+        item.portion_norm,
+        item.sold_by_cash,
+        item.price
+      ].some(value => toFiniteNumber(value) > 0) || Boolean(
+        item.prep_date ||
+        item.prep_time ||
+        item.responsible ||
+        item.prep_comment ||
+        item.scale_photo
+      );
+    }
+
+    function getExpectedWeight(item, { strictClean = false } = {}) {
+      if (item.clean_weight > 0) return item.clean_weight;
+      if (strictClean) return 0;
+      return calcUsed(item);
+    }
+
+    function calcExpectedPortions(item, { strictClean = false } = {}) {
+      if (item.portion_norm <= 0) return strictClean ? null : 0;
+      const baseWeight = getExpectedWeight(item, { strictClean });
+      if (baseWeight <= 0) return strictClean ? null : 0;
+      return roundMetric(baseWeight / item.portion_norm);
+    }
+
+    function calcDifference(item, options = {}) {
+      const expected = calcExpectedPortions(item, options);
+      if (expected == null) return null;
+      return roundMetric(expected - item.sold_by_cash);
+    }
+
+    function calcMoneyLoss(item, options = {}) {
+      const difference = calcDifference(item, options);
+      if (difference == null) return 0;
+      return roundMetric(difference * item.price);
+    }
+
+    function calcLossGrams(item) {
+      if (item.purchased_weight <= 0 || item.clean_weight <= 0) return 0;
+      return roundMetric(Math.max(item.purchased_weight - item.clean_weight, 0));
+    }
+
+    function calcLossPercent(item) {
+      if (item.purchased_weight <= 0 || item.clean_weight <= 0) return 0;
+      return roundMetric(calcLossGrams(item) / item.purchased_weight * 100);
+    }
+
+    function diffClass(diff) {
+      if (diff == null) return "";
+      const distance = Math.abs(diff);
+      if (distance <= 3) return "diff-ok";
+      if (distance <= 7) return "diff-warning";
+      return "diff-alert";
+    }
+
+    function lossPercentClass(percent) {
+      if (percent > 12) return "loss-alert";
+      if (percent >= 8) return "loss-warning";
+      return "loss-ok";
+    }
+
+    function getContentColspan(mode = state.mode) {
+      if (mode === "products") return 5;
+      if (mode === "portions") return 11;
+      return 14;
     }
 
     function visibleSections() {
@@ -1027,20 +2407,44 @@
         .map(section => ({
           ...section,
           items: section.items.filter(item => {
-            const hay = [item.ru, item.vn, item.status, item.date].join(" ").toLowerCase();
+            const hay = [
+              item.code,
+              item.ru,
+              item.vn,
+              item.status,
+              item.date,
+              item.prep_date,
+              item.prep_time,
+              item.responsible,
+              item.prep_comment,
+              item.scale_photo_name,
+              item.purchased_weight,
+              item.clean_weight,
+              item.portion_norm,
+              item.sold_by_cash
+            ].join(" ").toLowerCase();
             return hay.includes(q);
           })
         }))
         .filter(section => section.items.length);
     }
 
+    function formatMetric(value, digits = 2) {
+      if (value == null) return "—";
+      const rounded = roundMetric(value, digits);
+      return Number.isInteger(rounded) ? String(rounded) : String(rounded);
+    }
+
     function buildTableRows() {
       const sections = visibleSections();
+      const mode = state.mode;
+      const colspan = getContentColspan(mode);
+
       if (!sections.length) {
         return `
           <tr>
             <td class="rownum">2</td>
-            <td colspan="6" class="empty-state">Ничего не найдено по текущему поиску.</td>
+            <td colspan="${colspan}" class="empty-state">Ничего не найдено по текущему поиску.</td>
           </tr>
         `;
       }
@@ -1053,7 +2457,7 @@
           html += `
             <tr class="gap-row">
               <td class="rownum">${rowNo++}</td>
-              <td colspan="6"></td>
+              <td colspan="${colspan}"></td>
             </tr>
           `;
         }
@@ -1062,79 +2466,25 @@
           html += `
             <tr class="section-row">
               <td class="rownum">${rowNo++}</td>
-              <td colspan="6">${escapeHtml(section.title)}</td>
+              <td colspan="${colspan}">${escapeHtml(section.title)}</td>
             </tr>
           `;
         }
 
         section.items.forEach(item => {
-          html += `
-            <tr class="data-row">
-              <td class="rownum">
-                <div class="rownum-box">
-                  <span class="rownum-value">${rowNo++}</span>
-                  <button
-                    class="row-delete"
-                    type="button"
-                    data-delete-item
-                    data-section-key="${escapeHtml(section.key)}"
-                    data-item-id="${escapeHtml(item.id)}"
-                    aria-label="Удалить строку"
-                  >×</button>
-                </div>
-              </td>
-              <td>
-                <div
-                  class="cell-editor"
-                  contenteditable="true"
-                  spellcheck="false"
-                  data-field="ru"
-                  data-section-key="${escapeHtml(section.key)}"
-                  data-item-id="${escapeHtml(item.id)}"
-                  data-placeholder="Product RU"
-                >${escapeHtml(item.ru)}</div>
-              </td>
-              <td>
-                <div
-                  class="cell-editor"
-                  contenteditable="true"
-                  spellcheck="false"
-                  data-field="vn"
-                  data-section-key="${escapeHtml(section.key)}"
-                  data-item-id="${escapeHtml(item.id)}"
-                  data-placeholder="Tên sản phẩm VN"
-                >${escapeHtml(item.vn)}</div>
-              </td>
-              ${STATUS_KEYS.map(status => `
-                <td class="status-cell">
-                  <button
-                    class="status-toggle ${status} ${item.status === status ? "selected" : ""}"
-                    type="button"
-                    data-set-status="${status}"
-                    data-section-key="${escapeHtml(section.key)}"
-                    data-item-id="${escapeHtml(item.id)}"
-                    aria-label="${status}"
-                  ></button>
-                </td>
-              `).join("")}
-              <td>
-                <input
-                  class="date-input"
-                  type="date"
-                  value="${escapeHtml(item.date)}"
-                  data-date-input
-                  data-section-key="${escapeHtml(section.key)}"
-                  data-item-id="${escapeHtml(item.id)}"
-                />
-              </td>
-            </tr>
-          `;
+          if (mode === "products") {
+            html += buildProductRow(rowNo++, section.key, item);
+          } else if (mode === "portions") {
+            html += buildPortionRow(rowNo++, section.key, item);
+          } else if (mode === "losses") {
+            html += buildPreparationRow(rowNo++, section.key, item);
+          }
         });
 
         html += `
           <tr class="add-row">
             <td class="rownum">${rowNo++}</td>
-            <td colspan="6">
+            <td colspan="${colspan}">
               <button class="add-btn" type="button" data-add-item="${escapeHtml(section.key)}">+them/ADD</button>
             </td>
           </tr>
@@ -1142,6 +2492,218 @@
       });
 
       return html;
+    }
+
+    function buildProductRow(rowNo, sectionKey, item) {
+      const currentStock = calcCurrentStock(item);
+      const status = productStatusMeta(item);
+      const stockCode = normalizeStockCode(item.code) || inferSectionStockKey({ ...item, code: "" });
+
+      return `
+        <tr class="data-row">
+          <td class="rownum">
+            <div class="rownum-box">
+              <span class="rownum-value">${rowNo}</span>
+              <button
+                class="row-delete"
+                type="button"
+                data-delete-item
+                data-section-key="${escapeHtml(sectionKey)}"
+                data-item-id="${escapeHtml(item.id)}"
+                aria-label="Удалить строку"
+              >×</button>
+            </div>
+          </td>
+          <td>
+            <div
+              class="cell-editor"
+              contenteditable="true"
+              spellcheck="false"
+              data-field="code"
+              data-section-key="${escapeHtml(sectionKey)}"
+              data-item-id="${escapeHtml(item.id)}"
+              data-placeholder="code"
+            >${escapeHtml(stockCode)}</div>
+          </td>
+          <td>
+            <div
+              class="cell-editor"
+              contenteditable="true"
+              spellcheck="false"
+              data-field="ru"
+              data-section-key="${escapeHtml(sectionKey)}"
+              data-item-id="${escapeHtml(item.id)}"
+              data-placeholder="Product RU"
+            >${escapeHtml(item.ru)}</div>
+          </td>
+          <td>
+            <div
+              class="cell-editor"
+              contenteditable="true"
+              spellcheck="false"
+              data-field="vn"
+              data-section-key="${escapeHtml(sectionKey)}"
+              data-item-id="${escapeHtml(item.id)}"
+              data-placeholder="Tên sản phẩm VN"
+            >${escapeHtml(item.vn)}</div>
+          </td>
+          <td>
+            <input
+              class="data-input"
+              type="number"
+              value="${currentStock}"
+              data-current-input
+              data-section-key="${escapeHtml(sectionKey)}"
+              data-item-id="${escapeHtml(item.id)}"
+              placeholder="Сейчас"
+              min="0"
+              step="0.1"
+            />
+          </td>
+          <td class="metric-cell" title="${escapeHtml(status.note)}">
+            <span class="table-status ${status.tone}">${escapeHtml(status.label)}</span>
+          </td>
+        </tr>
+      `;
+    }
+
+    function buildPortionRow(rowNo, sectionKey, item) {
+      const used = calcUsed(item);
+      const portions = calcExpectedPortions(item);
+      const difference = calcDifference(item);
+      const diffClass_ = diffClass(difference);
+      const portionsTitle = item.clean_weight > 0
+        ? "Порции считаются от чистого веса после зачистки."
+        : "Пока нет чистого веса: используется формула Было + Купил - Остаток.";
+
+      return `
+        <tr class="data-row">
+          <td class="rownum">${rowNo}</td>
+          <td>${escapeHtml(item.ru)}</td>
+          <td>${escapeHtml(item.vn)}</td>
+          <td><input class="data-input" type="number" value="${item.portion_norm}" data-field="portion_norm" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Норма" min="0" step="0.1"/></td>
+          <td>${escapeHtml(item.unit || "г")}</td>
+          <td><input class="data-input" type="number" value="${item.beginning}" data-field="beginning" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Было" min="0" step="0.1"/></td>
+          <td><input class="data-input" type="number" value="${item.purchased}" data-field="purchased" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Купил" min="0" step="0.1"/></td>
+          <td><input class="data-input" type="number" value="${item.remainder}" data-field="remainder" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Остаток" min="0" step="0.1"/></td>
+          <td class="metric-cell">${formatMetric(used)}</td>
+          <td class="metric-cell strong" title="${escapeHtml(portionsTitle)}">${formatMetric(portions)}</td>
+          <td><input class="data-input" type="number" value="${item.sold_by_cash}" data-field="sold_by_cash" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Продано" min="0" step="0.1"/></td>
+          <td class="metric-cell strong ${diffClass_}">${difference == null ? "—" : `${difference > 0 ? "+" : ""}${formatMetric(difference)}`}</td>
+        </tr>
+      `;
+    }
+
+    function buildPreparationRow(rowNo, sectionKey, item) {
+      const lossGrams = calcLossGrams(item);
+      const lossPercent = calcLossPercent(item);
+      const expected = calcExpectedPortions(item, { strictClean: true });
+      const difference = calcDifference(item, { strictClean: true });
+      const losses = calcMoneyLoss(item, { strictClean: true });
+      const diffClass_ = diffClass(difference);
+      const lossClass = lossPercentClass(lossPercent);
+      const photoRequired = !hasScalePhoto(item);
+      const photoName = item.scale_photo_name || "Фото весов не загружено";
+
+      return `
+        <tr class="data-row">
+          <td class="rownum">${rowNo}</td>
+          <td>
+            <div class="cell-stack tight">
+              <input
+                class="data-input"
+                type="date"
+                value="${escapeHtml(item.prep_date)}"
+                data-prep-date
+                data-section-key="${escapeHtml(sectionKey)}"
+                data-item-id="${escapeHtml(item.id)}"
+              />
+              <input
+                class="data-input"
+                type="time"
+                value="${escapeHtml(item.prep_time)}"
+                data-prep-time
+                data-section-key="${escapeHtml(sectionKey)}"
+                data-item-id="${escapeHtml(item.id)}"
+              />
+            </div>
+          </td>
+          <td class="product-cell">
+            <div>${escapeHtml(item.ru || "—")}</div>
+            <div class="product-vn">${escapeHtml(item.vn || "—")}</div>
+          </td>
+          <td><input class="data-input" type="number" value="${item.purchased_weight}" data-field="purchased_weight" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Куплено" min="0" step="0.1"/></td>
+          <td>
+            <div class="cell-stack tight">
+              <input
+                class="data-input"
+                type="number"
+                value="${item.clean_weight}"
+                data-field="clean_weight"
+                data-section-key="${escapeHtml(sectionKey)}"
+                data-item-id="${escapeHtml(item.id)}"
+                placeholder="Чистый вес"
+                min="0"
+                step="0.1"
+              />
+              <div class="muted-text">Готовый вес после чистки / xào</div>
+            </div>
+          </td>
+          <td class="metric-cell ${lossClass}">${item.purchased_weight > 0 && item.clean_weight > 0 ? formatMetric(lossGrams) : "—"}</td>
+          <td class="metric-cell strong ${lossClass}">${item.purchased_weight > 0 && item.clean_weight > 0 ? `${formatMetric(lossPercent)}%` : "—"}</td>
+          <td><input class="data-input" type="number" value="${item.portion_norm}" data-field="portion_norm" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Норма" min="0" step="0.1"/></td>
+          <td class="metric-cell strong">${expected == null ? "—" : formatMetric(expected)}</td>
+          <td><input class="data-input" type="number" value="${item.sold_by_cash}" data-field="sold_by_cash" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Продано" min="0" step="0.1"/></td>
+          <td class="metric-cell strong ${diffClass_}">${difference == null ? "—" : `${difference > 0 ? "+" : ""}${formatMetric(difference)}`}</td>
+          <td>
+            <div class="cell-stack tight">
+              <div
+                class="cell-editor compact"
+                contenteditable="true"
+                spellcheck="false"
+                data-field="responsible"
+                data-section-key="${escapeHtml(sectionKey)}"
+                data-item-id="${escapeHtml(item.id)}"
+                data-placeholder="Кто резал"
+              >${escapeHtml(item.responsible)}</div>
+            </div>
+          </td>
+          <td>
+            <div class="cell-stack tight">
+              <div class="photo-tools">
+                <label class="photo-btn">
+                  ${hasScalePhoto(item) ? "Заменить фото" : "Фото весов"}
+                  <input
+                    class="visually-hidden"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    data-photo-input
+                    data-section-key="${escapeHtml(sectionKey)}"
+                    data-item-id="${escapeHtml(item.id)}"
+                  />
+                </label>
+                ${hasScalePhoto(item) ? `
+                  <a class="photo-link" href="${escapeHtml(item.scale_photo)}" target="_blank" rel="noopener noreferrer">Открыть</a>
+                  <button class="photo-remove" type="button" data-remove-photo data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}">Удалить</button>
+                ` : ""}
+              </div>
+              <div class="photo-note ${photoRequired ? "warning" : ""}">${escapeHtml(photoName)}</div>
+              <div
+                class="cell-editor compact"
+                contenteditable="true"
+                spellcheck="false"
+                data-field="prep_comment"
+                data-section-key="${escapeHtml(sectionKey)}"
+                data-item-id="${escapeHtml(item.id)}"
+                data-placeholder="Комментарий по фото / зачистке"
+              >${escapeHtml(item.prep_comment)}</div>
+            </div>
+          </td>
+          <td><input class="data-input" type="number" value="${item.price}" data-field="price" data-section-key="${escapeHtml(sectionKey)}" data-item-id="${escapeHtml(item.id)}" placeholder="Цена" min="0" step="0.01"/></td>
+          <td class="metric-cell strong ${diffClass_}">${difference == null ? "—" : `${losses > 0 ? "+" : ""}${losses.toFixed(2)} грн`}</td>
+        </tr>
+      `;
     }
 
     function escapeHtml(value) {
@@ -1153,32 +2715,213 @@
         .replace(/'/g, "&#39;");
     }
 
+    function setStatLabels(labels) {
+      $("#statAllLabel").textContent = labels.all;
+      $("#statFullLabel").textContent = labels.full;
+      $("#statOkLabel").textContent = labels.ok;
+      $("#statMinLabel").textContent = labels.min;
+      $("#statVisibleLabel").textContent = labels.visible;
+    }
+
     function renderStats() {
       const allItems = state.sections.flatMap(section => section.items);
       const visibleItems = visibleSections().flatMap(section => section.items);
-      $("#statAll").textContent = String(allItems.length);
-      $("#statFull").textContent = String(allItems.filter(item => item.status === "full").length);
-      $("#statOk").textContent = String(allItems.filter(item => item.status === "ok").length);
-      $("#statMin").textContent = String(allItems.filter(item => item.status === "min").length);
-      $("#statVisible").textContent = String(visibleItems.length);
+
+      if (state.mode === "products") {
+        const greenCount = allItems.filter(item => productStatusMeta(item).tone === "ok").length;
+        const yellowCount = allItems.filter(item => productStatusMeta(item).tone === "warn").length;
+        const redCount = allItems.filter(item => productStatusMeta(item).tone === "danger").length;
+        const totalPortionsLeft = roundMetric(allItems.reduce((sum, item) => sum + calcPortionsLeft(item), 0));
+
+        setStatLabels({
+          all: "Всего позиций",
+          full: "Green",
+          ok: "Yellow",
+          min: "Red",
+          visible: "Порций осталось"
+        });
+        $("#statAll").textContent = String(allItems.length);
+        $("#statFull").textContent = String(greenCount);
+        $("#statOk").textContent = String(yellowCount);
+        $("#statMin").textContent = String(redCount);
+        $("#statVisible").textContent = formatMetric(totalPortionsLeft);
+      } else if (state.mode === "portions") {
+        const totalSold = roundMetric(allItems.reduce((sum, item) => sum + item.sold_by_cash, 0));
+        const totalPortions = roundMetric(allItems.reduce((sum, item) => sum + (calcExpectedPortions(item) || 0), 0));
+        const totalDiff = roundMetric(totalPortions - totalSold);
+        const totalLosses = roundMetric(allItems.reduce((sum, item) => sum + calcMoneyLoss(item), 0));
+
+        setStatLabels({
+          all: "Ожид. порции",
+          full: "Продано",
+          ok: "Разница",
+          min: "Потери грн",
+          visible: "Показано"
+        });
+
+        $("#statAll").textContent = formatMetric(totalPortions);
+        $("#statFull").textContent = formatMetric(totalSold);
+        $("#statOk").textContent = `${totalDiff > 0 ? "+" : ""}${formatMetric(totalDiff)}`;
+        $("#statMin").textContent = `${totalLosses.toFixed(2)} грн`;
+        $("#statVisible").textContent = String(visibleItems.length);
+      } else if (state.mode === "losses") {
+        const activeItems = allItems.filter(hasPrepData);
+        const normalCount = activeItems.filter(item => item.clean_weight > 0 && calcLossPercent(item) <= 7).length;
+        const warnCount = activeItems.filter(item => {
+          const percent = calcLossPercent(item);
+          return percent >= 8 && percent <= 12;
+        }).length;
+        const alertCount = activeItems.filter(item => calcLossPercent(item) > 12).length;
+        const totalDiff = roundMetric(activeItems.reduce((sum, item) => sum + (calcDifference(item, { strictClean: true }) || 0), 0));
+
+        setStatLabels({
+          all: "Заготовок",
+          full: "Норма 0-7%",
+          ok: "8-12%",
+          min: "12%+",
+          visible: "Разница порций"
+        });
+
+        $("#statAll").textContent = String(activeItems.length);
+        $("#statFull").textContent = String(normalCount);
+        $("#statOk").textContent = String(warnCount);
+        $("#statMin").textContent = String(alertCount);
+        $("#statVisible").textContent = `${totalDiff > 0 ? "+" : ""}${formatMetric(totalDiff)}`;
+      }
     }
 
     function renderTable() {
-      $("#sheetBody").innerHTML = buildTableRows();
+      const table = document.querySelector(".sheet");
+      const tbody = $("#sheetBody");
+      if (table) table.dataset.mode = state.mode;
+      tbody.innerHTML = buildTableRows();
+
+      updateTableHeaders();
     }
 
-    function renderAll() {
+    function updateTableHeaders() {
+      const mode = state.mode;
+      const thead = document.querySelector(".sheet thead");
+      if (!thead) return;
+
+      let headerHtml = "";
+      if (mode === "products") {
+        headerHtml = `
+          <tr>
+            <th class="rownum">1</th>
+            <th class="head-main">code</th>
+            <th class="head-main">Product RU</th>
+            <th class="head-main">Tên sản phẩm VN</th>
+            <th class="head-main">kolichestvo Сейчас</th>
+            <th class="head-date">Status</th>
+          </tr>
+        `;
+      } else if (mode === "portions") {
+        headerHtml = `
+          <tr>
+            <th class="rownum">1</th>
+            <th class="head-main">Product RU</th>
+            <th class="head-main">Tên sản phẩm VN</th>
+            <th class="head-main">Норма на 1 порцию</th>
+            <th class="head-main">Единица</th>
+            <th class="head-main">Было</th>
+            <th class="head-main">Купил</th>
+            <th class="head-main">Остаток</th>
+            <th class="head-main">Использовано</th>
+            <th class="head-main">Ожидаемые порции</th>
+            <th class="head-main">Продано кассе</th>
+            <th class="head-date">Разница</th>
+          </tr>
+        `;
+      } else if (mode === "losses") {
+        headerHtml = `
+          <tr>
+            <th class="rownum">1</th>
+            <th class="head-main">Дата / время</th>
+            <th class="head-main">Продукт</th>
+            <th class="head-main">Куплено г</th>
+            <th class="head-main">Чистый вес г</th>
+            <th class="head-main">Потери г</th>
+            <th class="head-main">Потери %</th>
+            <th class="head-main">Норма г</th>
+            <th class="head-main">Ожидаемые порции</th>
+            <th class="head-main">Продано по кассе</th>
+            <th class="head-date">Разница</th>
+            <th class="head-main">Ответственный</th>
+            <th class="head-main">Фото / коммент</th>
+            <th class="head-main">Цена блюда</th>
+            <th class="head-date">Потери грн</th>
+          </tr>
+        `;
+      }
+      thead.innerHTML = headerHtml;
+    }
+
+    function renderAll(options = {}) {
+      saveStockSummary();
+      if (document.hidden && !options.forceDom) {
+        state.hiddenRenderQueued = true;
+        return;
+      }
+
+      state.hiddenRenderQueued = false;
       renderStats();
+      renderStockSummary();
       renderTable();
       $("#todayLabel").value = fmtSavedAt(new Date()).slice(0, 10).replace(/,/g, "");
       $("#saveLabel").value = state.saveText || "Автосохранение включено";
+      updateModeMeta();
+    }
+
+    function scheduleExternalRender(delay = 160) {
+      clearTimeout(externalRenderTimer);
+      externalRenderTimer = setTimeout(() => {
+        externalRenderTimer = null;
+        renderAll();
+      }, delay);
+    }
+
+    function connectLocalEvents() {
+      if (!window.EventSource || !LOCAL_EVENTS_URL) return;
+      if (state.eventSource) state.eventSource.close();
+
+      const eventSource = new EventSource(LOCAL_EVENTS_URL);
+      state.eventSource = eventSource;
+      eventSource.addEventListener("orders_updated", () => refreshBridgeOrders(true));
+      eventSource.addEventListener("ready", () => refreshBridgeOrders(true));
+    }
+
+    function handleVisibilityChange() {
+      if (document.hidden) return;
+      refreshBridgeOrders(!state.hiddenRenderQueued);
+      if (state.hiddenRenderQueued) {
+        renderAll({ forceDom: true });
+      }
     }
 
     function updateTextField(sectionKey, itemId, field, value) {
       const found = findItem(sectionKey, itemId);
       if (!found) return;
-      found.item[field] = String(value || "").replace(/\s+/g, " ").trim();
+      found.item[field] = field === "code"
+        ? normalizeStockCode(value)
+        : String(value || "").replace(/\s+/g, " ").trim();
+      const defaultsChanged = ["ru", "vn"].includes(field) ? applyPortionDefaults(found.item) : false;
+      if (field === "code") {
+        saveSections();
+        renderAll();
+        return;
+      }
+      if (["responsible", "prep_comment"].includes(field)) {
+        touchPrepTimestamp(found.item);
+        saveSections();
+        renderAll();
+        return;
+      }
       saveSections();
+      if (defaultsChanged) {
+        renderAll();
+        return;
+      }
       renderStats();
     }
 
@@ -1200,15 +2943,126 @@
       renderStats();
     }
 
+    function setCurrentAmount(sectionKey, itemId, value) {
+      const found = findItem(sectionKey, itemId);
+      if (!found) return;
+
+      const nextCurrent = Math.max(roundMetric(value), 0);
+      found.item.clean_weight = nextCurrent;
+      found.item.remainder = nextCurrent;
+
+      if (nextCurrent > 0) {
+        if (toFiniteNumber(found.item.purchased_weight) <= 0 && toFiniteNumber(found.item.purchased) <= 0) {
+          found.item.purchased_weight = nextCurrent;
+        }
+        touchPrepTimestamp(found.item);
+      }
+
+      saveSections();
+      renderAll();
+    }
+
+    function touchPrepTimestamp(item, { force = false } = {}) {
+      const now = new Date();
+      if (force || !item.prep_date) item.prep_date = todayValue();
+      if (force || !item.prep_time) item.prep_time = timeValue(now);
+    }
+
+    function setPrepField(sectionKey, itemId, field, value) {
+      const found = findItem(sectionKey, itemId);
+      if (!found) return;
+      found.item[field] = String(value || "").trim();
+      saveSections();
+      renderStats();
+    }
+
+    function readFileAsDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || ""));
+        reader.onerror = () => reject(new Error("Не удалось прочитать файл"));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function loadImage(source) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error("Не удалось открыть изображение"));
+        image.src = source;
+      });
+    }
+
+    async function compressImageFile(file) {
+      const source = await readFileAsDataUrl(file);
+      const image = await loadImage(source);
+      const maxSide = 1280;
+      const scale = Math.min(1, maxSide / Math.max(image.width || 1, image.height || 1));
+      const width = Math.max(1, Math.round((image.width || 1) * scale));
+      const height = Math.max(1, Math.round((image.height || 1) * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas context недоступен");
+      ctx.drawImage(image, 0, 0, width, height);
+      return canvas.toDataURL("image/jpeg", 0.78);
+    }
+
+    async function saveScalePhoto(sectionKey, itemId, file) {
+      const found = findItem(sectionKey, itemId);
+      if (!found || !file) return;
+
+      try {
+        const compressed = await compressImageFile(file);
+        found.item.scale_photo = compressed;
+        found.item.scale_photo_name = file.name || `scales-${Date.now()}.jpg`;
+        touchPrepTimestamp(found.item, { force: true });
+        saveSections();
+        renderAll();
+        showToast("Фото весов сохранено");
+      } catch (error) {
+        showToast(`Не удалось сохранить фото: ${error?.message || error}`);
+      }
+    }
+
+    function removeScalePhoto(sectionKey, itemId) {
+      const found = findItem(sectionKey, itemId);
+      if (!found || !found.item.scale_photo) return;
+      found.item.scale_photo = "";
+      found.item.scale_photo_name = "";
+      found.item.clean_weight = 0;
+      saveSections();
+      renderAll();
+      showToast("Фото удалено, чистый вес сброшен");
+    }
+
     function addItem(sectionKey) {
       const section = state.sections.find(entry => entry.key === sectionKey);
       if (!section) return;
       const item = {
         id: uid("item"),
+        code: "",
         ru: "",
         vn: "",
         status: "",
-        date: ""
+        date: "",
+        beginning: 0,
+        purchased: 0,
+        remainder: 0,
+        sold_by_cash: 0,
+        price: 0,
+        portion_norm: 0,
+        unit: "г",
+        purchased_weight: 0,
+        clean_weight: 0,
+        prep_date: "",
+        prep_time: "",
+        responsible: "",
+        prep_comment: "",
+        scale_photo: "",
+        scale_photo_name: ""
       };
       section.items.push(item);
       if (state.search) {
@@ -1247,36 +3101,110 @@
       showToast("Строка удалена");
     }
 
-    function clearStatuses() {
-      state.sections.forEach(section => {
-        section.items.forEach(item => {
-          item.status = "";
-          item.date = "";
-        });
-      });
-      saveSections();
-      renderAll();
-      showToast("Все статусы очищены");
-    }
-
     async function copyTsv() {
+      const mode = state.mode;
+      const sections = visibleSections();
       const lines = [];
-      lines.push(["Product RU", "Tên sản phẩm VN", "full", "ok", "min", "date"].join("\t"));
+      let header = [];
 
-      state.sections.forEach(section => {
-        if (section.title) lines.push([section.title, "", "", "", "", ""].join("\t"));
+      if (mode === "products") {
+        header = ["code", "Product RU", "Tên sản phẩm VN", "kolichestvo Сейчас", "Status"];
+      } else if (mode === "portions") {
+        header = [
+          "Product RU",
+          "Tên sản phẩm VN",
+          "Норма",
+          "Единица",
+          "Было",
+          "Купил",
+          "Остаток",
+          "Использовано",
+          "Ожидаемые порции",
+          "Продано кассе",
+          "Разница"
+        ];
+      } else {
+        header = [
+          "Дата / время",
+          "Продукт",
+          "Куплено г",
+          "Чистый вес г",
+          "Потери г",
+          "Потери %",
+          "Норма г",
+          "Ожидаемые порции",
+          "Продано по кассе",
+          "Разница",
+          "Ответственный",
+          "Фото / коммент",
+          "Цена блюда",
+          "Потери грн"
+        ];
+      }
+
+      lines.push(header.join("\t"));
+
+      sections.forEach(section => {
+        if (section.title) {
+          lines.push([section.title, ...Array(Math.max(header.length - 1, 0)).fill("")].join("\t"));
+        }
+
         section.items.forEach(item => {
+          if (mode === "products") {
+            const status = productStatusMeta(item);
+            lines.push([
+              normalizeStockCode(item.code) || inferSectionStockKey({ ...item, code: "" }),
+              item.ru,
+              item.vn,
+              calcCurrentStock(item),
+              status.label
+            ].join("\t"));
+            return;
+          }
+
+          if (mode === "portions") {
+            const portions = calcExpectedPortions(item);
+            const difference = calcDifference(item);
+            lines.push([
+              item.ru,
+              item.vn,
+              item.portion_norm,
+              item.unit,
+              item.beginning,
+              item.purchased,
+              item.remainder,
+              calcUsed(item),
+              portions == null ? "" : portions,
+              item.sold_by_cash,
+              difference == null ? "" : difference
+            ].join("\t"));
+            return;
+          }
+
+          const expected = calcExpectedPortions(item, { strictClean: true });
+          const difference = calcDifference(item, { strictClean: true });
+          const moneyLoss = calcMoneyLoss(item, { strictClean: true });
+          const photoComment = [hasScalePhoto(item) ? `photo:${item.scale_photo_name || "yes"}` : "photo:no", item.prep_comment]
+            .filter(Boolean)
+            .join(" | ");
+
           lines.push([
-            item.ru,
-            item.vn,
-            item.status === "full" ? "x" : "",
-            item.status === "ok" ? "x" : "",
-            item.status === "min" ? "x" : "",
-            item.date
+            `${item.prep_date || ""} ${item.prep_time || ""}`.trim(),
+            [item.ru, item.vn].filter(Boolean).join(" / "),
+            item.purchased_weight,
+            item.clean_weight,
+            calcLossGrams(item),
+            item.purchased_weight > 0 && item.clean_weight > 0 ? calcLossPercent(item) : "",
+            item.portion_norm,
+            expected == null ? "" : expected,
+            item.sold_by_cash,
+            difference == null ? "" : difference,
+            item.responsible,
+            photoComment,
+            item.price,
+            difference == null ? "" : moneyLoss.toFixed(2)
           ].join("\t"));
         });
-        lines.push(["+them/ADD", "", "", "", "", ""].join("\t"));
-        lines.push(["", "", "", "", "", ""].join("\t"));
       });
 
       const payload = lines.join("\n");
@@ -1301,35 +3229,91 @@
       }
     }
 
+    function updateModeMeta() {
+      const titleMap = {
+        products: "Склад по продуктам",
+        portions: "Контроль порций",
+        losses: "Контроль заготовки"
+      };
+      const descriptionMap = {
+        products: "Склад по продуктам: code, RU/VN название, текущий готовый вес/количество и status green / yellow / red. Если после чистки/xào осталось 1300 г, в Сейчас ставим 1300.",
+        portions: "Если в контроле заготовки уже заполнен чистый вес, ожидаемые порции считаются от него. Иначе временно используется формула Было + Купил - Остаток.",
+        losses: "Сначала загрузи фото весов, потом введи чистый вес. Потери = Куплено - Чистый вес, потери % = Потери / Куплено × 100, ожидаемые порции = Чистый вес / Норма."
+      };
+
+      const sheetTitle = $("#sheetTitle");
+      if (sheetTitle) sheetTitle.textContent = titleMap[state.mode] || "Product Control Sheet";
+
+      const modeDesc = $("#modeDescription");
+      if (modeDesc) modeDesc.textContent = descriptionMap[state.mode] || "";
+
+      const clearBtn = $("#clearStatusBtn");
+      if (clearBtn) {
+        clearBtn.disabled = state.mode !== "products";
+        clearBtn.title = state.mode === "products" ? "" : "В этом режиме статусы не используются";
+      }
+
+      const legendWrap = $("#legendWrap");
+      if (!legendWrap) return;
+
+      if (state.mode === "losses") {
+        legendWrap.innerHTML = `
+          <span class="legend-item"><span class="legend-swatch full"></span> ✅ 0-7% норма</span>
+          <span class="legend-item"><span class="legend-swatch ok"></span> ⚠️ 8-12% подозрительно</span>
+          <span class="legend-item"><span class="legend-swatch min"></span> 🔴 12%+ красный флаг</span>
+        `;
+        return;
+      }
+
+      if (state.mode === "portions") {
+        legendWrap.innerHTML = `
+          <span class="legend-item"><span class="legend-swatch full"></span> ✅ 0-3 порции</span>
+          <span class="legend-item"><span class="legend-swatch ok"></span> ⚠️ 4-7 порций</span>
+          <span class="legend-item"><span class="legend-swatch min"></span> 🔴 8+ порций</span>
+        `;
+        return;
+      }
+
+      legendWrap.innerHTML = `
+        <span class="legend-item">Green = запас нормальный</span>
+        <span class="legend-item">Yellow = осталось мало</span>
+        <span class="legend-item">Red = нужно срочно проверить</span>
+      `;
+    }
+
+    function updateMode(newMode) {
+      if (!MODES.includes(newMode)) return;
+      state.mode = newMode;
+
+      $$(".mode-tab").forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.mode === newMode);
+      });
+      renderAll();
+    }
+
     function bindEvents() {
+      $$(".mode-tab").forEach(tab => {
+        tab.addEventListener("click", () => updateMode(tab.dataset.mode));
+      });
+
       $("#searchInput").addEventListener("input", event => {
         state.search = event.target.value || "";
         renderAll();
       });
 
+      $("#sendScreenshotBtn").addEventListener("click", sendFullScreenshotToVN);
       $("#copyTsvBtn").addEventListener("click", copyTsv);
 
-      $("#clearStatusBtn").addEventListener("click", () => {
-        const hasMarked = state.sections.some(section => section.items.some(item => item.status || item.date));
-        if (!hasMarked) {
-          showToast("Статусы уже пустые");
-          return;
-        }
-        if (confirm("Очистить все full / ok / min и даты?")) {
-          clearStatuses();
-        }
-      });
-
       $("#sheetBody").addEventListener("click", event => {
-        const statusBtn = event.target.closest("[data-set-status]");
-        if (statusBtn) {
-          setStatus(statusBtn.dataset.sectionKey, statusBtn.dataset.itemId, statusBtn.dataset.setStatus);
-          return;
-        }
-
         const deleteBtn = event.target.closest("[data-delete-item]");
         if (deleteBtn) {
           deleteItem(deleteBtn.dataset.sectionKey, deleteBtn.dataset.itemId);
+          return;
+        }
+
+        const removePhotoBtn = event.target.closest("[data-remove-photo]");
+        if (removePhotoBtn) {
+          removeScalePhoto(removePhotoBtn.dataset.sectionKey, removePhotoBtn.dataset.itemId);
           return;
         }
 
@@ -1338,9 +3322,42 @@
       });
 
       $("#sheetBody").addEventListener("change", event => {
-        const input = event.target.closest("[data-date-input]");
-        if (!input) return;
-        setDate(input.dataset.sectionKey, input.dataset.itemId, input.value);
+        const prepDateInput = event.target.closest("[data-prep-date]");
+        if (prepDateInput) {
+          setPrepField(prepDateInput.dataset.sectionKey, prepDateInput.dataset.itemId, "prep_date", prepDateInput.value);
+          return;
+        }
+
+        const prepTimeInput = event.target.closest("[data-prep-time]");
+        if (prepTimeInput) {
+          setPrepField(prepTimeInput.dataset.sectionKey, prepTimeInput.dataset.itemId, "prep_time", prepTimeInput.value);
+          return;
+        }
+
+        const photoInput = event.target.closest("[data-photo-input]");
+        if (photoInput) {
+          const file = photoInput.files?.[0];
+          saveScalePhoto(photoInput.dataset.sectionKey, photoInput.dataset.itemId, file);
+          return;
+        }
+
+        const currentInput = event.target.closest("[data-current-input]");
+        if (currentInput) {
+          setCurrentAmount(currentInput.dataset.sectionKey, currentInput.dataset.itemId, parseFloat(currentInput.value) || 0);
+          return;
+        }
+
+        const dateInput = event.target.closest("[data-date-input]");
+        if (dateInput) {
+          setDate(dateInput.dataset.sectionKey, dateInput.dataset.itemId, dateInput.value);
+          return;
+        }
+
+        const dataInput = event.target.closest("[data-field][data-section-key]");
+        if (dataInput && dataInput.dataset.field) {
+          updateNumericField(dataInput.dataset.sectionKey, dataInput.dataset.itemId, dataInput.dataset.field, parseFloat(dataInput.value) || 0);
+          return;
+        }
       });
 
       $("#sheetBody").addEventListener("keydown", event => {
@@ -1357,15 +3374,74 @@
         if (!editor) return;
         updateTextField(editor.dataset.sectionKey, editor.dataset.itemId, editor.dataset.field, editor.textContent);
       }, true);
+
+      window.addEventListener("storage", event => {
+        if (event.key === STORAGE_KEY) {
+          state.sections = loadSections();
+          scheduleExternalRender();
+          return;
+        }
+
+        if (event.key === ORDERS_KEY) {
+          scheduleExternalRender(document.hidden ? 320 : 120);
+        }
+      });
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      window.addEventListener("beforeunload", () => {
+        if (state.eventSource) state.eventSource.close();
+      });
+    }
+
+    function updateNumericField(sectionKey, itemId, field, value) {
+      const found = findItem(sectionKey, itemId);
+      if (!found) return;
+      const numericFields = ["beginning", "purchased", "remainder", "sold_by_cash", "price", "portion_norm", "purchased_weight", "clean_weight"];
+      if (!numericFields.includes(field)) return;
+
+      let nextValue = Math.max(roundMetric(value), 0);
+
+      if (field === "clean_weight") {
+        if (found.item.purchased_weight > 0 && nextValue > found.item.purchased_weight) {
+          nextValue = found.item.purchased_weight;
+          showToast("Чистый вес не может быть больше купленного. Ограничил по весу покупки.");
+        }
+
+        found.item.remainder = nextValue;
+        touchPrepTimestamp(found.item, { force: true });
+      }
+
+      if (field === "purchased_weight") {
+        touchPrepTimestamp(found.item);
+        if (found.item.clean_weight > nextValue) {
+          found.item.clean_weight = nextValue;
+          found.item.remainder = nextValue;
+          showToast("Чистый вес подрезан до купленного веса.");
+        }
+        if (found.item.purchased <= 0 && nextValue > 0) {
+          found.item.purchased = nextValue;
+        }
+      }
+
+      if (field === "purchased" && found.item.purchased_weight <= 0 && nextValue > 0) {
+        found.item.purchased_weight = nextValue;
+      }
+
+      found.item[field] = nextValue;
+      saveSections();
+      renderAll();
     }
 
     function init() {
       state.saveText = "Автосохранение включено";
-      renderAll();
       bindEvents();
+      connectLocalEvents();
+      renderAll();
+      refreshBridgeOrders(true);
     }
 
     init();
   </script>
+  <script src="dlv_burger_menu.js"></script>
 </body>
 </html>

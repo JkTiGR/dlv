@@ -1,0 +1,1297 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080101" />
+  <title>DLV Monitor</title>
+  <link rel="icon" href="logo.png" />
+  <style>
+    :root {
+      --bg: #030000;
+      --panel: rgba(18, 1, 3, 0.9);
+      --panel-2: rgba(31, 4, 6, 0.96);
+      --line: rgba(255, 39, 28, 0.17);
+      --line-strong: rgba(255, 82, 58, 0.32);
+      --text: #fff2ef;
+      --muted: #d0a1a4;
+      --new: #ff160d;
+      --cook: #ffe600;
+      --ready: #39ff88;
+      --neon-yellow: rgba(255, 230, 0, 0.34);
+      --neon-green: rgba(57, 255, 136, 0.34);
+      --danger: #ff7a86;
+      --neon-red: rgba(255, 22, 13, 0.34);
+      --neon-amber: rgba(255, 122, 36, 0.22);
+      --shadow:
+        0 26px 80px rgba(0, 0, 0, 0.5),
+        0 0 30px var(--neon-red);
+      --radius: 26px;
+      --font-head: "Space Grotesk", "Segoe UI", sans-serif;
+      --font-body: "Manrope", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--text);
+      font-family: var(--font-body);
+      background:
+        linear-gradient(180deg, rgba(246, 18, 12, 0.5) 0%, rgba(118, 0, 6, 0.2) 34%, rgba(7, 0, 0, 0.88) 78%, #010000 100%),
+        radial-gradient(900px 560px at 12% 0%, rgba(255, 26, 13, 0.26), transparent 62%),
+        linear-gradient(180deg, #080000 0%, var(--bg) 52%, #170101 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 38, 24, 0.07) 0 1px, transparent 1px 52px),
+        repeating-linear-gradient(180deg, rgba(255, 38, 24, 0.05) 0 1px, transparent 1px 42px),
+        repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 6px),
+        linear-gradient(180deg, transparent 0%, transparent 44%, rgba(0, 0, 0, 0.44) 76%, rgba(0, 0, 0, 0.88) 100%);
+      opacity: 0.62;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1760px, calc(100vw - 28px));
+      margin: 14px auto 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .topbar,
+    .stat,
+    .lane,
+    .ticket {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      box-shadow: var(--shadow), inset 0 0 22px rgba(255, 22, 13, 0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .topbar {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .topbar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(110deg, rgba(255, 42, 31, 0.16), transparent 40%),
+        radial-gradient(circle at top right, rgba(255, 138, 54, 0.13), transparent 32%);
+      pointer-events: none;
+    }
+
+    .topbar::after,
+    .lane::after,
+    .ticket::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 92, 70, 0.2),
+        inset 0 0 20px rgba(255, 22, 13, 0.08),
+        0 0 20px rgba(255, 22, 13, 0.1);
+      opacity: 0.72;
+    }
+
+    .brand,
+    .top-actions,
+    .status-strip,
+    .ticket-top,
+    .ticket-meta,
+    .order-line {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .brand-mark {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border-radius: 22px;
+      color: #1a0304;
+      font-weight: 950;
+      font-family: var(--font-head);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--new), var(--ready));
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--font-head);
+      letter-spacing: -0.04em;
+      text-shadow: 0 0 20px rgba(255, 22, 13, 0.22);
+    }
+
+    h1 {
+      font-size: clamp(32px, 4vw, 58px);
+      line-height: 0.95;
+    }
+
+    .brand p,
+    .muted,
+    .empty,
+    .ticket-meta,
+    .sync-line {
+      color: var(--muted);
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .top-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 900;
+      background: rgba(255, 255, 255, 0.06);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.24), 0 0 18px rgba(255, 22, 13, 0.2);
+    }
+
+    .btn.primary {
+      color: #04101a;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--new), var(--ready));
+      box-shadow: 0 0 20px rgba(255, 22, 13, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    .status-strip,
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      padding: 16px;
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      right: -28px;
+      bottom: -34px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 68%);
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 9px;
+    }
+
+    .stat .value {
+      font-size: clamp(28px, 4vw, 50px);
+      font-weight: 950;
+      font-family: var(--font-head);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .stat.new .value {
+      color: var(--new);
+    }
+
+    .stat.cooking .value {
+      color: var(--cook);
+      text-shadow: 0 0 20px rgba(255, 230, 0, 0.3);
+    }
+
+    .stat.ready .value {
+      color: var(--ready);
+      text-shadow: 0 0 22px rgba(57, 255, 136, 0.34);
+    }
+
+    .stat .meta {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
+
+    .lane {
+      position: relative;
+      min-height: 520px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .lane-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lane-head h2 {
+      font-size: clamp(24px, 2.2vw, 36px);
+    }
+
+    .lane-count {
+      min-width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: #04101a;
+      font-weight: 950;
+      font-size: 22px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .lane.new .lane-count {
+      background: var(--new);
+    }
+
+    .lane.cooking .lane-count {
+      background: var(--cook);
+      box-shadow: 0 0 20px rgba(255, 230, 0, 0.28);
+    }
+
+    .lane.ready .lane-count {
+      background: var(--ready);
+      box-shadow: 0 0 20px rgba(57, 255, 136, 0.3);
+    }
+
+    .lane.cooking {
+      border-color: rgba(255, 230, 0, 0.26);
+      box-shadow:
+        var(--shadow),
+        inset 0 0 0 1px rgba(255, 230, 0, 0.14),
+        0 0 24px rgba(255, 230, 0, 0.14);
+    }
+
+    .lane.ready {
+      border-color: rgba(57, 255, 136, 0.26);
+      box-shadow:
+        var(--shadow),
+        inset 0 0 0 1px rgba(57, 255, 136, 0.14),
+        0 0 26px rgba(57, 255, 136, 0.16);
+    }
+
+    .lane-body {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .ticket {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      padding: 15px;
+      display: grid;
+      gap: 12px;
+      animation: ticketIn 0.25s ease;
+    }
+
+    .ticket::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--line-strong);
+    }
+
+    .ticket.status-new::before {
+      background: var(--new);
+    }
+
+    .ticket.status-cooking::before {
+      background: var(--cook);
+      box-shadow: 0 0 16px rgba(255, 230, 0, 0.34);
+    }
+
+    .ticket.status-ready::before {
+      background: var(--ready);
+      box-shadow: 0 0 18px rgba(57, 255, 136, 0.34);
+    }
+
+    @keyframes ticketIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ticket-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .code {
+      font-size: clamp(34px, 4vw, 62px);
+      font-weight: 950;
+      font-family: var(--font-head);
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .time {
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      white-space: nowrap;
+      font-weight: 850;
+      font-size: 13px;
+    }
+
+    .ticket-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .ticket-meta span,
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .kitchen-codes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .kitchen-code {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 8px 12px;
+      border-radius: 14px;
+      color: #04101a;
+      background: rgba(255, 255, 255, 0.92);
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .kitchen-table-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .kitchen-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .kitchen-table th,
+    .kitchen-table td {
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .kitchen-table th {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+      white-space: nowrap;
+    }
+
+    .kitchen-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .kitchen-table td.code-col {
+      width: 96px;
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      white-space: nowrap;
+    }
+
+    .kitchen-table td.service-col {
+      width: 140px;
+      white-space: nowrap;
+      color: #dfe8fb;
+      font-weight: 800;
+    }
+
+    .kitchen-table td.name-col {
+      min-width: 180px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .kitchen-table td.comment-col {
+      min-width: 170px;
+      color: #d8e5ff;
+      line-height: 1.45;
+    }
+
+    .line-note,
+    .order-comment {
+      color: #d8e5ff;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .order-comment {
+      padding: 11px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .empty {
+      padding: 38px 18px;
+      text-align: center;
+      border: 1px dashed rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      line-height: 1.5;
+    }
+
+    .sync-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 4px;
+      font-size: 13px;
+    }
+
+    .sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 30px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+      font-weight: 850;
+    }
+
+    .sync-pill.ok {
+      color: #ffd5cc;
+      border-color: rgba(255, 42, 31, 0.3);
+      background: rgba(255, 42, 31, 0.12);
+    }
+
+    .sync-pill.warn {
+      color: #ffe39b;
+      border-color: rgba(255, 198, 92, 0.28);
+      background: rgba(255, 198, 92, 0.12);
+    }
+
+    .sync-pill.offline {
+      color: #ffc4ca;
+      border-color: rgba(255, 122, 134, 0.28);
+      background: rgba(255, 122, 134, 0.12);
+    }
+
+    .tag.ok {
+      color: #ffd5cc;
+      border-color: rgba(255, 42, 31, 0.3);
+      background: rgba(255, 42, 31, 0.11);
+    }
+
+    .tag.warn {
+      color: #ffe39b;
+      border-color: rgba(255, 198, 92, 0.28);
+      background: rgba(255, 198, 92, 0.11);
+    }
+
+    .tag.offline {
+      color: #ffc4ca;
+      border-color: rgba(255, 122, 134, 0.28);
+      background: rgba(255, 122, 134, 0.11);
+    }
+
+    .tag.muted {
+      color: var(--muted);
+      border-color: rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    @media (max-width: 1180px) {
+      .topbar,
+      .board,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
+      }
+
+      .lane {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        width: min(100% - 20px, 1760px);
+      }
+
+      .topbar,
+      .lane-head {
+        padding: 14px;
+      }
+
+      .brand {
+        align-items: flex-start;
+      }
+
+      .brand-mark {
+        width: 54px;
+        height: 54px;
+      }
+
+      .status-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .ticket-top {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .time {
+        width: fit-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="topbar">
+      <div class="brand">
+        <div class="brand-mark">DLV</div>
+        <div>
+          <h1>Order Monitor</h1>
+          <p>Экран кухни для повара: коды блюд и короткая таблица CODE / takeaway-Eat in / NAME / koment.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn primary" id="refreshBtn" type="button">Обновить</button>
+        <a class="btn" href="VIEW.html">Client View</a>
+        <a class="btn" href="DLV_KASSA.html">Касса</a>
+        <a class="btn" href="index.html">Меню</a>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Статистика заказов">
+      <div class="stat new">
+        <div class="label">Новые</div>
+        <div class="value" id="statNew">0</div>
+        <div class="meta">ожидают принятия</div>
+      </div>
+      <div class="stat cooking">
+        <div class="label">Готовятся</div>
+        <div class="value" id="statCooking">0</div>
+        <div class="meta">в работе кухни</div>
+      </div>
+      <div class="stat ready">
+        <div class="label">Готово</div>
+        <div class="value" id="statReady">0</div>
+        <div class="meta">можно выдавать</div>
+      </div>
+      <div class="stat">
+        <div class="label">Активные сегодня</div>
+        <div class="value" id="statActive">0</div>
+        <div class="meta" id="todayLabel">сегодня</div>
+      </div>
+    </section>
+
+    <div class="sync-line">
+      <span class="sync-pill" id="bridgeSyncBadge">Bridge: запуск</span>
+      <span class="sync-pill" id="sheetSyncBadge">Sheets: запуск</span>
+      <span>Последнее обновление: <b id="lastSync">—</b></span>
+      <span>Время экрана: <b id="clock">—</b></span>
+    </div>
+
+    <section class="board" aria-label="Активные заказы">
+      <section class="lane new">
+        <div class="lane-head">
+          <div>
+            <h2>Новые</h2>
+            <div class="muted">Заказы ждут кассу или кухню</div>
+          </div>
+          <div class="lane-count" id="newCount">0</div>
+        </div>
+        <div class="lane-body" id="newLane"></div>
+      </section>
+
+      <section class="lane cooking">
+        <div class="lane-head">
+          <div>
+            <h2>Готовятся</h2>
+            <div class="muted">Позиции сейчас в работе</div>
+          </div>
+          <div class="lane-count" id="cookingCount">0</div>
+        </div>
+        <div class="lane-body" id="cookingLane"></div>
+      </section>
+
+      <section class="lane ready">
+        <div class="lane-head">
+          <div>
+            <h2>Готово</h2>
+            <div class="muted">Заказы готовы к выдаче</div>
+          </div>
+          <div class="lane-count" id="readyCount">0</div>
+        </div>
+        <div class="lane-body" id="readyLane"></div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
+    const LOCAL_API_BASE = `${window.location.origin}/api/local-orders`;
+    const LOCAL_EVENTS_URL = `${window.location.origin}/api/local-events`;
+    const ORDERS_KEY = "CD_ORDERS_V1";
+    const REFRESH_MS = 15000;
+
+    const STATUS_META = {
+      NEW: { label: "Новое", className: "new" },
+      COOKING: { label: "Готовится", className: "cooking" },
+      READY: { label: "Готово", className: "ready" },
+      HANDED: { label: "Выдано", className: "handed" },
+      CANCELLED: { label: "Отменено", className: "cancelled" }
+    };
+
+    const TYPE_META = {
+      on_site: "На месте",
+      takeaway: "На вынос",
+      delivery: "Доставка"
+    };
+
+    const state = {
+      orders: [],
+      timer: null,
+      clockTimer: null,
+      liveReloadTimer: null,
+      eventSource: null,
+      renderCache: {}
+    };
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function parseJSON(value, fallback) {
+      if (!value) return fallback;
+      if (typeof value !== "string") return value;
+      try {
+        return JSON.parse(value);
+      } catch (_) {
+        return fallback;
+      }
+    }
+
+    function normalizeAmount(value) {
+      const num = Number(value || 0);
+      if (!Number.isFinite(num)) return 0;
+      return Math.max(0, Math.round(num * 100) / 100);
+    }
+
+    function nowIso() {
+      return new Date().toISOString();
+    }
+
+    function syncStamp(sync) {
+      if (!sync || typeof sync !== "object") return 0;
+      const raw = sync.updated_at || sync.attempted_at || sync.requested_at || sync.created_at;
+      const stamp = new Date(raw || 0).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
+    }
+
+    function syncScore(channel, sync) {
+      if (!sync || typeof sync !== "object") return 0;
+      if (channel === "sheet") {
+        if (sync.ok || sync.id) return 4;
+        if (sync.pending || sync.retrying) return 3;
+        return 2;
+      }
+      if (channel === "local") {
+        return sync.ok ? 3 : 1;
+      }
+      return sync.ok ? 2 : 1;
+    }
+
+    function pickBetterSync(channel, left, right) {
+      const leftScore = syncScore(channel, left);
+      const rightScore = syncScore(channel, right);
+      if (leftScore !== rightScore) return leftScore > rightScore ? left : right;
+      return syncStamp(left) >= syncStamp(right) ? left : right;
+    }
+
+    function isSyncOk(sync) {
+      return Boolean(sync?.ok || sync?.id);
+    }
+
+    function normalizeStatus(value) {
+      const raw = String(value || "").trim().toUpperCase();
+      if (!raw || raw === "SENT" || raw === "FAILED") return "NEW";
+      if (raw === "CONFIRMED") return "COOKING";
+      if (raw === "COMPLETED" || raw === "DONE") return "HANDED";
+      if (raw === "READY") return "READY";
+      if (raw === "COOKING") return "COOKING";
+      if (raw === "CANCELLED") return "CANCELLED";
+      if (raw === "HANDED") return "HANDED";
+      return "NEW";
+    }
+
+    function normalizeType(value) {
+      const raw = String(value || "").trim().toLowerCase();
+      if (["on_site", "onsite", "dinein"].includes(raw)) return "on_site";
+      if (["takeaway", "take_away", "pickup"].includes(raw)) return "takeaway";
+      if (raw === "delivery") return "delivery";
+      if (raw.includes("мест")) return "on_site";
+      if (raw.includes("вынос")) return "takeaway";
+      if (raw.includes("достав")) return "delivery";
+      return "takeaway";
+    }
+
+    function normalizeItems(items) {
+      const parsed = parseJSON(items, []);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.map((item, index) => ({
+        id: item.id || `${item.key || item.code || "item"}-${index}`,
+        key: item.key || "",
+        code: item.code || "",
+        name: item.name || item.title || item.code || `Позиция ${index + 1}`,
+        qty: Math.max(1, Number(item.qty || 1)),
+        price: Number(item.price || item.unit_price || 0),
+        note: String(item.note || item.comment || "").trim()
+      }));
+    }
+
+    function fallbackTotal(items) {
+      return items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.qty || 0), 0);
+    }
+
+    function normalizeOrder(raw) {
+      const items = normalizeItems(raw.items);
+      const subtotal = Number(raw.subtotal ?? raw.sum ?? fallbackTotal(items));
+      const deliveryFee = Number(raw.delivery_fee ?? raw.deliveryFee ?? 0);
+      const total = Number(raw.total ?? subtotal + deliveryFee);
+      const code = String(raw.code || raw.order_code || raw.id || "").trim() || "local";
+      const localSync = raw.sync?.local ?? raw.local_sync ?? null;
+      const sheetSync = raw.sync?.sheet ?? raw.sheet ?? null;
+
+      return {
+        id: String(raw.id || raw.order_id || code).trim(),
+        code,
+        status: normalizeStatus(raw.status),
+        type: normalizeType(raw.type),
+        table: String(raw.table || "").trim(),
+        pickup_in: String(raw.pickup_in || "").trim(),
+        comment: String(raw.comment || raw.order_comment || raw.note || "").trim(),
+        items,
+        subtotal,
+        delivery_fee: deliveryFee,
+        total,
+        source: raw.source === "cashier" ? "cashier" : "site",
+        created_at: raw.created_at || raw.createdAt || new Date().toISOString(),
+        updated_at: raw.updated_at || raw.updatedAt || raw.created_at || new Date().toISOString(),
+        sync: {
+          local: localSync,
+          sheet: sheetSync
+        }
+      };
+    }
+
+    function loadLocalOrders() {
+      try {
+        return JSON.parse(localStorage.getItem(ORDERS_KEY) || "{}") || {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveLocalOrders(map) {
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(map || {}));
+    }
+
+    function ordersToMap(orders) {
+      const map = {};
+      for (const order of orders || []) {
+        const key = order?.code || order?.id;
+        if (!key) continue;
+        map[key] = order;
+      }
+      return map;
+    }
+
+    function saveMergedOrders(orders) {
+      saveLocalOrders(ordersToMap(orders));
+    }
+
+    function orderStamp(order) {
+      const stamp = new Date(order.updated_at || order.created_at).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
+    }
+
+    function mergeOrders(remoteOrders, localMap) {
+      const merged = new Map();
+      const localOrders = Object.values(localMap || {}).map(normalizeOrder);
+
+      for (const order of remoteOrders.map(normalizeOrder)) {
+        merged.set(order.code || order.id, order);
+      }
+
+      for (const localOrder of localOrders) {
+        const key = localOrder.code || localOrder.id;
+        if (!merged.has(key)) {
+          merged.set(key, localOrder);
+          continue;
+        }
+
+        const remoteOrder = merged.get(key);
+        const useLocal = orderStamp(localOrder) >= orderStamp(remoteOrder);
+        const primary = useLocal ? localOrder : remoteOrder;
+        const fallback = useLocal ? remoteOrder : localOrder;
+        merged.set(key, normalizeOrder({
+          ...fallback,
+          ...primary,
+          status: normalizeStatus(primary.status || fallback.status),
+          comment: primary.comment || fallback.comment,
+          items: primary.items.length ? primary.items : fallback.items,
+          sync: {
+            local: pickBetterSync("local", localOrder.sync?.local, remoteOrder.sync?.local),
+            sheet: pickBetterSync("sheet", localOrder.sync?.sheet, remoteOrder.sync?.sheet)
+          }
+        }));
+      }
+
+      return Array.from(merged.values()).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    }
+
+    async function fetchOrdersRemote() {
+      const response = await fetch(`${API_BASE}?action=get_orders`, { cache: "no-store" });
+      return response.json();
+    }
+
+    async function fetchOrdersLocalBridge() {
+      try {
+        const response = await fetch(LOCAL_API_BASE, { cache: "no-store" });
+        if (!response.ok) {
+          return { ok: false, error: `Local bridge HTTP ${response.status}` };
+        }
+        return await response.json();
+      } catch (error) {
+        return { ok: false, error: String(error) };
+      }
+    }
+
+    function decorateRemoteOrders(orders) {
+      return (orders || []).map(order => ({
+        ...order,
+        sync: {
+          ...(order.sync || {}),
+          sheet: pickBetterSync("sheet", order.sync?.sheet, {
+            ok: true,
+            source: "sheets",
+            updated_at: order.updated_at || order.created_at || nowIso()
+          })
+        }
+      }));
+    }
+
+    function dateInputValue(value) {
+      const date = value instanceof Date ? value : new Date(value);
+      if (Number.isNaN(date.getTime())) return "";
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function fmtTime(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "—";
+      return date.toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function timeAgo(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "—";
+      const diff = Math.max(0, Date.now() - date.getTime());
+      const mins = Math.floor(diff / 60000);
+      if (mins < 1) return "только что";
+      if (mins < 60) return `${mins} мин`;
+      const hours = Math.floor(mins / 60);
+      if (hours < 24) return `${hours} ч`;
+      return `${Math.floor(hours / 24)} д`;
+    }
+
+    function todayOrders() {
+      const today = dateInputValue(new Date());
+      return state.orders.filter(order => dateInputValue(order.created_at) === today);
+    }
+
+    function activeOrders() {
+      const rank = { NEW: 0, COOKING: 1, READY: 2 };
+      return todayOrders()
+        .filter(order => ["NEW", "COOKING", "READY"].includes(order.status))
+        .sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9) || new Date(a.created_at) - new Date(b.created_at));
+    }
+
+    function orderMeta(order) {
+      const parts = [TYPE_META[order.type] || order.type || "Заказ"];
+      if (order.type === "on_site" && order.table) parts.push(`Стол ${order.table}`);
+      if (order.type === "takeaway" && order.pickup_in) parts.push(`Через ${order.pickup_in} мин`);
+      if (order.type === "delivery") parts.push("Доставка");
+      parts.push(timeAgo(order.created_at));
+      if (order.source === "cashier") parts.push("Касса");
+      return parts;
+    }
+
+    function kitchenServiceLabel(order) {
+      if (order.type === "on_site") return "Eat in";
+      if (order.type === "takeaway") return "takeaway";
+      if (order.type === "delivery") return "delivery";
+      return TYPE_META[order.type] || "takeaway";
+    }
+
+    function kitchenItemCodes(order) {
+      const codes = [];
+      for (const item of order.items || []) {
+        const code = String(item.code || item.key || "—").trim() || "—";
+        const qty = Math.max(1, Number(item.qty || 1));
+        for (let i = 0; i < qty; i += 1) codes.push(code);
+      }
+      return codes.length ? codes : ["—"];
+    }
+
+    function kitchenRowComment(order, item) {
+      const parts = [];
+      if (item?.note) parts.push(String(item.note).trim());
+      if (order.comment) parts.push(String(order.comment).trim());
+      return parts.filter(Boolean).join(" / ") || "—";
+    }
+
+    function expandKitchenRows(order) {
+      const rows = [];
+      const sourceItems = order.items.length ? order.items : [{
+        code: "—",
+        name: "Позиции не переданы",
+        qty: 1,
+        note: ""
+      }];
+
+      for (const item of sourceItems) {
+        const qty = Math.max(1, Number(item.qty || 1));
+        for (let index = 0; index < qty; index += 1) {
+          rows.push({
+            code: item.code || item.key || "—",
+            name: item.name || item.title || item.code || "—",
+            comment: kitchenRowComment(order, item)
+          });
+        }
+      }
+
+      return rows;
+    }
+
+    function renderKitchenTable(order) {
+      const rows = expandKitchenRows(order);
+
+      return `
+        <div class="kitchen-table-wrap">
+          <table class="kitchen-table" aria-label="Kitchen order lines">
+            <thead>
+              <tr>
+                <th>CODE</th>
+                <th>takeaway/Eat in</th>
+                <th>NAME</th>
+                <th>koment</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(item => `
+                <tr>
+                  <td class="code-col">${escapeHtml(item.code || "—")}</td>
+                  <td class="service-col">${escapeHtml(kitchenServiceLabel(order))}</td>
+                  <td class="name-col">${escapeHtml(item.name || "—")}</td>
+                  <td class="comment-col">${escapeHtml(item.comment || "—")}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function sheetSyncMeta(order) {
+      if (order.source !== "cashier" && !order.sync?.sheet && !order.sync?.local) return null;
+      const sync = order.sync?.sheet;
+      if (isSyncOk(sync)) return { label: "Sheets ok", className: "ok" };
+      if (sync?.pending || sync?.retrying) return { label: "Sheets retry", className: "warn" };
+      if (sync) return { label: "Sheets local", className: "offline" };
+      return { label: "Sheets ?", className: "muted" };
+    }
+
+    function localSyncMeta(order) {
+      if (order.source !== "cashier" && !order.sync?.local) return null;
+      const sync = order.sync?.local;
+      if (sync?.ok) return { label: "Bridge ok", className: "ok" };
+      if (sync) return { label: "Bridge off", className: "offline" };
+      return { label: "Bridge ?", className: "muted" };
+    }
+
+    function renderTicket(order) {
+      const status = STATUS_META[order.status] || STATUS_META.NEW;
+      const syncTags = [localSyncMeta(order), sheetSyncMeta(order)]
+        .filter(Boolean)
+        .map(tag => `<span class="tag ${escapeHtml(tag.className)}">${escapeHtml(tag.label)}</span>`)
+        .join("");
+      const codeStrip = kitchenItemCodes(order)
+        .map(code => `<span class="kitchen-code">${escapeHtml(code)}</span>`)
+        .join("");
+
+      return `
+        <article class="ticket status-${status.className}">
+          <div class="ticket-top">
+            <div>
+              <div class="code">${escapeHtml(order.code)}</div>
+              <div class="ticket-meta">
+                <span>${escapeHtml(status.label)}</span>
+                ${orderMeta(order).map(part => `<span>${escapeHtml(part)}</span>`).join("")}
+              </div>
+            </div>
+            <div class="time">${escapeHtml(fmtTime(order.created_at))}</div>
+          </div>
+          <div class="kitchen-codes">${codeStrip}</div>
+          ${renderKitchenTable(order)}
+          ${order.comment ? `<div class="order-comment">${escapeHtml(order.comment)}</div>` : ""}
+          ${syncTags ? `<div class="ticket-meta">${syncTags}</div>` : ""}
+        </article>
+      `;
+    }
+
+    function renderLane(status, laneId, countId) {
+      const laneOrders = activeOrders().filter(order => order.status === status);
+      const lane = $(laneId);
+      $(countId).textContent = String(laneOrders.length);
+
+      const html = !laneOrders.length
+        ? `<div class="empty">Пока нет заказов в этой колонке.</div>`
+        : laneOrders.map(renderTicket).join("");
+
+      if (state.renderCache[laneId] === html) return;
+      state.renderCache[laneId] = html;
+      lane.innerHTML = html;
+    }
+
+    function renderStats() {
+      const orders = activeOrders();
+      const newCount = orders.filter(order => order.status === "NEW").length;
+      const cookingCount = orders.filter(order => order.status === "COOKING").length;
+      const readyCount = orders.filter(order => order.status === "READY").length;
+
+      $("#statNew").textContent = String(newCount);
+      $("#statCooking").textContent = String(cookingCount);
+      $("#statReady").textContent = String(readyCount);
+      $("#statActive").textContent = String(orders.length);
+      $("#todayLabel").textContent = new Date().toLocaleDateString("ru-RU");
+    }
+
+    function renderAll() {
+      renderStats();
+      renderLane("NEW", "#newLane", "#newCount");
+      renderLane("COOKING", "#cookingLane", "#cookingCount");
+      renderLane("READY", "#readyLane", "#readyCount");
+    }
+
+    function setSyncBadge(el, mode, text) {
+      if (!el) return;
+      el.className = `sync-pill ${mode}`;
+      el.textContent = text;
+    }
+
+    function stampSyncTime() {
+      $("#lastSync").textContent = new Date().toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+    }
+
+    async function loadOrders() {
+      const localMap = loadLocalOrders();
+      const [remoteResult, bridgeResult] = await Promise.allSettled([
+        fetchOrdersRemote(),
+        fetchOrdersLocalBridge()
+      ]);
+
+      const remoteData = remoteResult.status === "fulfilled" ? remoteResult.value : null;
+      const bridgeData = bridgeResult.status === "fulfilled" ? bridgeResult.value : null;
+      const remoteOrders = decorateRemoteOrders(Array.isArray(remoteData?.orders) ? remoteData.orders : []);
+      const bridgeOrders = Array.isArray(bridgeData?.orders) ? bridgeData.orders : [];
+
+      state.orders = mergeOrders(mergeOrders(remoteOrders, ordersToMap(bridgeOrders)), localMap);
+      saveMergedOrders(state.orders);
+
+      const remoteOk = Array.isArray(remoteData?.orders);
+      const bridgeOk = Boolean(bridgeData?.ok);
+      setSyncBadge($("#bridgeSyncBadge"), bridgeOk ? "ok" : "offline", bridgeOk ? "Bridge ok" : "Bridge off");
+      setSyncBadge($("#sheetSyncBadge"), remoteOk ? "ok" : bridgeOk ? "warn" : "offline", remoteOk ? "Sheets ok" : bridgeOk ? "Sheets retry" : "Sheets off");
+      stampSyncTime();
+
+      renderAll();
+    }
+
+    function scheduleLiveReload(delay = 220) {
+      clearTimeout(state.liveReloadTimer);
+      state.liveReloadTimer = setTimeout(() => {
+        loadOrders();
+      }, delay);
+    }
+
+    function connectLocalEvents() {
+      if (!window.EventSource || !LOCAL_EVENTS_URL.startsWith("http")) return;
+      if (state.eventSource) state.eventSource.close();
+
+      const eventSource = new EventSource(LOCAL_EVENTS_URL);
+      state.eventSource = eventSource;
+      eventSource.addEventListener("orders_updated", () => scheduleLiveReload());
+      eventSource.addEventListener("ready", () => scheduleLiveReload(80));
+    }
+
+    function renderClock() {
+      $("#clock").textContent = new Date().toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+    }
+
+    function init() {
+      $("#refreshBtn").addEventListener("click", loadOrders);
+      window.addEventListener("storage", event => {
+        if (event.key !== ORDERS_KEY) return;
+        state.orders = mergeOrders([], loadLocalOrders());
+        renderAll();
+      });
+      window.addEventListener("beforeunload", () => {
+        if (state.eventSource) state.eventSource.close();
+      });
+
+      renderClock();
+      connectLocalEvents();
+      loadOrders();
+      state.timer = setInterval(loadOrders, REFRESH_MS);
+      state.clockTimer = setInterval(renderClock, 1000);
+    }
+
+    init();
+  </script>
+  <script src="dlv_burger_menu.js"></script>
+</body>
+</html>

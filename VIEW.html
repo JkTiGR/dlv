@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080101" />
+  <title>DLV Client View</title>
+  <link rel="icon" href="logo.png" />
+  <style>
+    :root {
+      --bg: #030000;
+      --panel: rgba(18, 1, 3, 0.92);
+      --line: rgba(255, 39, 28, 0.17);
+      --text: #fff4f0;
+      --muted: #d2a3a5;
+      --prep: #ffe600;
+      --ready: #39ff88;
+      --glow-prep: rgba(255, 230, 0, 0.38);
+      --glow-ready: rgba(57, 255, 136, 0.4);
+      --neon-yellow: rgba(255, 230, 0, 0.34);
+      --neon-green: rgba(57, 255, 136, 0.34);
+      --neon-red: rgba(255, 22, 13, 0.34);
+      --neon-amber: rgba(255, 122, 36, 0.22);
+      --shadow:
+        0 30px 90px rgba(0, 0, 0, 0.52),
+        0 0 32px var(--neon-red);
+      --font-head: "Space Grotesk", "Segoe UI", sans-serif;
+      --font-body: "Manrope", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: var(--font-body);
+      background:
+        linear-gradient(180deg, rgba(246, 18, 12, 0.5) 0%, rgba(118, 0, 6, 0.2) 34%, rgba(7, 0, 0, 0.88) 78%, #010000 100%),
+        radial-gradient(900px 560px at 8% 0%, rgba(255, 26, 13, 0.26), transparent 62%),
+        linear-gradient(180deg, #080000 0%, var(--bg) 52%, #170101 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.38;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255, 38, 24, 0.07) 0 1px, transparent 1px 52px),
+        repeating-linear-gradient(180deg, rgba(255, 38, 24, 0.05) 0 1px, transparent 1px 42px),
+        repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 6px);
+      background-size: auto;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent);
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      width: min(1920px, calc(100vw - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 24px 0 28px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+    }
+
+    .topbar {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background:
+        linear-gradient(110deg, rgba(255, 42, 31, 0.15), transparent 40%),
+        linear-gradient(180deg, rgba(31, 6, 8, 0.9), rgba(10, 1, 2, 0.88));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .topbar::after,
+    .column::after,
+    .code-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 92, 70, 0.2),
+        inset 0 0 22px rgba(255, 22, 13, 0.08),
+        0 0 22px rgba(255, 22, 13, 0.12);
+      opacity: 0.72;
+    }
+
+    .brand {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 74px;
+      height: 74px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      color: #1a0304;
+      font-family: var(--font-head);
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--prep), var(--ready));
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.32);
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      font-family: var(--font-head);
+      letter-spacing: -0.055em;
+      text-shadow: 0 0 22px rgba(255, 22, 13, 0.24);
+    }
+
+    h1 {
+      font-size: clamp(34px, 5vw, 72px);
+      line-height: 0.92;
+    }
+
+    .subtitle,
+    .clock-label,
+    .column-subtitle,
+    .sync {
+      color: var(--muted);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: clamp(14px, 1.4vw, 22px);
+      line-height: 1.35;
+    }
+
+    .clock {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .clock-time {
+      font-family: var(--font-head);
+      font-size: clamp(34px, 5vw, 70px);
+      font-weight: 950;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+    }
+
+    .clock-label {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      min-height: 0;
+    }
+
+    .column {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 620px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: linear-gradient(180deg, var(--panel), rgba(12, 2, 3, 0.92));
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .column::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.68;
+      background: radial-gradient(circle at top right, var(--column-glow), transparent 38%);
+    }
+
+    .column.preparing {
+      --column-glow: var(--glow-prep);
+      --column-line: var(--neon-yellow);
+    }
+
+    .column.ready {
+      --column-glow: var(--glow-ready);
+      --column-line: var(--neon-green);
+    }
+
+    .column.preparing::after {
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 230, 0, 0.34),
+        inset 0 0 28px rgba(255, 230, 0, 0.1),
+        0 0 26px rgba(255, 230, 0, 0.18);
+    }
+
+    .column.ready::after {
+      box-shadow:
+        inset 0 0 0 1px rgba(57, 255, 136, 0.34),
+        inset 0 0 28px rgba(57, 255, 136, 0.1),
+        0 0 28px rgba(57, 255, 136, 0.2);
+    }
+
+    .column-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .column-title {
+      display: grid;
+      gap: 8px;
+    }
+
+    h2 {
+      font-size: clamp(42px, 5.5vw, 92px);
+      line-height: 0.9;
+    }
+
+    .column.preparing h2 {
+      color: var(--prep);
+      text-shadow: 0 0 24px rgba(255, 230, 0, 0.34);
+    }
+
+    .column.ready h2 {
+      color: var(--ready);
+      text-shadow: 0 0 26px rgba(57, 255, 136, 0.36);
+    }
+
+    .column-subtitle {
+      font-size: clamp(15px, 1.6vw, 25px);
+      line-height: 1.35;
+    }
+
+    .count {
+      min-width: clamp(70px, 7vw, 110px);
+      height: clamp(70px, 7vw, 110px);
+      display: grid;
+      place-items: center;
+      border-radius: 28px;
+      color: #041018;
+      font-family: var(--font-head);
+      font-size: clamp(34px, 4vw, 66px);
+      font-weight: 950;
+      letter-spacing: -0.05em;
+      background: #ffffff;
+      box-shadow: inset 0 -8px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .preparing .count {
+      background: var(--prep);
+      box-shadow: 0 0 20px rgba(255, 230, 0, 0.28);
+    }
+
+    .ready .count {
+      background: var(--ready);
+      box-shadow: 0 0 20px rgba(57, 255, 136, 0.3);
+    }
+
+    .codes {
+      position: relative;
+      z-index: 1;
+      align-content: start;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      padding: 22px;
+    }
+
+    .code-card {
+      position: relative;
+      min-height: clamp(110px, 13vw, 190px);
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045));
+      box-shadow: 0 20px 46px rgba(0, 0, 0, 0.25), 0 0 18px rgba(255, 22, 13, 0.16);
+      animation: cardIn 0.28s ease both;
+    }
+
+    .code-card.ready {
+      border-color: rgba(57, 255, 136, 0.36);
+      background:
+        linear-gradient(180deg, rgba(57, 255, 136, 0.22), rgba(57, 255, 136, 0.08));
+    }
+
+    .code-card.fresh {
+      animation: cardIn 0.28s ease both, readyPulse 1.35s ease-in-out infinite;
+    }
+
+    .code {
+      font-family: var(--font-head);
+      font-size: clamp(44px, 7vw, 112px);
+      font-weight: 950;
+      letter-spacing: -0.08em;
+      line-height: 0.85;
+      text-transform: uppercase;
+    }
+
+    .code-card.ready .code {
+      color: var(--ready);
+      text-shadow: 0 0 32px rgba(57, 255, 136, 0.34);
+    }
+
+    .code-card.preparing .code {
+      color: var(--prep);
+      text-shadow: 0 0 30px rgba(255, 230, 0, 0.28);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      color: var(--muted);
+      text-align: center;
+      font-size: clamp(18px, 2vw, 30px);
+      line-height: 1.35;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .sync {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 6px;
+      font-size: 14px;
+    }
+
+    .sync-badge {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--text);
+      font-weight: 900;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sync-badge.ok {
+      color: #ffd5cc;
+      border-color: rgba(255, 42, 31, 0.34);
+      background: rgba(255, 42, 31, 0.12);
+    }
+
+    .sync-badge.warn {
+      color: #ffe19b;
+      border-color: rgba(255, 202, 95, 0.34);
+      background: rgba(255, 202, 95, 0.16);
+    }
+
+    .sync-badge.offline {
+      color: #ffd18c;
+      border-color: rgba(255, 202, 95, 0.3);
+      background: rgba(255, 202, 95, 0.12);
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes readyPulse {
+      0%,
+      100% {
+        box-shadow: 0 20px 46px rgba(0, 0, 0, 0.25), 0 0 0 rgba(57, 255, 136, 0);
+      }
+      50% {
+        box-shadow: 0 22px 52px rgba(0, 0, 0, 0.3), 0 0 42px rgba(57, 255, 136, 0.34);
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .topbar,
+      .board {
+        grid-template-columns: 1fr;
+      }
+
+      .clock {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .screen {
+        width: min(100% - 20px, 1920px);
+        padding: 10px 0 18px;
+      }
+
+      .topbar,
+      .column-head {
+        padding: 16px;
+      }
+
+      .brand-mark {
+        width: 58px;
+        height: 58px;
+      }
+
+      .column {
+        min-height: 420px;
+        border-radius: 26px;
+      }
+
+      .column-head {
+        align-items: center;
+      }
+
+      .codes {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 12px;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">DLV</div>
+        <div>
+          <h1>Заказы DLV</h1>
+          <div class="subtitle">Следите за номером заказа на экране. Когда он появится справа, можно забирать.</div>
+        </div>
+      </div>
+      <div class="clock" aria-label="Текущее время">
+        <div class="clock-time" id="clock">--:--</div>
+        <div class="clock-label" id="dateLabel">Сегодня</div>
+      </div>
+    </header>
+
+    <section class="board" aria-label="Экран статусов заказов">
+      <section class="column preparing">
+        <div class="column-head">
+          <div class="column-title">
+            <h2>Готовятся</h2>
+            <div class="column-subtitle">Позиции сейчас в работе</div>
+          </div>
+          <div class="count" id="preparingCount">0</div>
+        </div>
+        <div class="codes" id="preparingList"></div>
+      </section>
+
+      <section class="column ready">
+        <div class="column-head">
+          <div class="column-title">
+            <h2>Готово</h2>
+            <div class="column-subtitle">Заказы готовы к выдаче</div>
+          </div>
+          <div class="count" id="readyCount">0</div>
+        </div>
+        <div class="codes" id="readyList"></div>
+      </section>
+    </section>
+
+    <footer class="sync">
+      <span class="sync-badge" id="syncBadge">Запуск</span>
+      <span>Автообновление каждые 10 секунд</span>
+      <span>Последнее обновление: <b id="lastSync">--:--</b></span>
+    </footer>
+  </main>
+
+  <script>
+    const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
+    const LOCAL_API_BASE = `${window.location.origin}/api/local-orders`;
+    const LOCAL_EVENTS_URL = `${window.location.origin}/api/local-events`;
+    const ORDERS_KEY = "CD_ORDERS_V1";
+    const REFRESH_MS = 10000;
+    const FRESH_READY_MS = 4 * 60 * 1000;
+
+    const state = {
+      orders: [],
+      timer: null,
+      clockTimer: null,
+      liveReloadTimer: null,
+      eventSource: null,
+      renderCache: {}
+    };
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function normalizeStatus(value) {
+      const raw = String(value || "").trim().toUpperCase();
+      if (!raw || raw === "SENT" || raw === "FAILED") return "NEW";
+      if (raw === "CONFIRMED") return "COOKING";
+      if (raw === "COMPLETED" || raw === "DONE") return "HANDED";
+      if (raw === "READY") return "READY";
+      if (raw === "COOKING") return "COOKING";
+      if (raw === "CANCELLED") return "CANCELLED";
+      if (raw === "HANDED") return "HANDED";
+      return "NEW";
+    }
+
+    function normalizeOrder(raw) {
+      const code = String(raw.code || raw.order_code || raw.id || "").trim() || "local";
+      return {
+        id: String(raw.id || raw.order_id || code).trim(),
+        code,
+        status: normalizeStatus(raw.status),
+        created_at: raw.created_at || raw.createdAt || new Date().toISOString(),
+        updated_at: raw.updated_at || raw.updatedAt || raw.created_at || new Date().toISOString()
+      };
+    }
+
+    function loadLocalOrders() {
+      try {
+        return JSON.parse(localStorage.getItem(ORDERS_KEY) || "{}") || {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function ordersToMap(list) {
+      const map = {};
+      for (const order of list || []) {
+        const normalized = normalizeOrder(order);
+        map[normalized.code] = normalized;
+      }
+      return map;
+    }
+
+    function orderStamp(order) {
+      const stamp = new Date(order.updated_at || order.created_at).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
+    }
+
+    function mergeOrders(remoteOrders, localMap) {
+      const merged = new Map();
+      const localOrders = Object.values(localMap || {}).map(normalizeOrder);
+
+      for (const order of remoteOrders.map(normalizeOrder)) {
+        merged.set(order.code || order.id, order);
+      }
+
+      for (const localOrder of localOrders) {
+        const key = localOrder.code || localOrder.id;
+        if (!merged.has(key)) {
+          merged.set(key, localOrder);
+          continue;
+        }
+
+        const remoteOrder = merged.get(key);
+        const useLocal = orderStamp(localOrder) >= orderStamp(remoteOrder);
+        const primary = useLocal ? localOrder : remoteOrder;
+        const fallback = useLocal ? remoteOrder : localOrder;
+        merged.set(key, normalizeOrder({
+          ...fallback,
+          ...primary,
+          status: normalizeStatus(primary.status || fallback.status)
+        }));
+      }
+
+      return Array.from(merged.values()).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    }
+
+    async function fetchOrdersRemote() {
+      const response = await fetch(`${API_BASE}?action=get_orders`, { cache: "no-store" });
+      return response.json();
+    }
+
+    async function fetchOrdersLocalBridge() {
+      const response = await fetch(LOCAL_API_BASE, { cache: "no-store" });
+      return response.json();
+    }
+
+    function dateInputValue(value) {
+      const date = value instanceof Date ? value : new Date(value);
+      if (Number.isNaN(date.getTime())) return "";
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function todayActiveOrders() {
+      const today = dateInputValue(new Date());
+      return state.orders
+        .filter(order => dateInputValue(order.created_at) === today)
+        .filter(order => ["NEW", "COOKING", "READY"].includes(order.status));
+    }
+
+    function preparingOrders() {
+      return todayActiveOrders()
+        .filter(order => order.status === "NEW" || order.status === "COOKING")
+        .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    }
+
+    function readyOrders() {
+      return todayActiveOrders()
+        .filter(order => order.status === "READY")
+        .sort((a, b) => new Date(a.updated_at || a.created_at) - new Date(b.updated_at || b.created_at));
+    }
+
+    function isFreshReady(order) {
+      const stamp = new Date(order.updated_at || order.created_at).getTime();
+      return Number.isFinite(stamp) && Date.now() - stamp <= FRESH_READY_MS;
+    }
+
+    function renderCodeCard(order, mode) {
+      const freshClass = mode === "ready" && isFreshReady(order) ? " fresh" : "";
+      return `
+        <article class="code-card ${mode}${freshClass}">
+          <div class="code">${escapeHtml(order.code)}</div>
+        </article>
+      `;
+    }
+
+    function renderColumn(list, listId, countId, mode, emptyText) {
+      const wrap = $(listId);
+      $(countId).textContent = String(list.length);
+
+      const html = !list.length
+        ? `<div class="empty">${escapeHtml(emptyText)}</div>`
+        : list.map(order => renderCodeCard(order, mode)).join("");
+
+      if (state.renderCache[listId] === html) return;
+      state.renderCache[listId] = html;
+      wrap.innerHTML = html;
+    }
+
+    function renderAll() {
+      renderColumn(
+        preparingOrders(),
+        "#preparingList",
+        "#preparingCount",
+        "preparing",
+        "Сейчас нет заказов в работе."
+      );
+      renderColumn(
+        readyOrders(),
+        "#readyList",
+        "#readyCount",
+        "ready",
+        "Готовые заказы появятся здесь."
+      );
+    }
+
+    function setSync(mode, text) {
+      const badge = $("#syncBadge");
+      badge.className = `sync-badge ${mode}`;
+      badge.textContent = text;
+      $("#lastSync").textContent = new Date().toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+    }
+
+    async function loadOrders() {
+      const localMap = loadLocalOrders();
+      const [remoteResult, bridgeResult] = await Promise.allSettled([
+        fetchOrdersRemote(),
+        fetchOrdersLocalBridge()
+      ]);
+
+      const remoteData = remoteResult.status === "fulfilled" ? remoteResult.value : null;
+      const bridgeData = bridgeResult.status === "fulfilled" ? bridgeResult.value : null;
+      const remoteOrders = Array.isArray(remoteData?.orders) ? remoteData.orders : [];
+      const bridgeMap = ordersToMap(Array.isArray(bridgeData?.orders) ? bridgeData.orders : []);
+
+      state.orders = mergeOrders(mergeOrders(remoteOrders, bridgeMap), localMap);
+
+      const remoteOk = Array.isArray(remoteData?.orders);
+      const bridgeOk = Boolean(bridgeData?.ok);
+      setSync(remoteOk ? "ok" : bridgeOk ? "warn" : "offline", remoteOk ? "Sheets + Bridge" : bridgeOk ? "Bridge LAN" : "Локально");
+
+      renderAll();
+    }
+
+    function scheduleLiveReload(delay = 220) {
+      clearTimeout(state.liveReloadTimer);
+      state.liveReloadTimer = setTimeout(() => {
+        loadOrders();
+      }, delay);
+    }
+
+    function connectLocalEvents() {
+      if (!window.EventSource || !LOCAL_EVENTS_URL.startsWith("http")) return;
+      if (state.eventSource) state.eventSource.close();
+
+      const eventSource = new EventSource(LOCAL_EVENTS_URL);
+      state.eventSource = eventSource;
+      eventSource.addEventListener("orders_updated", () => scheduleLiveReload());
+      eventSource.addEventListener("ready", () => scheduleLiveReload(80));
+    }
+
+    function renderClock() {
+      const now = new Date();
+      $("#clock").textContent = now.toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+      $("#dateLabel").textContent = now.toLocaleDateString("ru-RU", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long"
+      });
+    }
+
+    function init() {
+      window.addEventListener("storage", event => {
+        if (event.key !== ORDERS_KEY) return;
+        state.orders = mergeOrders([], loadLocalOrders());
+        renderAll();
+      });
+      window.addEventListener("beforeunload", () => {
+        if (state.eventSource) state.eventSource.close();
+      });
+
+      renderClock();
+      connectLocalEvents();
+      loadOrders();
+      state.timer = setInterval(loadOrders, REFRESH_MS);
+      state.clockTimer = setInterval(renderClock, 1000);
+    }
+
+    init();
+  </script>
+  <script src="dlv_burger_menu.js"></script>
+</body>
+</html>

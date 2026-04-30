@@ -3,29 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d1022" />
+  <meta name="theme-color" content="#080101" />
   <title>DLV KASSA</title>
   <link rel="icon" href="logo.png" />
   <style>
     :root {
-      --bg: #080b17;
-      --bg-alt: #111631;
-      --panel: rgba(12, 18, 39, 0.82);
-      --panel-2: rgba(18, 25, 50, 0.92);
-      --panel-3: rgba(26, 35, 68, 0.95);
-      --line: rgba(255, 255, 255, 0.08);
-      --line-strong: rgba(255, 255, 255, 0.16);
-      --text: #eff4ff;
-      --muted: #98a7cb;
-      --accent: #6ae0ff;
-      --accent-2: #ff8e68;
+      --bg: #030000;
+      --bg-alt: #170101;
+      --panel: rgba(18, 1, 3, 0.9);
+      --panel-2: rgba(31, 4, 6, 0.96);
+      --panel-3: rgba(49, 6, 9, 0.97);
+      --line: rgba(255, 39, 28, 0.17);
+      --line-strong: rgba(255, 82, 58, 0.32);
+      --text: #fff3f0;
+      --muted: #d0a2a5;
+      --accent: #ff160d;
+      --accent-2: #ff7a24;
       --success: #37d483;
       --warn: #ffc55c;
-      --ready: #8ecbff;
+      --ready: #ff6f45;
       --danger: #ff6d7a;
-      --cash: #3ee199;
-      --card: #7fb3ff;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+      --cash: #ffb06f;
+      --card: #ff3b30;
+      --neon-red: rgba(255, 22, 13, 0.34);
+      --neon-amber: rgba(255, 122, 36, 0.22);
+      --shadow:
+        0 24px 70px rgba(0, 0, 0, 0.5),
+        0 0 30px var(--neon-red);
       --radius: 24px;
       --radius-sm: 16px;
       --font-head: "Space Grotesk", "Segoe UI", sans-serif;
@@ -42,9 +46,9 @@
       padding: 0;
       min-height: 100%;
       background:
-        radial-gradient(circle at top right, rgba(106, 224, 255, 0.18), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(255, 142, 104, 0.16), transparent 24%),
-        linear-gradient(180deg, #060915 0%, #0b1023 54%, #101831 100%);
+        linear-gradient(180deg, rgba(246, 18, 12, 0.5) 0%, rgba(118, 0, 6, 0.22) 34%, rgba(7, 0, 0, 0.9) 78%, #010000 100%),
+        radial-gradient(900px 560px at 100% 0%, rgba(255, 26, 13, 0.28), transparent 62%),
+        linear-gradient(180deg, #080000 0%, var(--bg) 54%, var(--bg-alt) 100%);
       color: var(--text);
       font-family: var(--font-body);
     }
@@ -53,26 +57,24 @@
     body::after {
       content: "";
       position: fixed;
-      inset: auto;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      filter: blur(90px);
+      inset: 0;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.5;
     }
 
     body::before {
-      top: -120px;
-      right: -140px;
-      background: rgba(106, 224, 255, 0.12);
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 38, 24, 0.07) 0 1px, transparent 1px 52px),
+        repeating-linear-gradient(180deg, rgba(255, 38, 24, 0.05) 0 1px, transparent 1px 42px),
+        repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 6px);
+      opacity: 0.62;
     }
 
     body::after {
-      bottom: -160px;
-      left: -150px;
-      background: rgba(255, 142, 104, 0.1);
+      background:
+        linear-gradient(180deg, transparent 0%, transparent 44%, rgba(0, 0, 0, 0.42) 74%, rgba(0, 0, 0, 0.9) 100%),
+        repeating-linear-gradient(90deg, transparent 0 19px, rgba(0, 0, 0, 0.14) 19px 20px);
+      opacity: 0.86;
     }
 
     button,
@@ -89,61 +91,22 @@
     .app {
       position: relative;
       z-index: 1;
-      display: grid;
-      grid-template-columns: 320px minmax(0, 1fr);
       min-height: 100vh;
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 0;
-      align-self: start;
-      height: 100vh;
-      padding: 24px;
-      border-right: 1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(10, 14, 28, 0.96), rgba(11, 17, 34, 0.92)),
-        rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(22px);
-      overflow-y: auto;
     }
 
     .main {
       padding: 24px;
     }
 
-    .brand {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-
-    .brand-mark {
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
-      background:
-        linear-gradient(135deg, rgba(106, 224, 255, 0.95), rgba(255, 142, 104, 0.92));
-      color: #04101a;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      font-family: var(--font-head);
-      letter-spacing: 0.08em;
-      box-shadow: var(--shadow);
-    }
-
-    .brand h1,
     .hero h2,
     .panel-head h3,
     .modal-head h3 {
       margin: 0;
       font-family: var(--font-head);
       letter-spacing: -0.03em;
+      text-shadow: 0 0 18px rgba(255, 22, 13, 0.22);
     }
 
-    .brand p,
     .hero p,
     .panel-subtitle,
     .helper,
@@ -154,45 +117,38 @@
       color: var(--muted);
     }
 
-    .brand p {
-      margin: 6px 0 0;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .stage-rail {
-      display: grid;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .stage-chip {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-    }
-
-    .stage-chip strong {
-      font-size: 14px;
-    }
-
-    .stage-chip span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
     .side-card,
     .panel,
     .stat {
+      position: relative;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), inset 0 0 22px rgba(255, 22, 13, 0.04);
+    }
+
+    .side-card::after,
+    .panel::after,
+    .stat::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 92, 70, 0.2),
+        inset 0 0 20px rgba(255, 22, 13, 0.08),
+        0 0 22px rgba(255, 22, 13, 0.1);
+      opacity: 0.72;
+      z-index: 0;
+    }
+
+    .side-card > *,
+    .panel > *,
+    .stat > * {
+      position: relative;
+      z-index: 1;
     }
 
     .side-card {
@@ -229,6 +185,72 @@
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.06);
       font-size: 13px;
+    }
+
+    .inventory-copy {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .inventory-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .inventory-meta {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .inventory-values {
+      min-width: 120px;
+      display: grid;
+      gap: 6px;
+      justify-items: end;
+      text-align: right;
+    }
+
+    .inventory-remaining {
+      font-size: 22px;
+      font-weight: 900;
+      font-family: var(--font-head);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .inventory-remaining.ok {
+      color: #8ef1bc;
+    }
+
+    .inventory-remaining.warn {
+      color: #ffe29f;
+    }
+
+    .inventory-remaining.danger {
+      color: #ffb0b8;
+    }
+
+    .stock-note {
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .stock-note.ok {
+      color: #8ef1bc;
+    }
+
+    .stock-note.warn {
+      color: #ffe29f;
+    }
+
+    .stock-note.danger {
+      color: #ffb0b8;
     }
 
     .sync-pill,
@@ -274,9 +296,9 @@
       border-radius: 30px;
       border: 1px solid rgba(255,255,255,0.08);
       background:
-        linear-gradient(135deg, rgba(106, 224, 255, 0.08), transparent 40%),
-        linear-gradient(160deg, rgba(255, 142, 104, 0.08), transparent 50%),
-        linear-gradient(180deg, rgba(15, 20, 42, 0.95), rgba(12, 18, 37, 0.92));
+        linear-gradient(135deg, rgba(255, 42, 31, 0.13), transparent 42%),
+        linear-gradient(160deg, rgba(255, 138, 54, 0.1), transparent 50%),
+        linear-gradient(180deg, rgba(31, 5, 8, 0.96), rgba(14, 2, 3, 0.94));
       box-shadow: var(--shadow);
       flex-wrap: wrap;
     }
@@ -313,26 +335,36 @@
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22), 0 0 18px rgba(255, 22, 13, 0.2);
     }
 
     .btn:active {
       transform: translateY(0);
     }
 
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
     .btn.primary {
       color: #04101a;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 20px rgba(255, 22, 13, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.22);
     }
 
     .btn.secondary {
       background: rgba(255,255,255,0.06);
       border: 1px solid var(--line);
+      box-shadow: inset 0 0 14px rgba(255, 22, 13, 0.06), 0 0 12px rgba(255, 22, 13, 0.08);
     }
 
     .btn.ghost {
       background: transparent;
       border: 1px solid var(--line);
+      box-shadow: inset 0 0 12px rgba(255, 22, 13, 0.04);
     }
 
     .btn.danger {
@@ -347,6 +379,81 @@
       padding: 8px 12px;
       font-size: 12px;
       font-weight: 800;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    body.locked .app {
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .auth-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 42, 31, 0.2), transparent 34%),
+        radial-gradient(circle at 80% 75%, rgba(255, 138, 54, 0.16), transparent 30%),
+        rgba(8, 1, 2, 0.94);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    body.unlocked .auth-screen {
+      display: none;
+    }
+
+    .auth-card {
+      width: min(440px, 100%);
+      display: grid;
+      gap: 16px;
+      padding: 26px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background:
+        linear-gradient(160deg, rgba(255, 42, 31, 0.12), transparent 44%),
+        linear-gradient(180deg, rgba(29, 5, 8, 0.97), rgba(10, 1, 2, 0.97));
+      box-shadow: var(--shadow);
+    }
+
+    .auth-mark {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      color: #04101a;
+      font-weight: 900;
+      font-family: var(--font-head);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .auth-copy h1 {
+      margin: 0;
+      font-size: 30px;
+      font-family: var(--font-head);
+      letter-spacing: -0.04em;
+    }
+
+    .auth-copy p,
+    .auth-error {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .auth-error {
+      min-height: 22px;
+      color: #ffb0b8;
+      font-size: 13px;
     }
 
     .stats {
@@ -464,8 +571,9 @@
     .input:focus,
     .select:focus,
     .textarea:focus {
-      border-color: rgba(106, 224, 255, 0.55);
+      border-color: rgba(255, 68, 48, 0.58);
       background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 0 3px rgba(255, 22, 13, 0.1), 0 0 18px rgba(255, 22, 13, 0.16);
     }
 
     .textarea {
@@ -511,18 +619,64 @@
 
     .orders-grid {
       display: grid;
-      gap: 14px;
+      gap: 10px;
     }
 
     .order-card {
-      border-radius: 22px;
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.08);
       background:
         linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
-      padding: 16px;
+      padding: 12px 14px;
       display: grid;
-      gap: 14px;
+      gap: 10px;
       animation: cardIn 0.28s ease;
+    }
+
+    .order-card.cancelled-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(255, 109, 122, 0.34);
+      background:
+        linear-gradient(180deg, rgba(255, 109, 122, 0.12), rgba(255, 109, 122, 0.05)),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+    }
+
+    .order-card.payment-unknown-card {
+      border-color: rgba(255, 109, 122, 0.48);
+      background:
+        linear-gradient(180deg, rgba(255, 109, 122, 0.2), rgba(255, 109, 122, 0.08)),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      box-shadow: 0 24px 70px rgba(255, 109, 122, 0.16);
+    }
+
+    .order-card.cancelled-card::before,
+    .order-card.cancelled-card::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      top: 50%;
+      width: 120%;
+      height: 5px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 2;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(255, 109, 122, 0.95) 12%, rgba(255, 109, 122, 0.95) 88%, transparent 100%);
+      box-shadow: 0 0 18px rgba(255, 109, 122, 0.35);
+    }
+
+    .order-card.cancelled-card::before {
+      transform: translateY(-50%) rotate(20deg);
+    }
+
+    .order-card.cancelled-card::after {
+      transform: translateY(-50%) rotate(-20deg);
+    }
+
+    .order-card.cancelled-card > * {
+      position: relative;
+      z-index: 1;
     }
 
     @keyframes cardIn {
@@ -539,7 +693,7 @@
     .order-top {
       display: flex;
       justify-content: space-between;
-      gap: 14px;
+      gap: 10px;
       align-items: flex-start;
       flex-wrap: wrap;
     }
@@ -549,11 +703,11 @@
       gap: 8px;
       align-items: center;
       flex-wrap: wrap;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     .order-id strong {
-      font-size: 20px;
+      font-size: 18px;
       font-family: var(--font-head);
     }
 
@@ -564,9 +718,9 @@
     }
 
     .status-badge.new {
-      background: rgba(106, 224, 255, 0.14);
+      background: rgba(255, 42, 31, 0.15);
       color: #9befff;
-      border: 1px solid rgba(106, 224, 255, 0.22);
+      border: 1px solid rgba(255, 42, 31, 0.24);
     }
 
     .status-badge.cooking {
@@ -612,9 +766,9 @@
     }
 
     .payment-badge.unknown {
-      background: rgba(255,255,255,0.08);
-      color: #dbe5ff;
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 109, 122, 0.18);
+      color: #ffccd2;
+      border: 1px solid rgba(255, 109, 122, 0.32);
     }
 
     .source-badge {
@@ -625,31 +779,38 @@
 
     .order-meta {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.45;
     }
 
     .order-items {
       display: grid;
-      gap: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
+      gap: 0;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
     }
 
     .order-stage,
     .order-total-row,
     .order-line-block {
       display: grid;
-      gap: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.04);
+      gap: 8px;
+      padding: 0;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .order-stage,
+    .payment-editor,
+    .order-total-row {
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.07);
     }
 
     .order-stage-head,
@@ -664,71 +825,65 @@
     .order-stage-copy,
     .order-total-copy {
       display: grid;
-      gap: 4px;
+      gap: 2px;
     }
 
     .order-stage-copy strong,
     .order-total-copy strong {
-      font-size: 26px;
+      font-size: 22px;
       font-family: var(--font-head);
       letter-spacing: -0.04em;
     }
 
     .order-stage-copy .muted,
     .order-total-copy .muted {
-      font-size: 13px;
+      font-size: 12px;
     }
 
     .item-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
+      display: block;
+      gap: 0;
       align-items: start;
     }
 
     .order-line-main {
       display: grid;
-      gap: 6px;
+      gap: 4px;
     }
 
     .item-row strong {
       display: inline-block;
-      margin-bottom: 4px;
-    }
-
-    .order-line-price {
-      font-size: 18px;
-      font-weight: 900;
-      font-family: var(--font-head);
-      letter-spacing: -0.03em;
-      white-space: nowrap;
+      margin-bottom: 0;
     }
 
     .item-note,
     .order-comment,
     .sync-note {
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.04);
+      padding: 0;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.5;
     }
 
     .order-comment strong {
       color: var(--text);
-      display: block;
-      margin-bottom: 4px;
+      display: inline;
+      margin-bottom: 0;
+      margin-right: 6px;
     }
 
     .payment-editor {
       display: grid;
-      gap: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.04);
+      gap: 8px;
+      padding-top: 8px;
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+      background: transparent;
     }
 
     .payment-summary {
@@ -738,9 +893,9 @@
     }
 
     .payment-line {
-      border-radius: 14px;
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.04);
+      border-radius: 12px;
+      padding: 8px 10px;
+      background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.06);
       display: flex;
       justify-content: space-between;
@@ -752,7 +907,7 @@
 
     .payment-line strong {
       color: var(--text);
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .payment-grid {
@@ -774,7 +929,7 @@
     .payment-actions {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
       flex-wrap: wrap;
     }
@@ -803,7 +958,7 @@
 
     .status-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
@@ -814,20 +969,20 @@
     }
 
     .status-actions.compact .status-btn {
-      min-height: 32px;
-      padding: 7px 10px;
+      min-height: 28px;
+      padding: 5px 8px;
       border-radius: 10px;
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .status-btn {
-      min-height: 38px;
-      padding: 9px 12px;
-      border-radius: 12px;
+      min-height: 32px;
+      padding: 7px 10px;
+      border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.05);
       color: var(--text);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
     }
 
@@ -835,6 +990,16 @@
       border-color: transparent;
       color: #04101a;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .order-line-block {
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.08);
+    }
+
+    .order-line-block:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
     }
 
     .status-btn[data-update-status="CANCELLED"]:not(.active) {
@@ -926,6 +1091,31 @@
       gap: 10px;
     }
 
+    .report-tools {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .report-lang-toggle {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .report-lang-toggle .toggle-btn {
+      min-height: 34px;
+      padding: 7px 11px;
+      border-radius: 12px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
     .report-table-wrap {
       overflow: auto;
       border-radius: 22px;
@@ -982,6 +1172,29 @@
       color: #33415f;
     }
 
+    .report-comment-input {
+      width: 100%;
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 1px solid rgba(16, 24, 47, 0.22);
+      border-radius: 10px;
+      color: #10182f;
+      background: #ffffff;
+      font: inherit;
+      line-height: 1.35;
+      resize: vertical;
+    }
+
+    .report-comment-input:focus {
+      outline: 2px solid rgba(255, 59, 48, 0.36);
+      border-color: rgba(255, 59, 48, 0.58);
+      box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.12);
+    }
+
+    .report-comment-input::placeholder {
+      color: #8c98ad;
+    }
+
     .report-table td.type-cell,
     .report-table td.status-cell,
     .report-table td.time-cell {
@@ -992,11 +1205,55 @@
       color: #8391af;
     }
 
-    .report-table tbody tr:nth-child(even) td {
-      background: #ececec;
+    .report-table tbody tr.report-order-row td {
+      padding: 10px 14px;
+      background: #dfeaff;
+      border-top: 3px solid #10182f;
+      border-bottom-width: 0;
+      font-weight: 800;
     }
 
-    .report-table tbody tr:hover td {
+    .report-table tbody tr.report-order-row.alt td {
+      background: #e7edf7;
+    }
+
+    .report-order-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .report-order-meta strong {
+      font-family: var(--font-head);
+      font-size: 14px;
+      color: #10182f;
+    }
+
+    .report-order-meta span {
+      font-size: 12px;
+      font-weight: 700;
+      color: #33415f;
+      white-space: nowrap;
+    }
+
+    .report-table tbody tr.report-item-row td {
+      background: #ffffff;
+    }
+
+    .report-table tbody tr.report-item-row.alt td {
+      background: #f2f3f6;
+    }
+
+    .report-table tbody tr.report-item-row.group-first td {
+      border-top-width: 0;
+    }
+
+    .report-table tbody tr.report-item-row.group-last td {
+      border-bottom-width: 2px;
+    }
+
+    .report-table tbody tr.report-item-row:hover td {
       background: #dfeaff;
     }
 
@@ -1105,9 +1362,9 @@
       display: flex;
       justify-content: space-between;
       gap: 16px;
+      align-items: flex-start;
       padding: 20px 22px 16px;
       border-bottom: 1px solid var(--line);
-      flex-wrap: wrap;
     }
 
     .modal-head h3 {
@@ -1121,11 +1378,118 @@
       line-height: 1.5;
     }
 
+    .modal-head-copy {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .modal-close-btn {
+      width: 46px;
+      min-width: 46px;
+      min-height: 46px;
+      padding: 0;
+      border-radius: 16px;
+      font-size: 28px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
     .modal-body {
       padding: 18px 22px 22px;
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 18px;
+    }
+
+    .manual-order-panel {
+      border-color: rgba(255, 92, 70, 0.28);
+      background:
+        linear-gradient(180deg, rgba(28, 2, 5, 0.9), rgba(12, 1, 3, 0.9));
+      box-shadow:
+        0 0 32px rgba(255, 22, 13, 0.14),
+        inset 0 0 24px rgba(255, 22, 13, 0.07);
+    }
+
+    .manual-order-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+      gap: 14px;
+      padding: 16px;
+    }
+
+    .manual-section {
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 92, 70, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.018));
+      box-shadow: inset 0 0 24px rgba(255, 22, 13, 0.045);
+    }
+
+    .manual-params-section {
+      align-self: start;
+    }
+
+    .manual-order-layout .manual-summary {
+      grid-template-columns: 1fr;
+      align-content: start;
+    }
+
+    .order-draft-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      margin-left: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 122, 36, 0.36);
+      color: #ffd6bc;
+      background: rgba(255, 92, 70, 0.1);
+      box-shadow: 0 0 18px rgba(255, 22, 13, 0.2);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      vertical-align: middle;
+    }
+
+    .modal-footer {
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 22px 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(10, 15, 31, 0.88), rgba(10, 15, 31, 0.98));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .manual-submit-copy {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .manual-submit-copy .k {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .manual-submit-copy .v {
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .manual-submit-btn {
+      min-width: 260px;
+      min-height: 54px;
+      padding-inline: 22px;
+      flex: 0 0 auto;
     }
 
     .form-grid {
@@ -1181,6 +1545,10 @@
       gap: 10px;
     }
 
+    .manual-builder-home:empty {
+      display: none;
+    }
+
     .menu-result,
     .manual-item {
       display: grid;
@@ -1189,6 +1557,21 @@
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.07);
       background: rgba(255,255,255,0.04);
+    }
+
+    .menu-result.expanded {
+      padding: 0;
+      border-color: rgba(255, 92, 70, 0.28);
+      background: transparent;
+      box-shadow: 0 0 28px rgba(255, 22, 13, 0.12);
+    }
+
+    .menu-result-builder-slot {
+      display: grid;
+    }
+
+    .menu-result.expanded .modifier-builder {
+      border-radius: 22px;
     }
 
     .menu-result-top,
@@ -1220,6 +1603,264 @@
       align-items: start;
     }
 
+    .modifier-builder {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      position: relative;
+      box-shadow:
+        inset 0 0 24px rgba(255, 22, 13, 0.08),
+        0 0 24px rgba(255, 22, 13, 0.08);
+    }
+
+    .modifier-builder-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .modifier-builder-copy {
+      display: grid;
+      gap: 4px;
+    }
+
+    .modifier-builder-copy strong {
+      font-size: 18px;
+      font-family: var(--font-head);
+      letter-spacing: -0.03em;
+    }
+
+    .modifier-builder-copy span,
+    .modifier-builder-copy .meta {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .modifier-groups {
+      display: grid;
+      gap: 12px;
+    }
+
+    .modifier-group {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .modifier-group-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .modifier-group-head strong {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .modifier-options {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .modifier-option {
+      min-height: 36px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .modifier-option.active {
+      color: #04101a;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .modifier-actions {
+      position: sticky;
+      bottom: 10px;
+      z-index: 6;
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      grid-template-areas:
+        "qty preview"
+        "add add";
+      gap: 10px;
+      align-items: stretch;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 92, 70, 0.24);
+      background:
+        linear-gradient(180deg, rgba(27, 3, 5, 0.94), rgba(9, 1, 2, 0.97));
+      box-shadow:
+        0 -14px 36px rgba(0, 0, 0, 0.38),
+        0 0 24px rgba(255, 22, 13, 0.16),
+        inset 0 0 18px rgba(255, 22, 13, 0.06);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .modifier-actions .field {
+      grid-area: qty;
+    }
+
+    .modifier-actions > .modifier-preview {
+      grid-area: preview;
+      min-height: 100%;
+    }
+
+    .modifier-actions #addConfiguredItemBtn {
+      grid-area: add;
+      width: 100%;
+      min-height: 58px;
+      justify-content: center;
+      border-radius: 16px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      box-shadow:
+        0 0 18px rgba(255, 22, 13, 0.36),
+        0 0 42px rgba(255, 92, 70, 0.22),
+        inset 0 0 16px rgba(255, 255, 255, 0.12);
+    }
+
+    .modifier-quick-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: stretch;
+      padding: 12px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 92, 70, 0.3);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(255, 122, 36, 0.16), transparent 42%),
+        linear-gradient(135deg, rgba(46, 5, 8, 0.94), rgba(16, 1, 4, 0.96));
+      box-shadow:
+        0 0 30px rgba(255, 22, 13, 0.18),
+        inset 0 0 24px rgba(255, 22, 13, 0.08);
+    }
+
+    .modifier-quick-card .modifier-preview {
+      min-height: 112px;
+      justify-content: center;
+      border-style: dashed;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .modifier-code-xl {
+      display: block;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 18px rgba(255, 22, 13, 0.42),
+        0 0 34px rgba(255, 122, 36, 0.22);
+    }
+
+    .modifier-quick-actions {
+      display: grid;
+      grid-template-columns: 84px 68px 96px;
+      gap: 8px;
+      align-items: stretch;
+      min-width: 260px;
+    }
+
+    .modifier-qty-field {
+      min-width: 0;
+    }
+
+    .modifier-qty-field span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .modifier-qty-field .input {
+      height: 100%;
+      min-height: 58px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .modifier-plus-btn,
+    .modifier-edit-btn {
+      min-height: 58px;
+      justify-content: center;
+      border-radius: 17px;
+    }
+
+    .modifier-plus-btn {
+      padding: 0;
+      font-size: 30px;
+      line-height: 1;
+      box-shadow:
+        0 0 22px rgba(255, 22, 13, 0.42),
+        0 0 48px rgba(255, 122, 36, 0.24);
+    }
+
+    .modifier-edit-btn {
+      letter-spacing: 0.08em;
+    }
+
+    .modifier-builder.editing .modifier-edit-btn {
+      color: #080100;
+      border-color: transparent;
+      background: linear-gradient(135deg, #ffd45f, #ff7a24);
+      box-shadow: 0 0 24px rgba(255, 196, 58, 0.28);
+    }
+
+    .modifier-editor-panel {
+      display: none;
+      gap: 12px;
+    }
+
+    .modifier-builder.editing .modifier-editor-panel {
+      display: grid;
+    }
+
+    .modifier-total-preview {
+      border-color: rgba(255, 122, 36, 0.22);
+      background: rgba(255, 122, 36, 0.06);
+    }
+
+    .modifier-preview {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .modifier-preview strong {
+      font-size: 16px;
+      font-family: var(--font-head);
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    .modifier-preview .meta {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
     .qty-box {
       display: inline-flex;
       align-items: center;
@@ -1248,15 +1889,30 @@
 
     .manual-summary {
       display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(290px, 0.42fr);
       gap: 12px;
       align-content: start;
     }
 
     .summary-box {
       border-radius: 22px;
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.04);
+      padding: 18px;
+      border: 1px solid rgba(255, 92, 70, 0.25);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255, 122, 36, 0.12), transparent 42%),
+        linear-gradient(180deg, rgba(31, 4, 6, 0.94), rgba(12, 1, 3, 0.96));
+      box-shadow:
+        0 0 30px rgba(255, 22, 13, 0.14),
+        inset 0 0 20px rgba(255, 22, 13, 0.06);
+    }
+
+    .summary-title {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
     }
 
     .summary-line {
@@ -1271,9 +1927,18 @@
       margin-top: 8px;
       padding-top: 14px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 900;
       font-family: var(--font-head);
+    }
+
+    .summary-line.total strong {
+      color: #fff7ef;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1;
+      text-shadow:
+        0 0 18px rgba(255, 22, 13, 0.5),
+        0 0 34px rgba(255, 122, 36, 0.22);
     }
 
     .hidden {
@@ -1295,17 +1960,6 @@
     }
 
     @media (max-width: 1080px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        position: static;
-        height: auto;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
       .filters {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
@@ -1318,14 +1972,40 @@
         grid-template-columns: 1fr;
       }
 
+      .modal-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .manual-submit-btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .manual-order-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .manual-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .modifier-quick-card {
+        grid-template-columns: 1fr;
+      }
+
+      .modifier-quick-actions {
+        min-width: 0;
+        grid-template-columns: minmax(82px, 0.8fr) minmax(64px, 0.6fr) minmax(92px, 1fr);
+      }
+
       .report-summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 760px) {
-      .main,
-      .sidebar {
+      .main {
         padding: 14px;
       }
 
@@ -1336,6 +2016,10 @@
         padding-right: 14px;
       }
 
+      .manual-order-layout {
+        padding: 12px;
+      }
+
       .stats,
       .date-toolbar,
       .filters,
@@ -1343,8 +2027,25 @@
       .payment-summary,
       .payment-grid,
       .form-grid,
-      .manual-item-controls {
+      .manual-item-controls,
+      .modifier-actions {
         grid-template-columns: 1fr;
+      }
+
+      .modifier-actions {
+        bottom: 8px;
+        grid-template-areas:
+          "qty"
+          "preview"
+          "add";
+      }
+
+      .modifier-quick-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .modifier-qty-field {
+        grid-column: 1 / -1;
       }
 
       .hero h2 {
@@ -1361,43 +2062,21 @@
     }
   </style>
 </head>
-<body>
+<body class="locked">
+  <section class="auth-screen" id="authScreen" aria-label="PIN кассы">
+    <form class="auth-card" id="pinForm" autocomplete="off">
+      <div class="auth-mark">DLV</div>
+      <div class="auth-copy">
+        <h1>Вход в кассу</h1>
+        <p>Введите PIN кассира, чтобы открыть заказы, оплату и смену.</p>
+      </div>
+      <input class="input" id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="PIN / пароль" aria-label="PIN кассы" />
+      <button class="btn primary" type="submit">Открыть кассу</button>
+      <div class="auth-error" id="pinError" aria-live="polite"></div>
+    </form>
+  </section>
+
   <div class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">DLV</div>
-        <div>
-          <h1>DLV KASSA</h1>
-          <p>Рабочая панель кассира: касса, кухня, клиент, ручные заказы и синк с DLV.</p>
-        </div>
-      </div>
-
-      <div class="stage-rail">
-        <div class="stage-chip">
-          <div>
-            <strong>KASSA</strong>
-            <span>прием и оплата</span>
-          </div>
-          <span id="railNewCount">0</span>
-        </div>
-        <div class="stage-chip">
-          <div>
-            <strong>KUHNYA</strong>
-            <span>готовится / готово</span>
-          </div>
-          <span id="railKitchenCount">0</span>
-        </div>
-        <div class="stage-chip">
-          <div>
-            <strong>KLIENT</strong>
-            <span>выдано / связь</span>
-          </div>
-          <span id="railClientCount">0</span>
-        </div>
-      </div>
-
-    </aside>
-
     <main class="main">
       <section class="hero">
         <div class="hero-copy">
@@ -1407,8 +2086,12 @@
         <div class="hero-actions">
           <button class="btn secondary" id="refreshBtn">Обновить</button>
           <button class="btn primary" id="openManualBtn">+ Ручной заказ</button>
+          <a class="btn secondary" href="VIEW.html">Client View</a>
+          <a class="btn secondary" href="MONITOR.html">Monitor</a>
           <a class="btn secondary" href="contron.html">Contron Panel</a>
+          <button class="btn secondary" id="sendScreenshotBtn" type="button">Full screenshot в VN</button>
           <button class="btn ghost" id="clearCacheBtn">Очистить всё (кэш)</button>
+          <button class="btn ghost" id="lockKassaBtn">Выйти</button>
         </div>
       </section>
 
@@ -1472,7 +2155,7 @@
             <option value="cash">Наличные</option>
             <option value="card">Карта</option>
             <option value="split">Смешанная</option>
-            <option value="unknown">Не указано</option>
+            <option value="unknown">ХЗ</option>
           </select>
           <select class="select" id="sourceFilter">
             <option value="">Все источники</option>
@@ -1553,6 +2236,12 @@
               <strong id="shiftExpectedCash">0 грн</strong>
             </div>
 
+            <section class="side-card">
+              <h3>Автоостаток по складу</h3>
+              <p>Заготовка берется из `contron.html`, продажи из кассы списываются автоматически. Остаток порций пересчитывается без ручной математики.</p>
+              <div class="sync-list" id="inventoryPoolList"></div>
+            </section>
+
             <div class="shift-controls">
               <div class="shift-row">
                 <label class="helper" for="shiftOpeningCashInput">Стартовая наличность</label>
@@ -1580,51 +2269,47 @@
       <section class="panel report-panel">
         <div class="panel-head">
           <div>
-            <h3>Отчёт завершения дня</h3>
-            <p>Каждая строка = отдельная позиция по выбранной дате. Отменённые заказы в таблицу не попадают.</p>
+            <h3 id="dailyReportTitle">Báo cáo cuối ngày</h3>
+            <p id="dailyReportDescription">Mỗi dòng là một món theo ngày đã chọn. Đơn đã hủy không vào bảng.</p>
           </div>
-          <div class="hero-actions">
-            <div class="panel-subtitle" id="dailyReportLabel">Сегодня • 0 строк</div>
-            <button class="btn secondary small" id="copyReportBtn">Скопировать TSV</button>
+          <div class="report-tools">
+            <div class="panel-subtitle" id="dailyReportLabel">Hôm nay • 0 dòng</div>
+            <div class="report-lang-toggle" id="reportLangToggle" aria-label="Report language">
+              <button class="toggle-btn active" type="button" data-report-lang="vn">VN</button>
+              <button class="toggle-btn" type="button" data-report-lang="ru">RU</button>
+            </div>
+            <button class="btn secondary small" id="reportScreenshotBtn" type="button">Full screenshot</button>
+            <button class="btn secondary small" id="copyReportBtn">Sao chép TSV</button>
           </div>
         </div>
         <div class="panel-body panel-stack">
           <div class="report-summary">
             <div class="mini-card">
-              <div class="k">Заказов</div>
+              <div class="k" id="reportOrdersLabel">Đơn</div>
               <div class="v" id="reportOrdersCount">0</div>
             </div>
             <div class="mini-card">
-              <div class="k">Порций</div>
+              <div class="k" id="reportQtyLabel">Phần</div>
               <div class="v" id="reportQtyTotal">0</div>
             </div>
             <div class="mini-card">
-              <div class="k">Card</div>
-              <div class="v" id="reportCardTotal">0 грн</div>
+              <div class="k" id="reportCardLabel">Thẻ</div>
+              <div class="v" id="reportCardTotal">0 UAH</div>
             </div>
             <div class="mini-card">
-              <div class="k">Cash</div>
-              <div class="v" id="reportCashTotal">0 грн</div>
+              <div class="k" id="reportCashLabel">Tiền mặt</div>
+              <div class="v" id="reportCashTotal">0 UAH</div>
             </div>
             <div class="mini-card">
-              <div class="k">Оборот</div>
-              <div class="v" id="reportPriceTotal">0 грн</div>
+              <div class="k" id="reportTurnoverLabel">Doanh thu</div>
+              <div class="v" id="reportPriceTotal">0 UAH</div>
             </div>
           </div>
 
           <div class="report-table-wrap">
             <table class="report-table">
               <thead>
-                <tr>
-                  <th>CODE</th>
-                  <th>takeaway/Eat in</th>
-                  <th>NAME</th>
-                  <th>koment</th>
-                  <th class="num">CARD</th>
-                  <th class="num">CASH</th>
-                  <th>status</th>
-                  <th>time</th>
-                </tr>
+                <tr id="dailyReportHead"></tr>
               </thead>
               <tbody id="dailyReportBody"></tbody>
               <tfoot id="dailyReportFoot"></tfoot>
@@ -1638,140 +2323,195 @@
   <div class="modal" id="manualModal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-head">
-        <div>
+        <div class="modal-head-copy">
           <h3>Ручной заказ</h3>
           <p>Добавь реальные блюда из DLV по коду или названию, выбери тип заказа и оплату, укажи телефон/комментарий и сразу отправь заказ в Google Sheets + Telegram.</p>
         </div>
-        <div class="hero-actions">
-          <button class="btn secondary" id="closeManualBtn">Закрыть</button>
-          <button class="btn primary" id="submitManualOrderBtn">Создать заказ</button>
-        </div>
+        <button class="btn secondary modal-close-btn" id="closeManualBtn" type="button" aria-label="Закрыть ручной заказ">×</button>
       </div>
 
       <div class="modal-body">
-        <section class="panel">
-          <div class="panel-head">
-            <div>
-              <h3>Параметры заказа</h3>
-              <p>Все поля сохраняются локально, а при доступном API уходят в Google Sheets и Telegram.</p>
-            </div>
-          </div>
-          <div class="panel-body panel-stack">
-            <div class="field">
-              <label>Тип заказа</label>
-              <div class="toggle-row" id="manualTypeToggle">
-                <button class="toggle-btn active" type="button" data-type="takeaway">На вынос</button>
-                <button class="toggle-btn" type="button" data-type="on_site">На месте</button>
-                <button class="toggle-btn" type="button" data-type="delivery">Доставка</button>
+        <section class="panel manual-order-panel">
+          <div class="manual-order-layout">
+            <section class="manual-section manual-params-section">
+              <div class="panel-head">
+                <div>
+                  <h3>Поиск блюда</h3>
+                  <p>Найди позицию по коду или названию. После «Выбрать» карточка раскроется прямо в списке.</p>
+                </div>
               </div>
-            </div>
+              <div class="panel-body panel-stack">
+                <div class="field">
+                  <label for="manualSearch">Поиск блюда по коду или названию</label>
+                  <input class="input" id="manualSearch" type="text" placeholder="Например: PBx, MXB, Фо, Miến..." />
+                </div>
 
-            <div class="field">
-              <label>Тип оплаты</label>
-              <div class="toggle-row" id="manualPaymentToggle">
-                <button class="toggle-btn active" type="button" data-payment="cash">Наличные</button>
-                <button class="toggle-btn" type="button" data-payment="card">Карта</button>
-                <button class="toggle-btn" type="button" data-payment="split">Смешанная</button>
+                <div class="menu-search">
+                  <div class="menu-results" id="manualSearchResults"></div>
+                </div>
               </div>
-            </div>
+            </section>
 
-            <div class="form-grid hidden" id="manualSplitFields">
-              <div class="field">
-                <label for="manualCashAmount">Cash edit</label>
-                <input class="input" id="manualCashAmount" type="number" min="0" step="0.01" value="0" />
-              </div>
-              <div class="field">
-                <label for="manualCardAmount">Card edit</label>
-                <input class="input" id="manualCardAmount" type="number" min="0" step="0.01" value="0" />
-              </div>
-            </div>
+            <aside class="manual-summary">
+              <section class="manual-section manual-compose-section">
+                <div class="panel-head">
+                  <div>
+                    <h3>Состав заказа <span class="order-draft-pill" id="manualDraftCode">#NEW</span></h3>
+                    <p>Параметры клиента, сборка блюда и уже добавленные позиции.</p>
+                  </div>
+                </div>
+                <div class="panel-body panel-stack">
+                  <div class="field">
+                    <label>Тип заказа</label>
+                    <div class="toggle-row" id="manualTypeToggle">
+                      <button class="toggle-btn active" type="button" data-type="takeaway">На вынос</button>
+                      <button class="toggle-btn" type="button" data-type="on_site">На месте</button>
+                      <button class="toggle-btn" type="button" data-type="delivery">Доставка</button>
+                    </div>
+                  </div>
 
-            <div class="form-grid">
-              <div class="field hidden" id="manualTableField">
-                <label for="manualTable">Стол</label>
-                <input class="input" id="manualTable" type="text" placeholder="Например, 4" />
-              </div>
-              <div class="field" id="manualPickupField">
-                <label for="manualPickup">Через сколько забрать</label>
-                <input class="input" id="manualPickup" type="number" min="0" step="5" placeholder="15" />
-              </div>
-              <div class="field full hidden" id="manualAddressField">
-                <label for="manualAddress">Адрес доставки</label>
-                <input class="input" id="manualAddress" type="text" placeholder="Город, улица, дом..." />
-              </div>
-              <div class="field">
-                <label for="manualPhone">Телефон клиента</label>
-                <input class="input" id="manualPhone" type="tel" placeholder="+380 63 000 00 00" />
-              </div>
-              <div class="field hidden" id="manualDeliveryFeeField">
-                <label for="manualDeliveryFee">Стоимость доставки</label>
-                <input class="input" id="manualDeliveryFee" type="number" min="0" step="1" value="50" />
-              </div>
-              <div class="field full">
-                <label for="manualComment">Комментарий по заказу</label>
-                <textarea class="textarea" id="manualComment" placeholder="Например: без кинзы, отдать сразу на кухню, клиент заберет через 20 минут..."></textarea>
-              </div>
-            </div>
+                  <div class="field">
+                    <label>Тип оплаты</label>
+                    <div class="toggle-row" id="manualPaymentToggle">
+                      <button class="toggle-btn active" type="button" data-payment="cash">Наличные</button>
+                      <button class="toggle-btn" type="button" data-payment="card">Карта</button>
+                      <button class="toggle-btn" type="button" data-payment="split">Смешанная</button>
+                      <button class="toggle-btn" type="button" data-payment="unknown">ХЗ</button>
+                    </div>
+                  </div>
 
-            <div class="field">
-              <label for="manualSearch">Поиск блюда по коду или названию</label>
-              <input class="input" id="manualSearch" type="text" placeholder="Например: PBx, MXB, Фо, Miến..." />
-            </div>
+                  <div class="form-grid hidden" id="manualSplitFields">
+                    <div class="field">
+                      <label for="manualCashAmount">Наличные</label>
+                      <input class="input" id="manualCashAmount" type="number" min="0" step="0.01" value="0" />
+                    </div>
+                    <div class="field">
+                      <label for="manualCardAmount">Карта</label>
+                      <input class="input" id="manualCardAmount" type="number" min="0" step="0.01" value="0" />
+                    </div>
+                  </div>
 
-            <div class="menu-search">
-              <div class="menu-results" id="manualSearchResults"></div>
-            </div>
+                  <div class="form-grid">
+                    <div class="field hidden" id="manualTableField">
+                      <label for="manualTable">Стол</label>
+                      <input class="input" id="manualTable" type="text" placeholder="Например, 4" />
+                    </div>
+                    <div class="field" id="manualPickupField">
+                      <label for="manualPickup">Через сколько забрать</label>
+                      <input class="input" id="manualPickup" type="number" min="0" step="5" placeholder="15" />
+                    </div>
+                    <div class="field full hidden" id="manualAddressField">
+                      <label for="manualAddress">Адрес доставки</label>
+                      <input class="input" id="manualAddress" type="text" placeholder="Город, улица, дом..." />
+                    </div>
+                    <div class="field">
+                      <label for="manualPhone">Телефон клиента</label>
+                      <input class="input" id="manualPhone" type="tel" placeholder="+380 63 000 00 00" />
+                    </div>
+                    <div class="field hidden" id="manualDeliveryFeeField">
+                      <label for="manualDeliveryFee">Стоимость доставки</label>
+                      <input class="input" id="manualDeliveryFee" type="number" min="0" step="1" value="50" />
+                    </div>
+                    <div class="field full">
+                      <label for="manualComment">Комментарий по заказу</label>
+                      <textarea class="textarea" id="manualComment" placeholder="Например: без кинзы, отдать сразу на кухню, клиент заберет через 20 минут..."></textarea>
+                    </div>
+                  </div>
+
+                  <div class="manual-builder-home" id="manualBuilderHome">
+                    <section class="modifier-builder hidden" id="manualModifierBuilder">
+                      <div class="modifier-builder-head">
+                        <div class="modifier-builder-copy">
+                          <strong id="manualModifierTitle">Выбери базовое блюдо</strong>
+                          <span id="manualModifierMeta">Сначала выбери базу, потом при необходимости открой EDIT для мяса, креветок, зелени или nem.</span>
+                        </div>
+                        <button class="btn small ghost" id="clearManualBuilderBtn" type="button">Сбросить</button>
+                      </div>
+
+                      <div class="modifier-quick-card">
+                        <div class="modifier-preview" id="manualModifierPreview"></div>
+                        <div class="modifier-quick-actions">
+                          <label class="field modifier-qty-field">
+                            <span>Qty</span>
+                            <input class="input" id="manualBuilderQtyInput" type="number" min="1" step="1" value="1" />
+                          </label>
+                          <button class="btn primary modifier-plus-btn" id="addConfiguredItemBtn" type="button" aria-label="Добавить позицию">+</button>
+                          <button class="btn secondary modifier-edit-btn" id="toggleBuilderEditBtn" type="button" aria-expanded="false">EDIT</button>
+                        </div>
+                      </div>
+
+                      <div class="modifier-editor-panel" id="manualModifierEditorPanel">
+                        <div class="modifier-groups" id="manualModifierGroups"></div>
+                        <div class="modifier-preview modifier-total-preview">
+                          <strong id="manualModifierCodePreview">—</strong>
+                          <div class="meta" id="manualModifierPricePreview">Выбери базовое блюдо, чтобы увидеть итоговую позицию.</div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="manual-items" id="manualItemsList"></div>
+                </div>
+              </section>
+
+              <section class="summary-box manual-section">
+                <div class="summary-title">Сумма</div>
+                <div class="summary-line">
+                  <span>Позиций</span>
+                  <strong id="manualItemsCount">0</strong>
+                </div>
+                <div class="summary-line">
+                  <span>Сумма блюд</span>
+                  <strong id="manualSubtotal">0 грн</strong>
+                </div>
+                <div class="summary-line">
+                  <span>Доставка</span>
+                  <strong id="manualDeliveryValue">0 грн</strong>
+                </div>
+                <div class="summary-line total">
+                  <span>Итого</span>
+                  <strong id="manualTotal">0 грн</strong>
+                </div>
+                <p class="modal-tip">После создания заказ сразу появится в списке. Если API временно не ответит, запись останется локально и не пропадет.</p>
+              </section>
+            </aside>
           </div>
         </section>
+      </div>
 
-        <aside class="manual-summary">
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <h3>Состав ручного заказа</h3>
-                <p>Каждой позиции можно поменять количество и комментарий.</p>
-              </div>
-            </div>
-            <div class="panel-body">
-              <div class="manual-items" id="manualItemsList"></div>
-            </div>
-          </section>
-
-          <section class="summary-box">
-            <div class="summary-line">
-              <span>Позиций</span>
-              <strong id="manualItemsCount">0</strong>
-            </div>
-            <div class="summary-line">
-              <span>Сумма блюд</span>
-              <strong id="manualSubtotal">0 грн</strong>
-            </div>
-            <div class="summary-line">
-              <span>Доставка</span>
-              <strong id="manualDeliveryValue">0 грн</strong>
-            </div>
-            <div class="summary-line total">
-              <span>Итого</span>
-              <strong id="manualTotal">0 грн</strong>
-            </div>
-            <p class="modal-tip">После создания заказ сразу появится в списке. Если API временно не ответит, запись останется локально и не пропадет.</p>
-          </section>
-        </aside>
+      <div class="modal-footer">
+        <div class="manual-submit-copy">
+          <span class="k">Быстрое действие</span>
+          <strong class="v" id="manualSubmitMeta">Добавь блюда, чтобы создать заказ</strong>
+        </div>
+        <button class="btn primary manual-submit-btn" id="submitManualOrderBtn" type="button" disabled>Создать заказ</button>
       </div>
     </div>
   </div>
 
-  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+  <div class="toast-wrap" id="toastWrap" aria-live="polite" data-html2canvas-ignore="true"></div>
 
   <script src="menu.js"></script>
+  <script src="dlv_kassa_modifier_logic.js"></script>
   <script>
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
+    const KASSA_PIN = "1990";
+    const KASSA_AUTH_KEY = "CD_KASSA_AUTH_V1";
     const CURRENCY = "грн";
     const ORDERS_KEY = "CD_ORDERS_V1";
     const SHIFT_KEY = "CD_KASSA_SHIFT_V1";
+    const REPORT_LANG_KEY = "CD_KASSA_REPORT_LANG_V1";
+    const REPORT_COMMENT_OVERRIDES_KEY = "CD_KASSA_REPORT_COMMENT_OVERRIDES_V1";
     const LAST_SYNC_KEY = "CD_KASSA_LAST_SYNC_V1";
+    const CONTRON_STORAGE_KEY = "DLV_CONTRON_PANEL_V2";
+    const STOCK_SUMMARY_KEY = "DLV_STOCK_SUMMARY_V1";
+    const LOCAL_API_BASE = `${window.location.origin}/api/local-orders`;
+    const LOCAL_EVENTS_URL = `${window.location.origin}/api/local-events`;
+    const SCREENSHOT_MODE = new URLSearchParams(window.location.search).get("screenshot") === "1";
+    const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
     const REFRESH_MS = 30000;
+    const SHEETS_RETRY_COOLDOWN_MS = 12000;
 
+    // TODO: Move Telegram token to backend proxy.
     const TG = {
       BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",
       CHAT_ID: "-1002283682762",
@@ -1796,8 +2536,8 @@
     const PAYMENT_META = {
       cash: { label: "Наличные", className: "cash" },
       card: { label: "Карта", className: "card" },
-      split: { label: "Cash + Card", className: "split" },
-      unknown: { label: "Не указано", className: "unknown" }
+      split: { label: "Наличные + Карта", className: "split" },
+      unknown: { label: "ХЗ", className: "unknown" }
     };
 
     const SOURCE_META = {
@@ -1805,21 +2545,163 @@
       cashier: "Касса"
     };
 
+    const REPORT_I18N = {
+      vn: {
+        title: "Báo cáo cuối ngày",
+        description: "Mỗi dòng là một món theo ngày đã chọn. Đơn đã hủy không vào bảng.",
+        copy: "Sao chép TSV",
+        copied: "Đã sao chép báo cáo TSV",
+        emptyCopy: "Không có dòng để sao chép",
+        copyError: "Không sao chép được báo cáo",
+        labels: {
+          orders: "Đơn",
+          portions: "Phần",
+          card: "Thẻ",
+          cash: "Tiền mặt",
+          turnover: "Doanh thu"
+        },
+        headers: ["Mã", "Mang đi / Ăn tại chỗ", "Tên món", "Ghi chú", "THẺ", "TIỀN MẶT", "Trạng thái", "Giờ"],
+        rowsWord: "dòng",
+        orderWord: "Đơn",
+        total: "TỔNG:",
+        emptyTitle: "Chưa có dữ liệu báo cáo",
+        emptyText: "Chọn ngày khác hoặc chờ đơn trong ngày hiện tại.",
+        commentPlaceholder: "Nhập ghi chú...",
+        today: "Hôm nay",
+        yesterday: "Hôm qua",
+        allDates: "Tất cả ngày",
+        deliveryName: "Phí giao hàng",
+        deliveryComment: "Phí giao hàng",
+        noItemsName: "Đơn không có món",
+        noItemsComment: "Chưa có danh sách món",
+        adjustmentName: "Điều chỉnh",
+        discountName: "Giảm giá / điều chỉnh",
+        adjustmentComment: "Đối chiếu tổng tiền đơn",
+        fallbackItem: "Món"
+      },
+      ru: {
+        title: "Отчёт завершения дня",
+        description: "Каждая строка = отдельная позиция по выбранной дате. Отменённые заказы в таблицу не попадают.",
+        copy: "Скопировать TSV",
+        copied: "Отчёт скопирован в TSV",
+        emptyCopy: "Нет строк для копирования в отчёт",
+        copyError: "Не удалось скопировать отчёт",
+        labels: {
+          orders: "Заказов",
+          portions: "Порций",
+          card: "Карта",
+          cash: "Наличные",
+          turnover: "Оборот"
+        },
+        headers: ["КОД", "На вынос / в зале", "Название", "Комментарий", "КАРТА", "НАЛИЧНЫЕ", "Статус", "Время"],
+        rowsWord: null,
+        orderWord: "Заказ",
+        total: "TOTAL:",
+        emptyTitle: "Нет данных для отчёта",
+        emptyText: "Выбери другую дату или дождись заказов за текущий день.",
+        commentPlaceholder: "Введите комментарий...",
+        today: "Сегодня",
+        yesterday: "Вчера",
+        allDates: "Все даты",
+        deliveryName: "Доставка",
+        deliveryComment: "Стоимость доставки",
+        noItemsName: "Заказ без позиций",
+        noItemsComment: "Позиции не переданы",
+        adjustmentName: "Корректировка",
+        discountName: "Скидка / корректировка",
+        adjustmentComment: "Сверка суммы заказа",
+        fallbackItem: "Позиция"
+      }
+    };
+
+    // Mix-блюда временно списываются из говядины, чтобы касса считала общий остаток
+    // из одной заготовки. Если кухня введет отдельный пул для mix, достаточно поменять
+    // этот словарь и соответствующие правила ниже.
+    const STOCK_CODE_POOL_OVERRIDES = {
+      PMIX: "beef",
+      MMIX: "beef",
+      MNMIX: "beef",
+      BMIX: "beef",
+      BSMIX: "beef",
+      MXMIX: "beef",
+      MIXMIX: "beef",
+      PXMIX: "beef",
+      CMIX: "beef",
+      CRMIX: "beef"
+    };
+
+    const STOCK_POOL_META = {
+      beef: {
+        label: "Говядина",
+        prep_matchers: ["говядина", "thit bo"],
+        item_matchers: ["говядин", "ялович"],
+        note: "PBx / BBx / BsB / CRB / Mix"
+      },
+      chicken: {
+        label: "Курица",
+        prep_matchers: ["курица", "thit ga"],
+        item_matchers: ["куриц", "курк"],
+        note: "PGx / BGx / MXG / CRG"
+      },
+      pork: {
+        label: "Свинина",
+        prep_matchers: ["свинина", "thit heo"],
+        item_matchers: ["свинин", "свини"],
+        note: "PLx / BLx / MXH / CRL"
+      },
+      shrimp: {
+        label: "Креветки",
+        prep_matchers: ["креветки", "tom"],
+        item_matchers: ["кревет"],
+        note: "PT / BT / MXT / CRT"
+      },
+      nem: {
+        label: "Nem",
+        prep_matchers: ["nem"],
+        item_matchers: ["нем", "нэм", "nem"],
+        note: "BsN / CNem / CRNem"
+      }
+    };
+
+    const STOCK_POOL_ORDER = ["beef", "chicken", "pork", "shrimp", "nem"];
+
     const state = {
       orders: [],
       menu: [],
+      menuByKey: {},
+      menuByCode: {},
       manual: {
+        draft_code: "",
         type: "takeaway",
         payment_type: "cash",
-        items: []
+        items: [],
+        builder: {
+          base_key: "",
+          base_code: "",
+          addons: {},
+          qty: 1,
+          editing: false
+        }
       },
       date_scope: "today",
+      report_lang: loadReportLang(),
+      report_comment_overrides: loadReportCommentOverrides(),
+      inventory: {
+        pools: [],
+        byKey: {}
+      },
       shift: loadShift(),
-      timer: null
+      timer: null,
+      liveReloadTimer: null,
+      eventSource: null,
+      ordersRenderSignature: "",
+      screenshotBusy: false,
+      initialized: false
     };
 
     const $ = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+    let html2canvasLoader = null;
 
     function escapeHtml(value) {
       return String(value ?? "")
@@ -1839,6 +2721,34 @@
       const num = Number(value || 0);
       if (!Number.isFinite(num)) return 0;
       return Math.max(0, Math.round(num * 100) / 100);
+    }
+
+    function roundMetric(value, digits = 2) {
+      const num = Number(value || 0);
+      if (!Number.isFinite(num)) return 0;
+      const factor = 10 ** digits;
+      return Math.round(num * factor) / factor;
+    }
+
+    function fmtPortions(value) {
+      const num = roundMetric(value, 2);
+      if (!Number.isFinite(num)) return "0";
+      return Number.isInteger(num) ? String(num) : num.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
+    }
+
+    function normalizeLookup(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-zа-яё0-9]+/gi, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function textContainsAny(haystack, needles = []) {
+      const text = normalizeLookup(haystack);
+      return needles.some(needle => text.includes(normalizeLookup(needle)));
     }
 
     function sameMoney(a, b) {
@@ -1882,6 +2792,96 @@
       return `${days} дн назад`;
     }
 
+    function nowIso() {
+      return new Date().toISOString();
+    }
+
+    function syncStamp(sync) {
+      if (!sync || typeof sync !== "object") return 0;
+      const raw = sync.updated_at || sync.attempted_at || sync.requested_at || sync.created_at;
+      const stamp = new Date(raw || 0).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
+    }
+
+    function syncScore(channel, sync) {
+      if (!sync || typeof sync !== "object") return 0;
+      if (channel === "sheet") {
+        if (sync.ok || sync.id) return 4;
+        if (sync.pending || sync.retrying) return 3;
+        return 2;
+      }
+      if (channel === "local") {
+        return sync.ok ? 3 : 1;
+      }
+      return sync.ok ? 2 : 1;
+    }
+
+    function pickBetterSync(channel, left, right) {
+      const leftScore = syncScore(channel, left);
+      const rightScore = syncScore(channel, right);
+      if (leftScore !== rightScore) return leftScore > rightScore ? left : right;
+      return syncStamp(left) >= syncStamp(right) ? left : right;
+    }
+
+    function isSyncOk(sync) {
+      return Boolean(sync?.ok || sync?.id);
+    }
+
+    function sheetSyncLabel(sync) {
+      if (isSyncOk(sync)) return "ok";
+      if (sync?.pending || sync?.retrying) return "retry";
+      if (sync) return "local";
+      return "—";
+    }
+
+    function localSyncLabel(sync) {
+      if (sync?.ok) return "ok";
+      if (sync) return "off";
+      return "—";
+    }
+
+    function buildOrdersRenderSignature(orders = []) {
+      return JSON.stringify((orders || []).map(order => ({
+        code: order.code,
+        id: order.id,
+        status: order.status,
+        type: order.type,
+        payment_type: order.payment_type,
+        payment_cash: normalizeAmount(order.payment_cash),
+        payment_card: normalizeAmount(order.payment_card),
+        subtotal: normalizeAmount(order.subtotal),
+        delivery_fee: normalizeAmount(order.delivery_fee),
+        total: normalizeAmount(order.total),
+        table: order.table || "",
+        pickup_in: order.pickup_in || "",
+        address: order.address || "",
+        phone: order.phone || "",
+        comment: order.comment || "",
+        source: order.source || "",
+        receipt_link: order.receipt_link || "",
+        created_at: order.created_at || "",
+        updated_at: order.updated_at || "",
+        sheet_state: sheetSyncLabel(order.sync?.sheet),
+        local_state: localSyncLabel(order.sync?.local),
+        telegram_ok: Boolean(order.sync?.telegram?.ok || order.sync?.telegram_vn?.ok),
+        items: (order.items || []).map(item => ({
+          key: item.key || "",
+          menu_key: item.menu_key || "",
+          base_code: item.base_code || "",
+          code: item.code || "",
+          display_code: item.display_code || "",
+          name: item.name || "",
+          qty: Number(item.qty || 0),
+          price: normalizeAmount(item.price),
+          total: normalizeAmount(item.total),
+          note: item.note || "",
+          modifiers: Array.isArray(item.modifiers) ? item.modifiers : [],
+          base_usage: item.base_usage || {},
+          stock_usage: item.stock_usage || {}
+        }))
+      })));
+    }
+
     function dateInputValue(value) {
       const date = value instanceof Date ? value : new Date(value);
       if (Number.isNaN(date.getTime())) return "";
@@ -1898,11 +2898,12 @@
       return `${parts[2]}.${parts[1]}.${parts[0]}`;
     }
 
-    function selectedDateLabel() {
-      if (state.date_scope === "today") return "Сегодня";
-      if (state.date_scope === "yesterday") return "Вчера";
+    function selectedDateLabel(locale = "ru") {
+      const reportText = REPORT_I18N[locale] || REPORT_I18N.ru;
+      if (state.date_scope === "today") return reportText.today;
+      if (state.date_scope === "yesterday") return reportText.yesterday;
       const current = $("#dateFilter")?.value || "";
-      if (!current) return "Все даты";
+      if (!current) return reportText.allDates;
       return humanDateLabel(current);
     }
 
@@ -1928,8 +2929,7 @@
         input.value = "";
       }
       syncDateScopeUI();
-      renderOrders();
-      renderDailyReport();
+      renderAll();
     }
 
     function handleDateInputChange() {
@@ -1937,8 +2937,7 @@
       if (!input) return;
       state.date_scope = input.value ? "custom" : "all";
       syncDateScopeUI();
-      renderOrders();
-      renderDailyReport();
+      renderAll();
     }
 
     function debounce(fn, wait = 160) {
@@ -1968,6 +2967,53 @@
       return normalizePayment(fallback);
     }
 
+    function parsePaymentAmount(text, labels) {
+      const source = String(text || "");
+      if (!source) return 0;
+      const escapedLabels = labels.map(label => String(label).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+      if (!escapedLabels) return 0;
+      const match = source.match(new RegExp(`(?:${escapedLabels})\\s*:\\s*([0-9]+(?:[.,][0-9]+)?)`, "i"));
+      if (!match) return 0;
+      return normalizeAmount(String(match[1] || "").replace(",", "."));
+    }
+
+    function recoverPaymentAmountsFromSync(raw, total) {
+      const texts = [
+        raw?.sync?.telegram?.data?.result?.text,
+        raw?.sync?.telegram_vn?.data?.result?.text,
+        raw?.tg?.data?.result?.text,
+        raw?.vn_tg?.data?.result?.text,
+        raw?.sync?.telegram?.text,
+        raw?.sync?.telegram_vn?.text
+      ].filter(Boolean);
+
+      let cash = 0;
+      let card = 0;
+
+      for (const text of texts) {
+        cash = Math.max(cash, parsePaymentAmount(text, ["Готівка", "Наличные", "Tiền mặt", "Cash"]));
+        card = Math.max(card, parsePaymentAmount(text, ["Картка", "Карта", "Thẻ", "Card"]));
+      }
+
+      if (cash <= 0 && card <= 0) {
+        return { payment_cash: 0, payment_card: 0 };
+      }
+
+      const sum = normalizeAmount(cash + card);
+      if (total > 0 && !sameMoney(sum, total)) {
+        const diff = normalizeAmount(total - sum);
+        if (diff > 0) {
+          if (card > 0) card = normalizeAmount(card + diff);
+          else cash = normalizeAmount(cash + diff);
+        }
+      }
+
+      return {
+        payment_cash: cash,
+        payment_card: card
+      };
+    }
+
     function derivePaymentAmounts(raw, total, fallbackType) {
       const baseType = normalizePayment(fallbackType);
       const hasCash = raw && (raw.payment_cash !== undefined || raw.cash_amount !== undefined);
@@ -1975,7 +3021,18 @@
       let cash = normalizeAmount(raw?.payment_cash ?? raw?.cash_amount ?? 0);
       let card = normalizeAmount(raw?.payment_card ?? raw?.card_amount ?? 0);
 
-      if (!hasCash && !hasCard) {
+      const needsRecovery = total > 0 && (
+        (!hasCash && !hasCard) ||
+        (cash <= 0 && card <= 0)
+      );
+
+      if (needsRecovery && baseType === "split") {
+        const recovered = recoverPaymentAmountsFromSync(raw, total);
+        cash = recovered.payment_cash;
+        card = recovered.payment_card;
+      }
+
+      if ((cash <= 0 && card <= 0) && needsRecovery) {
         if (baseType === "cash") cash = normalizeAmount(total);
         if (baseType === "card") card = normalizeAmount(total);
       }
@@ -2024,11 +3081,18 @@
       return parsed.map((item, index) => ({
         id: item.id || `${item.key || item.code || "item"}-${index}`,
         key: item.key || "",
+        menu_key: item.menu_key || item.menuKey || "",
+        base_code: item.base_code || item.baseCode || "",
         code: item.code || "",
+        display_code: item.display_code || item.displayCode || "",
         name: item.name || item.title || item.code || `Позиция ${index + 1}`,
         qty: Math.max(1, Number(item.qty || 1)),
         price: Number(item.price || item.unit_price || 0),
+        total: Number(item.total || 0),
         note: String(item.note || item.comment || "").trim(),
+        modifiers: Array.isArray(item.modifiers) ? item.modifiers : [],
+        base_usage: item.base_usage || item.baseUsage || {},
+        stock_usage: item.stock_usage || item.stockUsage || {},
         selections: item.selections || {}
       }));
     }
@@ -2044,6 +3108,7 @@
       const total = Number(raw.total ?? subtotal + deliveryFee);
       const code = String(raw.code || raw.order_code || raw.id || "").trim() || generateShortCode();
       const id = String(raw.id || raw.order_id || code).trim();
+      const localSync = raw.sync?.local ?? raw.local_sync ?? null;
       const tgSync = raw.sync?.telegram ?? raw.tg ?? null;
       const tgSyncVN = raw.sync?.telegram_vn ?? raw.vn_tg ?? null;
       const sheetSync = raw.sync?.sheet ?? raw.sheet ?? null;
@@ -2072,6 +3137,7 @@
         receipt_link: raw.receipt_link || "",
         meta: Array.isArray(raw.meta) ? raw.meta : [],
         sync: {
+          local: localSync,
           telegram: tgSync,
           telegram_vn: tgSyncVN,
           sheet: sheetSync
@@ -2088,7 +3154,25 @@
     }
 
     function saveLocalOrders(map) {
-      localStorage.setItem(ORDERS_KEY, JSON.stringify(map || {}));
+      const nextValue = JSON.stringify(map || {});
+      if (localStorage.getItem(ORDERS_KEY) === nextValue) return false;
+      localStorage.setItem(ORDERS_KEY, nextValue);
+      return true;
+    }
+
+    function ordersToMap(orders) {
+      const map = {};
+      for (const order of orders || []) {
+        const key = order?.code || order?.id;
+        if (!key) continue;
+        map[key] = order;
+      }
+      return map;
+    }
+
+    function orderStamp(order) {
+      const stamp = new Date(order?.updated_at || order?.created_at || 0).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
     }
 
     function upsertLocalOrder(order) {
@@ -2113,21 +3197,25 @@
         }
 
         const remoteOrder = merged.get(key);
+        const useLocal = orderStamp(localOrder) >= orderStamp(remoteOrder);
+        const primary = useLocal ? localOrder : remoteOrder;
+        const fallback = useLocal ? remoteOrder : localOrder;
         merged.set(key, normalizeOrder({
-          ...remoteOrder,
-          ...localOrder,
-          status: normalizeStatus(localOrder.status || remoteOrder.status),
-          comment: localOrder.comment || remoteOrder.comment,
-          source: localOrder.source || remoteOrder.source,
-          receipt_link: localOrder.receipt_link || remoteOrder.receipt_link,
-          items: localOrder.items.length ? localOrder.items : remoteOrder.items,
-          payment_type: localOrder.payment_type !== "unknown" ? localOrder.payment_type : remoteOrder.payment_type,
-          payment_cash: localOrder.payment_cash ?? remoteOrder.payment_cash ?? 0,
-          payment_card: localOrder.payment_card ?? remoteOrder.payment_card ?? 0,
+          ...fallback,
+          ...primary,
+          status: normalizeStatus(primary.status || fallback.status),
+          comment: primary.comment || fallback.comment,
+          source: primary.source || fallback.source,
+          receipt_link: primary.receipt_link || fallback.receipt_link,
+          items: primary.items.length ? primary.items : fallback.items,
+          payment_type: primary.payment_type !== "unknown" ? primary.payment_type : fallback.payment_type,
+          payment_cash: primary.payment_cash ?? fallback.payment_cash ?? 0,
+          payment_card: primary.payment_card ?? fallback.payment_card ?? 0,
           sync: {
-            telegram: localOrder.sync?.telegram ?? remoteOrder.sync?.telegram ?? null,
-            telegram_vn: localOrder.sync?.telegram_vn ?? remoteOrder.sync?.telegram_vn ?? null,
-            sheet: localOrder.sync?.sheet ?? remoteOrder.sync?.sheet ?? null
+            local: pickBetterSync("local", localOrder.sync?.local, remoteOrder.sync?.local),
+            telegram: pickBetterSync("telegram", localOrder.sync?.telegram, remoteOrder.sync?.telegram),
+            telegram_vn: pickBetterSync("telegram", localOrder.sync?.telegram_vn, remoteOrder.sync?.telegram_vn),
+            sheet: pickBetterSync("sheet", localOrder.sync?.sheet, remoteOrder.sync?.sheet)
           }
         }));
       }
@@ -2139,6 +3227,82 @@
       const next = {};
       for (const order of orders) next[order.code] = order;
       saveLocalOrders(next);
+    }
+
+    function refreshOrdersFromCache(shouldRender = true) {
+      state.orders = mergeOrders(state.orders, loadLocalOrders());
+      if (shouldRender) renderAll();
+    }
+
+    function persistOrderSnapshot(order, shouldRender = true) {
+      upsertLocalOrder(order);
+      refreshOrdersFromCache(shouldRender);
+    }
+
+    function decorateRemoteOrders(orders) {
+      return (orders || []).map(order => ({
+        ...order,
+        sync: {
+          ...(order.sync || {}),
+          sheet: pickBetterSync("sheet", order.sync?.sheet, {
+            ok: true,
+            source: "sheets",
+            updated_at: order.updated_at || order.created_at || nowIso()
+          })
+        }
+      }));
+    }
+
+    function markSheetPending(order, reason, errorText = "") {
+      order.sync = order.sync || {};
+      order.sync.sheet = {
+        ...(order.sync.sheet || {}),
+        ok: false,
+        pending: true,
+        reason,
+        error: errorText ? String(errorText) : String(order.sync.sheet?.error || ""),
+        attempted_at: nowIso(),
+        updated_at: nowIso()
+      };
+    }
+
+    function applySheetSyncResult(order, result, reason = "") {
+      const ok = isSyncOk(result);
+      order.sync = order.sync || {};
+      order.sync.sheet = ok ? {
+        ...(result || {}),
+        ok: true,
+        pending: false,
+        reason,
+        updated_at: nowIso()
+      } : {
+        ...(result || {}),
+        ok: false,
+        pending: true,
+        reason,
+        error: String(result?.error || "Sheets unavailable"),
+        attempted_at: nowIso(),
+        updated_at: nowIso()
+      };
+    }
+
+    function applyLocalBridgeResult(order, result) {
+      order.sync = order.sync || {};
+      order.sync.local = result?.ok ? {
+        ok: true,
+        via: "local_bridge",
+        updated_at: result?.updated_at || result?.order?.sync?.local?.updated_at || nowIso()
+      } : {
+        ok: false,
+        error: String(result?.error || "Local bridge unavailable"),
+        updated_at: nowIso()
+      };
+    }
+
+    function shouldRetrySheetSync(order) {
+      if (order.source !== "cashier") return false;
+      if (isSyncOk(order.sync?.sheet)) return false;
+      return Date.now() - syncStamp(order.sync?.sheet) >= SHEETS_RETRY_COOLDOWN_MS;
     }
 
     function defaultShiftStart() {
@@ -2162,6 +3326,32 @@
           note: ""
         };
       }
+    }
+
+    function loadReportLang() {
+      try {
+        const saved = String(localStorage.getItem(REPORT_LANG_KEY) || "").toLowerCase();
+        return saved === "ru" || saved === "vn" ? saved : "vn";
+      } catch (_) {
+        return "vn";
+      }
+    }
+
+    function saveReportLang() {
+      localStorage.setItem(REPORT_LANG_KEY, state.report_lang || "vn");
+    }
+
+    function loadReportCommentOverrides() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(REPORT_COMMENT_OVERRIDES_KEY) || "{}") || {};
+        return saved && typeof saved === "object" ? saved : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveReportCommentOverrides() {
+      localStorage.setItem(REPORT_COMMENT_OVERRIDES_KEY, JSON.stringify(state.report_comment_overrides || {}));
     }
 
     function saveShift() {
@@ -2199,8 +3389,316 @@
       }, 2800);
     }
 
+    function isKassaUnlocked() {
+      return sessionStorage.getItem(KASSA_AUTH_KEY) === "ok";
+    }
+
+    function showKassa() {
+      document.body.classList.remove("locked");
+      document.body.classList.add("unlocked");
+      $("#authScreen")?.setAttribute("aria-hidden", "true");
+    }
+
+    function hideKassa() {
+      document.body.classList.add("locked");
+      document.body.classList.remove("unlocked");
+      $("#authScreen")?.setAttribute("aria-hidden", "false");
+      setTimeout(() => $("#pinInput")?.focus(), 30);
+    }
+
+    function startKassaApp() {
+      if (!state.initialized) {
+        init();
+        return;
+      }
+
+      renderAll();
+      loadOrders();
+      if (SCREENSHOT_MODE) return;
+      if (state.timer) clearInterval(state.timer);
+      state.timer = setInterval(pollOrdersWhenVisible, REFRESH_MS);
+    }
+
+    function unlockKassa() {
+      sessionStorage.setItem(KASSA_AUTH_KEY, "ok");
+      $("#pinError").textContent = "";
+      showKassa();
+      startKassaApp();
+    }
+
+    function lockKassa() {
+      sessionStorage.removeItem(KASSA_AUTH_KEY);
+      if (state.timer) {
+        clearInterval(state.timer);
+        state.timer = null;
+      }
+      $("#pinInput").value = "";
+      hideKassa();
+    }
+
+    function handlePinSubmit(event) {
+      event.preventDefault();
+      const input = $("#pinInput");
+      const error = $("#pinError");
+
+      if (input.value.trim() === KASSA_PIN) {
+        unlockKassa();
+        return;
+      }
+
+      error.textContent = "Неверный PIN. Попробуйте ещё раз.";
+      input.select();
+    }
+
+    function inferStockPoolFromMenuItem(item) {
+      if (!item) return "";
+
+      const code = String(item.code || "").trim().toUpperCase();
+      if (STOCK_CODE_POOL_OVERRIDES[code]) return STOCK_CODE_POOL_OVERRIDES[code];
+
+      const haystack = [
+        item.name_ru || item.name || "",
+        item.name_ua || "",
+        item.name_vn || ""
+      ].join(" ");
+
+      return STOCK_POOL_ORDER.find(poolKey => textContainsAny(haystack, STOCK_POOL_META[poolKey]?.item_matchers || [])) || "";
+    }
+
+    function inferStockPoolFromPrepItem(item) {
+      if (!item) return "";
+      const haystack = [item.ru || "", item.vn || ""].join(" ");
+      return STOCK_POOL_ORDER.find(poolKey => textContainsAny(haystack, STOCK_POOL_META[poolKey]?.prep_matchers || [])) || "";
+    }
+
+    function findMenuItemByCode(code) {
+      if (!code) return null;
+      return state.menuByCode[String(code).trim().toUpperCase()] || null;
+    }
+
+    function resolveTrackedStockUsage(rawItem) {
+      if (!rawItem) return null;
+
+      const menuItem = rawItem.key ? findMenuItem(rawItem.key) : findMenuItemByCode(rawItem.code);
+      const poolKey = menuItem?.stock_pool || inferStockPoolFromMenuItem({
+        code: rawItem.code,
+        name_ru: rawItem.name || "",
+        name_ua: rawItem.name || "",
+        name_vn: rawItem.name || ""
+      });
+
+      if (!poolKey) return null;
+
+      return {
+        poolKey,
+        units: Math.max(0, Number(rawItem.qty || 1)),
+        menuItem
+      };
+    }
+
+    function getContronSections() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(CONTRON_STORAGE_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function flattenContronItems() {
+      return getContronSections().flatMap(section => Array.isArray(section?.items) ? section.items : []);
+    }
+
+    function prepExpectedPortions(item) {
+      const portionNorm = Number(item?.portion_norm || 0);
+      if (!Number.isFinite(portionNorm) || portionNorm <= 0) return 0;
+
+      const cleanWeight = Number(item?.clean_weight || 0);
+      const beginning = Number(item?.beginning || 0);
+      const purchased = Number(item?.purchased || 0);
+      const remainder = Number(item?.remainder || 0);
+      const fallbackWeight = Math.max(0, beginning + purchased - remainder);
+      const baseWeight = cleanWeight > 0 ? cleanWeight : fallbackWeight;
+
+      if (baseWeight <= 0) return 0;
+      return roundMetric(baseWeight / portionNorm, 2);
+    }
+
+    function currentInventoryFallbackStamp() {
+      const dateValue = $("#dateFilter")?.value || dateInputValue(new Date());
+      if (!dateValue) return 0;
+      const stamp = new Date(`${dateValue}T00:00:00`).getTime();
+      return Number.isFinite(stamp) ? stamp : 0;
+    }
+
+    function prepStartedAt(item) {
+      const prepDate = String(item?.prep_date || item?.date || "").trim();
+      const prepTime = String(item?.prep_time || "").trim();
+
+      if (prepDate) {
+        const stamp = new Date(`${prepDate}T${prepTime || "00:00:00"}`).getTime();
+        if (Number.isFinite(stamp)) return stamp;
+      }
+
+      return currentInventoryFallbackStamp();
+    }
+
+    function pickLatestPrepBatch(items, poolKey) {
+      const candidates = (items || [])
+        .map(item => {
+          const key = inferStockPoolFromPrepItem(item);
+          if (key !== poolKey) return null;
+
+          return {
+            poolKey,
+            label: STOCK_POOL_META[poolKey]?.label || poolKey,
+            item,
+            expected: prepExpectedPortions(item),
+            startedAt: prepStartedAt(item)
+          };
+        })
+        .filter(Boolean)
+        .filter(entry => entry.expected > 0);
+
+      if (!candidates.length) return null;
+
+      candidates.sort((left, right) => (
+        right.startedAt - left.startedAt ||
+        right.expected - left.expected
+      ));
+
+      return candidates[0];
+    }
+
+    function buildInventorySnapshot() {
+      const stockSummarySnapshot = buildInventorySnapshotFromStockSummary();
+      if (stockSummarySnapshot) return stockSummarySnapshot;
+
+      const prepItems = flattenContronItems();
+      const soldByPoolAllTime = {};
+
+      for (const order of state.orders) {
+        if (order.status === "CANCELLED") continue;
+        for (const item of order.items || []) {
+          const usage = resolveTrackedStockUsage(item);
+          if (!usage) continue;
+          soldByPoolAllTime[usage.poolKey] = roundMetric((soldByPoolAllTime[usage.poolKey] || 0) + usage.units, 2);
+        }
+      }
+
+      const poolKeys = new Set([...Object.keys(soldByPoolAllTime), ...STOCK_POOL_ORDER]);
+      const pools = [];
+
+      for (const poolKey of poolKeys) {
+        const meta = STOCK_POOL_META[poolKey];
+        if (!meta) continue;
+
+        const batch = pickLatestPrepBatch(prepItems, poolKey);
+        const startedAt = batch?.startedAt || currentInventoryFallbackStamp();
+
+        let sold = 0;
+        let soldOrders = 0;
+        for (const order of state.orders) {
+          if (order.status === "CANCELLED") continue;
+          const createdAt = new Date(order.created_at || 0).getTime();
+          if (Number.isFinite(startedAt) && startedAt > 0 && createdAt < startedAt) continue;
+
+          let usedInOrder = 0;
+          for (const item of order.items || []) {
+            const usage = resolveTrackedStockUsage(item);
+            if (!usage || usage.poolKey !== poolKey) continue;
+            usedInOrder += usage.units;
+          }
+
+          if (usedInOrder > 0) {
+            sold = roundMetric(sold + usedInOrder, 2);
+            soldOrders += 1;
+          }
+        }
+
+        const prepared = roundMetric(batch?.expected || 0, 2);
+        const remaining = roundMetric(prepared - sold, 2);
+        const hasPrep = Boolean(batch);
+        const hasData = hasPrep || sold > 0 || (soldByPoolAllTime[poolKey] || 0) > 0;
+
+        if (!hasData) continue;
+
+        let tone = "ok";
+        if (!hasPrep || remaining <= 0) tone = "danger";
+        else if (remaining <= 3) tone = "warn";
+
+        pools.push({
+          key: poolKey,
+          label: meta.label,
+          prepared,
+          sold,
+          soldOrders,
+          remaining,
+          startedAt,
+          startedLabel: batch ? fmtDateTime(new Date(startedAt).toISOString()) : "Нет активной партии",
+          note: meta.note || "",
+          hasPrep,
+          tone
+        });
+      }
+
+      pools.sort((left, right) => {
+        const leftIndex = STOCK_POOL_ORDER.indexOf(left.key);
+        const rightIndex = STOCK_POOL_ORDER.indexOf(right.key);
+        return leftIndex - rightIndex;
+      });
+
+      return {
+        pools,
+        byKey: Object.fromEntries(pools.map(pool => [pool.key, pool]))
+      };
+    }
+
+    function inventoryRemainingText(pool) {
+      if (!pool?.hasPrep) return "нет партии";
+      if (pool.portionsLeft != null && Number.isFinite(Number(pool.portionsLeft))) {
+        return `${fmtPortions(pool.portionsLeft)} порц.`;
+      }
+      return `${fmtPortions(pool.remaining)} ${pool.unit || "порц."}`;
+    }
+
+    function inventoryPillMode(pool) {
+      if (!pool?.hasPrep || pool.tone === "danger") return "offline";
+      if (pool.tone === "warn") return "warn";
+      return "ok";
+    }
+
+    function buildTrackedItemStockNote(rawItem) {
+      const estimate = estimateConfiguredItemStock(rawItem);
+      if (estimate) {
+        const limitingLabel = estimate.limitingLabel || estimate.limitingStockKey || "склад";
+        return `
+          <div class="stock-note ${estimate.tone}">
+            Осталось: ${escapeHtml(fmtPortions(estimate.portionsLeft))} порц. • лимит: ${escapeHtml(limitingLabel)}
+          </div>
+        `;
+      }
+
+      const usage = resolveTrackedStockUsage(rawItem);
+      if (!usage) return "";
+
+      const pool = state.inventory.byKey[usage.poolKey];
+      const label = pool?.label || STOCK_POOL_META[usage.poolKey]?.label || usage.poolKey;
+      if (!pool) {
+        return `<div class="stock-note danger">Склад: ${escapeHtml(label)} • нет активной партии в Contron</div>`;
+      }
+
+      return `
+        <div class="stock-note ${pool.tone}">
+          Склад: ${escapeHtml(label)} • осталось ${escapeHtml(inventoryRemainingText(pool))}
+        </div>
+      `;
+    }
+
     function buildMenuIndex() {
       const flat = [];
+      const byKey = {};
+      const byCode = {};
       const groups = typeof menuData === "object" && menuData ? Object.entries(menuData) : [];
       for (const [groupKey, items] of groups) {
         if (!Array.isArray(items)) continue;
@@ -2208,7 +3706,7 @@
           const nameRu = item.translations?.ru || item.translations?.ua || item.translations?.vn || item.key || "";
           const nameUa = item.translations?.ua || item.translations?.ru || item.translations?.vn || item.key || "";
           const nameVn = item.translations?.vn || item.translations?.ua || item.translations?.ru || item.key || "";
-          flat.push({
+          const nextItem = {
             key: item.key || "",
             code: item.code || "",
             name: nameRu,
@@ -2220,14 +3718,20 @@
             weight: Number(item.weight || 0),
             spicy: Number(item.spicy || 0),
             short: item.short?.ru || item.short?.ua || item.short?.vn || ""
-          });
+          };
+          nextItem.stock_pool = inferStockPoolFromMenuItem(nextItem);
+          flat.push(nextItem);
+          if (nextItem.key) byKey[nextItem.key] = nextItem;
+          if (nextItem.code) byCode[String(nextItem.code).trim().toUpperCase()] = nextItem;
         }
       }
       state.menu = flat.sort((a, b) => a.name.localeCompare(b.name, "ru"));
+      state.menuByKey = byKey;
+      state.menuByCode = byCode;
     }
 
     function findMenuItem(key) {
-      return state.menu.find(item => item.key === key);
+      return state.menuByKey[key] || null;
     }
 
     function searchMenu(query) {
@@ -2248,6 +3752,372 @@
       return base.slice(0, 14);
     }
 
+    function modifierApi() {
+      return window.DLV_MODIFIERS || null;
+    }
+
+    function displayItemCode(item) {
+      return item?.display_code || item?.code || "—";
+    }
+
+    function getStockSummary() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STOCK_SUMMARY_KEY) || "{}");
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function supportsModifierLogic(menuItem) {
+      const api = modifierApi();
+      if (!api || !menuItem) return false;
+      if ([
+        "NEM",
+        "GCX",
+        "BBAO",
+        "BOH",
+        "CPV",
+        "P03",
+        "PBL",
+        "PCS33",
+        "PSC33",
+        "PZ33",
+        "P50",
+        "PTR50",
+        "M7",
+        "WTR",
+        "JCE",
+        "JT50",
+        "JAG50",
+        "JM50"
+      ].includes(String(menuItem.code || "").toUpperCase())) {
+        return false;
+      }
+      return Boolean(api.getBase(menuItem.code));
+    }
+
+    function manualBuilderBaseMenuItem() {
+      return state.manual.builder?.base_key ? findMenuItem(state.manual.builder.base_key) : null;
+    }
+
+    function manualBuilderBaseDef() {
+      const api = modifierApi();
+      if (!api) return null;
+      const baseCode = state.manual.builder?.base_code || manualBuilderBaseMenuItem()?.code || "";
+      return baseCode ? api.getBase(baseCode) : null;
+    }
+
+    function manualBuilderAddons() {
+      return Object.values(state.manual.builder?.addons || {});
+    }
+
+    function manualSearchQuery() {
+      return $("#manualSearch")?.value || "";
+    }
+
+    function parkManualBuilder() {
+      const builder = $("#manualModifierBuilder");
+      const home = $("#manualBuilderHome");
+      if (!builder || !home || builder.parentElement === home) return;
+      home.appendChild(builder);
+    }
+
+    function placeManualBuilder() {
+      const builder = $("#manualModifierBuilder");
+      const home = $("#manualBuilderHome");
+      if (!builder) return;
+
+      const selectedKey = state.manual.builder?.base_key || "";
+      const slot = selectedKey
+        ? $$("[data-builder-slot]").find(node => node.dataset.builderSlot === selectedKey)
+        : null;
+
+      if (slot) {
+        if (builder.parentElement !== slot) slot.appendChild(builder);
+        return;
+      }
+
+      if (home && builder.parentElement !== home) {
+        home.appendChild(builder);
+      }
+    }
+
+    function buildManualItemFromBuilder(note = "") {
+      const api = modifierApi();
+      const baseDef = manualBuilderBaseDef();
+      if (!api || !baseDef) return null;
+      return api.buildOrderItem(
+        baseDef.code,
+        manualBuilderAddons(),
+        Math.max(1, Number(state.manual.builder?.qty || 1)),
+        note
+      );
+    }
+
+    function syncConfiguredManualItem(item) {
+      const api = modifierApi();
+      if (!api || !item) return item;
+
+      const baseCode = item.base_code || item.code || "";
+      if (!api.getBase(baseCode)) return item;
+
+      const rebuilt = api.buildOrderItem(baseCode, item.modifiers || item.selections?.modifiers || [], item.qty, item.note || "");
+      Object.assign(item, {
+        ...rebuilt,
+        id: item.id || rebuilt.key,
+        menu_key: rebuilt.menu_key || item.menu_key || ""
+      });
+      return item;
+    }
+
+    function clearManualBuilder() {
+      state.manual.builder = {
+        base_key: "",
+        base_code: "",
+        addons: {},
+        qty: 1,
+        editing: false
+      };
+      renderManualModifierBuilder();
+      renderMenuResults(manualSearchQuery());
+    }
+
+    function setManualBuilderBase(menuItem) {
+      if (!menuItem) return;
+      state.manual.builder = {
+        base_key: menuItem.key || "",
+        base_code: menuItem.code || "",
+        addons: {},
+        qty: 1,
+        editing: false
+      };
+      renderManualModifierBuilder();
+      renderMenuResults(manualSearchQuery());
+    }
+
+    function setManualBuilderQty(value) {
+      state.manual.builder.qty = Math.max(1, Math.round(Number(value || 1)));
+      renderManualModifierBuilder();
+    }
+
+    function toggleManualBuilderEdit() {
+      if (!manualBuilderBaseDef()) {
+        showToast("Сначала выбери базовое блюдо", "warn");
+        return;
+      }
+      state.manual.builder.editing = !state.manual.builder.editing;
+      renderManualModifierBuilder();
+    }
+
+    function toggleManualBuilderAddon(code, valueType, value) {
+      const nextCode = String(code || "").toUpperCase();
+      const current = state.manual.builder.addons[nextCode];
+      const nextValue = Number(value || 0);
+      const payload = { code: nextCode };
+      payload[valueType] = nextValue;
+
+      if (current && Number(current[valueType] || 0) === nextValue) {
+        delete state.manual.builder.addons[nextCode];
+      } else {
+        state.manual.builder.addons[nextCode] = payload;
+      }
+      renderManualModifierBuilder();
+    }
+
+    function addConfiguredItemFromBuilder() {
+      const built = buildManualItemFromBuilder();
+      if (!built) {
+        showToast("Сначала выбери базовое блюдо", "warn");
+        return;
+      }
+
+      const existing = state.manual.items.find(item => (
+        displayItemCode(item) === built.display_code &&
+        String(item.note || "").trim() === ""
+      ));
+
+      if (existing) {
+        existing.qty = Math.max(1, Number(existing.qty || 1)) + Math.max(1, Number(built.qty || 1));
+        syncConfiguredManualItem(existing);
+      } else {
+        state.manual.items.push({
+          ...built,
+          id: built.key
+        });
+      }
+
+      state.manual.builder.qty = 1;
+      renderManualItems();
+      renderManualModifierBuilder();
+    }
+
+    function modifierOptionLabel(addon, value) {
+      if (!addon) return "";
+      if (addon.allowedGrams) return `${value}g`;
+      return `${value} шт`;
+    }
+
+    function renderManualModifierBuilder() {
+      const wrap = $("#manualModifierBuilder");
+      if (!wrap) return;
+
+      const api = modifierApi();
+      const baseMenuItem = manualBuilderBaseMenuItem();
+      const baseDef = manualBuilderBaseDef();
+      const preview = $("#manualModifierPreview");
+      const title = $("#manualModifierTitle");
+      const meta = $("#manualModifierMeta");
+      const groups = $("#manualModifierGroups");
+      const qtyInput = $("#manualBuilderQtyInput");
+      const codePreview = $("#manualModifierCodePreview");
+      const pricePreview = $("#manualModifierPricePreview");
+      const editBtn = $("#toggleBuilderEditBtn");
+
+      if (!api || !baseDef || !baseMenuItem) {
+        wrap.classList.add("hidden");
+        wrap.classList.remove("editing");
+        if (preview) {
+          preview.innerHTML = `
+            <strong>База не выбрана</strong>
+            <div class="meta">Найди блюдо по коду или названию и нажми «Выбрать», чтобы собрать позицию с добавками.</div>
+          `;
+        }
+        if (groups) groups.innerHTML = "";
+        if (codePreview) codePreview.textContent = "—";
+        if (pricePreview) pricePreview.textContent = "Выбери базовое блюдо, чтобы увидеть итоговую позицию.";
+        if (editBtn) {
+          editBtn.textContent = "EDIT";
+          editBtn.setAttribute("aria-expanded", "false");
+        }
+        placeManualBuilder();
+        return;
+      }
+
+      const built = buildManualItemFromBuilder();
+      wrap.classList.remove("hidden");
+      wrap.classList.toggle("editing", Boolean(state.manual.builder?.editing));
+
+      if (title) title.textContent = `${baseDef.code} — ${baseDef.name}`;
+      if (meta) meta.textContent = `База из меню: ${baseMenuItem.code} • добавки влияют на код, цену и автосписание со склада.`;
+      if (qtyInput) qtyInput.value = String(Math.max(1, Number(state.manual.builder?.qty || 1)));
+      if (editBtn) {
+        const isEditing = Boolean(state.manual.builder?.editing);
+        editBtn.textContent = isEditing ? "ГОТОВО" : "EDIT";
+        editBtn.setAttribute("aria-expanded", isEditing ? "true" : "false");
+      }
+
+      if (preview && built) {
+        preview.innerHTML = `
+          <strong class="modifier-code-xl">${escapeHtml(built.display_code)}</strong>
+          <div class="meta">${escapeHtml(built.name)}</div>
+          <div class="meta">Цена за порцию: ${escapeHtml(fmtMoney(built.price))} • Итого: ${escapeHtml(fmtMoney(built.total))}</div>
+          ${buildTrackedItemStockNote(built)}
+        `;
+      }
+
+      if (codePreview && built) codePreview.textContent = built.display_code;
+      if (pricePreview && built) {
+        pricePreview.textContent = `${built.name} • ${fmtMoney(built.price)} / порция • ${fmtMoney(built.total)} итого`;
+      }
+
+      if (!groups) return;
+      groups.innerHTML = Object.values(api.ADDONS || {}).map(addon => {
+        const selected = state.manual.builder.addons?.[addon.code];
+        const values = addon.allowedGrams || addon.allowedQty || [];
+        const valueType = addon.allowedGrams ? "grams" : "qty";
+
+        return `
+          <div class="modifier-group">
+            <div class="modifier-group-head">
+              <strong>${escapeHtml(addon.code)} — ${escapeHtml(addon.name)}</strong>
+              <span class="muted">${escapeHtml(addon.stockKey)}</span>
+            </div>
+            <div class="modifier-options">
+              ${values.map(value => `
+                <button
+                  class="modifier-option ${selected && Number(selected[valueType] || 0) === Number(value) ? "active" : ""}"
+                  type="button"
+                  data-builder-addon="${escapeHtml(addon.code)}"
+                  data-builder-kind="${escapeHtml(valueType)}"
+                  data-builder-value="${escapeHtml(String(value))}"
+                >${escapeHtml(modifierOptionLabel(addon, value))}</button>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+      placeManualBuilder();
+    }
+
+    function summaryEntryTone(entry) {
+      const portionsLeft = Number(entry?.portionsLeft);
+      if (portionsLeft <= 0) return "danger";
+      if (portionsLeft < 3) return "danger";
+      if (portionsLeft < 10) return "warn";
+      return "ok";
+    }
+
+    function buildInventorySnapshotFromStockSummary() {
+      const api = modifierApi();
+      const summary = getStockSummary();
+      const stock = summary.stock || {};
+      const order = [
+        "bo",
+        "ga",
+        "heo",
+        "tom",
+        "ga_xu",
+        "nem",
+        "banh_bao",
+        "pho",
+        "bun",
+        "mien",
+        "mi",
+        "com",
+        "com_rang",
+        "rau",
+        "nuoc_xuong"
+      ];
+
+      const pools = order
+        .filter(key => stock[key])
+        .map(key => {
+          const entry = stock[key];
+          const meta = api?.STOCK_ITEMS?.[key] || {};
+          const tone = summaryEntryTone(entry);
+          return {
+            key,
+            label: meta.name || key,
+            prepared: Number(entry.clean || 0),
+            sold: Number(entry.used || 0),
+            remaining: Number(entry.remaining || 0),
+            portionsLeft: Number(entry.portionsLeft || 0),
+            unit: entry.unit || meta.unit || "",
+            hasPrep: true,
+            tone,
+            note: `норма ${entry.portionNorm || meta.portionNorm || 0}${entry.unit || meta.unit || ""}`
+          };
+        });
+
+      if (!pools.length) return null;
+      return {
+        pools,
+        byKey: Object.fromEntries(pools.map(pool => [pool.key, pool])),
+        updated_at: summary.updated_at || ""
+      };
+    }
+
+    function estimateConfiguredItemStock(rawItem) {
+      const api = modifierApi();
+      if (!api) return null;
+      const summary = getStockSummary();
+      if (!summary?.stock) return null;
+      const code = rawItem?.base_code || rawItem?.code || rawItem?.display_code || "";
+      if (!code) return null;
+      return api.estimateBasePortionsLeft(code, summary);
+    }
+
     function typeLabelByLocale(type, locale = "ru") {
       const labels = {
         ru: { on_site: "На месте", takeaway: "На вынос", delivery: "Доставка" },
@@ -2259,7 +4129,7 @@
 
     function paymentLabelByLocale(payment, locale = "ru") {
       const labels = {
-        ru: { cash: "Наличные", card: "Карта", split: "Cash + Card", unknown: "Не указано" },
+        ru: { cash: "Наличные", card: "Карта", split: "Наличные + Карта", unknown: "Не указано" },
         ua: { cash: "Готівка", card: "Картка", split: "Готівка + картка", unknown: "Не вказано" },
         vn: { cash: "Tiền mặt", card: "Thẻ", split: "Tiền mặt + thẻ", unknown: "Chưa rõ" }
       };
@@ -2310,6 +4180,9 @@
       if (state.manual.payment_type === "card") {
         return { payment_type: "card", payment_cash: 0, payment_card: amount };
       }
+      if (state.manual.payment_type === "unknown") {
+        return { payment_type: "unknown", payment_cash: 0, payment_card: 0 };
+      }
       const cash = normalizeAmount($("#manualCashAmount")?.value || 0);
       const card = normalizeAmount($("#manualCardAmount")?.value || 0);
       return {
@@ -2340,19 +4213,18 @@
     }
 
     async function persistOrder(order, successMessage = "") {
-      upsertLocalOrder(order);
-      state.orders = mergeOrders([], loadLocalOrders());
-      renderAll();
+      markSheetPending(order, "upsert");
+      persistOrderSnapshot(order);
+      await syncOrderToLocalBridge(order);
 
       const result = await createOrderOnSheet(order);
-      order.sync.sheet = result;
-      upsertLocalOrder(order);
-      state.orders = mergeOrders([], loadLocalOrders());
-      renderAll();
+      applySheetSyncResult(order, result, "upsert");
+      persistOrderSnapshot(order);
+      await syncOrderToLocalBridge(order);
 
-      if (result?.ok || result?.id) {
+      if (isSyncOk(result)) {
         setSyncBadge($("#sheetSyncBadge"), "ok", "Онлайн");
-        setLastSyncLabel(fmtDateTime(new Date().toISOString()));
+        setLastSyncLabel(fmtDateTime(nowIso()));
         if (successMessage) showToast(successMessage);
         return true;
       }
@@ -2364,6 +4236,7 @@
 
     function renderMenuResults(query = "") {
       const list = $("#manualSearchResults");
+      parkManualBuilder();
       const items = searchMenu(query);
       if (!items.length) {
         list.innerHTML = `
@@ -2372,26 +4245,46 @@
             <p>Попробуй код блюда вроде <b>PBx</b>, <b>MXB</b> или название блюда.</p>
           </div>
         `;
+        placeManualBuilder();
         return;
       }
 
-      list.innerHTML = items.map(item => `
-        <div class="menu-result">
+      list.innerHTML = items.map(item => {
+        const isModifierItem = supportsModifierLogic(item);
+        const isExpanded = isModifierItem && state.manual.builder?.base_key === item.key;
+
+        if (isExpanded) {
+          return `
+            <div class="menu-result expanded" data-menu-result-key="${escapeHtml(item.key)}">
+              <div class="menu-result-builder-slot" data-builder-slot="${escapeHtml(item.key)}"></div>
+            </div>
+          `;
+        }
+
+        return `
+        <div class="menu-result" data-menu-result-key="${escapeHtml(item.key)}">
           <div class="menu-result-top">
             <div>
               <strong>${escapeHtml(item.name)}</strong>
               <div class="meta">${escapeHtml(item.code)} • ${escapeHtml(item.category)}${item.weight ? ` • ${item.weight} г` : ""}</div>
+              ${buildTrackedItemStockNote({ key: item.key, code: item.code, name: item.name, qty: 1 })}
             </div>
-            <button class="btn small primary" type="button" data-add-item="${escapeHtml(item.key)}">Добавить</button>
+            <button class="btn small primary" type="button" data-add-item="${escapeHtml(item.key)}">${isModifierItem ? "Выбрать" : "Добавить"}</button>
           </div>
           ${item.short ? `<div class="meta">${escapeHtml(item.short)}</div>` : ""}
         </div>
-      `).join("");
+      `;
+      }).join("");
+      placeManualBuilder();
     }
 
     function addManualItem(key) {
       const item = findMenuItem(key);
       if (!item) return;
+      if (supportsModifierLogic(item)) {
+        setManualBuilderBase(item);
+        return;
+      }
       const existing = state.manual.items.find(entry => entry.key === key && !entry.note);
       if (existing) {
         existing.qty += 1;
@@ -2413,17 +4306,30 @@
       if (!item) return;
       item.qty = Math.max(0, item.qty + delta);
       if (item.qty === 0) state.manual.items.splice(index, 1);
+      else syncConfiguredManualItem(item);
       renderManualItems();
     }
 
     function updateManualItemNote(index, value) {
       if (!state.manual.items[index]) return;
       state.manual.items[index].note = value;
+      syncConfiguredManualItem(state.manual.items[index]);
     }
 
     function removeManualItem(index) {
       state.manual.items.splice(index, 1);
       renderManualItems();
+    }
+
+    function manualItemCountLabel(count) {
+      const safeCount = Math.abs(Math.trunc(Number(count) || 0));
+      const lastDigit = safeCount % 10;
+      const lastTwoDigits = safeCount % 100;
+
+      if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return "позиций";
+      if (lastDigit === 1) return "позиция";
+      if (lastDigit >= 2 && lastDigit <= 4) return "позиции";
+      return "позиций";
     }
 
     function manualTotals() {
@@ -2437,13 +4343,20 @@
       };
     }
 
+    function syncManualDraftCode() {
+      const label = $("#manualDraftCode");
+      if (!label) return;
+      label.textContent = `#${String(state.manual.draft_code || "new").toUpperCase()}`;
+    }
+
     function renderManualItems() {
       const list = $("#manualItemsList");
+      syncManualDraftCode();
       if (!state.manual.items.length) {
         list.innerHTML = `
           <div class="empty">
             <strong>Пока пусто</strong>
-            <p>Добавь блюда справа по коду или названию, и они появятся здесь.</p>
+            <p>Добавь блюда по коду или названию, и они появятся здесь.</p>
           </div>
         `;
       } else {
@@ -2452,7 +4365,8 @@
             <div class="manual-item-top">
               <div>
                 <strong>${escapeHtml(item.name)}</strong>
-                <div class="meta">${escapeHtml(item.code)} • ${fmtMoney(item.price)} за порцию</div>
+                <div class="meta">${escapeHtml(displayItemCode(item))} • ${fmtMoney(item.price)} за порцию</div>
+                ${buildTrackedItemStockNote(item)}
               </div>
               <strong>${fmtMoney(item.price * item.qty)}</strong>
             </div>
@@ -2474,6 +4388,20 @@
       $("#manualSubtotal").textContent = fmtMoney(totals.subtotal);
       $("#manualDeliveryValue").textContent = fmtMoney(totals.deliveryFee);
       $("#manualTotal").textContent = fmtMoney(totals.total);
+
+      const submitBtn = $("#submitManualOrderBtn");
+      const submitMeta = $("#manualSubmitMeta");
+      const hasItems = totals.count > 0;
+      if (submitBtn) {
+        submitBtn.disabled = !hasItems;
+        submitBtn.textContent = hasItems ? `Создать заказ • ${fmtMoney(totals.total)}` : "Добавь блюда";
+      }
+      if (submitMeta) {
+        submitMeta.textContent = hasItems
+          ? `${totals.count} ${manualItemCountLabel(totals.count)} • ${fmtMoney(totals.total)}`
+          : "Добавь блюда, чтобы создать заказ";
+      }
+
       syncManualSplitFields();
     }
 
@@ -2496,6 +4424,9 @@
     }
 
     function openManualModal() {
+      renderMenuResults($("#manualSearch")?.value || "");
+      renderManualItems();
+      renderManualModifierBuilder();
       $("#manualModal").classList.add("open");
       $("#manualModal").setAttribute("aria-hidden", "false");
       $("#manualSearch").focus();
@@ -2508,9 +4439,17 @@
 
     function resetManualOrder() {
       state.manual = {
+        draft_code: generateShortCode(),
         type: "takeaway",
         payment_type: "cash",
-        items: []
+        items: [],
+        builder: {
+          base_key: "",
+          base_code: "",
+          addons: {},
+          qty: 1,
+          editing: false
+        }
       };
       $("#manualTable").value = "";
       $("#manualPickup").value = "15";
@@ -2521,16 +4460,24 @@
       $("#manualCashAmount").value = "0";
       $("#manualCardAmount").value = "0";
       $("#manualSearch").value = "";
+      syncManualDraftCode();
       applyManualType();
       applyManualPayment();
       renderMenuResults("");
       renderManualItems();
+      renderManualModifierBuilder();
     }
 
     function TG_ENDPOINT() {
       if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
       if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
       return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
+    }
+
+    function TG_DOCUMENT_ENDPOINT() {
+      if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
+      if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
+      return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendDocument`;
     }
 
     async function sendTelegramMessage(chatId, text) {
@@ -2560,11 +4507,220 @@
       return { ok: true, data };
     }
 
+    function ensureHtml2Canvas() {
+      if (window.html2canvas) return Promise.resolve(window.html2canvas);
+      if (html2canvasLoader) return html2canvasLoader;
+
+      html2canvasLoader = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = HTML2CANVAS_URL;
+        script.async = true;
+        script.onload = () => {
+          if (window.html2canvas) {
+            resolve(window.html2canvas);
+            return;
+          }
+          reject(new Error("html2canvas loaded without window.html2canvas"));
+        };
+        script.onerror = () => reject(new Error("Не удалось загрузить html2canvas"));
+        document.head.appendChild(script);
+      }).catch(error => {
+        html2canvasLoader = null;
+        throw error;
+      });
+
+      return html2canvasLoader;
+    }
+
+    function nextPaint() {
+      return new Promise(resolve => {
+        requestAnimationFrame(() => requestAnimationFrame(resolve));
+      });
+    }
+
+    async function captureFullPagePng() {
+      const html2canvas = await ensureHtml2Canvas();
+      await nextPaint();
+
+      const root = document.documentElement;
+      const body = document.body;
+      const width = Math.max(root.scrollWidth, body?.scrollWidth || 0, window.innerWidth);
+      const height = Math.max(root.scrollHeight, body?.scrollHeight || 0, window.innerHeight);
+
+      const canvas = await html2canvas(root, {
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        scale: 1,
+        width,
+        height,
+        windowWidth: width,
+        windowHeight: height,
+        scrollX: 0,
+        scrollY: 0
+      });
+
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+          if (blob) {
+            resolve(blob);
+            return;
+          }
+          reject(new Error("Не удалось собрать PNG из canvas"));
+        }, "image/png");
+      });
+    }
+
+    async function captureElementPng(selector) {
+      const html2canvas = await ensureHtml2Canvas();
+      await nextPaint();
+
+      const target = $(selector);
+      if (!target) throw new Error(`Не найден блок ${selector}`);
+
+      const rect = target.getBoundingClientRect();
+      const width = Math.ceil(Math.max(target.scrollWidth, rect.width));
+      const height = Math.ceil(Math.max(target.scrollHeight, rect.height));
+
+      const canvas = await html2canvas(target, {
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        scale: 1,
+        width,
+        height,
+        windowWidth: Math.max(width, window.innerWidth),
+        windowHeight: Math.max(height, window.innerHeight),
+        scrollX: 0,
+        scrollY: 0
+      });
+
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+          if (blob) {
+            resolve(blob);
+            return;
+          }
+          reject(new Error("Не удалось собрать PNG из блока отчёта"));
+        }, "image/png");
+      });
+    }
+
+    async function sendTelegramDocument(chatId, blob, filename, caption) {
+      const formData = new FormData();
+      formData.append("chat_id", chatId);
+      formData.append("caption", caption);
+      formData.append("document", blob, filename);
+
+      const response = await fetch(TG_DOCUMENT_ENDPOINT(), {
+        method: "POST",
+        body: formData
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch (_) {}
+
+      if (!response.ok || data?.ok === false) {
+        return {
+          ok: false,
+          error: data?.description || `HTTP ${response.status}`
+        };
+      }
+
+      return { ok: true, data };
+    }
+
+    async function sendFullScreenshotToVN(event) {
+      const btn = event?.currentTarget || $("#sendScreenshotBtn");
+      if (!btn || state.screenshotBusy) return;
+      if (!TG.CHAT_ID_VN) {
+        showToast("CHAT_ID_VN не задан", "error");
+        return;
+      }
+
+      const originalText = btn.textContent;
+      state.screenshotBusy = true;
+      btn.dataset.busy = "1";
+      btn.disabled = true;
+      btn.textContent = "Снимок...";
+
+      try {
+        const imageBlob = await captureFullPagePng();
+        btn.textContent = "Отправка...";
+
+        const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+        const caption = `DLV Kassa full screenshot • ${fmtDateTime(nowIso())}`;
+        const result = await sendTelegramDocument(
+          TG.CHAT_ID_VN,
+          imageBlob,
+          `dlv-kassa-full-${stamp}.png`,
+          caption
+        );
+
+        if (!result.ok) {
+          throw new Error(result.error || "Telegram sendDocument failed");
+        }
+
+        showToast("Full screenshot отправлен в CHAT_ID_VN");
+      } catch (error) {
+        showToast(`Скрин не отправлен: ${error?.message || error}`, "error");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        state.screenshotBusy = false;
+        delete btn.dataset.busy;
+      }
+    }
+
+    async function sendReportScreenshotToVN(event) {
+      const btn = event?.currentTarget || $("#reportScreenshotBtn");
+      if (!btn || state.screenshotBusy) return;
+      if (!TG.CHAT_ID_VN) {
+        showToast("CHAT_ID_VN не задан", "error");
+        return;
+      }
+
+      const originalText = btn.textContent;
+      state.screenshotBusy = true;
+      btn.dataset.busy = "1";
+      btn.disabled = true;
+      btn.textContent = "Снимок...";
+
+      try {
+        const imageBlob = await captureElementPng(".report-panel");
+        btn.textContent = "Отправка...";
+
+        const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+        const caption = `DLV report screenshot • ${fmtDateTime(nowIso())}`;
+        const result = await sendTelegramDocument(
+          TG.CHAT_ID_VN,
+          imageBlob,
+          `dlv-day-report-${stamp}.png`,
+          caption
+        );
+
+        if (!result.ok) {
+          throw new Error(result.error || "Telegram sendDocument failed");
+        }
+
+        showToast("Скрин отчёта отправлен в CHAT_ID_VN");
+      } catch (error) {
+        showToast(`Скрин отчёта не отправлен: ${error?.message || error}`, "error");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        state.screenshotBusy = false;
+        delete btn.dataset.busy;
+      }
+    }
+
     function buildTelegramTextUA(order) {
-      const lines = order.items.map(item => {
+      const lines = expandOrderItemsForDisplay(order).map(item => {
         const comment = item.note ? ` • 📝 ${escapeHtml(item.note)}` : "";
         const name = orderItemNameByLocale(item, "ua");
-        return `• ${escapeHtml(name)} (${escapeHtml(item.code || "—")}) × ${item.qty} — ${fmtMoney(item.price * item.qty)}${comment}`;
+        return `• ${escapeHtml(displayItemCode(item))} ${escapeHtml(name)}${comment}`.trim();
       }).join("\n") || "—";
 
       const meta = [];
@@ -2588,10 +4744,10 @@ ${lines}`;
     }
 
     function buildTelegramTextVN(order) {
-      const lines = order.items.map(item => {
+      const lines = expandOrderItemsForDisplay(order).map(item => {
         const comment = item.note ? ` • 📝 ${escapeHtml(item.note)}` : "";
         const name = orderItemNameByLocale(item, "vn");
-        return `• ${escapeHtml(name)} (${escapeHtml(item.code || "—")}) × ${item.qty} — ${fmtMoney(item.price * item.qty)}${comment}`;
+        return `• ${escapeHtml(displayItemCode(item))} ${escapeHtml(name)}${comment}`.trim();
       }).join("\n") || "—";
 
       const meta = [];
@@ -2627,6 +4783,48 @@ ${lines}`;
       }
     }
 
+    async function fetchOrdersLocalBridge() {
+      try {
+        const response = await fetch(LOCAL_API_BASE, { cache: "no-store" });
+        if (!response.ok) {
+          return { ok: false, error: `Local bridge HTTP ${response.status}` };
+        }
+        return await response.json();
+      } catch (error) {
+        return { ok: false, error: String(error) };
+      }
+    }
+
+    async function clearOrdersLocalBridge() {
+      try {
+        const response = await fetch(LOCAL_API_BASE, {
+          method: "DELETE"
+        });
+        if (!response.ok) {
+          return { ok: false, error: `Local bridge HTTP ${response.status}` };
+        }
+        return await response.json();
+      } catch (error) {
+        return { ok: false, error: String(error) };
+      }
+    }
+
+    async function pushOrderToLocalBridge(orderPayload) {
+      try {
+        const response = await fetch(LOCAL_API_BASE, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderPayload)
+        });
+        if (!response.ok) {
+          return { ok: false, error: `Local bridge HTTP ${response.status}` };
+        }
+        return await response.json();
+      } catch (error) {
+        return { ok: false, error: String(error) };
+      }
+    }
+
     async function updateOrderStatusRemote(orderId, status) {
       try {
         const response = await fetch(API_BASE, {
@@ -2645,6 +4843,55 @@ ${lines}`;
       return response.json();
     }
 
+    async function syncOrderToLocalBridge(order, shouldRender = true) {
+      const result = await pushOrderToLocalBridge(order);
+      applyLocalBridgeResult(order, result);
+      if (result?.ok && result.order) {
+        Object.assign(order, normalizeOrder(result.order));
+        applyLocalBridgeResult(order, result);
+      }
+      persistOrderSnapshot(order, shouldRender);
+      return result;
+    }
+
+    async function retryPendingSheetSync() {
+      const pendingOrders = state.orders.filter(shouldRetrySheetSync);
+      if (!pendingOrders.length) return;
+
+      const beforeSignature = buildOrdersRenderSignature(state.orders);
+      let syncedAny = false;
+      let failedAny = false;
+
+      for (const order of pendingOrders) {
+        markSheetPending(order, order.sync?.sheet?.reason || "retry", order.sync?.sheet?.error || "");
+        persistOrderSnapshot(order, false);
+        await syncOrderToLocalBridge(order, false);
+
+        const result = await createOrderOnSheet(order);
+        applySheetSyncResult(order, result, order.sync?.sheet?.reason || "retry");
+        persistOrderSnapshot(order, false);
+        await syncOrderToLocalBridge(order, false);
+
+        if (isSyncOk(result)) {
+          syncedAny = true;
+        } else {
+          failedAny = true;
+        }
+      }
+
+      if (syncedAny) {
+        setSyncBadge($("#sheetSyncBadge"), "ok", "Онлайн");
+        setLastSyncLabel(fmtDateTime(nowIso()));
+      } else if (failedAny) {
+        setSyncBadge($("#sheetSyncBadge"), "warn", "Частично");
+      }
+
+      const afterSignature = buildOrdersRenderSignature(state.orders);
+      if (afterSignature !== beforeSignature) {
+        renderAll();
+      }
+    }
+
     function generateShortCode() {
       const letters = "abcdefghijklmnopqrstuvwxyz";
       const letter = letters[Math.floor(Math.random() * letters.length)];
@@ -2654,22 +4901,72 @@ ${lines}`;
 
     async function loadOrders() {
       const localMap = loadLocalOrders();
+      const [remoteResult, bridgeResult] = await Promise.allSettled([
+        fetchOrdersRemote(),
+        fetchOrdersLocalBridge()
+      ]);
 
-      try {
-        const data = await fetchOrdersRemote();
-        const remoteOrders = Array.isArray(data.orders) ? data.orders : [];
-        state.orders = mergeOrders(remoteOrders, localMap);
-        saveMergedOrders(state.orders);
+      const remoteData = remoteResult.status === "fulfilled" ? remoteResult.value : null;
+      const bridgeData = bridgeResult.status === "fulfilled" ? bridgeResult.value : null;
+      const remoteOrders = decorateRemoteOrders(Array.isArray(remoteData?.orders) ? remoteData.orders : []);
+      const bridgeOrders = Array.isArray(bridgeData?.orders) ? bridgeData.orders : [];
+      const bridgeMap = ordersToMap(bridgeOrders);
+      const nextOrders = mergeOrders(mergeOrders(remoteOrders, bridgeMap), localMap);
+      const nextSignature = buildOrdersRenderSignature(nextOrders);
+      const shouldRenderOrders = nextSignature !== state.ordersRenderSignature;
+
+      state.orders = nextOrders;
+      saveMergedOrders(state.orders);
+
+      const remoteOk = Array.isArray(remoteData?.orders);
+      const bridgeOk = Boolean(bridgeData?.ok);
+
+      if (remoteOk) {
         setSyncBadge($("#sheetSyncBadge"), "ok", "Онлайн");
-        const syncText = fmtDateTime(new Date().toISOString());
-        setLastSyncLabel(syncText);
-      } catch (error) {
-        state.orders = mergeOrders([], localMap);
+        setLastSyncLabel(fmtDateTime(nowIso()));
+      } else if (bridgeOk) {
+        setSyncBadge($("#sheetSyncBadge"), "warn", "Через мост");
+        setLastSyncLabel(`Bridge • ${fmtDateTime(nowIso())}`);
+      } else {
         setSyncBadge($("#sheetSyncBadge"), "offline", "Локальный режим");
-        setLastSyncLabel(`Локально • ${fmtDateTime(new Date().toISOString())}`);
+        setLastSyncLabel(`Локально • ${fmtDateTime(nowIso())}`);
       }
 
+      if (shouldRenderOrders) {
+        renderAll();
+      }
+      if (SCREENSHOT_MODE) return;
+      await retryPendingSheetSync();
+    }
+
+    function scheduleLiveReload(delay = 220) {
+      if (!state.initialized || !isKassaUnlocked() || document.hidden) return;
+      clearTimeout(state.liveReloadTimer);
+      state.liveReloadTimer = setTimeout(() => {
+        loadOrders();
+      }, delay);
+    }
+
+    function pollOrdersWhenVisible() {
+      if (document.hidden || !isKassaUnlocked()) return;
+      loadOrders();
+    }
+
+    function handleKassaVisibilityChange() {
+      if (document.hidden || !isKassaUnlocked()) return;
       renderAll();
+      loadOrders();
+    }
+
+    function connectLocalEvents() {
+      if (SCREENSHOT_MODE) return;
+      if (!window.EventSource || !LOCAL_EVENTS_URL.startsWith("http")) return;
+      if (state.eventSource) state.eventSource.close();
+
+      const eventSource = new EventSource(LOCAL_EVENTS_URL);
+      state.eventSource = eventSource;
+      eventSource.addEventListener("orders_updated", () => scheduleLiveReload());
+      eventSource.addEventListener("ready", () => scheduleLiveReload(80));
     }
 
     function getShiftOrders() {
@@ -2711,19 +5008,151 @@ ${lines}`;
       return num.toFixed(2).replace(/\.00$/, "");
     }
 
+    function reportMoneyText(value) {
+      if (reportLang() === "vn") return `${reportAmountText(value)} UAH`;
+      return fmtMoney(value);
+    }
+
     function reportQtyText(value) {
       const qty = Number(value || 0);
       if (!Number.isFinite(qty)) return "0";
       return Number.isInteger(qty) ? String(qty) : qty.toFixed(2).replace(/\.00$/, "");
     }
 
-    function reportTypeLabel(type) {
-      const labels = {
-        takeaway: "Takeaway",
-        on_site: "Eat in",
-        delivery: "Delivery"
-      };
-      return labels[type] || type || "";
+    function reportLang() {
+      return state.report_lang === "ru" ? "ru" : "vn";
+    }
+
+    function reportRowsLabel(value, locale = reportLang()) {
+      if (locale === "vn") return REPORT_I18N.vn.rowsWord;
+
+      const count = Math.abs(Math.trunc(Number(value) || 0));
+      const lastDigit = count % 10;
+      const lastTwoDigits = count % 100;
+
+      if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return "строк";
+      if (lastDigit === 1) return "строка";
+      if (lastDigit >= 2 && lastDigit <= 4) return "строки";
+      return "строк";
+    }
+
+    function reportTypeLabel(type, locale = reportLang()) {
+      return typeLabelByLocale(type, locale);
+    }
+
+    function reportBaseCode(item) {
+      return String(displayItemCode(item) || item?.code || "")
+        .split("+")[0]
+        .trim()
+        .toUpperCase();
+    }
+
+    const REPORT_PRICE_REPAIR_MIN = {
+      MXB: 250,
+      MXG: 250,
+      MXH: 250,
+      MXT: 250,
+      MXGCX: 250,
+      MXMIX: 250,
+      MIXB: 250,
+      MIXG: 250,
+      MIXL: 250,
+      MIXT: 270,
+      MIXGCX: 250,
+      MIXMIX: 250,
+      PXB: 250,
+      PXG: 250,
+      PXH: 250,
+      PXT: 250,
+      PXGCX: 250,
+      PXMIX: 250
+    };
+
+    function shouldRepairReportPrice(code, savedPrice) {
+      const minimum = REPORT_PRICE_REPAIR_MIN[code];
+      return minimum > 0 && savedPrice > 0 && savedPrice < minimum;
+    }
+
+    function reportCurrentMenuItem(item) {
+      const code = reportBaseCode(item);
+      if (!code) return null;
+      const directItem = findMenuItemByCode(code);
+      if (directItem) return directItem;
+
+      const base = modifierApi()?.getBase?.(code);
+      if (base?.menuCode) {
+        return findMenuItemByCode(base.menuCode);
+      }
+
+      return null;
+    }
+
+    function reportCurrentUnitPrice(item) {
+      const savedPrice = normalizeAmount(item?.price);
+      const code = reportBaseCode(item);
+      const api = modifierApi();
+      const canRepairPrice = shouldRepairReportPrice(code, savedPrice);
+
+      if (savedPrice > 0 && !canRepairPrice) {
+        return savedPrice;
+      }
+
+      if (api?.getBase?.(code)) {
+        try {
+          const rebuilt = api.buildOrderItem(
+            code,
+            item?.modifiers || item?.selections?.modifiers || [],
+            1,
+            item?.note || ""
+          );
+          return Math.max(savedPrice, normalizeAmount(rebuilt.price));
+        } catch (_) {}
+      }
+
+      const menuItem = reportCurrentMenuItem(item);
+      if (canRepairPrice || savedPrice <= 0) {
+        return Math.max(savedPrice, normalizeAmount(menuItem?.price));
+      }
+      return savedPrice;
+    }
+
+    function reportStatusLabel(status, locale = reportLang()) {
+      return statusLabelByLocale(status, locale);
+    }
+
+    function reportItemName(item, locale = reportLang()) {
+      const menuItem = reportCurrentMenuItem(item);
+      if (menuItem) return itemNameByLocale(menuItem, locale);
+      if (locale === "vn") {
+        return item?.code ? `${REPORT_I18N.vn.fallbackItem} ${item.code}` : REPORT_I18N.vn.fallbackItem;
+      }
+      return item?.name || item?.code || REPORT_I18N[locale]?.fallbackItem || REPORT_I18N.ru.fallbackItem;
+    }
+
+    function reportPaymentTargets(order, targetTotal) {
+      const cash = normalizeAmount(order.payment_cash);
+      const card = normalizeAmount(order.payment_card);
+      const recordedPayment = normalizeAmount(cash + card);
+      const recordedTotal = normalizeAmount(order.total);
+      const nextTotal = normalizeAmount(targetTotal);
+
+      if (nextTotal <= recordedTotal || !sameMoney(recordedPayment, recordedTotal)) {
+        return { cash, card };
+      }
+
+      if (card > 0 && cash > 0 && recordedPayment > 0) {
+        const nextCard = normalizeAmount((nextTotal * card) / recordedPayment);
+        return {
+          card: nextCard,
+          cash: normalizeAmount(nextTotal - nextCard)
+        };
+      }
+
+      if (card > 0 || order.payment_type === "card") {
+        return { cash: 0, card: nextTotal };
+      }
+
+      return { cash: nextTotal, card: 0 };
     }
 
     function buildReportComment(order, lineComment = "") {
@@ -2735,6 +5164,44 @@ ${lines}`;
       if (orderComment && orderComment !== itemComment) parts.push(orderComment);
 
       return parts.join(" • ");
+    }
+
+    function buildReportRowKey(order, row, index) {
+      return [
+        dateInputValue(order?.created_at || row?.created_at || new Date()),
+        String(order?.code || row?.orderCode || "order").trim(),
+        String(index),
+        String(row?.code || "line").trim(),
+        reportAmountText(row?.price || 0)
+      ].join("|");
+    }
+
+    function applyReportCommentOverride(row) {
+      const key = row.report_key;
+      const overrides = state.report_comment_overrides || {};
+      const original = String(row.comment || "");
+      const hasOverride = Object.prototype.hasOwnProperty.call(overrides, key);
+      return {
+        ...row,
+        original_comment: original,
+        comment: hasOverride ? String(overrides[key] ?? "") : original
+      };
+    }
+
+    function updateReportCommentOverride(key, value, originalValue = "") {
+      if (!key) return;
+      const original = String(originalValue || "");
+      const nextValue = String(value ?? "");
+      const overrides = state.report_comment_overrides || {};
+
+      if (nextValue === original) {
+        delete overrides[key];
+      } else {
+        overrides[key] = nextValue;
+      }
+
+      state.report_comment_overrides = overrides;
+      saveReportCommentOverrides();
     }
 
     function splitAmountByRows(rowAmounts, targetAmount) {
@@ -2758,27 +5225,76 @@ ${lines}`;
       });
     }
 
-    function buildDailyReportRows(order) {
-      const rows = order.items.map(item => ({
-        code: item.code || "—",
-        type: reportTypeLabel(order.type),
-        name: item.name || item.code || "Позиция",
+    function expandOrderItemsForDisplay(order) {
+      const expanded = [];
+
+      for (const item of order?.items || []) {
+        const qty = Math.max(1, Number(item.qty || 1));
+
+        if (!Number.isInteger(qty) || qty <= 1) {
+          expanded.push({
+            ...item,
+            qty
+          });
+          continue;
+        }
+
+        for (let index = 0; index < qty; index += 1) {
+          expanded.push({
+            ...item,
+            qty: 1
+          });
+        }
+      }
+
+      return expanded;
+    }
+
+    function expandDailyReportItemRows(order, item) {
+      const locale = reportLang();
+      const qty = Math.max(1, Number(item.qty || 1));
+      const savedPrice = normalizeAmount(Number(item.price || 0));
+      const safePrice = reportCurrentUnitPrice(item);
+      const priceRepaired = safePrice > savedPrice && savedPrice > 0;
+      const baseRow = {
+        code: displayItemCode(item),
+        type: reportTypeLabel(order.type, locale),
+        name: reportItemName(item, locale),
         comment: buildReportComment(order, item.note),
-        qty: Math.max(1, Number(item.qty || 1)),
-        price: normalizeAmount(Number(item.price || 0) * Number(item.qty || 0)),
-        status: STATUS_META[order.status]?.label || order.status || "",
-        time: fmtTime(order.created_at)
+        status: reportStatusLabel(order.status, locale),
+        time: fmtTime(order.created_at),
+        priceRepaired
+      };
+
+      if (!Number.isInteger(qty) || qty <= 1) {
+        return [{
+          ...baseRow,
+          qty,
+          price: normalizeAmount(safePrice * qty)
+        }];
+      }
+
+      return Array.from({ length: qty }, () => ({
+        ...baseRow,
+        qty: 1,
+        price: safePrice
       }));
+    }
+
+    function buildDailyReportRows(order) {
+      const locale = reportLang();
+      const text = REPORT_I18N[locale] || REPORT_I18N.ru;
+      const rows = order.items.flatMap(item => expandDailyReportItemRows(order, item));
 
       if (normalizeAmount(order.delivery_fee) > 0) {
         rows.push({
           code: "DELIVERY",
-          type: reportTypeLabel(order.type),
-          name: "Доставка",
-          comment: buildReportComment(order, order.address || "Стоимость доставки"),
+          type: reportTypeLabel(order.type, locale),
+          name: text.deliveryName,
+          comment: buildReportComment(order, order.address || text.deliveryComment),
           qty: 1,
           price: normalizeAmount(order.delivery_fee),
-          status: STATUS_META[order.status]?.label || order.status || "",
+          status: reportStatusLabel(order.status, locale),
           time: fmtTime(order.created_at)
         });
       }
@@ -2786,39 +5302,43 @@ ${lines}`;
       if (!rows.length && normalizeAmount(order.total) > 0) {
         rows.push({
           code: order.code || "—",
-          type: reportTypeLabel(order.type),
-          name: "Заказ без позиций",
-          comment: buildReportComment(order, "Позиции не переданы"),
+          type: reportTypeLabel(order.type, locale),
+          name: text.noItemsName,
+          comment: buildReportComment(order, text.noItemsComment),
           qty: 1,
           price: normalizeAmount(order.total),
-          status: STATUS_META[order.status]?.label || order.status || "",
+          status: reportStatusLabel(order.status, locale),
           time: fmtTime(order.created_at)
         });
       }
 
       const rowsTotal = normalizeAmount(rows.reduce((sum, row) => sum + Number(row.price || 0), 0));
-      const diff = normalizeAmount(Number(order.total || 0) - rowsTotal);
+      const hasPriceRepair = rows.some(row => row.priceRepaired);
+      const reportOrderTotal = hasPriceRepair ? Math.max(normalizeAmount(order.total), rowsTotal) : normalizeAmount(order.total);
+      const diff = normalizeAmount(reportOrderTotal - rowsTotal);
       if (Math.abs(diff) >= 0.01) {
         rows.push({
           code: diff > 0 ? "ADJ" : "DISC",
-          type: reportTypeLabel(order.type),
-          name: diff > 0 ? "Корректировка" : "Скидка / корректировка",
-          comment: buildReportComment(order, "Сверка суммы заказа"),
+          type: reportTypeLabel(order.type, locale),
+          name: diff > 0 ? text.adjustmentName : text.discountName,
+          comment: buildReportComment(order, text.adjustmentComment),
           qty: 1,
           price: diff,
-          status: STATUS_META[order.status]?.label || order.status || "",
+          status: reportStatusLabel(order.status, locale),
           time: fmtTime(order.created_at)
         });
       }
 
       const priceShares = rows.map(row => Number(row.price || 0));
-      const cardParts = splitAmountByRows(priceShares, order.payment_card);
-      const cashParts = splitAmountByRows(priceShares, order.payment_cash);
+      const paymentTargets = reportPaymentTargets(order, reportOrderTotal);
+      const cardParts = splitAmountByRows(priceShares, paymentTargets.card);
+      const cashParts = splitAmountByRows(priceShares, paymentTargets.cash);
 
-      return rows.map((row, index) => ({
+      return rows.map((row, index) => applyReportCommentOverride({
         ...row,
         orderCode: order.code,
         created_at: order.created_at,
+        report_key: buildReportRowKey(order, row, index),
         card: cardParts[index] || 0,
         cash: cashParts[index] || 0
       }));
@@ -2840,6 +5360,25 @@ ${lines}`;
         cashTotal,
         priceTotal
       };
+    }
+
+    function groupDailyReportRows(rows) {
+      const groups = [];
+
+      for (const row of rows) {
+        const currentGroup = groups[groups.length - 1];
+        if (!currentGroup || currentGroup.orderCode !== row.orderCode) {
+          groups.push({
+            orderCode: row.orderCode || "—",
+            rows: [row]
+          });
+          continue;
+        }
+
+        currentGroup.rows.push(row);
+      }
+
+      return groups;
     }
 
     async function copyTextToClipboard(text) {
@@ -2865,8 +5404,9 @@ ${lines}`;
 
     async function copyDailyReportTsv() {
       const report = buildDailyReportData();
+      const text = REPORT_I18N[reportLang()] || REPORT_I18N.ru;
       if (!report.rows.length) {
-        showToast("Нет строк для копирования в отчёт", "warn");
+        showToast(text.emptyCopy, "warn");
         return;
       }
 
@@ -2876,7 +5416,7 @@ ${lines}`;
         .trim();
 
       const lines = [
-        ["CODE", "takeaway/Eat in", "NAME", "koment", "CARD", "CASH", "status", "time"].join("\t"),
+        text.headers.join("\t"),
         ...report.rows.map(row => [
           sanitize(row.code),
           sanitize(row.type),
@@ -2887,14 +5427,14 @@ ${lines}`;
           sanitize(row.status),
           sanitize(row.time)
         ].join("\t")),
-        ["", "", "", "TOTAL:", reportAmountText(report.cardTotal), reportAmountText(report.cashTotal), "", ""].join("\t")
+        ["", "", "", text.total, reportAmountText(report.cardTotal), reportAmountText(report.cashTotal), "", ""].join("\t")
       ];
 
       try {
         await copyTextToClipboard(lines.join("\n"));
-        showToast("Отчёт скопирован в TSV");
+        showToast(text.copied);
       } catch (error) {
-        showToast("Не удалось скопировать отчёт", "error");
+        showToast(text.copyError, "error");
       }
     }
 
@@ -2918,7 +5458,7 @@ ${lines}`;
       }
       if (q) {
         filtered = filtered.filter(order => {
-          const itemsText = order.items.map(item => `${item.name} ${item.code} ${item.note}`).join(" ");
+          const itemsText = order.items.map(item => `${item.name} ${displayItemCode(item)} ${item.note}`).join(" ");
           const hay = [
             order.code,
             order.id,
@@ -2982,30 +5522,71 @@ ${lines}`;
         <div class="payment-editor">
           <div class="payment-summary">
             <div class="payment-line">
-              <span>Cash</span>
+              <span>Наличные</span>
               <strong>${fmtMoney(cash)}</strong>
             </div>
             <div class="payment-line">
-              <span>Card</span>
+              <span>Карта</span>
               <strong>${fmtMoney(card)}</strong>
             </div>
           </div>
           <div class="payment-grid">
             <label class="payment-field">
-              <span>Cash edit</span>
+              <span>Наличные</span>
               <input class="input" type="number" min="0" step="0.01" value="${cash.toFixed(2)}" data-payment-cash />
             </label>
             <label class="payment-field">
-              <span>Card edit</span>
+              <span>Карта</span>
               <input class="input" type="number" min="0" step="0.01" value="${card.toFixed(2)}" data-payment-card />
             </label>
           </div>
           <div class="payment-actions">
-            <span class="muted">Cash + Card = ${fmtMoney(total)}</span>
+            <span class="muted">Наличные + Карта = ${fmtMoney(total)}</span>
             <button class="btn small secondary" type="button" data-save-payment data-order-code="${escapeHtml(order.code)}">Сохранить оплату</button>
           </div>
         </div>
       `;
+    }
+
+    function renderInventory() {
+      const list = $("#inventoryPoolList");
+      if (!list) return;
+
+      const pools = state.inventory.pools || [];
+      if (!pools.length) {
+        list.innerHTML = `
+          <div class="sync-row">
+            <div class="inventory-copy">
+              <div class="inventory-title">Нет активной заготовки</div>
+              <div class="inventory-meta">Открой Contron Panel, внеси чистый вес и норму порции для мяса или других продуктов.</div>
+            </div>
+            <div class="inventory-values">
+              <span class="sync-pill warn">ожидание</span>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = pools.map(pool => `
+        <div class="sync-row">
+          <div class="inventory-copy">
+            <div class="inventory-title">${escapeHtml(pool.label)}</div>
+            <div class="inventory-meta">
+              ${pool.startedLabel ? `Партия: ${escapeHtml(pool.startedLabel)}` : (pool.hasPrep ? "Автосводка из склада" : "В Contron нет активной партии")}
+              ${pool.note ? ` • ${escapeHtml(pool.note)}` : ""}
+            </div>
+            <div class="inventory-meta">
+              Заготовлено: <b>${escapeHtml(fmtPortions(pool.prepared))}</b>${pool.unit ? ` ${escapeHtml(pool.unit)}` : ""} •
+              Списано: <b>${escapeHtml(fmtPortions(pool.sold))}</b>${pool.unit ? ` ${escapeHtml(pool.unit)}` : ""}${typeof pool.soldOrders === "number" ? ` • Заказов: <b>${escapeHtml(String(pool.soldOrders))}</b>` : ""}
+            </div>
+          </div>
+          <div class="inventory-values">
+            <span class="sync-pill ${inventoryPillMode(pool)}">${pool.hasPrep ? "авто" : "нет партии"}</span>
+            <div class="inventory-remaining ${escapeHtml(pool.tone)}">${escapeHtml(inventoryRemainingText(pool))}</div>
+          </div>
+        </div>
+      `).join("");
     }
 
     function renderOrders() {
@@ -3027,10 +5608,11 @@ ${lines}`;
         const statusMeta = STATUS_META[order.status] || STATUS_META.NEW;
         const paymentMeta = PAYMENT_META[order.payment_type] || PAYMENT_META.unknown;
         const tgOk = order.sync?.telegram?.ok || order.sync?.telegram_vn?.ok;
-        const sheetOk = order.sync?.sheet?.ok || order.sync?.sheet?.id;
+        const sheetState = sheetSyncLabel(order.sync?.sheet);
+        const localState = localSyncLabel(order.sync?.local);
 
         return `
-          <article class="order-card" data-order-code="${escapeHtml(order.code)}">
+          <article class="order-card ${order.status === "CANCELLED" ? "cancelled-card" : ""} ${order.payment_type === "unknown" ? "payment-unknown-card" : ""}" data-order-code="${escapeHtml(order.code)}">
             <div class="order-top">
               <div>
                 <div class="order-id">
@@ -3061,20 +5643,15 @@ ${lines}`;
             </div>
 
             <div class="order-items">
-              ${order.items.map((item, index) => `
+              ${expandOrderItemsForDisplay(order).map(item => `
                 <div class="order-line-block">
                   <div class="item-row">
                     <div class="order-line-main">
-                      <strong>${index + 1}. ${escapeHtml(item.code || "—")} ${escapeHtml(item.name)}</strong>
-                      <div class="order-meta">
-                        <span>${fmtMoney(item.price)} за порцию</span>
-                        <span>× ${item.qty}</span>
-                      </div>
+                      <strong>${escapeHtml(displayItemCode(item))} ${escapeHtml(item.name)}</strong>
                       ${item.note ? `<div class="item-note">📝 ${escapeHtml(item.note)}</div>` : ""}
+                      ${buildTrackedItemStockNote(item)}
                     </div>
-                    <div class="order-line-price">${fmtMoney(item.price * item.qty)}</div>
                   </div>
-                  ${buildStatusActionsHtml(order, true)}
                 </div>
               `).join("") || `<div class="muted">Позиции не переданы.</div>`}
             </div>
@@ -3087,7 +5664,7 @@ ${lines}`;
             ` : ""}
 
             <div class="sync-note">
-              Sheets: <b>${sheetOk ? "ok" : "local"}</b> • Telegram: <b>${tgOk ? "ok" : "—"}</b>
+              Bridge: <b>${localState}</b> • Sheets: <b>${sheetState}</b> • Telegram: <b>${tgOk ? "ok" : "—"}</b>
             </div>
 
             ${buildPaymentEditorHtml(order)}
@@ -3100,7 +5677,6 @@ ${lines}`;
                 </div>
                 ${order.delivery_fee ? `<span class="muted">включая доставку ${fmtMoney(order.delivery_fee)}</span>` : ""}
               </div>
-              ${buildStatusActionsHtml(order, true)}
             </div>
           </article>
         `;
@@ -3120,10 +5696,6 @@ ${lines}`;
       $("#statReady").textContent = String(readyCount);
       $("#statCash").textContent = fmtMoney(shift.cashTotal);
       $("#statCard").textContent = fmtMoney(shift.cardTotal);
-
-      $("#railNewCount").textContent = String(newCount);
-      $("#railKitchenCount").textContent = String(cookingCount + readyCount);
-      $("#railClientCount").textContent = String(handedCount);
     }
 
     function renderShift() {
@@ -3151,21 +5723,38 @@ ${lines}`;
       const foot = $("#dailyReportFoot");
       if (!body || !foot) return;
 
+      const locale = reportLang();
+      const text = REPORT_I18N[locale] || REPORT_I18N.ru;
       const report = buildDailyReportData();
-      $("#dailyReportLabel").textContent = `${selectedDateLabel()} • ${report.rows.length} строк`;
+      $("#dailyReportTitle").textContent = text.title;
+      $("#dailyReportDescription").textContent = text.description;
+      $("#copyReportBtn").textContent = text.copy;
+      $("#reportOrdersLabel").textContent = text.labels.orders;
+      $("#reportQtyLabel").textContent = text.labels.portions;
+      $("#reportCardLabel").textContent = text.labels.card;
+      $("#reportCashLabel").textContent = text.labels.cash;
+      $("#reportTurnoverLabel").textContent = text.labels.turnover;
+      $("#dailyReportHead").innerHTML = text.headers.map((header, index) => (
+        `<th${index === 4 || index === 5 ? ' class="num"' : ""}>${escapeHtml(header)}</th>`
+      )).join("");
+      $$("#reportLangToggle [data-report-lang]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.reportLang === locale);
+      });
+
+      $("#dailyReportLabel").textContent = `${selectedDateLabel(locale)} • ${report.rows.length} ${reportRowsLabel(report.rows.length, locale)}`;
       $("#reportOrdersCount").textContent = String(report.orders.length);
       $("#reportQtyTotal").textContent = reportQtyText(report.qtyTotal);
-      $("#reportCardTotal").textContent = fmtMoney(report.cardTotal);
-      $("#reportCashTotal").textContent = fmtMoney(report.cashTotal);
-      $("#reportPriceTotal").textContent = fmtMoney(report.priceTotal);
+      $("#reportCardTotal").textContent = reportMoneyText(report.cardTotal);
+      $("#reportCashTotal").textContent = reportMoneyText(report.cashTotal);
+      $("#reportPriceTotal").textContent = reportMoneyText(report.priceTotal);
 
       if (!report.rows.length) {
         body.innerHTML = `
           <tr>
             <td class="report-empty-cell" colspan="8">
               <div class="empty">
-                <strong>Нет данных для отчёта</strong>
-                <p>Выбери другую дату или дождись заказов за текущий день.</p>
+                <strong>${escapeHtml(text.emptyTitle)}</strong>
+                <p>${escapeHtml(text.emptyText)}</p>
               </div>
             </td>
           </tr>
@@ -3174,22 +5763,53 @@ ${lines}`;
         return;
       }
 
-      body.innerHTML = report.rows.map(row => `
-        <tr>
-          <td class="code-cell">${escapeHtml(row.code || "—")}</td>
-          <td class="type-cell">${escapeHtml(row.type || "")}</td>
-          <td>${escapeHtml(row.name || "—")}</td>
-          <td class="comment-cell ${row.comment ? "" : "empty-cell"}">${escapeHtml(row.comment || "")}</td>
-          <td class="num">${escapeHtml(reportAmountText(row.card, true))}</td>
-          <td class="num">${escapeHtml(reportAmountText(row.cash, true))}</td>
-          <td class="status-cell">${escapeHtml(row.status || "")}</td>
-          <td class="time-cell">${escapeHtml(row.time || "")}</td>
-        </tr>
-      `).join("");
+      const groupedRows = groupDailyReportRows(report.rows);
+
+      body.innerHTML = groupedRows.map((group, groupIndex) => {
+        const leadRow = group.rows[0] || {};
+        const metaParts = [
+          `${text.orderWord} ${group.orderCode || "—"}`,
+          leadRow.type,
+          `${group.rows.length} ${reportRowsLabel(group.rows.length, locale)}`,
+          leadRow.status,
+          leadRow.time
+        ].filter(Boolean);
+
+        return `
+          <tr class="report-order-row ${groupIndex % 2 ? "alt" : ""}">
+            <td colspan="8">
+              <div class="report-order-meta">
+                <strong>${escapeHtml(metaParts.shift() || `${text.orderWord} —`)}</strong>
+                ${metaParts.map(part => `<span>${escapeHtml(part)}</span>`).join("")}
+              </div>
+            </td>
+          </tr>
+          ${group.rows.map((row, rowIndex) => `
+            <tr class="report-item-row ${groupIndex % 2 ? "alt" : ""} ${rowIndex === 0 ? "group-first" : ""} ${rowIndex === group.rows.length - 1 ? "group-last" : ""}">
+              <td class="code-cell">${escapeHtml(row.code || "—")}</td>
+              <td class="type-cell">${escapeHtml(row.type || "")}</td>
+              <td>${escapeHtml(row.name || "—")}</td>
+              <td class="comment-cell ${row.comment ? "" : "empty-cell"}">
+                <textarea
+                  class="report-comment-input"
+                  rows="2"
+                  data-report-comment-key="${escapeHtml(row.report_key || "")}"
+                  data-report-original-comment="${escapeHtml(row.original_comment || "")}"
+                  placeholder="${escapeHtml(text.commentPlaceholder)}"
+                >${escapeHtml(row.comment || "")}</textarea>
+              </td>
+              <td class="num">${escapeHtml(reportAmountText(row.card, true))}</td>
+              <td class="num">${escapeHtml(reportAmountText(row.cash, true))}</td>
+              <td class="status-cell">${escapeHtml(row.status || "")}</td>
+              <td class="time-cell">${escapeHtml(row.time || "")}</td>
+            </tr>
+          `).join("")}
+        `;
+      }).join("");
 
       foot.innerHTML = `
         <tr>
-          <td colspan="4" class="report-total-label">TOTAL:</td>
+          <td colspan="4" class="report-total-label">${escapeHtml(text.total)}</td>
           <td class="num">${escapeHtml(reportAmountText(report.cardTotal))}</td>
           <td class="num">${escapeHtml(reportAmountText(report.cashTotal))}</td>
           <td></td>
@@ -3198,11 +5818,27 @@ ${lines}`;
       `;
     }
 
+    function setReportLang(lang) {
+      const nextLang = lang === "ru" ? "ru" : "vn";
+      if (state.report_lang === nextLang) return;
+      state.report_lang = nextLang;
+      saveReportLang();
+      renderDailyReport();
+    }
+
     function renderAll() {
+      state.inventory = buildInventorySnapshot();
       renderStats();
+      renderInventory();
       renderOrders();
       renderShift();
       renderDailyReport();
+      if ($("#manualModal")?.classList.contains("open")) {
+        renderMenuResults($("#manualSearch")?.value || "");
+        renderManualItems();
+        renderManualModifierBuilder();
+      }
+      state.ordersRenderSignature = buildOrdersRenderSignature(state.orders);
     }
 
     async function saveOrderPayment(code) {
@@ -3219,7 +5855,7 @@ ${lines}`;
       const total = normalizeAmount(order.total);
 
       if (!sameMoney(cash + card, total)) {
-        showToast(`Cash + Card должны дать ${fmtMoney(total)}`, "warn");
+        showToast(`Наличные + Карта должны дать ${fmtMoney(total)}`, "warn");
         return;
       }
 
@@ -3236,20 +5872,21 @@ ${lines}`;
       if (!order || order.status === nextStatus) return;
 
       order.status = nextStatus;
-      order.updated_at = new Date().toISOString();
-      upsertLocalOrder(order);
-      renderAll();
+      order.updated_at = nowIso();
+      markSheetPending(order, "status_update");
+      persistOrderSnapshot(order);
+      await syncOrderToLocalBridge(order);
 
       const result = await updateOrderStatusRemote(order.id || order.code, nextStatus);
-      if (result?.ok) {
-        order.sync.sheet = result;
-        upsertLocalOrder(order);
+      applySheetSyncResult(order, result, "status_update");
+      persistOrderSnapshot(order);
+      await syncOrderToLocalBridge(order);
+
+      if (isSyncOk(result)) {
         setSyncBadge($("#sheetSyncBadge"), "ok", "Онлайн");
-        setLastSyncLabel(fmtDateTime(new Date().toISOString()));
+        setLastSyncLabel(fmtDateTime(nowIso()));
         showToast(`Статус ${order.code}: ${STATUS_META[nextStatus]?.label || nextStatus}`);
       } else {
-        order.sync.sheet = result;
-        upsertLocalOrder(order);
         setSyncBadge($("#sheetSyncBadge"), "warn", "Частично");
         showToast(`Статус сохранен локально, Sheets не ответил`, "warn");
       }
@@ -3278,14 +5915,15 @@ ${lines}`;
       }
 
       const paymentDraft = manualPaymentDraft(totals.total);
-      if (!sameMoney(paymentDraft.payment_cash + paymentDraft.payment_card, totals.total)) {
-        showToast(`Cash + Card должны дать ${fmtMoney(totals.total)}`, "warn");
+      if (paymentDraft.payment_type !== "unknown" && !sameMoney(paymentDraft.payment_cash + paymentDraft.payment_card, totals.total)) {
+        showToast(`Наличные + Карта должны дать ${fmtMoney(totals.total)}`, "warn");
         return;
       }
 
+      const orderCode = state.manual.draft_code || generateShortCode();
       const order = normalizeOrder({
         id: `CASH-${new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`,
-        code: generateShortCode(),
+        code: orderCode,
         status: "NEW",
         type: state.manual.type,
         payment_type: paymentDraft.payment_type,
@@ -3298,11 +5936,19 @@ ${lines}`;
         comment: $("#manualComment").value.trim(),
         items: state.manual.items.map(item => ({
           key: item.key,
+          menu_key: item.menu_key || "",
+          base_code: item.base_code || "",
           code: item.code,
+          display_code: item.display_code || "",
           name: item.name,
           qty: item.qty,
           price: item.price,
-          note: item.note
+          total: normalizeAmount(item.price * item.qty),
+          note: item.note,
+          modifiers: item.modifiers || [],
+          base_usage: item.base_usage || {},
+          stock_usage: item.stock_usage || {},
+          selections: item.selections || {}
         })),
         subtotal: totals.subtotal,
         delivery_fee: totals.deliveryFee,
@@ -3312,9 +5958,9 @@ ${lines}`;
         source: "cashier"
       });
 
-      upsertLocalOrder(order);
-      state.orders = mergeOrders([], loadLocalOrders());
-      renderAll();
+      markSheetPending(order, "create");
+      persistOrderSnapshot(order);
+      await syncOrderToLocalBridge(order);
 
       const tgTextUA = buildTelegramTextUA(order);
       const tgTextVN = buildTelegramTextVN(order);
@@ -3326,16 +5972,15 @@ ${lines}`;
 
       order.sync.telegram = tgMain;
       order.sync.telegram_vn = tgVN;
-      order.sync.sheet = sheetRes;
-      upsertLocalOrder(order);
-      state.orders = mergeOrders([], loadLocalOrders());
-      renderAll();
+      applySheetSyncResult(order, sheetRes, "create");
+      persistOrderSnapshot(order);
+      await syncOrderToLocalBridge(order);
 
       setSyncBadge($("#telegramSyncBadge"), tgMain.ok || tgVN.ok ? "ok" : "warn", tgMain.ok || tgVN.ok ? "Отправлено" : "Ошибка");
-      setSyncBadge($("#sheetSyncBadge"), sheetRes?.ok || sheetRes?.id ? "ok" : "warn", sheetRes?.ok || sheetRes?.id ? "Онлайн" : "Частично");
+      setSyncBadge($("#sheetSyncBadge"), isSyncOk(sheetRes) ? "ok" : "warn", isSyncOk(sheetRes) ? "Онлайн" : "Частично");
 
-      if (sheetRes?.ok || sheetRes?.id) {
-        setLastSyncLabel(fmtDateTime(new Date().toISOString()));
+      if (isSyncOk(sheetRes)) {
+        setLastSyncLabel(fmtDateTime(nowIso()));
       }
 
       closeManualModal();
@@ -3362,23 +6007,47 @@ ${lines}`;
       showToast("Новая смена начата");
     }
 
-    function clearLocalCache() {
+    async function clearLocalCache() {
+      const confirmed = window.confirm(
+        "Очистить локальный кэш кассы, сбросить локальные заказы и начать новую смену?"
+      );
+      if (!confirmed) return;
+
+      const bridgeResult = await clearOrdersLocalBridge();
       localStorage.removeItem(ORDERS_KEY);
       localStorage.removeItem(LAST_SYNC_KEY);
       state.orders = [];
+      state.shift = {
+        opened_at: new Date().toISOString(),
+        opening_cash: 0,
+        note: ""
+      };
+      saveShift();
       const lastSyncTime = $("#lastSyncTime");
       if (lastSyncTime) lastSyncTime.textContent = "—";
       renderAll();
-      loadOrders();
-      showToast("Локальный кэш очищен");
+      await loadOrders();
+
+      if (bridgeResult?.ok) {
+        showToast("Кэш кассы очищен, смена сброшена");
+        return;
+      }
+
+      showToast("Кэш очищен локально, но bridge не сбросился", "warn");
     }
 
     function bindEvents() {
       $("#refreshBtn").addEventListener("click", loadOrders);
+      $("#sendScreenshotBtn").addEventListener("click", sendFullScreenshotToVN);
+      $("#reportScreenshotBtn").addEventListener("click", sendReportScreenshotToVN);
       $("#clearCacheBtn").addEventListener("click", clearLocalCache);
       $("#openManualBtn").addEventListener("click", openManualModal);
+      $("#lockKassaBtn").addEventListener("click", lockKassa);
       $("#closeManualBtn").addEventListener("click", closeManualModal);
       $("#submitManualOrderBtn").addEventListener("click", submitManualOrder);
+      $("#addConfiguredItemBtn").addEventListener("click", addConfiguredItemFromBuilder);
+      $("#toggleBuilderEditBtn").addEventListener("click", toggleManualBuilderEdit);
+      $("#clearManualBuilderBtn").addEventListener("click", clearManualBuilder);
       $("#saveShiftBtn").addEventListener("click", saveShiftFromForm);
       $("#restartShiftBtn").addEventListener("click", restartShift);
       $("#clearShiftCacheBtn").addEventListener("click", clearLocalCache);
@@ -3399,6 +6068,20 @@ ${lines}`;
 
       $("#dateFilter").addEventListener("change", handleDateInputChange);
       $("#copyReportBtn").addEventListener("click", copyDailyReportTsv);
+      $("#reportLangToggle").addEventListener("click", event => {
+        const btn = event.target.closest("[data-report-lang]");
+        if (!btn) return;
+        setReportLang(btn.dataset.reportLang);
+      });
+      $("#dailyReportBody").addEventListener("input", event => {
+        const input = event.target.closest("[data-report-comment-key]");
+        if (!input) return;
+        updateReportCommentOverride(
+          input.dataset.reportCommentKey,
+          input.value,
+          input.dataset.reportOriginalComment || ""
+        );
+      });
 
       const rerenderOrders = debounce(renderOrders, 120);
       ["searchFilter", "statusFilter", "typeFilter", "paymentFilter", "sourceFilter", "sortFilter"].forEach(id => {
@@ -3412,6 +6095,9 @@ ${lines}`;
       $("#manualDeliveryFee").addEventListener("input", renderManualItems);
       $("#manualCashAmount").addEventListener("input", renderManualItems);
       $("#manualCardAmount").addEventListener("input", renderManualItems);
+      $("#manualBuilderQtyInput").addEventListener("input", event => {
+        setManualBuilderQty(event.target.value);
+      });
 
       $("#manualTypeToggle").addEventListener("click", event => {
         const btn = event.target.closest("[data-type]");
@@ -3431,6 +6117,16 @@ ${lines}`;
         const btn = event.target.closest("[data-add-item]");
         if (!btn) return;
         addManualItem(btn.dataset.addItem);
+      });
+
+      $("#manualModifierGroups").addEventListener("click", event => {
+        const btn = event.target.closest("[data-builder-addon]");
+        if (!btn) return;
+        toggleManualBuilderAddon(
+          btn.dataset.builderAddon,
+          btn.dataset.builderKind,
+          btn.dataset.builderValue
+        );
       });
 
       $("#manualItemsList").addEventListener("click", event => {
@@ -3467,21 +6163,64 @@ ${lines}`;
         if (!btn) return;
         setOrderStatus(btn.dataset.orderCode, btn.dataset.updateStatus);
       });
+
+      window.addEventListener("storage", event => {
+        if (event.key === STOCK_SUMMARY_KEY) {
+          if (document.hidden) return;
+          renderAll();
+          return;
+        }
+
+        if (event.key === CONTRON_STORAGE_KEY) {
+          if (document.hidden) return;
+          renderAll();
+          return;
+        }
+
+        if (event.key === ORDERS_KEY && isKassaUnlocked()) {
+          if (document.hidden) return;
+          refreshOrdersFromCache();
+        }
+      });
+
+      document.addEventListener("visibilitychange", handleKassaVisibilityChange);
     }
 
     function init() {
+      state.initialized = true;
       restoreLastSyncLabel();
       buildMenuIndex();
       bindEvents();
+      connectLocalEvents();
+      if (!SCREENSHOT_MODE) {
+        window.addEventListener("beforeunload", () => {
+          if (state.eventSource) state.eventSource.close();
+        });
+      }
       applyQuickDateFilter("today");
       resetManualOrder();
       renderAll();
       loadOrders();
-      if (state.timer) clearInterval(state.timer);
-      state.timer = setInterval(loadOrders, REFRESH_MS);
+      if (!SCREENSHOT_MODE) {
+        if (state.timer) clearInterval(state.timer);
+        state.timer = setInterval(pollOrdersWhenVisible, REFRESH_MS);
+      }
     }
 
-    init();
+    function initAuth() {
+      $("#pinForm").addEventListener("submit", handlePinSubmit);
+
+      if (isKassaUnlocked()) {
+        showKassa();
+        startKassaApp();
+        return;
+      }
+
+      hideKassa();
+    }
+
+    initAuth();
   </script>
+  <script src="dlv_burger_menu.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0f1a" />
+  <meta name="theme-color" content="#070101" />
   <title>CYBER DRAGON — Menu</title>
   <link rel="icon" href="logo.png"/>
   <link rel="stylesheet" href="base.css">
@@ -300,6 +300,7 @@
     </div>
 
     <script src="menu.js"></script>
+    <script src="menu_availability.js"></script>
     <script>
       /* ==== CONFIG ==== */
       const UNIVERSAL_PAY_LINK = 'https://bank.gov.ua/qr/QkNECjAwMgoxClVDVAoK0JvRlCDQotGF0ZYg0JrRhdCw0L3RjCDQm9GWClVBNDczMjIwMDEwMDAwMDI2MjAwMzQ0NTAzNjYwCgozMzAwMzIxNzYyCgoK0J_QvtC_0L7QstC90LXQvdC90Y8g0YDQsNGF0YPQvdC60YMKCg==';
@@ -313,6 +314,8 @@
 
       const LANG_FLAGS = { ru:'🇷🇺', ua:'🇺🇦', vn:'🇻🇳' };
       const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
+      const LOCAL_API_BASE = window.location.origin.startsWith('http') ? `${window.location.origin}/api/local-orders` : '';
+      const LOCAL_EVENTS_URL = window.location.origin.startsWith('http') ? `${window.location.origin}/api/local-events` : '';
 
       const I18N = {
         ru:{
@@ -604,6 +607,37 @@
         saveCart();
       }
 
+      function availabilityApi(){
+        return window.DLV_MENU_AVAILABILITY || null;
+      }
+
+      function isMenuItemAvailable(it){
+        const api = availabilityApi();
+        return !api || api.isAvailable(it);
+      }
+
+      function menuItemById(id){
+        const [cat, idx] = String(id || '').split(':');
+        const it = menuData?.[cat]?.[+idx];
+        return it ? {cat, idx:+idx, it} : null;
+      }
+
+      function pruneUnavailableCart(showNotice=false){
+        let changed = false;
+        for (const [id] of cart){
+          const found = menuItemById(id);
+          if (!found?.it || !isMenuItemAvailable(found.it)){
+            cart.delete(id);
+            changed = true;
+          }
+        }
+        if (changed){
+          saveCart();
+          if (showNotice) alert('Некоторые позиции сегодня недоступны и удалены из корзины.');
+        }
+        return changed;
+      }
+
       function loadOrders(){
         try{ return JSON.parse(localStorage.getItem(ORDERS_KEY) || '{}') || {}; }
         catch(e){ return {}; }
@@ -613,8 +647,135 @@
         try{ localStorage.setItem(ORDERS_KEY, JSON.stringify(obj||{})); }catch(e){}
       }
 
+      function nowIso(){
+        return new Date().toISOString();
+      }
+
+      function normalizeStatus(value){
+        const raw = String(value || '').trim().toUpperCase();
+        if (!raw || raw === 'SENT' || raw === 'FAILED') return 'NEW';
+        if (raw === 'CONFIRMED') return 'COOKING';
+        if (raw === 'COMPLETED' || raw === 'DONE') return 'HANDED';
+        return raw;
+      }
+
+      function syncStamp(sync){
+        if (!sync || typeof sync !== 'object') return 0;
+        const raw = sync.updated_at || sync.attempted_at || sync.requested_at || sync.created_at;
+        const stamp = raw ? new Date(raw).getTime() : 0;
+        return Number.isFinite(stamp) ? stamp : 0;
+      }
+
+      function syncScore(channel, sync){
+        if (!sync || typeof sync !== 'object') return 0;
+        if (channel === 'sheet'){
+          if (sync.ok || sync.id) return 4;
+          if (sync.pending || sync.retrying) return 3;
+          return 2;
+        }
+        if (channel === 'local'){
+          return sync.ok ? 3 : 1;
+        }
+        return sync.ok ? 2 : 1;
+      }
+
+      function pickBetterSync(channel, left, right){
+        const leftScore = syncScore(channel, left);
+        const rightScore = syncScore(channel, right);
+        if (leftScore !== rightScore) return leftScore > rightScore ? left : right;
+        return syncStamp(left) >= syncStamp(right) ? left : right;
+      }
+
+      function normalizeOrderRecord(raw){
+        const code = String(raw?.code || raw?.order_code || raw?.id || '').trim().toLowerCase();
+        const createdAt = raw?.created_at || raw?.createdAt || nowIso();
+        const updatedAt = raw?.updated_at || raw?.updatedAt || createdAt;
+        const sync = raw?.sync && typeof raw.sync === 'object' ? raw.sync : {};
+        return {
+          ...raw,
+          id: String(raw?.id || raw?.order_id || code).trim(),
+          code,
+          status: normalizeStatus(raw?.status),
+          created_at: createdAt,
+          updated_at: updatedAt,
+          currency: raw?.currency || CURRENCY,
+          items: Array.isArray(raw?.items) ? raw.items : [],
+          sync: {
+            ...sync,
+            local: sync.local || raw?.local_sync || null,
+            telegram: sync.telegram || raw?.tg || null,
+            telegram_vn: sync.telegram_vn || raw?.vn_tg || null,
+            sheet: sync.sheet || raw?.sheet || null
+          }
+        };
+      }
+
+      function mergeOrderRecord(current, incoming){
+        const base = current ? normalizeOrderRecord(current) : null;
+        const draft = normalizeOrderRecord(incoming);
+        if (!base) return draft;
+
+        const useDraft = new Date(draft.updated_at || draft.created_at).getTime() >= new Date(base.updated_at || base.created_at).getTime();
+        const primary = useDraft ? draft : base;
+        const fallback = useDraft ? base : draft;
+
+        return normalizeOrderRecord({
+          ...fallback,
+          ...primary,
+          sync: {
+            ...(fallback.sync || {}),
+            ...(primary.sync || {}),
+            local: pickBetterSync('local', fallback.sync?.local, primary.sync?.local),
+            telegram: pickBetterSync('telegram', fallback.sync?.telegram, primary.sync?.telegram),
+            telegram_vn: pickBetterSync('telegram', fallback.sync?.telegram_vn, primary.sync?.telegram_vn),
+            sheet: pickBetterSync('sheet', fallback.sync?.sheet, primary.sync?.sheet)
+          }
+        });
+      }
+
+      function persistOrderRecord(order){
+        const orders = loadOrders();
+        const normalized = normalizeOrderRecord(order);
+        orders[normalized.code] = mergeOrderRecord(orders[normalized.code], normalized);
+        saveOrders(orders);
+        return orders[normalized.code];
+      }
+
+      async function fetchOrdersRemoteStatus(){
+        const response = await fetch(`${API_BASE}?action=get_orders`, { cache: 'no-store' });
+        return response.json();
+      }
+
+      async function fetchOrdersLocalBridge(){
+        if (!LOCAL_API_BASE) return { ok:false, orders:[] };
+        const response = await fetch(LOCAL_API_BASE, { cache: 'no-store' });
+        return response.json();
+      }
+
+      async function fetchOrderFromLocalBridge(code){
+        if (!LOCAL_API_BASE) return null;
+        const response = await fetch(`${LOCAL_API_BASE}?code=${encodeURIComponent(code)}`, { cache: 'no-store' });
+        if (!response.ok) return null;
+        const data = await response.json();
+        return data?.order || null;
+      }
+
+      async function pushOrderToLocalBridge(order){
+        if (!LOCAL_API_BASE) return { ok:false, error:'Local bridge unavailable' };
+        try{
+          const response = await fetch(LOCAL_API_BASE, {
+            method:'POST',
+            headers:{ 'Content-Type':'application/json' },
+            body: JSON.stringify(order)
+          });
+          return await response.json();
+        }catch(e){
+          return { ok:false, error:String(e) };
+        }
+      }
+
       function renderPills(){
-        const keys = Object.keys(menuData || {}).filter(k => Array.isArray(menuData[k]) && menuData[k].some(it => !isBuilderItem(it)));
+        const keys = Object.keys(menuData || {}).filter(k => Array.isArray(menuData[k]) && menuData[k].some(it => !isBuilderItem(it) && isMenuItemAvailable(it)));
         const el = $('#catPills');
         if (!el) return;
         el.innerHTML = keys.map((k,i) =>
@@ -685,7 +846,7 @@
       function findByKey(key){
         for (const [cat, arr] of Object.entries(menuData||{})){
           const idx = (arr||[]).findIndex(x => x && x.key === key);
-          if (idx >= 0) return {cat, idx, it: arr[idx]};
+          if (idx >= 0 && isMenuItemAvailable(arr[idx])) return {cat, idx, it: arr[idx]};
         }
         return null;
       }
@@ -768,6 +929,7 @@
       async function renderMenu(){
         const content = $('#content');
         if (!content) return;
+        pruneUnavailableCart();
         content.innerHTML = '';
 
         await loadDescriptions();
@@ -780,6 +942,7 @@
           for (const [cat, arr] of Object.entries(menuData || {})){
             (arr||[]).forEach((it, idx)=>{
               if (isBuilderItem(it)) return;
+              if (!isMenuItemAvailable(it)) return;
               const name = itemName(it).toLowerCase();
               const desc = getDishDescription(it).toLowerCase();
               const ingredients = getDishIngredients(it).toLowerCase();
@@ -811,7 +974,7 @@
 
         const keys = Object.keys(menuData || {});
         keys.forEach(k => {
-          const safeItems = (menuData[k] || []).filter(it => !isBuilderItem(it));
+          const safeItems = (menuData[k] || []).filter(it => !isBuilderItem(it) && isMenuItemAvailable(it));
           if (!safeItems.length) return;
           const items = safeItems.map((it, idx) => {
             const originalIdx = (menuData[k] || []).indexOf(it);
@@ -835,7 +998,7 @@
           if (qty<=0) continue;
           const [cat, idx] = id.split(':');
           const it = menuData[cat]?.[+idx];
-          if (!it) continue;
+          if (!it || !isMenuItemAvailable(it)) continue;
           const name = itemName(it);
           const unit = calcItemUnitPrice(it, entry.selections);
           const key = it.key || it.id || it.code || '';
@@ -894,7 +1057,7 @@
           if (qty<=0) continue;
           const [cat, idx] = id.split(':');
           const it = menuData[cat]?.[+idx];
-          if (!it) continue;
+          if (!it || !isMenuItemAvailable(it)) continue;
           const name = itemName(it);
           const unit = calcItemUnitPrice(it, entry.selections);
           sum += unit * qty;
@@ -947,7 +1110,7 @@
           const qty = entry?.qty || 0;
           const [cat, idx] = id.split(':');
           const it = menuData[cat]?.[+idx];
-          if (!it || qty<=0) continue;
+          if (!it || !isMenuItemAvailable(it) || qty<=0) continue;
           items += qty;
           sum += calcItemUnitPrice(it, entry.selections) * qty;
         }
@@ -1206,6 +1369,12 @@
         const idx = Number(idxStr);
         const it = menuData?.[cat]?.[idx];
         if (!it) return;
+        if (!isMenuItemAvailable(it)){
+          alert('Эта позиция сегодня недоступна.');
+          pruneUnavailableCart();
+          renderMenu(); renderCartSheet(); renderFab();
+          return;
+        }
         const entry = cart.get(cardId) || {qty:0, selections:{}, note:''};
         dishCtx = {
           id: cardId,
@@ -1261,6 +1430,13 @@
 
       dishPlus?.addEventListener('click', ()=>{
         if (!dishCtx) return;
+        if (!isMenuItemAvailable(dishCtx.it)){
+          alert('Эта позиция сегодня недоступна.');
+          closeDishSheet();
+          pruneUnavailableCart();
+          renderMenu(); renderCartSheet(); renderFab();
+          return;
+        }
         const current = cart.get(dishCtx.id);
         if (!current || current.qty<=0){
           cartSetEntry(dishCtx.id, {qty:1, selections:dishCtx.tempSel||{}, note:(dishCtx.tempNote||'')});
@@ -1273,6 +1449,13 @@
 
       dishAddBtn?.addEventListener('click', ()=>{
         if (!dishCtx) return;
+        if (!isMenuItemAvailable(dishCtx.it)){
+          alert('Эта позиция сегодня недоступна.');
+          closeDishSheet();
+          pruneUnavailableCart();
+          renderMenu(); renderCartSheet(); renderFab();
+          return;
+        }
         const v = validateSelections(dishCtx.it, dishCtx.tempSel);
         if (!v.ok){
           alert(`Выберите: ${v.title}`);
@@ -1301,6 +1484,12 @@
           const id = add.dataset.add;
           const [cat, idx] = id.split(':');
           const it = menuData?.[cat]?.[+idx];
+          if (!it || !isMenuItemAvailable(it)){
+            alert('Эта позиция сегодня недоступна.');
+            pruneUnavailableCart();
+            renderMenu(); renderCartSheet(); renderFab();
+            return;
+          }
           if (it && (Array.isArray(it.options) && it.options.length)){
             openDishById(id);
             return;
@@ -1313,6 +1502,13 @@
         const inc = e.target.closest('[data-inc]');
         if (inc){
           const id = inc.dataset.inc;
+          const found = menuItemById(id);
+          if (!found?.it || !isMenuItemAvailable(found.it)){
+            alert('Эта позиция сегодня недоступна.');
+            pruneUnavailableCart();
+            renderMenu(); renderCartSheet(); renderFab();
+            return;
+          }
           cartInc(id, +1);
           renderMenu(); renderCartSheet(); renderFab();
           return;
@@ -1538,6 +1734,35 @@
         `;
       }
 
+      async function refreshStatus(code){
+        const normalizedCode = String(code || '').trim().toLowerCase();
+        renderStatus(normalizedCode);
+        if (!normalizedCode) return;
+
+        let latest = null;
+        const storedOrders = loadOrders();
+        if (storedOrders[normalizedCode]) latest = storedOrders[normalizedCode];
+
+        const [bridgeResult, remoteResult] = await Promise.allSettled([
+          fetchOrderFromLocalBridge(normalizedCode),
+          fetchOrdersRemoteStatus()
+        ]);
+
+        if (bridgeResult.status === 'fulfilled' && bridgeResult.value) {
+          latest = mergeOrderRecord(latest, bridgeResult.value);
+        }
+
+        if (remoteResult.status === 'fulfilled' && Array.isArray(remoteResult.value?.orders)) {
+          const remoteMatch = remoteResult.value.orders.find(order => String(order?.code || order?.id || '').trim().toLowerCase() === normalizedCode);
+          if (remoteMatch) latest = mergeOrderRecord(latest, remoteMatch);
+        }
+
+        if (latest) {
+          persistOrderRecord(latest);
+          renderStatus(normalizedCode);
+        }
+      }
+
       searchInEl?.addEventListener('input', debouncedRenderMenu);
 
       searchClearEl?.addEventListener('click', ()=>{
@@ -1549,15 +1774,58 @@
 
       statusBtnEl?.addEventListener('click', ()=>{
         const code = statusCodeEl?.value || '';
-        renderStatus(code);
+        refreshStatus(code);
       });
 
       statusCodeEl?.addEventListener('keydown', (e)=>{
         if (e.key === 'Enter'){
           e.preventDefault();
-          renderStatus(statusCodeEl.value);
+          refreshStatus(statusCodeEl.value);
         }
       });
+
+      function connectLocalEvents(){
+        if (!window.EventSource || !LOCAL_EVENTS_URL) return;
+        const source = new EventSource(LOCAL_EVENTS_URL);
+        source.addEventListener('orders_updated', () => {
+          const code = statusCodeEl?.value || '';
+          if (code.trim()) refreshStatus(code);
+        });
+        source.addEventListener('menu_availability_updated', async () => {
+          await availabilityApi()?.refresh?.();
+          pruneUnavailableCart();
+          renderPills();
+          renderMenu();
+          renderCartSheet();
+          renderFab();
+        });
+        window.addEventListener('beforeunload', () => source.close(), { once: true });
+      }
+
+      window.addEventListener('storage', (event) => {
+        if (event.key === ORDERS_KEY){
+          const code = statusCodeEl?.value || '';
+          if (code.trim()) renderStatus(code);
+          return;
+        }
+        if (event.key === availabilityApi()?.STORAGE_KEY){
+          pruneUnavailableCart();
+          renderPills();
+          renderMenu();
+          renderCartSheet();
+          renderFab();
+        }
+      });
+
+      window.addEventListener('dlv-menu-availability-changed', () => {
+        pruneUnavailableCart();
+        renderPills();
+        renderMenu();
+        renderCartSheet();
+        renderFab();
+      });
+
+      connectLocalEvents();
 
       function setLang(v){
         LANG = v;
@@ -1788,6 +2056,7 @@ ${lines}`;
       $('#checkoutBtn')?.addEventListener('click', async ()=>{
         const s = L().sheet;
         const ot = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
+        pruneUnavailableCart(true);
 
         if (ot === 'on_site' && !tableNo.value.trim()){ alert(s.errTable); return; }
         if (ot === 'takeaway'){
@@ -1800,6 +2069,11 @@ ${lines}`;
         }
 
         const {sum, lines, items, deliveryFee, totalWithDelivery} = cartSummary(ot);
+        if (!items.length){
+          alert(s.empty || 'Корзина пустая');
+          renderMenu(); renderCartSheet(); renderFab();
+          return;
+        }
         const meta = [];
         if (ot === 'on_site') meta.push(`${s.table}: ${tableNo.value.trim()}`);
         if (ot === 'takeaway') meta.push(`${s.pickupIn}: ${pickupIn.value.trim()} мин`);
@@ -1814,8 +2088,10 @@ ${lines}`;
           }
         }
 
-        const ordId = 'CD-'+new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
+        const createdAt = nowIso();
+        const ordId = 'CD-'+createdAt.replace(/[-:TZ.]/g,'').slice(0,14);
         const orderCode = generateShortCode();
+        const receipt_link = receiptLink(orderCode);
 
         const orderPayload = {
           id: ordId,
@@ -1833,8 +2109,40 @@ ${lines}`;
           subtotal: sum,
           delivery_fee: deliveryFee,
           total: totalWithDelivery,
-          created_at: new Date().toISOString()
+          currency: CURRENCY,
+          meta,
+          receipt_link,
+          source: 'site',
+          created_at: createdAt,
+          updated_at: createdAt
         };
+
+        const localDraft = persistOrderRecord({
+          ...orderPayload,
+          sync: {
+            local: { ok: false, requested_at: createdAt, via: 'local_bridge' },
+            sheet: { pending: true, requested_at: createdAt, via: 'site_checkout' },
+            telegram: { requested_at: createdAt },
+            telegram_vn: { requested_at: createdAt }
+          }
+        });
+
+        const bridgeInitial = await pushOrderToLocalBridge(localDraft);
+        const bridgeDraft = persistOrderRecord({
+          ...localDraft,
+          sync: {
+            ...(localDraft.sync || {}),
+            local: bridgeInitial?.ok ? {
+              ok: true,
+              updated_at: bridgeInitial?.updated_at || createdAt,
+              via: 'local_bridge'
+            } : {
+              ok: false,
+              updated_at: createdAt,
+              error: bridgeInitial?.error || ''
+            }
+          }
+        });
 
         const [tgRes, tgResVN, sheetRes] = await Promise.all([
           sendOrderToTelegram(orderPayload),
@@ -1842,30 +2150,39 @@ ${lines}`;
           createOrderOnSheet(orderPayload)
         ]);
 
-        const receipt_link = receiptLink(orderCode);
-
-        const orders = loadOrders();
-        orders[orderCode] = {
-          code: orderCode,
-          id: ordId,
-          created_at: orderPayload.created_at,
-          subtotal: sum,
-          delivery_fee: deliveryFee,
-          total: totalWithDelivery,
-          currency: CURRENCY,
-          type: ot,
-          payment_type: orderPayload.payment_type,
-          payment_cash: orderPayload.payment_cash,
-          payment_card: orderPayload.payment_card,
-          meta,
-          items,
+        const syncedOrder = persistOrderRecord({
+          ...bridgeDraft,
           tg: tgRes,
           vn_tg: tgResVN,
           sheet: sheetRes,
-          receipt_link,
-          status: (tgRes?.ok || tgResVN?.ok) ? 'SENT' : 'FAILED'
-        };
-        saveOrders(orders);
+          status: 'NEW',
+          updated_at: nowIso(),
+          sync: {
+            ...(bridgeDraft.sync || {}),
+            telegram: {
+              ok: !!tgRes?.ok,
+              updated_at: nowIso(),
+              error: tgRes?.reason || ''
+            },
+            telegram_vn: {
+              ok: !!tgResVN?.ok,
+              updated_at: nowIso(),
+              error: tgResVN?.reason || ''
+            },
+            sheet: (sheetRes?.ok || sheetRes?.id) ? {
+              ok: true,
+              id: sheetRes?.id || sheetRes?.order_id || '',
+              updated_at: nowIso(),
+              via: 'apps_script'
+            } : {
+              pending: true,
+              retrying: true,
+              updated_at: nowIso(),
+              error: sheetRes?.error || String(sheetRes?.reason || '')
+            }
+          }
+        });
+        await pushOrderToLocalBridge(syncedOrder);
 
         let icon;
         if ((tgRes?.ok || tgResVN?.ok) && (sheetRes?.ok || sheetRes?.id)) icon = '✔✔';
@@ -1875,19 +2192,7 @@ ${lines}`;
         alert(`${icon} ID: ${ordId} • Итого: ${totalWithDelivery.toFixed(2)} ${CURRENCY}`);
 
         if (statusResultEl){
-          statusResultEl.innerHTML = `
-            <div class="status-card">
-              <div><b>Код:</b> ${escapeHtml(orderCode)} <span class="pill-mini">NEW</span></div>
-              <div class="muted">${escapeHtml(L().receiptReady)}</div>
-              ${receipt_link ? `
-                <div style="margin-top:10px">
-                  <a class="btn primary" href="${receipt_link}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;justify-content:center;align-items:center;text-decoration:none;">
-                    📩 ${escapeHtml(L().receiptBtn)}
-                  </a>
-                </div>
-              ` : ``}
-            </div>
-          `;
+          renderStatus(orderCode);
         }
 
         cart.clear(); saveCart();
@@ -1945,7 +2250,7 @@ ${lines}`;
 
       function buildCatSheet(){
         if (!catSheetList) return;
-        const keys = Object.keys(menuData || {});
+        const keys = Object.keys(menuData || {}).filter(k => Array.isArray(menuData[k]) && menuData[k].some(it => !isBuilderItem(it) && isMenuItemAvailable(it)));
         catSheetList.innerHTML = keys.map(k =>
           `<button class="chip" data-goto="#sec-${k}">${catLabel(k)}</button>`
         ).join('');
@@ -2258,6 +2563,13 @@ ${lines}`;
 
         setUITexts();
         renderBankList();
+        availabilityApi()?.refresh?.().then(() => {
+          pruneUnavailableCart();
+          renderPills();
+          renderMenu();
+          renderCartSheet();
+          renderFab();
+        });
 
         const header = $('.header');
         const catNav = $('.cat-nav');
