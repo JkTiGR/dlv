@@ -2490,6 +2490,7 @@
 
   <div class="toast-wrap" id="toastWrap" aria-live="polite" data-html2canvas-ignore="true"></div>
 
+  <script src="dlv_static_config.js"></script>
   <script src="menu.js"></script>
   <script src="dlv_kassa_modifier_logic.js"></script>
   <script>
@@ -2504,8 +2505,8 @@
     const LAST_SYNC_KEY = "CD_KASSA_LAST_SYNC_V1";
     const CONTRON_STORAGE_KEY = "DLV_CONTRON_PANEL_V2";
     const STOCK_SUMMARY_KEY = "DLV_STOCK_SUMMARY_V1";
-    const LOCAL_API_BASE = `${window.location.origin}/api/local-orders`;
-    const LOCAL_EVENTS_URL = `${window.location.origin}/api/local-events`;
+    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
     const SCREENSHOT_MODE = new URLSearchParams(window.location.search).get("screenshot") === "1";
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
     const REFRESH_MS = 30000;
@@ -4784,6 +4785,7 @@ ${lines}`;
     }
 
     async function fetchOrdersLocalBridge() {
+      if (!LOCAL_API_BASE) return { ok: false, orders: [], error: "local_bridge_unavailable" };
       try {
         const response = await fetch(LOCAL_API_BASE, { cache: "no-store" });
         if (!response.ok) {
@@ -4796,6 +4798,7 @@ ${lines}`;
     }
 
     async function clearOrdersLocalBridge() {
+      if (!LOCAL_API_BASE) return { ok: false, error: "local_bridge_unavailable" };
       try {
         const response = await fetch(LOCAL_API_BASE, {
           method: "DELETE"
@@ -4810,6 +4813,7 @@ ${lines}`;
     }
 
     async function pushOrderToLocalBridge(orderPayload) {
+      if (!LOCAL_API_BASE) return { ok: false, error: "local_bridge_unavailable" };
       try {
         const response = await fetch(LOCAL_API_BASE, {
           method: "POST",

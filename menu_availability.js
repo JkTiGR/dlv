@@ -1,8 +1,6 @@
 (function () {
   const STORAGE_KEY = "DLV_MENU_AVAILABILITY_V1";
-  const API_URL = window.location.origin && /^https?:/.test(window.location.origin)
-    ? `${window.location.origin}/api/menu-availability`
-    : "";
+  const API_URL = window.DLV_STATIC?.menuAvailabilityApi || "";
 
   function todayKey(date = new Date()) {
     const year = date.getFullYear();

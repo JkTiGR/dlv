@@ -107,6 +107,7 @@
     <div class="links" id="links"></div>
   </main>
 
+  <script src="dlv_static_config.js"></script>
   <script>
     const SAFE_LOCAL_KEYS = [
       "CD_ORDERS_V1",
@@ -148,12 +149,16 @@
         details.push(`localStorage cleared (${localKeys.length} keys)`);
         details.push("sessionStorage cleared for this tab");
 
-        try {
-          const response = await fetch("/api/local-orders", { method: "DELETE" });
-          const payload = await response.json();
-          details.push(`local bridge cleared (${Number(payload?.removed || 0)} orders)`);
-        } catch (error) {
-          details.push(`local bridge reset failed: ${error.message}`);
+        if (window.DLV_STATIC?.localOrdersApi) {
+          try {
+            const response = await fetch(window.DLV_STATIC.localOrdersApi, { method: "DELETE" });
+            const payload = await response.json();
+            details.push(`local bridge cleared (${Number(payload?.removed || 0)} orders)`);
+          } catch (error) {
+            details.push(`local bridge reset failed: ${error.message}`);
+          }
+        } else {
+          details.push("static GitHub mode: local bridge not used");
         }
       } else {
         let removed = 0;

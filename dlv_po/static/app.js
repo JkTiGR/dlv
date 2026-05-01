@@ -1,4 +1,9 @@
-const API_BASE = "/api";
+const USE_BACKEND_API = (
+    window.location.port === "5001" ||
+    window.location.pathname === "/"
+) && !window.location.hostname.endsWith(".github.io");
+const API_BASE = USE_BACKEND_API ? "/api" : "";
+const STATIC_STORE_KEY = "DLV_PO_STATIC_STORE_V1";
 
 const state = {
     dashboard: null,
@@ -14,6 +19,206 @@ const statusLabels = {
     received: "Получен",
     cancelled: "Отменен",
 };
+
+function nowIso() {
+    return new Date().toISOString();
+}
+
+function emptyStaticStore() {
+    return {
+        nextSupplierId: 1,
+        nextProductId: 1,
+        nextOrderId: 1,
+        suppliers: [],
+        products: [],
+        orders: [],
+    };
+}
+
+function loadStaticStore() {
+    try {
+        return {
+            ...emptyStaticStore(),
+            ...(JSON.parse(localStorage.getItem(STATIC_STORE_KEY) || "{}") || {}),
+        };
+    } catch (_) {
+        return emptyStaticStore();
+    }
+}
+
+function saveStaticStore(store) {
+    localStorage.setItem(STATIC_STORE_KEY, JSON.stringify(store));
+    return store;
+}
+
+function dashboardFromStore(store) {
+    const openStatuses = new Set(["draft", "pending_approval", "submitted"]);
+    const committedTotal = store.orders
+        .filter((order) => order.status !== "cancelled")
+        .reduce((sum, order) => sum + Number(order.total_amount || 0), 0);
+
+    return {
+        suppliers: store.suppliers.length,
+        products: store.products.length,
+        purchase_orders: store.orders.length,
+        open_orders: store.orders.filter((order) => openStatuses.has(order.status)).length,
+        committed_total: Math.round(committedTotal * 100) / 100,
+    };
+}
+
+function supplierById(store, id) {
+    return store.suppliers.find((supplier) => String(supplier.id) === String(id)) || null;
+}
+
+function productById(store, id) {
+    return store.products.find((product) => String(product.id) === String(id)) || null;
+}
+
+function decorateProduct(store, product) {
+    const supplier = supplierById(store, product.preferred_supplier_id);
+    return {
+        ...product,
+        preferred_supplier_name: supplier?.name || null,
+    };
+}
+
+function decorateOrder(store, order) {
+    const supplier = supplierById(store, order.supplier_id);
+    return {
+        ...order,
+        supplier_name: supplier?.name || "—",
+        items: (order.items || []).map((item) => {
+            const product = productById(store, item.product_id);
+            return {
+                ...item,
+                product_name: product?.name || item.description || "—",
+                product_sku: product?.sku || "",
+            };
+        }),
+    };
+}
+
+function staticPoNumber(store) {
+    const dateCode = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+    const todayCount = store.orders.filter((order) => String(order.created_at || "").slice(0, 10) === new Date().toISOString().slice(0, 10)).length;
+    return `PO-${dateCode}-${String(todayCount + 1).padStart(3, "0")}`;
+}
+
+async function staticRequest(path, options = {}) {
+    const method = String(options.method || "GET").toUpperCase();
+    const payload = options.body ? JSON.parse(options.body) : {};
+    const store = loadStaticStore();
+
+    if (method === "GET" && path === "/dashboard") return dashboardFromStore(store);
+    if (method === "GET" && path === "/suppliers") return [...store.suppliers].sort((a, b) => a.name.localeCompare(b.name));
+    if (method === "GET" && path === "/products") return store.products.map((product) => decorateProduct(store, product)).sort((a, b) => a.name.localeCompare(b.name));
+    if (method === "GET" && path === "/orders") return store.orders.map((order) => decorateOrder(store, order)).sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+
+    if (method === "GET" && path.startsWith("/orders/")) {
+        const id = Number(path.split("/").pop());
+        const order = store.orders.find((entry) => Number(entry.id) === id);
+        if (!order) throw new Error("Purchase order was not found.");
+        return decorateOrder(store, order);
+    }
+
+    if (method === "POST" && path === "/suppliers") {
+        const name = String(payload.name || "").trim();
+        if (!name) throw new Error("Supplier name is required.");
+        if (store.suppliers.some((supplier) => supplier.name.toLowerCase() === name.toLowerCase())) {
+            throw new Error("Supplier with this name already exists.");
+        }
+        const supplier = {
+            id: store.nextSupplierId++,
+            name,
+            contact_person: String(payload.contact_person || "").trim() || null,
+            phone: String(payload.phone || "").trim() || null,
+            email: String(payload.email || "").trim() || null,
+            address: String(payload.address || "").trim() || null,
+            notes: String(payload.notes || "").trim() || null,
+            created_at: nowIso(),
+        };
+        store.suppliers.push(supplier);
+        saveStaticStore(store);
+        return supplier;
+    }
+
+    if (method === "POST" && path === "/products") {
+        const name = String(payload.name || "").trim();
+        const sku = String(payload.sku || "").trim() || null;
+        const supplierId = payload.preferred_supplier_id ? Number(payload.preferred_supplier_id) : null;
+        if (!name) throw new Error("Product name is required.");
+        if (sku && store.products.some((product) => String(product.sku || "").toLowerCase() === sku.toLowerCase())) {
+            throw new Error("Product with this SKU already exists.");
+        }
+        if (supplierId && !supplierById(store, supplierId)) throw new Error("Preferred supplier was not found.");
+
+        const product = {
+            id: store.nextProductId++,
+            sku,
+            name,
+            description: String(payload.description || "").trim() || null,
+            unit: String(payload.unit || "pcs").trim() || "pcs",
+            last_price: Number(payload.last_price || 0),
+            min_stock: Number(payload.min_stock || 0),
+            preferred_supplier_id: supplierId,
+            created_at: nowIso(),
+        };
+        store.products.push(product);
+        saveStaticStore(store);
+        return decorateProduct(store, product);
+    }
+
+    if (method === "POST" && path === "/orders") {
+        const supplierId = Number(payload.supplier_id || 0);
+        const supplier = supplierById(store, supplierId);
+        const items = Array.isArray(payload.items) ? payload.items : [];
+        if (!supplier) throw new Error("Supplier is required for a purchase order.");
+        if (!items.length) throw new Error("At least one order item is required.");
+
+        let totalAmount = 0;
+        const preparedItems = items.map((item, index) => {
+            const product = productById(store, item.product_id);
+            const quantity = Number(item.quantity || 0);
+            const unitPrice = Number(item.unit_price || product?.last_price || 0);
+            if (!product) throw new Error(`Product is required for line ${index + 1}.`);
+            if (quantity <= 0) throw new Error(`Line ${index + 1} must have quantity greater than zero.`);
+            if (unitPrice < 0) throw new Error(`Line ${index + 1} cannot have a negative unit price.`);
+            const lineTotal = Math.round(quantity * unitPrice * 100) / 100;
+            totalAmount = Math.round((totalAmount + lineTotal) * 100) / 100;
+            product.last_price = unitPrice;
+            return {
+                id: index + 1,
+                order_id: store.nextOrderId,
+                product_id: product.id,
+                description: product.name,
+                quantity,
+                unit: String(item.unit || product.unit || "pcs").trim() || "pcs",
+                unit_price: unitPrice,
+                line_total: lineTotal,
+            };
+        });
+
+        const createdAt = nowIso();
+        const order = {
+            id: store.nextOrderId++,
+            po_number: staticPoNumber(store),
+            supplier_id: supplier.id,
+            status: String(payload.status || "draft").trim() || "draft",
+            currency: "PLN",
+            expected_date: String(payload.expected_date || "").trim() || null,
+            total_amount: totalAmount,
+            notes: String(payload.notes || "").trim() || null,
+            created_at: createdAt,
+            updated_at: createdAt,
+            items: preparedItems,
+        };
+        store.orders.push(order);
+        saveStaticStore(store);
+        return decorateOrder(store, order);
+    }
+
+    throw new Error("Static PO endpoint is not supported.");
+}
 
 function formatMoney(value, currency = "PLN") {
     const amount = Number(value || 0).toFixed(2);
@@ -46,6 +251,10 @@ function showNotice(message, kind = "success") {
 }
 
 async function request(path, options = {}) {
+    if (!API_BASE) {
+        return staticRequest(path, options);
+    }
+
     const response = await fetch(`${API_BASE}${path}`, {
         headers: {
             "Content-Type": "application/json",

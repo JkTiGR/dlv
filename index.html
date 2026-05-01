@@ -299,6 +299,7 @@
       </div>
     </div>
 
+    <script src="dlv_static_config.js"></script>
     <script src="menu.js"></script>
     <script src="menu_availability.js"></script>
     <script>
@@ -314,8 +315,8 @@
 
       const LANG_FLAGS = { ru:'🇷🇺', ua:'🇺🇦', vn:'🇻🇳' };
       const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-      const LOCAL_API_BASE = window.location.origin.startsWith('http') ? `${window.location.origin}/api/local-orders` : '';
-      const LOCAL_EVENTS_URL = window.location.origin.startsWith('http') ? `${window.location.origin}/api/local-events` : '';
+      const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || '';
+      const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || '';
 
       const I18N = {
         ru:{

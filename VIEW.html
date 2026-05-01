@@ -506,10 +506,11 @@
     </footer>
   </main>
 
+  <script src="dlv_static_config.js"></script>
   <script>
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-    const LOCAL_API_BASE = `${window.location.origin}/api/local-orders`;
-    const LOCAL_EVENTS_URL = `${window.location.origin}/api/local-events`;
+    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
     const ORDERS_KEY = "CD_ORDERS_V1";
     const REFRESH_MS = 10000;
     const FRESH_READY_MS = 4 * 60 * 1000;
@@ -614,6 +615,7 @@
     }
 
     async function fetchOrdersLocalBridge() {
+      if (!LOCAL_API_BASE) return { ok: false, orders: [], error: "local_bridge_unavailable" };
       const response = await fetch(LOCAL_API_BASE, { cache: "no-store" });
       return response.json();
     }

@@ -1163,13 +1163,14 @@
 
   <div class="toast-wrap" id="toastWrap" aria-live="polite" data-html2canvas-ignore="true"></div>
 
+  <script src="dlv_static_config.js"></script>
   <script src="dlv_kassa_modifier_logic.js"></script>
   <script>
     const STORAGE_KEY = "DLV_CONTRON_PANEL_V2";
     const ORDERS_KEY = "CD_ORDERS_V1";
     const STOCK_SUMMARY_KEY = "DLV_STOCK_SUMMARY_V1";
-    const LOCAL_API_BASE = window.location.origin.startsWith("http") ? `${window.location.origin}/api/local-orders` : "";
-    const LOCAL_EVENTS_URL = window.location.origin.startsWith("http") ? `${window.location.origin}/api/local-events` : "";
+    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
     const STATUS_KEYS = ["full", "ok", "min"];
     const MODES = ["products", "portions", "losses"];
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
