@@ -48,7 +48,7 @@ const menuData = {
       "translations": {
         "ru": "Суп Фо с курицей",
         "ua": "Фо з куркою",
-        "vn": "Phở gà"
+        "vn": "Phở gà xao"
       },
       "short": {
         "ru": "Лёгкий бульон, рисовая лапша, курица и свежая зелень.",
@@ -118,7 +118,7 @@ const menuData = {
   "mi_soups": [
     {
       "key": "mi_soup_bo",
-      "code": "MB",
+      "code": "MTnB",
       "price": 200,
       "weight": 800,
       "spicy": 0,
@@ -136,7 +136,7 @@ const menuData = {
     },
     {
       "key": "mi_soup_heo",
-      "code": "ML",
+      "code": "MTnL",
       "price": 200,
       "weight": 800,
       "spicy": 0,
@@ -154,7 +154,7 @@ const menuData = {
     },
     {
       "key": "mi_soup_ga",
-      "code": "MG",
+      "code": "MTnG",
       "price": 200,
       "weight": 800,
       "spicy": 0,
@@ -172,7 +172,7 @@ const menuData = {
     },
     {
       "key": "mi_soup_tom",
-      "code": "MT",
+      "code": "MTnT",
       "price": 200,
       "weight": 750,
       "spicy": 0,
@@ -190,7 +190,7 @@ const menuData = {
     },
     {
       "key": "mi_soup_ga_chien_xu",
-      "code": "MGCx",
+      "code": "MTnGx",
       "price": 200,
       "weight": 700,
       "spicy": 0,
@@ -210,7 +210,7 @@ const menuData = {
     },
     {
       "key": "mi_soup_mix",
-      "code": "MMix",
+      "code": "MnMix",
       "price": 200,
       "weight": 700,
       "spicy": 0,
@@ -304,7 +304,7 @@ const menuData = {
     },
     {
       "key": "mien_soup_ga_chien_xu",
-      "code": "MnGCx",
+      "code": "MnGx",
       "price": 200,
       "weight": 700,
       "spicy": 0,
@@ -594,7 +594,7 @@ const menuData = {
     },
     {
       "key": "mien_xao_heo",
-      "code": "MXH",
+      "code": "MXL",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -822,7 +822,7 @@ const menuData = {
     },
     {
       "key": "pho_xao_heo",
-      "code": "PXH",
+      "code": "PXL",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -1466,7 +1466,7 @@ const menuData = {
       "translations": {
         "ru": "Сок",
         "ua": "Сік",
-        "vn": "Nước ép"
+        "vn": "Nước ép SOK "
       },
       "short": {
         "ru": "Мультифрукт или томатный сок.",
@@ -1477,7 +1477,7 @@ const menuData = {
     {
       "key": "juice_tomato_05",
       "code": "JT50",
-      "price": 46,
+      "price": 50,
       "weight": 500,
       "spicy": 0,
       "tags": [],
