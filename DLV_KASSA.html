@@ -319,6 +319,75 @@
       flex-wrap: wrap;
     }
 
+    .hero-copy {
+      min-width: 0;
+      flex: 1 1 560px;
+    }
+
+    .remote-access-card {
+      width: 100%;
+      display: grid;
+      gap: 12px;
+      border-color: rgba(255, 122, 36, 0.22);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255, 122, 36, 0.12), transparent 42%),
+        linear-gradient(180deg, rgba(23, 3, 5, 0.96), rgba(10, 1, 3, 0.96));
+    }
+
+    .remote-access-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .remote-access-head h3 {
+      margin: 0;
+      font-size: 16px;
+      font-family: var(--font-head);
+    }
+
+    .remote-access-head p {
+      margin: 6px 0 0;
+      max-width: 780px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .remote-access-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .remote-access-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .remote-access-form .input {
+      min-width: 260px;
+      flex: 1 1 360px;
+    }
+
+    .remote-access-current {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+      word-break: break-word;
+    }
+
+    .remote-access-current b {
+      color: var(--text);
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -2052,6 +2121,11 @@
         font-size: 26px;
       }
 
+      .remote-access-form .input,
+      .remote-access-form .btn {
+        width: 100%;
+      }
+
       .status-actions {
         justify-content: flex-start;
       }
@@ -2086,13 +2160,33 @@
         <div class="hero-actions">
           <button class="btn secondary" id="refreshBtn">Обновить</button>
           <button class="btn primary" id="openManualBtn">+ Ручной заказ</button>
-          <a class="btn secondary" href="VIEW.html">Client View</a>
-          <a class="btn secondary" href="MONITOR.html">Monitor</a>
-          <a class="btn secondary" href="contron.html">Contron Panel</a>
+          <a class="btn secondary" href="VIEW.html" data-bridge-link>Client View</a>
+          <a class="btn secondary" href="MONITOR.html" data-bridge-link>Monitor</a>
+          <a class="btn secondary" href="contron.html" data-bridge-link>Contron Panel</a>
           <button class="btn secondary" id="sendScreenshotBtn" type="button">Full screenshot в VN</button>
           <button class="btn ghost" id="clearCacheBtn">Очистить всё (кэш)</button>
           <button class="btn ghost" id="lockKassaBtn">Выйти</button>
         </div>
+        <section class="side-card remote-access-card">
+          <div class="remote-access-head">
+            <div>
+              <h3>Удалённый bridge</h3>
+              <p id="remoteBridgeHint">GitHub Pages сам bridge не держит. Вставь публичный cloud-адрес, и касса начнет видеть живые заказы из дома.</p>
+            </div>
+            <span class="sync-pill offline" id="bridgeSyncBadge">Bridge не задан</span>
+          </div>
+          <div class="remote-access-meta">
+            <span class="sync-pill warn" id="sheetSyncBadge">Sheets: запуск</span>
+            <span>Последний sync: <b id="lastSyncTime">—</b></span>
+          </div>
+          <div class="remote-access-form">
+            <input class="input" id="remoteBridgeInput" type="url" inputmode="url" placeholder="https://api.vash-domen.com" spellcheck="false" />
+            <button class="btn secondary small" id="saveRemoteBridgeBtn" type="button">Подключить cloud</button>
+            <button class="btn ghost small" id="copyRemoteBridgeLinkBtn" type="button">Копировать ссылку</button>
+            <button class="btn ghost small" id="clearRemoteBridgeBtn" type="button">Сбросить</button>
+          </div>
+          <div class="remote-access-current" id="remoteBridgeCurrent">Cloud bridge пока не задан.</div>
+        </section>
       </section>
 
       <section class="stats">
@@ -2511,6 +2605,7 @@
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
     const REFRESH_MS = 30000;
     const SHEETS_RETRY_COOLDOWN_MS = 12000;
+    const BRIDGE_QUERY_KEYS = ["bridgeUrl", "bridge_url", "remoteBridge", "remote_bridge"];
 
     // TODO: Move Telegram token to backend proxy.
     const TG = {
@@ -3390,6 +3485,182 @@
       }, 2800);
     }
 
+    function currentBridgeBase() {
+      return String(window.DLV_STATIC?.bridgeBase || "").trim();
+    }
+
+    function normalizeBridgeBaseInput(rawValue) {
+      const raw = String(rawValue || "").trim();
+      if (!raw) return "";
+      try {
+        const url = new URL(raw, window.location.href);
+        if (url.protocol !== "http:" && url.protocol !== "https:") return "";
+        return `${url.origin}${url.pathname.replace(/\/+$/, "")}`;
+      } catch (_) {
+        return "";
+      }
+    }
+
+    function buildBridgeAwareUrl(targetHref, bridgeBase = currentBridgeBase()) {
+      const url = new URL(targetHref, window.location.href);
+      BRIDGE_QUERY_KEYS.forEach(key => url.searchParams.delete(key));
+      if (bridgeBase) {
+        url.searchParams.set("bridgeUrl", bridgeBase);
+      }
+      return url.toString();
+    }
+
+    function buildKassaHomeUrl(bridgeBase = currentBridgeBase()) {
+      const url = new URL(window.location.href);
+      url.pathname = url.pathname.replace(/\/DLV_KASSA\.html$/i, "/DLV_KASSA");
+      return buildBridgeAwareUrl(url.toString(), bridgeBase);
+    }
+
+    function refreshBridgeAwareLinks(bridgeBase = currentBridgeBase()) {
+      $$("[data-bridge-link]").forEach(link => {
+        if (!link.dataset.baseHref) {
+          link.dataset.baseHref = link.getAttribute("href") || "";
+        }
+        const baseHref = link.dataset.baseHref || link.getAttribute("href") || "";
+        link.setAttribute("href", buildBridgeAwareUrl(baseHref, bridgeBase));
+      });
+    }
+
+    function renderRemoteAccessPanel() {
+      const bridgeBase = currentBridgeBase();
+      const input = $("#remoteBridgeInput");
+      const bridgeBadge = $("#bridgeSyncBadge");
+      const current = $("#remoteBridgeCurrent");
+      const hint = $("#remoteBridgeHint");
+      const isGithubPages = Boolean(window.DLV_STATIC?.isGithubPages);
+
+      if (input && document.activeElement !== input) {
+        input.value = bridgeBase;
+      }
+
+      if (hint) {
+        hint.textContent = isGithubPages
+          ? "GitHub Pages сам bridge не держит. Вставь публичный cloud-адрес, и касса начнет видеть живые заказы из дома."
+          : "Этот адрес можно сохранить в браузере или в ссылке, чтобы monitor, view и profil открывались с тем же bridge.";
+      }
+
+      if (current) {
+        if (bridgeBase) {
+          current.innerHTML = `Текущий bridge: <b>${escapeHtml(bridgeBase)}</b> • кнопка «Копировать ссылку» соберет готовый домашний URL.`;
+        } else if (isGithubPages) {
+          current.textContent = "Bridge ещё не задан. На GitHub Pages без него касса видит только Google Sheets и локальный браузер.";
+        } else {
+          current.textContent = "Сейчас используется локальный сервер. Если нужен доступ из дома, сюда можно сохранить публичный cloud bridge URL.";
+        }
+      }
+
+      if (bridgeBadge) {
+        if (bridgeBase) {
+          setSyncBadge(bridgeBadge, "warn", "Bridge сохранён");
+        } else {
+          setSyncBadge(bridgeBadge, isGithubPages ? "offline" : "warn", isGithubPages ? "Bridge не задан" : "Bridge локально");
+        }
+      }
+
+      refreshBridgeAwareLinks(bridgeBase);
+    }
+
+    async function probeBridgeHealth(bridgeBase) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 4500);
+
+      try {
+        const response = await fetch(`${bridgeBase}/api/health`, {
+          cache: "no-store",
+          signal: controller.signal
+        });
+        let data = null;
+        try {
+          data = await response.json();
+        } catch (_) {}
+        if (!response.ok) {
+          return {
+            ok: false,
+            error: data?.error || `HTTP ${response.status}`
+          };
+        }
+        return { ok: true, data };
+      } catch (error) {
+        return {
+          ok: false,
+          error: error?.name === "AbortError" ? "timeout" : String(error?.message || error)
+        };
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    async function saveRemoteBridgeSettings(event) {
+      const input = $("#remoteBridgeInput");
+      const btn = event?.currentTarget || $("#saveRemoteBridgeBtn");
+      if (!input || !btn) return;
+
+      const normalized = normalizeBridgeBaseInput(input.value);
+      if (!normalized) {
+        showToast("Укажи полный адрес bridge, например https://abc123.ngrok.io", "warn");
+        input.focus();
+        return;
+      }
+
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Проверка...";
+
+      const health = await probeBridgeHealth(normalized);
+      if (!health.ok) {
+        const confirmed = window.confirm(
+          `Bridge ${normalized} не ответил (${health.error}). Всё равно сохранить адрес и перезагрузить кассу?`
+        );
+        if (!confirmed) {
+          btn.disabled = false;
+          btn.textContent = originalText;
+          return;
+        }
+      }
+
+      btn.textContent = "Подключаю...";
+      window.DLV_STATIC?.setBridgeBase(normalized);
+      window.location.assign(buildKassaHomeUrl(normalized));
+    }
+
+    function clearRemoteBridgeSettings() {
+      const hasBridge = Boolean(currentBridgeBase() || $("#remoteBridgeInput")?.value);
+      if (!hasBridge) {
+        showToast("Cloud bridge уже не задан", "warn");
+        return;
+      }
+
+      const confirmed = window.confirm(
+        "Удалить сохранённый cloud bridge и открыть кассу как обычную статическую страницу?"
+      );
+      if (!confirmed) return;
+
+      window.DLV_STATIC?.clearBridgeBase();
+      window.location.assign(buildKassaHomeUrl(""));
+    }
+
+    async function copyRemoteBridgeLink() {
+      const inputValue = $("#remoteBridgeInput")?.value || "";
+      const bridgeBase = currentBridgeBase() || normalizeBridgeBaseInput(inputValue);
+      if (!bridgeBase) {
+        showToast("Сначала укажи публичный bridge URL", "warn");
+        $("#remoteBridgeInput")?.focus();
+        return;
+      }
+
+      try {
+        await copyTextToClipboard(buildKassaHomeUrl(bridgeBase));
+        showToast("Домашняя ссылка скопирована");
+      } catch (_) {
+        showToast("Не удалось скопировать ссылку", "error");
+      }
+    }
+
     function isKassaUnlocked() {
       return sessionStorage.getItem(KASSA_AUTH_KEY) === "ok";
     }
@@ -3413,6 +3684,7 @@
         return;
       }
 
+      renderRemoteAccessPanel();
       renderAll();
       loadOrders();
       if (SCREENSHOT_MODE) return;
@@ -4924,6 +5196,17 @@ ${lines}`;
 
       const remoteOk = Array.isArray(remoteData?.orders);
       const bridgeOk = Boolean(bridgeData?.ok);
+      const bridgeBase = currentBridgeBase();
+
+      if (bridgeOk) {
+        setSyncBadge($("#bridgeSyncBadge"), "ok", "Bridge онлайн");
+      } else if (bridgeBase) {
+        setSyncBadge($("#bridgeSyncBadge"), "offline", "Bridge off");
+      } else if (window.DLV_STATIC?.isGithubPages) {
+        setSyncBadge($("#bridgeSyncBadge"), "offline", "Bridge не задан");
+      } else {
+        setSyncBadge($("#bridgeSyncBadge"), "warn", "Bridge локально");
+      }
 
       if (remoteOk) {
         setSyncBadge($("#sheetSyncBadge"), "ok", "Онлайн");
@@ -6045,6 +6328,9 @@ ${lines}`;
       $("#sendScreenshotBtn").addEventListener("click", sendFullScreenshotToVN);
       $("#reportScreenshotBtn").addEventListener("click", sendReportScreenshotToVN);
       $("#clearCacheBtn").addEventListener("click", clearLocalCache);
+      $("#saveRemoteBridgeBtn").addEventListener("click", saveRemoteBridgeSettings);
+      $("#copyRemoteBridgeLinkBtn").addEventListener("click", copyRemoteBridgeLink);
+      $("#clearRemoteBridgeBtn").addEventListener("click", clearRemoteBridgeSettings);
       $("#openManualBtn").addEventListener("click", openManualModal);
       $("#lockKassaBtn").addEventListener("click", lockKassa);
       $("#closeManualBtn").addEventListener("click", closeManualModal);
@@ -6072,6 +6358,11 @@ ${lines}`;
 
       $("#dateFilter").addEventListener("change", handleDateInputChange);
       $("#copyReportBtn").addEventListener("click", copyDailyReportTsv);
+      $("#remoteBridgeInput").addEventListener("keydown", event => {
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        saveRemoteBridgeSettings();
+      });
       $("#reportLangToggle").addEventListener("click", event => {
         const btn = event.target.closest("[data-report-lang]");
         if (!btn) return;
@@ -6195,6 +6486,7 @@ ${lines}`;
       restoreLastSyncLabel();
       buildMenuIndex();
       bindEvents();
+      renderRemoteAccessPanel();
       connectLocalEvents();
       if (!SCREENSHOT_MODE) {
         window.addEventListener("beforeunload", () => {
