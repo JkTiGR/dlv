@@ -1,4 +1,4 @@
-(function attachDlvBurgerMenu() {
+(function attachDragonBurgerMenu() {
   "use strict";
 
   if (window.__DRAGON_BURGER_MENU_ATTACHED__) return;
@@ -32,10 +32,10 @@
   }
 
   function injectStyles() {
-    if (document.getElementById("dlvBurgerMenuStyles")) return;
+    if (document.getElementById("dragonBurgerMenuStyles")) return;
 
     const style = document.createElement("style");
-    style.id = "dlvBurgerMenuStyles";
+    style.id = "dragonBurgerMenuStyles";
     style.textContent = `
       .dragon-burger-menu {
         position: fixed;

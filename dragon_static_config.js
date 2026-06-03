@@ -1,4 +1,4 @@
-(function attachDlvStaticConfig(global) {
+(function attachDragonStaticConfig(global) {
   "use strict";
 
   const location = global.location;
@@ -234,5 +234,4 @@
   };
 
   global.DRAGON_STATIC = staticConfig;
-  global.DLV_STATIC = staticConfig;
 })(window);

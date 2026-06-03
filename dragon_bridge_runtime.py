@@ -75,7 +75,6 @@ def load_bridge_runtime_config(root_dir: Path) -> BridgeRuntimeConfig:
         pick_setting(
             env_file_values,
             "DRAGON_ALLOW_INSECURE_REMOTE",
-            "DLV_ALLOW_INSECURE_REMOTE",
             default="0",
         ).lower()
         in TRUE_VALUES
@@ -84,7 +83,6 @@ def load_bridge_runtime_config(root_dir: Path) -> BridgeRuntimeConfig:
     allowed_origins_raw = pick_setting(
         env_file_values,
         "DRAGON_ALLOWED_ORIGINS",
-        "DLV_ALLOWED_ORIGINS",
         default="",
     )
     allowed_origins = tuple(
@@ -97,7 +95,6 @@ def load_bridge_runtime_config(root_dir: Path) -> BridgeRuntimeConfig:
         pick_setting(
             env_file_values,
             "DRAGON_LIQPAY_SANDBOX",
-            "DLV_LIQPAY_SANDBOX",
             "LIQPAY_SANDBOX",
             default="0",
         ).lower()
@@ -108,7 +105,6 @@ def load_bridge_runtime_config(root_dir: Path) -> BridgeRuntimeConfig:
         bridge_token=pick_setting(
             env_file_values,
             "DRAGON_BRIDGE_TOKEN",
-            "DLV_BRIDGE_TOKEN",
             "BRIDGE_TOKEN",
             default="",
         ),
@@ -116,62 +112,53 @@ def load_bridge_runtime_config(root_dir: Path) -> BridgeRuntimeConfig:
         kassa_pin=pick_setting(
             env_file_values,
             "DRAGON_KASSA_PIN",
-            "DLV_KASSA_PIN",
             "KASSA_PIN",
             default="1990",
         ),
         telegram_bot_token=pick_setting(
             env_file_values,
             "DRAGON_TG_BOT_TOKEN",
-            "DLV_TG_BOT_TOKEN",
             default="",
         ),
         telegram_chat_main=pick_setting(
             env_file_values,
             "DRAGON_TG_CHAT_ID",
             "DRAGON_TG_CHAT_MAIN_ID",
-            "DLV_TG_CHAT_ID",
             default="",
         ),
         telegram_chat_vn=pick_setting(
             env_file_values,
             "DRAGON_TG_CHAT_ID_VN",
-            "DLV_TG_CHAT_ID_VN",
             default="",
         ),
         allowed_origins=allowed_origins,
         liqpay_public_key=pick_setting(
             env_file_values,
             "DRAGON_LIQPAY_PUBLIC_KEY",
-            "DLV_LIQPAY_PUBLIC_KEY",
             "LIQPAY_PUBLIC_KEY",
             default="",
         ),
         liqpay_private_key=pick_setting(
             env_file_values,
             "DRAGON_LIQPAY_PRIVATE_KEY",
-            "DLV_LIQPAY_PRIVATE_KEY",
             "LIQPAY_PRIVATE_KEY",
             default="",
         ),
         liqpay_result_url=pick_setting(
             env_file_values,
             "DRAGON_LIQPAY_RESULT_URL",
-            "DLV_LIQPAY_RESULT_URL",
             "LIQPAY_RESULT_URL",
             default="",
         ),
         liqpay_server_url=pick_setting(
             env_file_values,
             "DRAGON_LIQPAY_SERVER_URL",
-            "DLV_LIQPAY_SERVER_URL",
             "LIQPAY_SERVER_URL",
             default="",
         ),
         liqpay_checkout_url=pick_setting(
             env_file_values,
             "DRAGON_LIQPAY_CHECKOUT_URL",
-            "DLV_LIQPAY_CHECKOUT_URL",
             "LIQPAY_CHECKOUT_URL",
             default=LIQPAY_CHECKOUT_URL,
         ),

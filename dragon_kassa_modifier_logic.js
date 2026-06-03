@@ -1,4 +1,4 @@
-(function attachDlvModifiers(global) {
+(function attachDragonModifiers(global) {
   const MEAT_PORTION = 80;
   const NEM_PORTION = 1;
   const PHO_BAG_GRAMS = 500;
