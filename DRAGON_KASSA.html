@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#080101" />
-  <title>DLV KASSA</title>
+  <title>DRAGON KASSA</title>
   <link rel="icon" href="logo.png" />
   <style>
     :root {
@@ -46,35 +46,40 @@
       padding: 0;
       min-height: 100%;
       background:
-        linear-gradient(180deg, rgba(246, 18, 12, 0.5) 0%, rgba(118, 0, 6, 0.22) 34%, rgba(7, 0, 0, 0.9) 78%, #010000 100%),
-        radial-gradient(900px 560px at 100% 0%, rgba(255, 26, 13, 0.28), transparent 62%),
-        linear-gradient(180deg, #080000 0%, var(--bg) 54%, var(--bg-alt) 100%);
+        radial-gradient(72% 34% at 50% 0%, rgba(252, 211, 255, 0.9) 0%, rgba(202, 104, 255, 0.86) 22%, rgba(109, 34, 231, 0.68) 44%, rgba(15, 8, 44, 0.28) 62%, transparent 76%),
+        radial-gradient(72% 34% at 50% 100%, rgba(251, 206, 255, 0.88) 0%, rgba(194, 99, 255, 0.82) 22%, rgba(101, 28, 226, 0.66) 44%, rgba(14, 7, 42, 0.28) 62%, transparent 76%),
+        linear-gradient(180deg, #f4b8ff 0%, #bf58ff 16%, #38107a 25%, #090116 38%, #000000 50%, #090116 62%, #38107a 75%, #bf58ff 84%, #f2b4ff 100%);
       color: var(--text);
       font-family: var(--font-body);
+      overflow-x: hidden;
     }
 
     body::before,
     body::after {
       content: "";
       position: fixed;
-      inset: 0;
+      left: 50%;
+      width: min(118vw, 820px);
+      height: min(118vw, 820px);
+      border-radius: 50%;
       pointer-events: none;
       z-index: 0;
+      transform: translateX(-50%);
+      border: 4px solid rgba(201, 132, 255, 0.9);
+      box-shadow:
+        0 0 34px rgba(112, 56, 255, 0.32),
+        0 0 80px rgba(196, 108, 255, 0.18),
+        inset 0 0 24px rgba(242, 192, 255, 0.12);
     }
 
     body::before {
-      background:
-        repeating-linear-gradient(90deg, rgba(255, 38, 24, 0.07) 0 1px, transparent 1px 52px),
-        repeating-linear-gradient(180deg, rgba(255, 38, 24, 0.05) 0 1px, transparent 1px 42px),
-        repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 6px);
-      opacity: 0.62;
+      top: -28vh;
+      background: radial-gradient(circle at 50% 22%, rgba(231, 167, 255, 0.16), rgba(32, 12, 88, 0.08) 46%, rgba(0, 0, 0, 0) 72%);
     }
 
     body::after {
-      background:
-        linear-gradient(180deg, transparent 0%, transparent 44%, rgba(0, 0, 0, 0.42) 74%, rgba(0, 0, 0, 0.9) 100%),
-        repeating-linear-gradient(90deg, transparent 0 19px, rgba(0, 0, 0, 0.14) 19px 20px);
-      opacity: 0.86;
+      bottom: -28vh;
+      background: radial-gradient(circle at 50% 78%, rgba(231, 167, 255, 0.16), rgba(32, 12, 88, 0.08) 46%, rgba(0, 0, 0, 0) 72%);
     }
 
     button,
@@ -2139,7 +2144,7 @@
 <body class="locked">
   <section class="auth-screen" id="authScreen" aria-label="PIN кассы">
     <form class="auth-card" id="pinForm" autocomplete="off">
-      <div class="auth-mark">DLV</div>
+      <div class="auth-mark">DRAGON</div>
       <div class="auth-copy">
         <h1>Вход в кассу</h1>
         <p>Введите PIN кассира, чтобы открыть заказы, оплату и смену.</p>
@@ -2154,7 +2159,7 @@
     <main class="main">
       <section class="hero">
         <div class="hero-copy">
-          <h2>Панель кассира DLV</h2>
+          <h2>Панель кассира DRAGON</h2>
           <p>Текущие заказы, оплата, сумма, смена и быстрый ручной заказ в одном окне. Поток работы: касса принимает заказ, кухня меняет статус, клиент получает готовую позицию по коду.</p>
         </div>
         <div class="hero-actions">
@@ -2419,7 +2424,7 @@
       <div class="modal-head">
         <div class="modal-head-copy">
           <h3>Ручной заказ</h3>
-          <p>Добавь реальные блюда из DLV по коду или названию, выбери тип заказа и оплату, укажи телефон/комментарий и сразу отправь заказ в Google Sheets + Telegram.</p>
+          <p>Добавь реальные блюда из DRAGON по коду или названию, выбери тип заказа и оплату, укажи телефон/комментарий и сразу отправь заказ в Google Sheets + Telegram.</p>
         </div>
         <button class="btn secondary modal-close-btn" id="closeManualBtn" type="button" aria-label="Закрыть ручной заказ">×</button>
       </div>
@@ -2584,35 +2589,35 @@
 
   <div class="toast-wrap" id="toastWrap" aria-live="polite" data-html2canvas-ignore="true"></div>
 
-  <script src="dlv_static_config.js"></script>
+  <script src="dragon_static_config.js"></script>
   <script src="menu.js"></script>
-  <script src="dlv_kassa_modifier_logic.js"></script>
+  <script src="dragon_kassa_modifier_logic.js"></script>
   <script>
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-    const KASSA_PIN = "1990";
-    const KASSA_AUTH_KEY = "CD_KASSA_AUTH_V1";
     const CURRENCY = "грн";
     const ORDERS_KEY = "CD_ORDERS_V1";
     const SHIFT_KEY = "CD_KASSA_SHIFT_V1";
     const REPORT_LANG_KEY = "CD_KASSA_REPORT_LANG_V1";
     const REPORT_COMMENT_OVERRIDES_KEY = "CD_KASSA_REPORT_COMMENT_OVERRIDES_V1";
     const LAST_SYNC_KEY = "CD_KASSA_LAST_SYNC_V1";
-    const CONTRON_STORAGE_KEY = "DLV_CONTRON_PANEL_V2";
-    const STOCK_SUMMARY_KEY = "DLV_STOCK_SUMMARY_V1";
-    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
-    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
+    const CONTRON_STORAGE_KEY = "DRAGON_CONTRON_PANEL_V2";
+    const STOCK_SUMMARY_KEY = "DRAGON_STOCK_SUMMARY_V1";
+    const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || "";
+    const TELEGRAM_MESSAGE_API = window.DRAGON_STATIC?.telegramMessageApi || "";
+    const TELEGRAM_DOCUMENT_API = window.DRAGON_STATIC?.telegramDocumentApi || "";
+    const KASSA_SESSION_API = window.DRAGON_STATIC?.kassaSessionApi || "/api/kassa/session";
     const SCREENSHOT_MODE = new URLSearchParams(window.location.search).get("screenshot") === "1";
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
     const REFRESH_MS = 30000;
     const SHEETS_RETRY_COOLDOWN_MS = 12000;
     const BRIDGE_QUERY_KEYS = ["bridgeUrl", "bridge_url", "remoteBridge", "remote_bridge"];
 
-    // TODO: Move Telegram token to backend proxy.
     const TG = {
-      BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",
-      CHAT_ID: "-1002283682762",
-      CHAT_ID_VN: "-1002156259709",
-      PROXY_URL: ""
+      MAIN_CHANNEL: "main",
+      VN_CHANNEL: "vn",
+      PROXY_URL: TELEGRAM_MESSAGE_API,
+      DOCUMENT_PROXY_URL: TELEGRAM_DOCUMENT_API
     };
 
     const STATUS_META = {
@@ -2720,6 +2725,7 @@
       BMIX: "beef",
       BSMIX: "beef",
       MXMIX: "beef",
+      MTXMIX: "beef",
       MIXMIX: "beef",
       PXMIX: "beef",
       CMIX: "beef",
@@ -2792,6 +2798,7 @@
       eventSource: null,
       ordersRenderSignature: "",
       screenshotBusy: false,
+      kassa_authenticated: false,
       initialized: false
     };
 
@@ -3486,7 +3493,11 @@
     }
 
     function currentBridgeBase() {
-      return String(window.DLV_STATIC?.bridgeBase || "").trim();
+      return String(window.DRAGON_STATIC?.bridgeBase || "").trim();
+    }
+
+    function currentBridgeToken() {
+      return String(window.DRAGON_STATIC?.bridgeToken || "").trim();
     }
 
     function normalizeBridgeBaseInput(rawValue) {
@@ -3504,15 +3515,20 @@
     function buildBridgeAwareUrl(targetHref, bridgeBase = currentBridgeBase()) {
       const url = new URL(targetHref, window.location.href);
       BRIDGE_QUERY_KEYS.forEach(key => url.searchParams.delete(key));
+      ["bridgeToken", "bridge_token", "remoteBridgeToken", "remote_bridge_token"].forEach(key => url.searchParams.delete(key));
       if (bridgeBase) {
         url.searchParams.set("bridgeUrl", bridgeBase);
+      }
+      const bridgeToken = currentBridgeToken();
+      if (bridgeToken) {
+        url.searchParams.set("bridgeToken", bridgeToken);
       }
       return url.toString();
     }
 
     function buildKassaHomeUrl(bridgeBase = currentBridgeBase()) {
       const url = new URL(window.location.href);
-      url.pathname = url.pathname.replace(/\/DLV_KASSA\.html$/i, "/DLV_KASSA");
+      url.pathname = url.pathname.replace(/\/DRAGON_KASSA\.html$/i, "/DRAGON_KASSA");
       return buildBridgeAwareUrl(url.toString(), bridgeBase);
     }
 
@@ -3532,7 +3548,7 @@
       const bridgeBadge = $("#bridgeSyncBadge");
       const current = $("#remoteBridgeCurrent");
       const hint = $("#remoteBridgeHint");
-      const isGithubPages = Boolean(window.DLV_STATIC?.isGithubPages);
+      const isGithubPages = Boolean(window.DRAGON_STATIC?.isGithubPages);
 
       if (input && document.activeElement !== input) {
         input.value = bridgeBase;
@@ -3624,7 +3640,7 @@
       }
 
       btn.textContent = "Подключаю...";
-      window.DLV_STATIC?.setBridgeBase(normalized);
+      window.DRAGON_STATIC?.setBridgeBase(normalized);
       window.location.assign(buildKassaHomeUrl(normalized));
     }
 
@@ -3640,7 +3656,7 @@
       );
       if (!confirmed) return;
 
-      window.DLV_STATIC?.clearBridgeBase();
+      window.DRAGON_STATIC?.clearBridgeBase();
       window.location.assign(buildKassaHomeUrl(""));
     }
 
@@ -3662,7 +3678,7 @@
     }
 
     function isKassaUnlocked() {
-      return sessionStorage.getItem(KASSA_AUTH_KEY) === "ok";
+      return !!state.kassa_authenticated;
     }
 
     function showKassa() {
@@ -3693,14 +3709,19 @@
     }
 
     function unlockKassa() {
-      sessionStorage.setItem(KASSA_AUTH_KEY, "ok");
+      state.kassa_authenticated = true;
       $("#pinError").textContent = "";
       showKassa();
       startKassaApp();
     }
 
-    function lockKassa() {
-      sessionStorage.removeItem(KASSA_AUTH_KEY);
+    async function lockKassa() {
+      try {
+        await fetch(KASSA_SESSION_API, { method: "DELETE" });
+      } catch (_) {
+        // Ignore network errors while logging out locally.
+      }
+      state.kassa_authenticated = false;
       if (state.timer) {
         clearInterval(state.timer);
         state.timer = null;
@@ -3709,18 +3730,56 @@
       hideKassa();
     }
 
-    function handlePinSubmit(event) {
+    async function refreshKassaSession() {
+      try {
+        const response = await fetch(KASSA_SESSION_API, { cache: "no-store" });
+        if (!response.ok) {
+          state.kassa_authenticated = false;
+          return false;
+        }
+        const payload = await response.json();
+        state.kassa_authenticated = !!payload?.authenticated;
+        return state.kassa_authenticated;
+      } catch (_) {
+        state.kassa_authenticated = false;
+        return false;
+      }
+    }
+
+    async function handlePinSubmit(event) {
       event.preventDefault();
       const input = $("#pinInput");
       const error = $("#pinError");
-
-      if (input.value.trim() === KASSA_PIN) {
-        unlockKassa();
+      const pin = input.value.trim();
+      if (!pin) {
+        error.textContent = "Введите PIN.";
         return;
       }
 
-      error.textContent = "Неверный PIN. Попробуйте ещё раз.";
-      input.select();
+      error.textContent = "";
+      input.disabled = true;
+
+      try {
+        const response = await fetch(KASSA_SESSION_API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pin })
+        });
+        let payload = null;
+        try {
+          payload = await response.json();
+        } catch (_) {}
+        if (!response.ok || !payload?.ok) {
+          error.textContent = payload?.error || "Неверный PIN. Попробуйте ещё раз.";
+          input.select();
+          return;
+        }
+        unlockKassa();
+      } catch (_) {
+        error.textContent = "Не удалось проверить PIN на сервере.";
+      } finally {
+        input.disabled = false;
+      }
     }
 
     function inferStockPoolFromMenuItem(item) {
@@ -4026,7 +4085,7 @@
     }
 
     function modifierApi() {
-      return window.DLV_MODIFIERS || null;
+      return window.DRAGON_MODIFIERS || null;
     }
 
     function displayItemCode(item) {
@@ -4742,23 +4801,24 @@
     }
 
     function TG_ENDPOINT() {
-      if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
-      if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
-      return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
+      return String(TG.PROXY_URL || "").trim();
     }
 
     function TG_DOCUMENT_ENDPOINT() {
-      if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
-      if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
-      return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendDocument`;
+      return String(TG.DOCUMENT_PROXY_URL || "").trim();
     }
 
-    async function sendTelegramMessage(chatId, text) {
-      const response = await fetch(TG_ENDPOINT(), {
+    async function sendTelegramMessage(channel, text) {
+      const endpoint = TG_ENDPOINT();
+      if (!endpoint) {
+        return { ok: false, error: "telegram_proxy_missing" };
+      }
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: chatId,
+          channel,
           text,
           parse_mode: "HTML",
           disable_web_page_preview: true
@@ -4778,6 +4838,20 @@
       }
 
       return { ok: true, data };
+    }
+
+    function blobToBase64(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = String(reader.result || "");
+          const marker = "base64,";
+          const index = result.indexOf(marker);
+          resolve(index >= 0 ? result.slice(index + marker.length) : result);
+        };
+        reader.onerror = () => reject(reader.error || new Error("Не удалось прочитать файл"));
+        reader.readAsDataURL(blob);
+      });
     }
 
     function ensureHtml2Canvas() {
@@ -4879,15 +4953,22 @@
       });
     }
 
-    async function sendTelegramDocument(chatId, blob, filename, caption) {
-      const formData = new FormData();
-      formData.append("chat_id", chatId);
-      formData.append("caption", caption);
-      formData.append("document", blob, filename);
+    async function sendTelegramDocument(channel, blob, filename, caption) {
+      const endpoint = TG_DOCUMENT_ENDPOINT();
+      if (!endpoint) {
+        return { ok: false, error: "telegram_proxy_missing" };
+      }
 
-      const response = await fetch(TG_DOCUMENT_ENDPOINT(), {
+      const response = await fetch(endpoint, {
         method: "POST",
-        body: formData
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          channel,
+          caption,
+          filename,
+          mime_type: blob?.type || "application/octet-stream",
+          document_base64: await blobToBase64(blob)
+        })
       });
 
       let data = null;
@@ -4924,11 +5005,11 @@
         btn.textContent = "Отправка...";
 
         const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-        const caption = `DLV Kassa full screenshot • ${fmtDateTime(nowIso())}`;
+        const caption = `DRAGON Kassa full screenshot • ${fmtDateTime(nowIso())}`;
         const result = await sendTelegramDocument(
           TG.CHAT_ID_VN,
           imageBlob,
-          `dlv-kassa-full-${stamp}.png`,
+          `dragon-kassa-full-${stamp}.png`,
           caption
         );
 
@@ -4966,11 +5047,11 @@
         btn.textContent = "Отправка...";
 
         const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-        const caption = `DLV report screenshot • ${fmtDateTime(nowIso())}`;
+        const caption = `DRAGON report screenshot • ${fmtDateTime(nowIso())}`;
         const result = await sendTelegramDocument(
           TG.CHAT_ID_VN,
           imageBlob,
-          `dlv-day-report-${stamp}.png`,
+          `dragon-day-report-${stamp}.png`,
           caption
         );
 
@@ -5005,7 +5086,7 @@
       if (order.phone) meta.push(`Телефон: <b>${escapeHtml(order.phone)}</b>`);
       if (order.comment) meta.push(`Коментар: <b>${escapeHtml(order.comment)}</b>`);
 
-      return `<b>DLV KASSA — Нове замовлення</b>
+      return `<b>DRAGON KASSA — Нове замовлення</b>
 ID: <code>${escapeHtml(order.id)}</code>
 Code: <b>${escapeHtml(order.code)}</b>
 Статус: <b>${escapeHtml(statusLabelByLocale(order.status, "ua"))}</b>
@@ -5032,7 +5113,7 @@ ${lines}`;
       if (order.phone) meta.push(`SĐT: <b>${escapeHtml(order.phone)}</b>`);
       if (order.comment) meta.push(`Ghi chú: <b>${escapeHtml(order.comment)}</b>`);
 
-      return `<b>DLV KASSA — Đơn mới</b>
+      return `<b>DRAGON KASSA — Đơn mới</b>
 ID: <code>${escapeHtml(order.id)}</code>
 Code: <b>${escapeHtml(order.code)}</b>
 Trạng thái: <b>${escapeHtml(statusLabelByLocale(order.status, "vn"))}</b>
@@ -5202,7 +5283,7 @@ ${lines}`;
         setSyncBadge($("#bridgeSyncBadge"), "ok", "Bridge онлайн");
       } else if (bridgeBase) {
         setSyncBadge($("#bridgeSyncBadge"), "offline", "Bridge off");
-      } else if (window.DLV_STATIC?.isGithubPages) {
+      } else if (window.DRAGON_STATIC?.isGithubPages) {
         setSyncBadge($("#bridgeSyncBadge"), "offline", "Bridge не задан");
       } else {
         setSyncBadge($("#bridgeSyncBadge"), "warn", "Bridge локально");
@@ -5341,11 +5422,17 @@ ${lines}`;
       MXT: 250,
       MXGCX: 250,
       MXMIX: 250,
+      MTXB: 250,
+      MTXG: 250,
+      MTXL: 250,
+      MTXT: 270,
+      MTXGCX: 250,
       MIXB: 250,
       MIXG: 250,
       MIXL: 250,
       MIXT: 270,
       MIXGCX: 250,
+      MTXMIX: 250,
       MIXMIX: 250,
       PXB: 250,
       PXG: 250,
@@ -6503,10 +6590,10 @@ ${lines}`;
       }
     }
 
-    function initAuth() {
+    async function initAuth() {
       $("#pinForm").addEventListener("submit", handlePinSubmit);
-
-      if (isKassaUnlocked()) {
+      const unlocked = await refreshKassaSession();
+      if (unlocked) {
         showKassa();
         startKassaApp();
         return;
@@ -6517,6 +6604,6 @@ ${lines}`;
 
     initAuth();
   </script>
-  <script src="dlv_burger_menu.js"></script>
+  <script src="dragon_burger_menu.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
--- DLV cloud bridge schema for Supabase
--- Run this in the Supabase SQL Editor before starting dlv_local_server_cloud.py
+-- DRAGON cloud bridge schema for Supabase
+-- Run this in the Supabase SQL Editor before starting dragon_local_server_cloud.py
 
 create extension if not exists pgcrypto;
 

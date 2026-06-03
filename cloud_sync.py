@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Supabase storage adapter for the DLV bridge-compatible API.
+Supabase storage adapter for the DRAGON bridge-compatible API.
 
 This module keeps the existing frontend contract intact:
 - orders are stored and returned in the same shape as the local bridge

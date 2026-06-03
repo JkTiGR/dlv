@@ -1,6 +1,6 @@
-# DLV Purchase Order Starter
+# DRAGON Purchase Order Starter
 
-Стартовый проект для системы управления заказами на поставку DLV. Он уже включает базовый backend на Flask, SQLite-схему, стартовую веб-панель и API для поставщиков, номенклатуры и purchase orders.
+Стартовый проект для системы управления заказами на поставку DRAGON. Он уже включает базовый backend на Flask, SQLite-схему, стартовую веб-панель и API для поставщиков, номенклатуры и purchase orders.
 
 ## Что уже готово
 
@@ -17,7 +17,7 @@
 ## Структура
 
 ```text
-dlv_po/
+dragon_po/
 ├── app.py
 ├── data/
 │   └── po.db
@@ -34,7 +34,7 @@ dlv_po/
 1. Перейдите в каталог проекта:
 
    ```bash
-   cd /home/jkbook/DLV/dlv_po
+   cd /home/jkbook/DRAGON/dragon_po
    ```
 
 2. Установите зависимости:
@@ -69,7 +69,7 @@ dlv_po/
 
 ## Данные
 
-- база создается автоматически в `dlv_po/data/po.db`
+- база создается автоматически в `dragon_po/data/po.db`
 - номера заказов формируются в формате `PO-YYYYMMDD-XXX`
 - суммы заказов пересчитываются на сервере
 

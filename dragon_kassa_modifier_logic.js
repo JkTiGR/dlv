@@ -191,12 +191,12 @@
     ["MXT", { menuCode: "MXT", name: "Mien xao tom", price: 250, base: { mien: 300, rau: 100 }, stock: { tom: 100 } }],
     ["MXGCX", { menuCode: "MXGCx", name: "Mien xao ga chien xu", price: 250, base: { mien: 300, rau: 100 }, stock: { ga_xu: 120 } }],
     ["MXMIX", { menuCode: "MXMix", name: "Mien xao mix", price: 250, base: { mien: 300, rau: 100 }, stock: MIX_STOCK }],
-    ["MIXB", { menuCode: "MIXB", name: "Mi xao bo", price: 250, base: { mi: 300, rau: 100 }, stock: { bo: 100 } }],
-    ["MIXG", { menuCode: "MIXG", name: "Mi xao ga", price: 250, base: { mi: 300, rau: 100 }, stock: { ga: 100 } }],
-    ["MIXL", { menuCode: "MIXL", name: "Mi xao heo", price: 250, base: { mi: 300, rau: 100 }, stock: { heo: 100 } }],
-    ["MIXT", { menuCode: "MIXT", name: "Mi xao tom", price: 270, base: { mi: 300, rau: 100 }, stock: { tom: 100 } }],
-    ["MIXGCX", { menuCode: "MIXGCx", name: "Mi xao ga chien xu", price: 250, base: { mi: 300, rau: 100 }, stock: { ga_xu: 120 } }],
-    ["MIXMIX", { menuCode: "MIXMix", name: "Mi xao mix", price: 250, base: { mi: 300, rau: 100 }, stock: MIX_STOCK }],
+    ["MTXB", { menuCode: "MTxB", name: "Mi xao bo", price: 250, base: { mi: 300, rau: 100 }, stock: { bo: 100 }, aliases: ["MIXB"] }],
+    ["MTXG", { menuCode: "MTxG", name: "Mi xao ga", price: 250, base: { mi: 300, rau: 100 }, stock: { ga: 100 }, aliases: ["MIXG"] }],
+    ["MTXL", { menuCode: "MTxL", name: "Mi xao heo", price: 250, base: { mi: 300, rau: 100 }, stock: { heo: 100 }, aliases: ["MIXL"] }],
+    ["MTXT", { menuCode: "MTxT", name: "Mi xao tom", price: 270, base: { mi: 300, rau: 100 }, stock: { tom: 100 }, aliases: ["MIXT"] }],
+    ["MTXGCX", { menuCode: "MTxGCx", name: "Mi xao ga chien xu", price: 250, base: { mi: 300, rau: 100 }, stock: { ga_xu: 120 }, aliases: ["MIXGCx"] }],
+    ["MTXMIX", { menuCode: "MTxMix", name: "Mi xao mix", price: 250, base: { mi: 300, rau: 100 }, stock: MIX_STOCK, aliases: ["MIXMix", "MIXMIX"] }],
     ["PXB", { menuCode: "PXB", name: "Pho xao bo", price: 250, base: { pho: 300, rau: 100 }, stock: { bo: 100 } }],
     ["PXG", { menuCode: "PXG", name: "Pho xao ga", price: 250, base: { pho: 300, rau: 100 }, stock: { ga: 100 } }],
     ["PXH", { menuCode: "PXH", name: "Pho xao heo", price: 250, base: { pho: 300, rau: 100 }, stock: { heo: 100 } }],
@@ -601,7 +601,7 @@
 
   syncMenuMetadata();
 
-  global.DLV_MODIFIERS = {
+  global.DRAGON_MODIFIERS = {
     STOCK_ITEMS,
     BASE_PORTIONS,
     ADDONS,

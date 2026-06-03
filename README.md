@@ -11,7 +11,7 @@
 Для локальной работы с bridge API запускай:
 
 ```bash
-python3 dlv_local_server.py
+python3 dragon_local_server.py
 ```
 
 и открывай:

@@ -1,11 +1,11 @@
 #!/bin/bash
-# Быстрая установка облачного сервера DLV
+# Быстрая установка облачного сервера DRAGON
 # Использование: bash setup_cloud.sh
 
 set -e
 
 echo "╔════════════════════════════════════════════════════════════╗"
-echo "║  🚀 Установка облачного сервера DLV                       ║"
+echo "║  🚀 Установка облачного сервера DRAGON                       ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -87,16 +87,16 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     CURRENT_DIR=$(pwd)
     
     # Создаём systemd файл
-    sudo tee /etc/systemd/system/dlv-cloud.service > /dev/null <<EOF
+    sudo tee /etc/systemd/system/dragon-cloud.service > /dev/null <<EOF
 [Unit]
-Description=DLV Restaurant Cloud Server
+Description=DRAGON Restaurant Cloud Server
 After=network.target
 
 [Service]
 Type=simple
 User=$CURRENT_USER
 WorkingDirectory=$CURRENT_DIR
-ExecStart=/usr/bin/python3 $CURRENT_DIR/dlv_local_server_cloud.py --port 8000
+ExecStart=/usr/bin/python3 $CURRENT_DIR/dragon_local_server_cloud.py --port 8000
 Restart=on-failure
 RestartSec=10
 StandardOutput=journal
@@ -112,12 +112,12 @@ EOF
     read -p "Запустить сервис сейчас? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        sudo systemctl enable dlv-cloud
-        sudo systemctl start dlv-cloud
+        sudo systemctl enable dragon-cloud
+        sudo systemctl start dragon-cloud
         echo "✅ Сервис запущен!"
         echo ""
         echo "📊 Статус:"
-        sudo systemctl status dlv-cloud
+        sudo systemctl status dragon-cloud
     fi
 else
     echo "Пропущено"
@@ -129,7 +129,7 @@ echo "║  ✅ УСТАНОВКА ЗАВЕРШЕНА!                           
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 echo "🚀 Запустите сервер:"
-echo "   python3 dlv_local_server_cloud.py --port 8000"
+echo "   python3 dragon_local_server_cloud.py --port 8000"
 echo ""
 echo "📊 Откройте мониторинг:"
 echo "   http://localhost:8000/MONITOR.html"

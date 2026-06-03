@@ -23,9 +23,9 @@ import requests
 
 
 ROOT_DIR = Path(__file__).resolve().parent
-SERVER_SCRIPT = ROOT_DIR / "dlv_local_server.py"
-KASSA_FILE = ROOT_DIR / "DLV_KASSA.html"
-BOOTSTRAP_FILE = ROOT_DIR / "__dlv_kassa_screenshot_bootstrap__.html"
+SERVER_SCRIPT = ROOT_DIR / "dragon_local_server.py"
+KASSA_FILE = ROOT_DIR / "DRAGON_KASSA.html"
+BOOTSTRAP_FILE = ROOT_DIR / "__dragon_kassa_screenshot_bootstrap__.html"
 
 
 @dataclass
@@ -48,10 +48,10 @@ def log(message: str) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Capture DLV pages and send screenshots to Telegram every N minutes."
+        description="Capture DRAGON pages and send screenshots to Telegram every N minutes."
     )
     parser.add_argument("--interval", type=int, default=300, help="Interval in seconds. Default: 300")
-    parser.add_argument("--port", type=int, default=8000, help="Preferred local DLV port. Default: 8000")
+    parser.add_argument("--port", type=int, default=8000, help="Preferred local DRAGON port. Default: 8000")
     parser.add_argument("--fallback-port", type=int, default=8015, help="Fallback local port if preferred port is busy. Default: 8015")
     parser.add_argument("--width", type=int, default=1440, help="Chrome viewport width. Default: 1440")
     parser.add_argument("--height", type=int, default=16000, help="Chrome viewport height for tall full-page capture. Default: 16000")
@@ -69,10 +69,10 @@ def load_telegram_config(args: argparse.Namespace) -> TelegramConfig:
     def pick(key: str) -> str:
         env_value = ""
         if key == "BOT_TOKEN":
-            env_value = str(os.environ.get("DLV_TG_BOT_TOKEN", "")).strip()
+            env_value = str(os.environ.get("DRAGON_TG_BOT_TOKEN", "")).strip()
             cli_value = str(args.bot_token or "").strip()
         else:
-            env_value = str(os.environ.get("DLV_TG_CHAT_ID_VN", "")).strip()
+            env_value = str(os.environ.get("DRAGON_TG_CHAT_ID_VN", "")).strip()
             cli_value = str(args.chat_id or "").strip()
         if cli_value:
             return cli_value
@@ -84,9 +84,9 @@ def load_telegram_config(args: argparse.Namespace) -> TelegramConfig:
     bot_token = pick("BOT_TOKEN")
     chat_id = pick("CHAT_ID_VN")
     if not bot_token:
-        raise RuntimeError("Telegram bot token not found. Set --bot-token or DLV_TG_BOT_TOKEN.")
+        raise RuntimeError("Telegram bot token not found. Set --bot-token or DRAGON_TG_BOT_TOKEN.")
     if not chat_id:
-        raise RuntimeError("Telegram chat id not found. Set --chat-id or DLV_TG_CHAT_ID_VN.")
+        raise RuntimeError("Telegram chat id not found. Set --chat-id or DRAGON_TG_CHAT_ID_VN.")
     return TelegramConfig(bot_token=bot_token, chat_id=chat_id)
 
 
@@ -96,7 +96,7 @@ def port_responds(host: str, port: int, timeout: float = 1.5) -> bool:
         return sock.connect_ex((host, port)) == 0
 
 
-def is_dlv_bridge_ready(port: int) -> bool:
+def is_dragon_bridge_ready(port: int) -> bool:
     try:
         with urlopen(f"http://127.0.0.1:{port}/api/local-orders", timeout=2.5) as response:
             payload = json.loads(response.read().decode("utf-8"))
@@ -106,7 +106,7 @@ def is_dlv_bridge_ready(port: int) -> bool:
 
 
 def start_local_server(port: int) -> subprocess.Popen[str]:
-    log(f"Starting local DLV server on 127.0.0.1:{port}")
+    log(f"Starting local DRAGON server on 127.0.0.1:{port}")
     process = subprocess.Popen(
         [sys.executable, str(SERVER_SCRIPT), "--bind", "127.0.0.1", "--port", str(port)],
         cwd=str(ROOT_DIR),
@@ -118,20 +118,20 @@ def start_local_server(port: int) -> subprocess.Popen[str]:
     while time.time() < deadline:
         if process.poll() is not None:
             output = process.stdout.read() if process.stdout else ""
-            raise RuntimeError(f"DLV server exited early on port {port}.\n{output}")
-        if is_dlv_bridge_ready(port):
+            raise RuntimeError(f"DRAGON server exited early on port {port}.\n{output}")
+        if is_dragon_bridge_ready(port):
             return process
         time.sleep(0.25)
 
     output = process.stdout.read() if process.stdout else ""
     process.terminate()
-    raise RuntimeError(f"DLV server did not become ready on port {port}.\n{output}")
+    raise RuntimeError(f"DRAGON server did not become ready on port {port}.\n{output}")
 
 
 def ensure_server(preferred_port: int, fallback_port: int) -> ServerHandle:
     for port in (preferred_port, fallback_port):
-        if is_dlv_bridge_ready(port):
-            log(f"Using existing DLV server on http://127.0.0.1:{port}")
+        if is_dragon_bridge_ready(port):
+            log(f"Using existing DRAGON server on http://127.0.0.1:{port}")
             return ServerHandle(base_url=f"http://127.0.0.1:{port}", port=port)
 
     if not port_responds("127.0.0.1", preferred_port):
@@ -162,12 +162,12 @@ def ensure_kassa_bootstrap() -> Path:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DLV Kassa Screenshot Bootstrap</title>
+  <title>DRAGON Kassa Screenshot Bootstrap</title>
 </head>
 <body>
   <script>
     sessionStorage.setItem("CD_KASSA_AUTH_V1", "ok");
-    location.replace("DLV_KASSA.html?screenshot=1");
+    location.replace("DRAGON_KASSA.html?screenshot=1");
   </script>
 </body>
 </html>
@@ -207,7 +207,7 @@ def capture_page_screenshot(
     height: int,
     virtual_time_budget: int
 ) -> None:
-    profile_dir = Path(tempfile.mkdtemp(prefix="dlv-shot-profile-"))
+    profile_dir = Path(tempfile.mkdtemp(prefix="dragon-shot-profile-"))
     try:
         cmd = [
             chrome_bin,
@@ -276,7 +276,7 @@ def run_cycle(server: ServerHandle, config: TelegramConfig, args: argparse.Names
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     human_time = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
-    with tempfile.TemporaryDirectory(prefix="dlv-shot-output-") as temp_dir:
+    with tempfile.TemporaryDirectory(prefix="dragon-shot-output-") as temp_dir:
         temp_path = Path(temp_dir)
         for label, url in cycle_targets(server.base_url):
             screenshot_path = temp_path / f"{timestamp}_{label}.png"
@@ -289,7 +289,7 @@ def run_cycle(server: ServerHandle, config: TelegramConfig, args: argparse.Names
                 height=args.height,
                 virtual_time_budget=args.virtual_time_budget
             )
-            caption = f"DLV {label} • {human_time}"
+            caption = f"DRAGON {label} • {human_time}"
             send_document(config, screenshot_path, caption, args.dry_run)
             log(f"Sent {label} screenshot: {screenshot_path.name}")
 

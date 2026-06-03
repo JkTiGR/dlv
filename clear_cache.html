@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-store">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>DLV Cache Reset</title>
+  <title>DRAGON Cache Reset</title>
   <style>
     :root {
       color-scheme: dark;
@@ -96,8 +96,8 @@
 </head>
 <body>
   <main class="card">
-    <h1>DLV cache reset</h1>
-    <p id="modeLine">Cleaning safe local cache keys for this DLV origin.</p>
+    <h1>DRAGON cache reset</h1>
+    <p id="modeLine">Cleaning safe local cache keys for this DRAGON origin.</p>
     <div class="status" id="status">Clearing cache...</div>
     <ul id="details"></ul>
     <p>
@@ -107,7 +107,7 @@
     <div class="links" id="links"></div>
   </main>
 
-  <script src="dlv_static_config.js"></script>
+  <script src="dragon_static_config.js"></script>
   <script>
     const SAFE_LOCAL_KEYS = [
       "CD_ORDERS_V1",
@@ -137,7 +137,7 @@
 
       if (mode === "full") {
         document.getElementById("modeLine").textContent =
-          "Cleaning full local browser storage for this DLV origin.";
+          "Cleaning full local browser storage for this DRAGON origin.";
         const localKeys = Object.keys(localStorage);
         localStorage.clear();
         sessionStorage.clear();
@@ -149,9 +149,9 @@
         details.push(`localStorage cleared (${localKeys.length} keys)`);
         details.push("sessionStorage cleared for this tab");
 
-        if (window.DLV_STATIC?.localOrdersApi) {
+        if (window.DRAGON_STATIC?.localOrdersApi) {
           try {
-            const response = await fetch(window.DLV_STATIC.localOrdersApi, { method: "DELETE" });
+            const response = await fetch(window.DRAGON_STATIC.localOrdersApi, { method: "DELETE" });
             const payload = await response.json();
             details.push(`local bridge cleared (${Number(payload?.removed || 0)} orders)`);
           } catch (error) {
@@ -197,7 +197,7 @@
 
       const links = [
         ["Menu", "index.html"],
-        ["Kassa", "DLV_KASSA.html"],
+        ["Kassa", "DRAGON_KASSA.html"],
         ["Contron", "contron.html"],
         ["View", "VIEW.html"],
         ["Monitor", "MONITOR.html"]
@@ -222,6 +222,6 @@
       document.getElementById("status").textContent = `Cache reset failed: ${error.message}`;
     });
   </script>
-  <script src="dlv_burger_menu.js"></script>
+  <script src="dragon_burger_menu.js"></script>
 </body>
 </html>

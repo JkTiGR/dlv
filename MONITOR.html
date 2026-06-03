@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#080101" />
-  <title>DLV Monitor</title>
+  <title>DRAGON Monitor</title>
   <link rel="icon" href="logo.png" />
   <style>
     :root {
@@ -517,6 +517,50 @@
       line-height: 1.45;
     }
 
+    .kitchen-table th.done-col-head,
+    .kitchen-table td.done-col {
+      width: 92px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .kitchen-table tbody tr.row-done {
+      background: rgba(57, 255, 136, 0.08);
+    }
+
+    .kitchen-table tbody tr.row-done td:not(.done-col) {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .line-ready-btn {
+      min-width: 54px;
+      min-height: 38px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+      font-weight: 950;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .line-ready-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    .line-ready-btn.active {
+      color: #03140a;
+      border-color: rgba(57, 255, 136, 0.42);
+      background: linear-gradient(135deg, rgba(57, 255, 136, 0.95), rgba(182, 255, 209, 0.92));
+      box-shadow: 0 0 16px rgba(57, 255, 136, 0.24);
+    }
+
+    .line-ready-btn:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+
     .line-note,
     .order-comment {
       color: #d8e5ff;
@@ -529,6 +573,13 @@
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.07);
       background: rgba(255, 255, 255, 0.045);
+    }
+
+    .ticket-progress {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
     .empty {
@@ -659,7 +710,7 @@
   <main class="page">
     <section class="topbar">
       <div class="brand">
-        <div class="brand-mark">DLV</div>
+        <div class="brand-mark">DRAGON</div>
         <div>
           <h1>Order Monitor</h1>
           <p>Экран кухни для повара: коды блюд и короткая таблица CODE / takeaway-Eat in / NAME / koment.</p>
@@ -668,7 +719,7 @@
       <div class="top-actions">
         <button class="btn primary" id="refreshBtn" type="button">Обновить</button>
         <a class="btn" href="VIEW.html">Client View</a>
-        <a class="btn" href="DLV_KASSA.html">Касса</a>
+        <a class="btn" href="DRAGON_KASSA.html">Касса</a>
         <a class="btn" href="index.html">Меню</a>
       </div>
     </section>
@@ -739,11 +790,11 @@
     </section>
   </main>
 
-  <script src="dlv_static_config.js"></script>
+  <script src="dragon_static_config.js"></script>
   <script>
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
-    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
+    const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || "";
     const ORDERS_KEY = "CD_ORDERS_V1";
     const REFRESH_MS = 15000;
 
@@ -767,7 +818,8 @@
       clockTimer: null,
       liveReloadTimer: null,
       eventSource: null,
-      renderCache: {}
+      renderCache: {},
+      savingRows: new Set()
     };
 
     const $ = (sel, root = document) => root.querySelector(sel);
@@ -869,12 +921,78 @@
       }));
     }
 
+    function normalizeKitchenProgress(raw, validRowIds = new Set()) {
+      const payload = raw && typeof raw === "object" ? raw : {};
+      const source = Array.isArray(payload.done_row_ids)
+        ? payload.done_row_ids
+        : Array.isArray(payload.doneRowIds)
+          ? payload.doneRowIds
+          : [];
+      const doneRowIds = [];
+      const seen = new Set();
+      for (const value of source) {
+        const rowId = String(value || "").trim();
+        if (!rowId || seen.has(rowId)) continue;
+        if (validRowIds.size && !validRowIds.has(rowId)) continue;
+        seen.add(rowId);
+        doneRowIds.push(rowId);
+      }
+      return {
+        done_row_ids: doneRowIds,
+        updated_at: String(payload.updated_at || payload.updatedAt || "").trim(),
+        touched: Boolean(payload.touched || doneRowIds.length || payload.updated_at || payload.updatedAt)
+      };
+    }
+
+    function kitchenRowComment(order, item) {
+      const parts = [];
+      if (item?.note) parts.push(String(item.note).trim());
+      if (order.comment) parts.push(String(order.comment).trim());
+      return parts.filter(Boolean).join(" / ") || "—";
+    }
+
+    function expandKitchenRows(order) {
+      const rows = [];
+      const sourceItems = order.items.length ? order.items : [{
+        id: "placeholder",
+        code: "—",
+        name: "Позиции не переданы",
+        qty: 1,
+        note: ""
+      }];
+
+      sourceItems.forEach((item, itemIndex) => {
+        const qty = Math.max(1, Number(item.qty || 1));
+        const itemId = String(item.id || item.key || item.code || `item-${itemIndex}`).trim() || `item-${itemIndex}`;
+        for (let unitIndex = 0; unitIndex < qty; unitIndex += 1) {
+          rows.push({
+            row_id: `${itemId}:${unitIndex}`,
+            code: item.code || item.key || "—",
+            name: item.name || item.title || item.code || "—",
+            comment: kitchenRowComment(order, item),
+            persistable: order.items.length > 0
+          });
+        }
+      });
+
+      return rows;
+    }
+
     function fallbackTotal(items) {
       return items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.qty || 0), 0);
     }
 
     function normalizeOrder(raw) {
       const items = normalizeItems(raw.items);
+      const comment = String(raw.comment || raw.order_comment || raw.note || "").trim();
+      const validRowIds = new Set(
+        expandKitchenRows({
+          items,
+          comment
+        })
+          .filter(row => row.persistable)
+          .map(row => row.row_id)
+      );
       const subtotal = Number(raw.subtotal ?? raw.sum ?? fallbackTotal(items));
       const deliveryFee = Number(raw.delivery_fee ?? raw.deliveryFee ?? 0);
       const total = Number(raw.total ?? subtotal + deliveryFee);
@@ -889,7 +1007,7 @@
         type: normalizeType(raw.type),
         table: String(raw.table || "").trim(),
         pickup_in: String(raw.pickup_in || "").trim(),
-        comment: String(raw.comment || raw.order_comment || raw.note || "").trim(),
+        comment,
         items,
         subtotal,
         delivery_fee: deliveryFee,
@@ -897,6 +1015,7 @@
         source: raw.source === "cashier" ? "cashier" : "site",
         created_at: raw.created_at || raw.createdAt || new Date().toISOString(),
         updated_at: raw.updated_at || raw.updatedAt || raw.created_at || new Date().toISOString(),
+        kitchen_progress: normalizeKitchenProgress(raw.kitchen_progress ?? raw.kitchenProgress, validRowIds),
         sync: {
           local: localSync,
           sheet: sheetSync
@@ -1037,11 +1156,43 @@
       return state.orders.filter(order => dateInputValue(order.created_at) === today);
     }
 
+    function kitchenProgressSummary(order) {
+      const rows = expandKitchenRows(order).filter(row => row.persistable);
+      const validRowIds = new Set(rows.map(row => row.row_id));
+      const explicitProgress = normalizeKitchenProgress(order.kitchen_progress, validRowIds);
+      let doneRowIds = explicitProgress.done_row_ids.slice();
+
+      if (!doneRowIds.length && ["READY", "HANDED"].includes(normalizeStatus(order.status))) {
+        doneRowIds = rows.map(row => row.row_id);
+      }
+
+      const doneSet = new Set(doneRowIds);
+      return {
+        rows,
+        doneSet,
+        doneCount: rows.filter(row => doneSet.has(row.row_id)).length,
+        totalCount: rows.length,
+        touched: Boolean(explicitProgress.touched),
+        progress: explicitProgress
+      };
+    }
+
+    function resolveOrderStatus(order) {
+      const current = normalizeStatus(order?.status);
+      if (current === "CANCELLED" || current === "HANDED") return current;
+      const progress = kitchenProgressSummary(order);
+      if (!progress.totalCount) return current;
+      if (progress.doneCount >= progress.totalCount) return "READY";
+      if (progress.doneCount > 0) return "COOKING";
+      if (progress.touched) return "NEW";
+      return current;
+    }
+
     function activeOrders() {
       const rank = { NEW: 0, COOKING: 1, READY: 2 };
       return todayOrders()
-        .filter(order => ["NEW", "COOKING", "READY"].includes(order.status))
-        .sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9) || new Date(a.created_at) - new Date(b.created_at));
+        .filter(order => ["NEW", "COOKING", "READY"].includes(resolveOrderStatus(order)))
+        .sort((a, b) => (rank[resolveOrderStatus(a)] ?? 9) - (rank[resolveOrderStatus(b)] ?? 9) || new Date(a.created_at) - new Date(b.created_at));
     }
 
     function orderMeta(order) {
@@ -1071,38 +1222,8 @@
       return codes.length ? codes : ["—"];
     }
 
-    function kitchenRowComment(order, item) {
-      const parts = [];
-      if (item?.note) parts.push(String(item.note).trim());
-      if (order.comment) parts.push(String(order.comment).trim());
-      return parts.filter(Boolean).join(" / ") || "—";
-    }
-
-    function expandKitchenRows(order) {
-      const rows = [];
-      const sourceItems = order.items.length ? order.items : [{
-        code: "—",
-        name: "Позиции не переданы",
-        qty: 1,
-        note: ""
-      }];
-
-      for (const item of sourceItems) {
-        const qty = Math.max(1, Number(item.qty || 1));
-        for (let index = 0; index < qty; index += 1) {
-          rows.push({
-            code: item.code || item.key || "—",
-            name: item.name || item.title || item.code || "—",
-            comment: kitchenRowComment(order, item)
-          });
-        }
-      }
-
-      return rows;
-    }
-
-    function renderKitchenTable(order) {
-      const rows = expandKitchenRows(order);
+    function renderKitchenTable(order, progress) {
+      const rows = progress.rows.length ? progress.rows : expandKitchenRows(order);
 
       return `
         <div class="kitchen-table-wrap">
@@ -1113,15 +1234,27 @@
                 <th>takeaway/Eat in</th>
                 <th>NAME</th>
                 <th>koment</th>
+                <th class="done-col-head">gotov</th>
               </tr>
             </thead>
             <tbody>
               ${rows.map(item => `
-                <tr>
+                <tr class="${progress.doneSet.has(item.row_id) ? "row-done" : ""}">
                   <td class="code-col">${escapeHtml(item.code || "—")}</td>
                   <td class="service-col">${escapeHtml(kitchenServiceLabel(order))}</td>
                   <td class="name-col">${escapeHtml(item.name || "—")}</td>
                   <td class="comment-col">${escapeHtml(item.comment || "—")}</td>
+                  <td class="done-col">
+                    ${item.persistable ? `
+                      <button
+                        class="line-ready-btn ${progress.doneSet.has(item.row_id) ? "active" : ""}"
+                        type="button"
+                        data-toggle-row="${escapeHtml(item.row_id)}"
+                        data-order-code="${escapeHtml(order.code)}"
+                        ${state.savingRows.has(`${order.code}:${item.row_id}`) ? "disabled" : ""}
+                      >${progress.doneSet.has(item.row_id) ? "✓" : "○"}</button>
+                    ` : `<span class="tag muted">—</span>`}
+                  </td>
                 </tr>
               `).join("")}
             </tbody>
@@ -1147,8 +1280,74 @@
       return { label: "Bridge ?", className: "muted" };
     }
 
+    async function pushOrderToLocalBridge(orderPayload) {
+      if (!LOCAL_API_BASE) return { ok: false, error: "local_bridge_unavailable" };
+      try {
+        const response = await fetch(LOCAL_API_BASE, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderPayload)
+        });
+        if (!response.ok) {
+          return { ok: false, error: `Local bridge HTTP ${response.status}` };
+        }
+        return await response.json();
+      } catch (error) {
+        return { ok: false, error: String(error) };
+      }
+    }
+
+    async function toggleKitchenRowReady(code, rowId) {
+      const order = state.orders.find(entry => entry.code === code);
+      if (!order) return;
+
+      const progress = kitchenProgressSummary(order);
+      const validRowIds = new Set(progress.rows.map(row => row.row_id));
+      if (!validRowIds.has(rowId)) return;
+
+      const saveKey = `${code}:${rowId}`;
+      if (state.savingRows.has(saveKey)) return;
+
+      const doneSet = new Set(progress.doneSet);
+      if (doneSet.has(rowId)) {
+        doneSet.delete(rowId);
+      } else {
+        doneSet.add(rowId);
+      }
+
+      order.kitchen_progress = {
+        done_row_ids: progress.rows.map(row => row.row_id).filter(id => doneSet.has(id)),
+        updated_at: nowIso(),
+        touched: true
+      };
+      order.status = resolveOrderStatus(order);
+      order.updated_at = nowIso();
+      saveMergedOrders(state.orders);
+      renderAll();
+
+      if (!LOCAL_API_BASE) return;
+
+      state.savingRows.add(saveKey);
+      renderAll();
+      const result = await pushOrderToLocalBridge(order);
+      state.savingRows.delete(saveKey);
+
+      if (result?.ok && result.order) {
+        Object.assign(order, normalizeOrder(result.order));
+        setSyncBadge($("#bridgeSyncBadge"), "ok", "Bridge ok");
+        stampSyncTime();
+      } else {
+        setSyncBadge($("#bridgeSyncBadge"), "offline", "Bridge off");
+      }
+
+      saveMergedOrders(state.orders);
+      renderAll();
+    }
+
     function renderTicket(order) {
-      const status = STATUS_META[order.status] || STATUS_META.NEW;
+      const resolvedStatus = resolveOrderStatus(order);
+      const status = STATUS_META[resolvedStatus] || STATUS_META.NEW;
+      const progress = kitchenProgressSummary(order);
       const syncTags = [localSyncMeta(order), sheetSyncMeta(order)]
         .filter(Boolean)
         .map(tag => `<span class="tag ${escapeHtml(tag.className)}">${escapeHtml(tag.label)}</span>`)
@@ -1156,6 +1355,9 @@
       const codeStrip = kitchenItemCodes(order)
         .map(code => `<span class="kitchen-code">${escapeHtml(code)}</span>`)
         .join("");
+      const progressTag = progress.totalCount
+        ? `<span class="tag ${progress.doneCount >= progress.totalCount ? "ok" : progress.doneCount > 0 ? "warn" : "muted"}">готово ${progress.doneCount}/${progress.totalCount}</span>`
+        : "";
 
       return `
         <article class="ticket status-${status.className}">
@@ -1170,7 +1372,8 @@
             <div class="time">${escapeHtml(fmtTime(order.created_at))}</div>
           </div>
           <div class="kitchen-codes">${codeStrip}</div>
-          ${renderKitchenTable(order)}
+          ${progressTag ? `<div class="ticket-progress">${progressTag}</div>` : ""}
+          ${renderKitchenTable(order, progress)}
           ${order.comment ? `<div class="order-comment">${escapeHtml(order.comment)}</div>` : ""}
           ${syncTags ? `<div class="ticket-meta">${syncTags}</div>` : ""}
         </article>
@@ -1178,7 +1381,7 @@
     }
 
     function renderLane(status, laneId, countId) {
-      const laneOrders = activeOrders().filter(order => order.status === status);
+      const laneOrders = activeOrders().filter(order => resolveOrderStatus(order) === status);
       const lane = $(laneId);
       $(countId).textContent = String(laneOrders.length);
 
@@ -1193,9 +1396,9 @@
 
     function renderStats() {
       const orders = activeOrders();
-      const newCount = orders.filter(order => order.status === "NEW").length;
-      const cookingCount = orders.filter(order => order.status === "COOKING").length;
-      const readyCount = orders.filter(order => order.status === "READY").length;
+      const newCount = orders.filter(order => resolveOrderStatus(order) === "NEW").length;
+      const cookingCount = orders.filter(order => resolveOrderStatus(order) === "COOKING").length;
+      const readyCount = orders.filter(order => resolveOrderStatus(order) === "READY").length;
 
       $("#statNew").textContent = String(newCount);
       $("#statCooking").textContent = String(cookingCount);
@@ -1276,6 +1479,11 @@
 
     function init() {
       $("#refreshBtn").addEventListener("click", loadOrders);
+      $(".board").addEventListener("click", event => {
+        const btn = event.target.closest("[data-toggle-row]");
+        if (!btn) return;
+        toggleKitchenRowReady(btn.dataset.orderCode, btn.dataset.toggleRow);
+      });
       window.addEventListener("storage", event => {
         if (event.key !== ORDERS_KEY) return;
         state.orders = mergeOrders([], loadLocalOrders());
@@ -1294,6 +1502,6 @@
 
     init();
   </script>
-  <script src="dlv_burger_menu.js"></script>
+  <script src="dragon_burger_menu.js"></script>
 </body>
 </html>

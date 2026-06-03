@@ -3,7 +3,7 @@ const USE_BACKEND_API = (
     window.location.pathname === "/"
 ) && !window.location.hostname.endsWith(".github.io");
 const API_BASE = USE_BACKEND_API ? "/api" : "";
-const STATIC_STORE_KEY = "DLV_PO_STATIC_STORE_V1";
+const STATIC_STORE_KEY = "DRAGON_PO_STATIC_STORE_V1";
 
 const state = {
     dashboard: null,

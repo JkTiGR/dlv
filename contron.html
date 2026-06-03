@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#080101" />
-  <title>DLV Contron Panel</title>
+  <title>DRAGON Contron Panel</title>
   <link rel="icon" href="logo.png" />
   <style>
     :root {
@@ -1046,7 +1046,7 @@
     <section class="topbar">
       <div class="topbar-head">
         <div class="brand">
-          <div class="brand-mark">DLV</div>
+          <div class="brand-mark">DRAGON</div>
           <div>
             <h1>Contron Panel</h1>
             <p>Складской контроль по продуктам и расходникам: RU/VN позиции, статус наличия и дата последней проверки.</p>
@@ -1054,7 +1054,7 @@
         </div>
 
         <div class="topbar-actions">
-          <a class="btn secondary" href="DLV_KASSA.html">Открыть Kassa</a>
+          <a class="btn secondary" href="DRAGON_KASSA.html">Открыть Kassa</a>
           <button class="btn secondary" id="sendScreenshotBtn" type="button">Full screenshot в VN</button>
           <a class="btn ghost" href="index.html">Открыть Menu</a>
         </div>
@@ -1163,14 +1163,14 @@
 
   <div class="toast-wrap" id="toastWrap" aria-live="polite" data-html2canvas-ignore="true"></div>
 
-  <script src="dlv_static_config.js"></script>
-  <script src="dlv_kassa_modifier_logic.js"></script>
+  <script src="dragon_static_config.js"></script>
+  <script src="dragon_kassa_modifier_logic.js"></script>
   <script>
-    const STORAGE_KEY = "DLV_CONTRON_PANEL_V2";
+    const STORAGE_KEY = "DRAGON_CONTRON_PANEL_V2";
     const ORDERS_KEY = "CD_ORDERS_V1";
-    const STOCK_SUMMARY_KEY = "DLV_STOCK_SUMMARY_V1";
-    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
-    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
+    const STOCK_SUMMARY_KEY = "DRAGON_STOCK_SUMMARY_V1";
+    const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || "";
     const STATUS_KEYS = ["full", "ok", "min"];
     const MODES = ["products", "portions", "losses"];
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
@@ -1610,7 +1610,7 @@
     }
 
     function modifierApi() {
-      return window.DLV_MODIFIERS || null;
+      return window.DRAGON_MODIFIERS || null;
     }
 
     function startOfTodayStamp() {
@@ -2028,7 +2028,7 @@
       try {
         localStorage.setItem(STOCK_SUMMARY_KEY, JSON.stringify(state.stockSummary));
       } catch (_) {
-        showToast("Не удалось обновить DLV_STOCK_SUMMARY_V1");
+        showToast("Не удалось обновить DRAGON_STOCK_SUMMARY_V1");
       }
 
       return true;
@@ -2226,11 +2226,11 @@
         btn.disabled = true;
         btn.textContent = "Отправка...";
 
-        const caption = `DLV Contron full screenshot • ${fmtSavedAt()}`;
+        const caption = `DRAGON Contron full screenshot • ${fmtSavedAt()}`;
         const result = await sendTelegramDocument(
           TG.CHAT_ID_VN,
           imageBlob,
-          `dlv-contron-full-${screenshotStamp()}.png`,
+          `dragon-contron-full-${screenshotStamp()}.png`,
           caption
         );
 
@@ -3443,6 +3443,6 @@
 
     init();
   </script>
-  <script src="dlv_burger_menu.js"></script>
+  <script src="dragon_burger_menu.js"></script>
 </body>
 </html>

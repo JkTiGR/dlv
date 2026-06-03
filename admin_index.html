@@ -497,12 +497,12 @@
     </div>
   </div>
 
-  <script src="dlv_static_config.js"></script>
+  <script src="dragon_static_config.js"></script>
   <script>
     // Конфигурация
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
-    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
+    const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || "";
     const ORDERS_KEY = 'CD_ORDERS_V1';
     let orders = [];
     let currentTab = 'all';
@@ -1012,6 +1012,6 @@
     
     init();
   </script>
-  <script src="dlv_burger_menu.js"></script>
+  <script src="dragon_burger_menu.js"></script>
 </body>
 </html>

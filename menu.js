@@ -21,7 +21,7 @@ const menuData = {
       }
     },
     {
-      "key": "pho_heo_xao",
+      "key": "pho_lon_xao",
       "code": "PLx",
       "price": 200,
       "weight": 800,
@@ -135,7 +135,7 @@ const menuData = {
       }
     },
     {
-      "key": "mi_soup_heo",
+      "key": "mi_soup_lon",
       "code": "MTnL",
       "price": 200,
       "weight": 800,
@@ -249,7 +249,7 @@ const menuData = {
       }
     },
     {
-      "key": "mien_soup_heo",
+      "key": "mien_soup_lon",
       "code": "MnL",
       "price": 200,
       "weight": 700,
@@ -363,7 +363,7 @@ const menuData = {
       }
     },
     {
-      "key": "bun_soup_heo",
+      "key": "bun_soup_lon",
       "code": "BLx",
       "price": 200,
       "weight": 700,
@@ -474,6 +474,24 @@ const menuData = {
         "ru": "Рисовая лапша, говядина, свежая зелень и соус.",
         "ua": "Рисова локшина, яловичина, свіжа зелень та соус.",
         "vn": "Bún, thịt bò, rau tươi và nước sốt."
+      }
+    },
+    {
+      "key": "salat_bun_lon",
+      "code": "BsL",
+      "price": 200,
+      "weight": 700,
+      "spicy": 0,
+      "tags": [],
+      "translations": {
+        "ru": "Салат Бун со свининой",
+        "ua": "Салат Бун зі свининою",
+        "vn": "Bún trộn heo"
+      },
+      "short": {
+        "ru": "Рисовая лапша, свинина, свежая зелень и соус.",
+        "ua": "Рисова локшина, свинина, свіжа зелень та соус.",
+        "vn": "Bún, thịt heo, rau tươi và nước sốt."
       }
     },
     {
@@ -593,7 +611,7 @@ const menuData = {
       }
     },
     {
-      "key": "mien_xao_heo",
+      "key": "mien_xao_lon",
       "code": "MXL",
       "price": 250,
       "weight": 700,
@@ -690,7 +708,7 @@ const menuData = {
   "wok_fried_mi": [
     {
       "key": "mi_xao_bo",
-      "code": "MIXB",
+      "code": "MTxB",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -707,8 +725,8 @@ const menuData = {
       }
     },
     {
-      "key": "mi_xao_heo",
-      "code": "MIXL",
+      "key": "mi_xao_lon",
+      "code": "MTxL",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -726,7 +744,7 @@ const menuData = {
     },
     {
       "key": "mi_xao_ga",
-      "code": "MIXG",
+      "code": "MTxG",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -744,7 +762,7 @@ const menuData = {
     },
     {
       "key": "mi_xao_ga_chien_xu",
-      "code": "MIXGCx",
+      "code": "MTxGCx",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -764,7 +782,7 @@ const menuData = {
     },
     {
       "key": "mi_xao_tom",
-      "code": "MIXT",
+      "code": "MTxT",
       "price": 270,
       "weight": 700,
       "spicy": 1,
@@ -782,7 +800,7 @@ const menuData = {
     },
     {
       "key": "mi_xao_mix",
-      "code": "MIXMix",
+      "code": "MTxMix",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -804,7 +822,7 @@ const menuData = {
   "wok_fried_pho": [
     {
       "key": "pho_xao_bo",
-      "code": "PXB",
+      "code": "PxB",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -821,8 +839,8 @@ const menuData = {
       }
     },
     {
-      "key": "pho_xao_heo",
-      "code": "PXL",
+      "key": "pho_xao_lon",
+      "code": "PxL",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -840,7 +858,7 @@ const menuData = {
     },
     {
       "key": "pho_xao_ga",
-      "code": "PXG",
+      "code": "PxG",
       "price": 250,
       "weight": 700,
       "spicy": 1,
@@ -935,7 +953,7 @@ const menuData = {
       }
     },
     {
-      "key": "com_trang_heo",
+      "key": "com_trang_lon",
       "code": "CL",
       "price": 200,
       "weight": 700,
@@ -1067,7 +1085,7 @@ const menuData = {
       }
     },
     {
-      "key": "com_rang_heo",
+      "key": "com_rang_lon",
       "code": "CRL",
       "price": 200,
       "weight": 700,

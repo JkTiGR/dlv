@@ -171,8 +171,8 @@ def serialize_orders(connection: sqlite3.Connection) -> list[dict[str, Any]]:
 def create_app() -> Flask:
     app = Flask(__name__, static_folder="static", static_url_path="/static")
     CORS(app)
-    app.config["DATABASE_PATH"] = Path(os.getenv("DLV_PO_DB_PATH", DEFAULT_DB_PATH))
-    app.config["DEBUG"] = os.getenv("DLV_PO_DEBUG", "1") == "1"
+    app.config["DATABASE_PATH"] = Path(os.getenv("DRAGON_PO_DB_PATH", DEFAULT_DB_PATH))
+    app.config["DEBUG"] = os.getenv("DRAGON_PO_DEBUG", "1") == "1"
 
     init_db(app)
 
@@ -185,7 +185,7 @@ def create_app() -> Flask:
         return jsonify(
             {
                 "status": "ok",
-                "project": "DLV Purchase Order Starter",
+                "project": "DRAGON Purchase Order Starter",
                 "database_path": str(Path(app.config["DATABASE_PATH"])),
                 "generated_at": utc_now(),
             }

@@ -1,0 +1,22 @@
+{
+  "name": "DRAGON GO",
+  "short_name": "DRAGON GO",
+  "start_url": "./dragon_go.html",
+  "display": "standalone",
+  "background_color": "#0c1030",
+  "theme_color": "#16133a",
+  "description": "DRAGON GO is a delivery-first app shell for Cyber Dragon and DRAGON.",
+  "icons": [
+    {
+      "src": "DockIconLang.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "DockIconKorzina.png",
+      "sizes": "1000x1000",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

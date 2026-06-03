@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#080101" />
-  <title>DLV Client View</title>
+  <title>DRAGON Client View</title>
   <link rel="icon" href="logo.png" />
   <style>
     :root {
@@ -463,9 +463,9 @@
   <main class="screen">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark">DLV</div>
+        <div class="brand-mark">DRAGON</div>
         <div>
-          <h1>Заказы DLV</h1>
+          <h1>Заказы DRAGON</h1>
           <div class="subtitle">Следите за номером заказа на экране. Когда он появится справа, можно забирать.</div>
         </div>
       </div>
@@ -506,11 +506,11 @@
     </footer>
   </main>
 
-  <script src="dlv_static_config.js"></script>
+  <script src="dragon_static_config.js"></script>
   <script>
     const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
-    const LOCAL_API_BASE = window.DLV_STATIC?.localOrdersApi || "";
-    const LOCAL_EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
+    const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || "";
+    const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || "";
     const ORDERS_KEY = "CD_ORDERS_V1";
     const REFRESH_MS = 10000;
     const FRESH_READY_MS = 4 * 60 * 1000;
@@ -773,6 +773,6 @@
 
     init();
   </script>
-  <script src="dlv_burger_menu.js"></script>
+  <script src="dragon_burger_menu.js"></script>
 </body>
 </html>

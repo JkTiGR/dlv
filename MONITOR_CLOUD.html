@@ -283,11 +283,11 @@
         <p style="margin-top: 10px;">Версия 2.0 | Облако: Supabase</p>
     </footer>
     
-    <script src="dlv_static_config.js"></script>
+    <script src="dragon_static_config.js"></script>
     <script>
-        const BRIDGE_BASE = window.DLV_STATIC?.bridgeBase || "";
-        const BRIDGE_ORDERS_API = window.DLV_STATIC?.localOrdersApi || "/api/local-orders";
-        const EVENTS_URL = window.DLV_STATIC?.localEventsUrl || "";
+        const BRIDGE_BASE = window.DRAGON_STATIC?.bridgeBase || "";
+        const BRIDGE_ORDERS_API = window.DRAGON_STATIC?.localOrdersApi || "/api/local-orders";
+        const EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || "";
         const STATS_API = BRIDGE_BASE ? `${BRIDGE_BASE}/api/stats` : "/api/stats";
         let autoRefreshInterval = null;
         let liveEvents = null;

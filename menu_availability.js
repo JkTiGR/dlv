@@ -1,6 +1,6 @@
 (function () {
-  const STORAGE_KEY = "DLV_MENU_AVAILABILITY_V1";
-  const API_URL = window.DLV_STATIC?.menuAvailabilityApi || "";
+  const STORAGE_KEY = "DRAGON_MENU_AVAILABILITY_V1";
+  const API_URL = window.DRAGON_STATIC?.menuAvailabilityApi || "";
 
   function todayKey(date = new Date()) {
     const year = date.getFullYear();
@@ -34,7 +34,7 @@
     const next = normalizeData(data);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     if (emit) {
-      window.dispatchEvent(new CustomEvent("dlv-menu-availability-changed", { detail: next }));
+      window.dispatchEvent(new CustomEvent("dragon-menu-availability-changed", { detail: next }));
     }
     return next;
   }
@@ -168,7 +168,7 @@
       .map(([key]) => key);
   }
 
-  window.DLV_MENU_AVAILABILITY = {
+  window.DRAGON_MENU_AVAILABILITY = {
     STORAGE_KEY,
     API_URL,
     todayKey,

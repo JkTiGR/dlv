@@ -1,0 +1,5508 @@
+{
+  "pho_bo_xao": {
+    "code": "PBx",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "pho_soups",
+    "name": {
+      "ru": "Суп Фо с говядиной",
+      "ua": "Фо з яловичиною",
+      "vn": "Phở bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "pho_lon_xao": {
+    "code": "PLx",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "pho_soups",
+    "name": {
+      "ru": "Суп Фо со свининой",
+      "ua": "Фо зі свининою",
+      "vn": "Phở heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "pho_ga_xao": {
+    "code": "PGx",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "pho_soups",
+    "name": {
+      "ru": "Суп Фо с курицей",
+      "ua": "Фо з куркою",
+      "vn": "Phở gà xao"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "pho_tom": {
+    "code": "PT",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "pho_soups",
+    "name": {
+      "ru": "Суп Фо с креветками",
+      "ua": "Фо з креветками",
+      "vn": "Phở tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 220,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "pho_ga_chien_xu": {
+    "code": "PGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "pho_soups",
+    "name": {
+      "ru": "Суп Фо с курицей в панировке",
+      "ua": "Фо з куркою в паніровці",
+      "vn": "Phở gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "pho_mix": {
+    "code": "PMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "pho_soups",
+    "name": {
+      "ru": "Суп Фо MIX",
+      "ua": "Фо мікс",
+      "vn": "Phở mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 350,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mi_soup_bo": {
+    "code": "MTnB",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "mi_soups",
+    "name": {
+      "ru": "Суп Ми с говядиной",
+      "ua": "Суп Mi з яловичиною",
+      "vn": "Mì nước bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mi_soup_lon": {
+    "code": "MTnL",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "mi_soups",
+    "name": {
+      "ru": "Суп Ми со свининой",
+      "ua": "Суп Mi зі свининою",
+      "vn": "Mì nước heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mi_soup_ga": {
+    "code": "MTnG",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "mi_soups",
+    "name": {
+      "ru": "Суп Ми с курицей",
+      "ua": "Суп Mi з куркою",
+      "vn": "Mì nước gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mi_soup_tom": {
+    "code": "MTnT",
+    "total_weight": 800,
+    "unit": "g",
+    "category": "mi_soups",
+    "name": {
+      "ru": "Суп Ми с креветками",
+      "ua": "Суп Mi з креветками",
+      "vn": "Mì nước tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 450,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 220,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mi_soup_ga_chien_xu": {
+    "code": "MTnGx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mi_soups",
+    "name": {
+      "ru": "Суп Ми с курицей в панировке",
+      "ua": "Суп Mi з куркою в паніровці",
+      "vn": "Mì nước gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mi_soup_mix": {
+    "code": "MnMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mi_soups",
+    "name": {
+      "ru": "Суп Ми MIX",
+      "ua": "Суп Mi мікс",
+      "vn": "Mì nước mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 350,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mien_soup_bo": {
+    "code": "MnB",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mien_soups",
+    "name": {
+      "ru": "Суп Миен с говядиной",
+      "ua": "Суп Мієн з яловичиною",
+      "vn": "Miến nước bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mien_soup_lon": {
+    "code": "MnL",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mien_soups",
+    "name": {
+      "ru": "Суп Миен со свининой",
+      "ua": "Суп Мієн зі свининою",
+      "vn": "Miến nước heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mien_soup_ga": {
+    "code": "MnG",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mien_soups",
+    "name": {
+      "ru": "Суп Миен с курицей",
+      "ua": "Суп Мієн з куркою",
+      "vn": "Miến nước gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mien_soup_tom": {
+    "code": "MnT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mien_soups",
+    "name": {
+      "ru": "Суп Миен с креветками",
+      "ua": "Суп Мієн з креветками",
+      "vn": "Miến nước tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mien_soup_ga_chien_xu": {
+    "code": "MnGx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mien_soups",
+    "name": {
+      "ru": "Суп Миен с курицей в панировке",
+      "ua": "Суп Мієн з куркою в паніровці",
+      "vn": "Miến nước gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "mien_soup_mix": {
+    "code": "MnMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "mien_soups",
+    "name": {
+      "ru": "Суп Миен MIX",
+      "ua": "Суп Мієн мікс",
+      "vn": "Miến nước mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 350,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "bun_soup_bo": {
+    "code": "BBx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "bun_soups",
+    "name": {
+      "ru": "Суп Бун с говядиной",
+      "ua": "Суп Бун з яловичиною",
+      "vn": "Bún nước bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "bun_soup_lon": {
+    "code": "BLx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "bun_soups",
+    "name": {
+      "ru": "Суп Бун со свининой",
+      "ua": "Суп Бун зі свининою",
+      "vn": "Bún nước heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "bun_soup_ga": {
+    "code": "BGx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "bun_soups",
+    "name": {
+      "ru": "Суп Бун с курицей",
+      "ua": "Суп Бун з куркою",
+      "vn": "Bún nước gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "bun_soup_ga_chien_xu": {
+    "code": "BGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "bun_soups",
+    "name": {
+      "ru": "Суп Бун с курицей в панировке",
+      "ua": "Суп Бун з куркою в паніровці",
+      "vn": "Bún nước gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "bun_soup_tom": {
+    "code": "BT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "bun_soups",
+    "name": {
+      "ru": "Суп Бун с креветками",
+      "ua": "Суп Бун з креветками",
+      "vn": "Bún nước tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 400,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "bun_soup_mix": {
+    "code": "BMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "bun_soups",
+    "name": {
+      "ru": "Суп Бун MIX",
+      "ua": "Суп Бун мікс",
+      "vn": "Bún nước mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "broth",
+        "name": {
+          "ru": "бульон",
+          "ua": "бульйон",
+          "vn": "nước dùng"
+        },
+        "amount": 350,
+        "unit": "ml"
+      },
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Бульон держать горячим, лапшу закладывать перед отдачей.",
+      "ua": "Бульйон тримати гарячим, локшину закладати перед видачею.",
+      "vn": "Giữ nước dùng nóng, cho mì vào ngay trước khi ra món."
+    }
+  },
+  "salat_bun_bo": {
+    "code": "BsB",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "salat_bun",
+    "name": {
+      "ru": "Салат Бун с говядиной",
+      "ua": "Салат Бун з яловичиною",
+      "vn": "Bún trộn bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 190,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Овощи и зелень подавать свежими, соус добавлять перед отдачей.",
+      "ua": "Овочі та зелень подавати свіжими, соус додавати перед видачею.",
+      "vn": "Rau và rau thơm dùng tươi, chan sốt ngay trước khi ra món."
+    }
+  },
+  "salat_bun_lon": {
+    "code": "BsL",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "salat_bun",
+    "name": {
+      "ru": "Салат Бун со свининой",
+      "ua": "Салат Бун зі свининою",
+      "vn": "Bún trộn heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 190,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Овощи и зелень подавать свежими, соус добавлять перед отдачей.",
+      "ua": "Овочі та зелень подавати свіжими, соус додавати перед видачею.",
+      "vn": "Rau và rau thơm dùng tươi, chan sốt ngay trước khi ra món."
+    }
+  },
+  "salat_bun_ga": {
+    "code": "BsG",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "salat_bun",
+    "name": {
+      "ru": "Салат Бун с курицей",
+      "ua": "Салат Бун з куркою",
+      "vn": "Bún trộn gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 190,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Овощи и зелень подавать свежими, соус добавлять перед отдачей.",
+      "ua": "Овочі та зелень подавати свіжими, соус додавати перед видачею.",
+      "vn": "Rau và rau thơm dùng tươi, chan sốt ngay trước khi ra món."
+    }
+  },
+  "salat_bun_ga_chien_xu": {
+    "code": "BsGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "salat_bun",
+    "name": {
+      "ru": "Салат Бун с курицей в панировке",
+      "ua": "Салат Бун з куркою в паніровці",
+      "vn": "Bún trộn gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 190,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Овощи и зелень подавать свежими, соус добавлять перед отдачей.",
+      "ua": "Овочі та зелень подавати свіжими, соус додавати перед видачею.",
+      "vn": "Rau và rau thơm dùng tươi, chan sốt ngay trước khi ra món."
+    }
+  },
+  "salat_bun_tom": {
+    "code": "BsT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "salat_bun",
+    "name": {
+      "ru": "Салат Бун с креветками",
+      "ua": "Салат Бун з креветками",
+      "vn": "Bún trộn tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Овощи и зелень подавать свежими, соус добавлять перед отдачей.",
+      "ua": "Овочі та зелень подавати свіжими, соус додавати перед видачею.",
+      "vn": "Rau và rau thơm dùng tươi, chan sốt ngay trước khi ra món."
+    }
+  },
+  "salat_bun_nem": {
+    "code": "BsN",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "salat_bun",
+    "name": {
+      "ru": "Салат Бун с нэмами",
+      "ua": "Салат Бун з немами",
+      "vn": "Bún trộn nem"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "nem",
+        "name": {
+          "ru": "немы",
+          "ua": "неми",
+          "vn": "nem"
+        },
+        "amount": 120,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Овощи и зелень подавать свежими, соус добавлять перед отдачей.",
+      "ua": "Овочі та зелень подавати свіжими, соус додавати перед видачею.",
+      "vn": "Rau và rau thơm dùng tươi, chan sốt ngay trước khi ra món."
+    }
+  },
+  "salat_bun_mix": {
+    "code": "BsMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "salat_bun",
+    "name": {
+      "ru": "Салат Бун MIX",
+      "ua": "Салат Бун мікс",
+      "vn": "Bún trộn mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_bun",
+        "name": {
+          "ru": "рисовая лапша bún",
+          "ua": "рисова локшина bún",
+          "vn": "bún"
+        },
+        "amount": 270,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "nem",
+        "name": {
+          "ru": "немы",
+          "ua": "неми",
+          "vn": "nem"
+        },
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 140,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Овощи и зелень подавать свежими, соус добавлять перед отдачей.",
+      "ua": "Овочі та зелень подавати свіжими, соус додавати перед видачею.",
+      "vn": "Rau và rau thơm dùng tươi, chan sốt ngay trước khi ra món."
+    }
+  },
+  "mien_xao_bo": {
+    "code": "MXB",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mien",
+    "name": {
+      "ru": "Жареный Миен с говядиной",
+      "ua": "Смажений Мієн з яловичиною",
+      "vn": "Miến xào bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mien_xao_lon": {
+    "code": "MXL",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mien",
+    "name": {
+      "ru": "Жареный Миен со свининой",
+      "ua": "Смажений Мієн зі свининою",
+      "vn": "Miến xào heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mien_xao_ga": {
+    "code": "MXG",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mien",
+    "name": {
+      "ru": "Жареный Миен с курицей",
+      "ua": "Смажений Мієн з куркою",
+      "vn": "Miến xào gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mien_xao_ga_chien_xu": {
+    "code": "MXGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mien",
+    "name": {
+      "ru": "Жареный Миен с курицей в панировке",
+      "ua": "Смажений Мієн з куркою в паніровці",
+      "vn": "Miến xào gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 340,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 185,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mien_xao_tom": {
+    "code": "MXT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mien",
+    "name": {
+      "ru": "Жареный Миен с креветками",
+      "ua": "Смажений Мієн з креветками",
+      "vn": "Miến xào tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 190,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mien_xao_mix": {
+    "code": "MXMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mien",
+    "name": {
+      "ru": "Жареный Миен MIX",
+      "ua": "Смажений Мієн мікс",
+      "vn": "Miến xào mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "glass_noodles_mien",
+        "name": {
+          "ru": "стеклянная лапша",
+          "ua": "скляна локшина",
+          "vn": "miến"
+        },
+        "amount": 320,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 170,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mi_xao_bo": {
+    "code": "MTxB",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mi",
+    "name": {
+      "ru": "Жареный Mi с говядиной",
+      "ua": "Смажений Mi з яловичиною",
+      "vn": "Mì xào bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mi_xao_lon": {
+    "code": "MTxL",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mi",
+    "name": {
+      "ru": "Жареный Mi со свининой",
+      "ua": "Смажений Mi зі свининою",
+      "vn": "Mì xào heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mi_xao_ga": {
+    "code": "MTxG",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mi",
+    "name": {
+      "ru": "Жареный Mi с курицей",
+      "ua": "Смажений Mi з куркою",
+      "vn": "Mì xào gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mi_xao_ga_chien_xu": {
+    "code": "MTxGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mi",
+    "name": {
+      "ru": "Жареный Mi с курицей в панировке",
+      "ua": "Смажений Mi з куркою в паніровці",
+      "vn": "Mì xào gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 340,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 185,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mi_xao_tom": {
+    "code": "MTxT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mi",
+    "name": {
+      "ru": "Жареный Mi с креветками",
+      "ua": "Смажений Mi з креветками",
+      "vn": "Mì xào tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 190,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "mi_xao_mix": {
+    "code": "MTxMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_mi",
+    "name": {
+      "ru": "Жареный Mi MIX",
+      "ua": "Смажений Mi мікс",
+      "vn": "Mì xào mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "egg_noodles_mi",
+        "name": {
+          "ru": "яичная лапша",
+          "ua": "яєчна локшина",
+          "vn": "mì trứng"
+        },
+        "amount": 320,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 170,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "pho_xao_bo": {
+    "code": "PXB",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_pho",
+    "name": {
+      "ru": "Жареный Фо с говядиной",
+      "ua": "Смажений Фо з яловичиною",
+      "vn": "Phở xào bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "pho_xao_lon": {
+    "code": "PXL",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_pho",
+    "name": {
+      "ru": "Жареный Фо со свининой",
+      "ua": "Смажений Фо зі свининою",
+      "vn": "Phở xào heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "pho_xao_ga": {
+    "code": "PXG",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_pho",
+    "name": {
+      "ru": "Жареный Фо с курицей",
+      "ua": "Смажений Фо з куркою",
+      "vn": "Phở xào gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 180,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "pho_xao_ga_chien_xu": {
+    "code": "PXGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_pho",
+    "name": {
+      "ru": "Жареный Фо с курицей в панировке",
+      "ua": "Смажений Фо з куркою в паніровці",
+      "vn": "Phở xào gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 340,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 185,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "pho_xao_tom": {
+    "code": "PXT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_pho",
+    "name": {
+      "ru": "Жареный Фо с креветками",
+      "ua": "Смажений Фо з креветками",
+      "vn": "Phở xào tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 190,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "pho_xao_mix": {
+    "code": "PXMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "wok_fried_pho",
+    "name": {
+      "ru": "Жареный Фо MIX",
+      "ua": "Смажений Фо мікс",
+      "vn": "Phở xào mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "rice_noodles_pho",
+        "name": {
+          "ru": "рисовая лапша phở",
+          "ua": "рисова локшина phở",
+          "vn": "bánh phở"
+        },
+        "amount": 320,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 170,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "wok_sauce",
+        "name": {
+          "ru": "вок-соус",
+          "ua": "вок-соус",
+          "vn": "sốt wok"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить на сильном огне, овощи оставить слегка хрустящими.",
+      "ua": "Смажити на сильному вогні, овочі лишати з легкою текстурою.",
+      "vn": "Xào lửa lớn, giữ rau còn độ giòn nhẹ."
+    }
+  },
+  "com_trang_bo": {
+    "code": "CB",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "rice_braised",
+    "name": {
+      "ru": "Белый рис с говядиной",
+      "ua": "Білий рис з яловичиною",
+      "vn": "Cơm trắng bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "white_rice",
+        "name": {
+          "ru": "белый рис",
+          "ua": "білий рис",
+          "vn": "cơm trắng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 185,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Рис держать горячим, соус добавлять перед подачей.",
+      "ua": "Рис тримати гарячим, соус додавати перед подачею.",
+      "vn": "Giữ cơm nóng, thêm sốt trước khi ra món."
+    }
+  },
+  "com_trang_lon": {
+    "code": "CL",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "rice_braised",
+    "name": {
+      "ru": "Белый рис со свининой",
+      "ua": "Білий рис зі свининою",
+      "vn": "Cơm trắng heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "white_rice",
+        "name": {
+          "ru": "белый рис",
+          "ua": "білий рис",
+          "vn": "cơm trắng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 185,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Рис держать горячим, соус добавлять перед подачей.",
+      "ua": "Рис тримати гарячим, соус додавати перед подачею.",
+      "vn": "Giữ cơm nóng, thêm sốt trước khi ra món."
+    }
+  },
+  "com_trang_ga": {
+    "code": "CG",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "rice_braised",
+    "name": {
+      "ru": "Белый рис с курицей",
+      "ua": "Білий рис з куркою",
+      "vn": "Cơm trắng gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "white_rice",
+        "name": {
+          "ru": "белый рис",
+          "ua": "білий рис",
+          "vn": "cơm trắng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 185,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Рис держать горячим, соус добавлять перед подачей.",
+      "ua": "Рис тримати гарячим, соус додавати перед подачею.",
+      "vn": "Giữ cơm nóng, thêm sốt trước khi ra món."
+    }
+  },
+  "com_trang_ga_chien_xu": {
+    "code": "CGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "rice_braised",
+    "name": {
+      "ru": "Белый рис с курицей в панировке",
+      "ua": "Білий рис з куркою в паніровці",
+      "vn": "Cơm trắng gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "white_rice",
+        "name": {
+          "ru": "белый рис",
+          "ua": "білий рис",
+          "vn": "cơm trắng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 185,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Рис держать горячим, соус добавлять перед подачей.",
+      "ua": "Рис тримати гарячим, соус додавати перед подачею.",
+      "vn": "Giữ cơm nóng, thêm sốt trước khi ra món."
+    }
+  },
+  "com_trang_tom": {
+    "code": "CT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "rice_braised",
+    "name": {
+      "ru": "Белый рис с креветками",
+      "ua": "Білий рис з креветками",
+      "vn": "Cơm trắng tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "white_rice",
+        "name": {
+          "ru": "белый рис",
+          "ua": "білий рис",
+          "vn": "cơm trắng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 15,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Рис держать горячим, соус добавлять перед подачей.",
+      "ua": "Рис тримати гарячим, соус додавати перед подачею.",
+      "vn": "Giữ cơm nóng, thêm sốt trước khi ra món."
+    }
+  },
+  "com_trang_mix": {
+    "code": "CMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "rice_braised",
+    "name": {
+      "ru": "Белый рис MIX",
+      "ua": "Білий рис мікс",
+      "vn": "Cơm trắng mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "white_rice",
+        "name": {
+          "ru": "белый рис",
+          "ua": "білий рис",
+          "vn": "cơm trắng"
+        },
+        "amount": 330,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 45,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 15,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Рис держать горячим, соус добавлять перед подачей.",
+      "ua": "Рис тримати гарячим, соус додавати перед подачею.",
+      "vn": "Giữ cơm nóng, thêm sốt trước khi ra món."
+    }
+  },
+  "com_trang_nem": {
+    "code": "CNem",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "rice_braised",
+    "name": {
+      "ru": "Белый рис с нэмами",
+      "ua": "Білий рис з немами",
+      "vn": "Cơm trắng nem"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "white_rice",
+        "name": {
+          "ru": "белый рис",
+          "ua": "білий рис",
+          "vn": "cơm trắng"
+        },
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "nem",
+        "name": {
+          "ru": "немы",
+          "ua": "неми",
+          "vn": "nem"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Рис держать горячим, соус добавлять перед подачей.",
+      "ua": "Рис тримати гарячим, соус додавати перед подачею.",
+      "vn": "Giữ cơm nóng, thêm sốt trước khi ra món."
+    }
+  },
+  "com_rang_bo": {
+    "code": "CRB",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис с говядиной",
+      "ua": "Смажений рис з яловичиною",
+      "vn": "Cơm rang bò"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 140,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 35,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "com_rang_lon": {
+    "code": "CRL",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис со свининой",
+      "ua": "Смажений рис зі свининою",
+      "vn": "Cơm rang heo"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 140,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 35,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "com_rang_ga": {
+    "code": "CRG",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис с курицей",
+      "ua": "Смажений рис з куркою",
+      "vn": "Cơm rang gà"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 140,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 35,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "com_rang_ga_chien_xu": {
+    "code": "CRGCx",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис с курицей в панировке",
+      "ua": "Смажений рис з куркою в паніровці",
+      "vn": "Cơm rang gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 390,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 110,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 35,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "com_rang_rau": {
+    "code": "CRC",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис с овощами",
+      "ua": "Смажений рис з овочами",
+      "vn": "Cơm rang rau"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 430,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 210,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 5,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "com_rang_tom": {
+    "code": "CRT",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис с креветками",
+      "ua": "Смажений рис з креветками",
+      "vn": "Cơm rang tôm"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 90,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 35,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 15,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "com_rang_mix": {
+    "code": "CRMix",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис MIX",
+      "ua": "Смажений рис мікс",
+      "vn": "Cơm rang mix"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 360,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "beef",
+        "name": {
+          "ru": "говядина",
+          "ua": "яловичина",
+          "vn": "thịt bò"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "pork",
+        "name": {
+          "ru": "свинина",
+          "ua": "свинина",
+          "vn": "thịt heo"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "chicken",
+        "name": {
+          "ru": "курица",
+          "ua": "курка",
+          "vn": "thịt gà"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "shrimp",
+        "name": {
+          "ru": "креветки",
+          "ua": "креветки",
+          "vn": "tôm"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 130,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 5,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sesame",
+        "name": {
+          "ru": "кунжут",
+          "ua": "кунжут",
+          "vn": "mè"
+        },
+        "amount": 5,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "com_rang_nem": {
+    "code": "CRNem",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "fried_rice",
+    "name": {
+      "ru": "Жареный рис с нэмами",
+      "ua": "Смажений рис з немами",
+      "vn": "Cơm rang nem"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "fried_rice",
+        "name": {
+          "ru": "жареный рис",
+          "ua": "смажений рис",
+          "vn": "cơm rang"
+        },
+        "amount": 380,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "nem",
+        "name": {
+          "ru": "немы",
+          "ua": "неми",
+          "vn": "nem"
+        },
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 120,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "frying_oil",
+        "name": {
+          "ru": "масло",
+          "ua": "олія",
+          "vn": "dầu ăn"
+        },
+        "amount": 10,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "herbs",
+        "name": {
+          "ru": "зелень",
+          "ua": "зелень",
+          "vn": "rau thơm"
+        },
+        "amount": 10,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить порционно на сильном огне.",
+      "ua": "Готувати порційно на сильному вогні.",
+      "vn": "Rang từng phần trên lửa lớn."
+    }
+  },
+  "nem_ran": {
+    "code": "NEM",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "appetizers",
+    "name": {
+      "ru": "Нэмы",
+      "ua": "Неми",
+      "vn": "Nem rán"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "nem",
+        "name": {
+          "ru": "немы",
+          "ua": "неми",
+          "vn": "nem"
+        },
+        "amount": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 50,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Жарить до золотистой корочки, соус подавать отдельно.",
+      "ua": "Смажити до золотистої скоринки, соус подавати окремо.",
+      "vn": "Chiên vàng giòn, phục vụ sốt riêng."
+    }
+  },
+  "ga_chien_xu": {
+    "code": "GCX",
+    "total_weight": 700,
+    "unit": "g",
+    "category": "appetizers",
+    "name": {
+      "ru": "Курица в панировке",
+      "ua": "Курка в паніровці",
+      "vn": "Gà chiên xù"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "breaded_chicken",
+        "name": {
+          "ru": "курица в панировке",
+          "ua": "курка в паніровці",
+          "vn": "gà chiên xù"
+        },
+        "amount": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "sauce",
+        "name": {
+          "ru": "соус",
+          "ua": "соус",
+          "vn": "nước sốt"
+        },
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_key": "vegetables",
+        "name": {
+          "ru": "овощи",
+          "ua": "овочі",
+          "vn": "rau củ"
+        },
+        "amount": 50,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать горячей и хрустящей, соус отдельно.",
+      "ua": "Подавати гарячою і хрусткою, соус окремо.",
+      "vn": "Phục vụ nóng và giòn, sốt để riêng."
+    }
+  },
+  "banh_bao": {
+    "code": "BBAO",
+    "total_weight": 250,
+    "unit": "g",
+    "category": "appetizers",
+    "name": {
+      "ru": "бао",
+      "ua": "бао",
+      "vn": "Bánh bao"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "banh_bao",
+        "name": {
+          "ru": "бао",
+          "ua": "бао",
+          "vn": "bánh bao"
+        },
+        "amount": 250,
+        "unit": "g"
+      }
+    ],
+    "prep_note": {
+      "ru": "Готовить на пару и подавать горячим.",
+      "ua": "Готувати на парі та подавати гарячим.",
+      "vn": "Hấp nóng và phục vụ ngay."
+    }
+  },
+  "bo_huc": {
+    "code": "BOH",
+    "total_weight": 250,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Bò húc",
+      "ua": "Bò húc",
+      "vn": "Bò húc"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 250,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "ca_phe_viet": {
+    "code": "CPV",
+    "total_weight": 250,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Cà phê Việt",
+      "ua": "Cà phê Việt",
+      "vn": "Cà phê Việt"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 250,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "pepsi_03": {
+    "code": "P03",
+    "total_weight": 330,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Pepsi-Cola 0.33",
+      "ua": "Pepsi-Cola 0.33",
+      "vn": "Pepsi-Cola 0.33"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 330,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "pepsi_black": {
+    "code": "PBL",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Pepsi Black 0.5",
+      "ua": "Pepsi Black 0.5",
+      "vn": "Pepsi Black 0.5"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "pepsi_cream_soda_033": {
+    "code": "PCS33",
+    "total_weight": 330,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Pepsi Cream Soda 0.33",
+      "ua": "Pepsi Cream Soda 0.33",
+      "vn": "Pepsi Cream Soda 0.33"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 330,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "pepsi_strawberry_cream_033": {
+    "code": "PSC33",
+    "total_weight": 330,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Pepsi Клубника и сливки 0.33",
+      "ua": "Pepsi Полуниця та вершки 0.33",
+      "vn": "Pepsi Dau tay kem 0.33"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 330,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "pepsi_zero_033": {
+    "code": "PZ33",
+    "total_weight": 330,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Pepsi Zero Sugar 0.33",
+      "ua": "Pepsi Нуль цукру 0.33",
+      "vn": "Pepsi Zero Sugar 0.33"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 330,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "pepsi_cola_05": {
+    "code": "P50",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Pepsi-Cola 0.5",
+      "ua": "Pepsi-Cola 0.5",
+      "vn": "Pepsi-Cola 0.5"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "pepsi_tropical_05": {
+    "code": "PTR50",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Pepsi Tropical 0.5",
+      "ua": "Pepsi Tropical 0.5",
+      "vn": "Pepsi Tropical 0.5"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "mirinda_7up": {
+    "code": "M7",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Mirinda / 7UP",
+      "ua": "Mirinda / 7UP",
+      "vn": "Mirinda / 7UP"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "water": {
+    "code": "WTR",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Вода",
+      "ua": "Вода",
+      "vn": "Nước"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "juice": {
+    "code": "JCE",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Сок",
+      "ua": "Сік",
+      "vn": "Nước ép SOK "
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "juice_tomato_05": {
+    "code": "JT50",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Сок Садочок томатный 0.5",
+      "ua": "Сік Садочок томатний 0.5",
+      "vn": "Nuoc ep ca chua Sadochok 0.5"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "juice_apple_grape_05": {
+    "code": "JAG50",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Сок Садочок яблочно-виноградный 0.5",
+      "ua": "Сік Садочок яблучно-виноградний 0.5",
+      "vn": "Nuoc ep tao nho Sadochok 0.5"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  },
+  "juice_multifruit_05": {
+    "code": "JM50",
+    "total_weight": 500,
+    "unit": "ml",
+    "category": "drinks",
+    "name": {
+      "ru": "Сок Садочок мультифрукт 0.5",
+      "ua": "Сік Садочок мультифрукт 0.5",
+      "vn": "Nuoc ep da trai cay Sadochok 0.5"
+    },
+    "grammage": [
+      {
+        "ingredient_key": "drink",
+        "name": {
+          "ru": "напиток",
+          "ua": "напій",
+          "vn": "đồ uống"
+        },
+        "amount": 500,
+        "unit": "ml"
+      }
+    ],
+    "prep_note": {
+      "ru": "Подавать охлажденным.",
+      "ua": "Подавати охолодженим.",
+      "vn": "Phục vụ lạnh."
+    }
+  }
+}

@@ -1,20 +1,20 @@
 (function attachDlvBurgerMenu() {
   "use strict";
 
-  if (window.__DLV_BURGER_MENU_ATTACHED__) return;
-  window.__DLV_BURGER_MENU_ATTACHED__ = true;
+  if (window.__DRAGON_BURGER_MENU_ATTACHED__) return;
+  window.__DRAGON_BURGER_MENU_ATTACHED__ = true;
 
   const scriptEl = document.currentScript;
   const rootUrl = new URL(".", scriptEl?.src || document.baseURI);
   const pages = [
     { file: "index.html", label: "Client View", note: "customer menu" },
-    { file: "DLV_KASSA.html", label: "Kassa", note: "cashier panel" },
+    { file: "DRAGON_KASSA.html", label: "Kassa", note: "cashier panel" },
     { file: "MONITOR.html", label: "Monitor", note: "kitchen screen" },
     { file: "VIEW.html", label: "Order View", note: "client orders" },
     { file: "contron.html", label: "Contron", note: "stock control" },
     { file: "menu_control.html", label: "Menu Control", note: "positions on/off" },
     { file: "admin_index.html", label: "Admin", note: "orders admin" },
-    { file: "dlv_po/index.html", label: "Purchase Order", note: "suppliers" },
+    { file: "dragon_po/index.html", label: "Purchase Order", note: "suppliers" },
     { file: "clear_cache.html", label: "Clear Cache", note: "reset local data" }
   ];
 
@@ -37,7 +37,7 @@
     const style = document.createElement("style");
     style.id = "dlvBurgerMenuStyles";
     style.textContent = `
-      .dlv-burger-menu {
+      .dragon-burger-menu {
         position: fixed;
         top: max(14px, env(safe-area-inset-top));
         right: max(14px, env(safe-area-inset-right));
@@ -45,8 +45,8 @@
         font-family: "Segoe UI", "Inter", system-ui, sans-serif;
         color: #fff4f2;
       }
-      .dlv-burger-menu * { box-sizing: border-box; }
-      .dlv-burger-toggle {
+      .dragon-burger-menu * { box-sizing: border-box; }
+      .dragon-burger-toggle {
         display: inline-flex;
         align-items: center;
         gap: 9px;
@@ -67,8 +67,8 @@
         font-weight: 900;
         text-transform: uppercase;
       }
-      .dlv-burger-toggle:hover,
-      .dlv-burger-toggle:focus-visible {
+      .dragon-burger-toggle:hover,
+      .dragon-burger-toggle:focus-visible {
         outline: none;
         border-color: rgba(255, 180, 0, 0.86);
         box-shadow:
@@ -76,19 +76,19 @@
           0 0 26px rgba(255, 46, 16, 0.62),
           0 0 42px rgba(255, 180, 0, 0.16);
       }
-      .dlv-burger-bars {
+      .dragon-burger-bars {
         display: grid;
         gap: 4px;
         width: 18px;
       }
-      .dlv-burger-bars span {
+      .dragon-burger-bars span {
         display: block;
         height: 2px;
         border-radius: 999px;
         background: currentColor;
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.65);
       }
-      .dlv-burger-panel {
+      .dragon-burger-panel {
         position: absolute;
         top: calc(100% + 12px);
         right: 0;
@@ -111,30 +111,30 @@
         transition: opacity 0.16s ease, transform 0.16s ease;
         backdrop-filter: blur(18px);
       }
-      .dlv-burger-menu.is-open .dlv-burger-panel {
+      .dragon-burger-menu.is-open .dragon-burger-panel {
         transform: translateY(0) scale(1);
         opacity: 1;
         pointer-events: auto;
       }
-      .dlv-burger-head {
+      .dragon-burger-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
         padding: 4px 4px 12px;
       }
-      .dlv-burger-title { display: grid; gap: 2px; }
-      .dlv-burger-title strong {
+      .dragon-burger-title { display: grid; gap: 2px; }
+      .dragon-burger-title strong {
         color: #ffffff;
         font-size: 15px;
         letter-spacing: 0.16em;
         text-transform: uppercase;
       }
-      .dlv-burger-title span {
+      .dragon-burger-title span {
         color: rgba(255, 214, 205, 0.72);
         font-size: 12px;
       }
-      .dlv-burger-close {
+      .dragon-burger-close {
         width: 36px;
         height: 36px;
         border: 1px solid rgba(255, 255, 255, 0.12);
@@ -145,17 +145,17 @@
         font-size: 20px;
         line-height: 1;
       }
-      .dlv-burger-close:hover,
-      .dlv-burger-close:focus-visible {
+      .dragon-burger-close:hover,
+      .dragon-burger-close:focus-visible {
         outline: none;
         border-color: rgba(255, 180, 0, 0.56);
         background: rgba(255, 74, 36, 0.18);
       }
-      .dlv-burger-links {
+      .dragon-burger-links {
         display: grid;
         gap: 8px;
       }
-      .dlv-burger-link {
+      .dragon-burger-link {
         display: grid;
         grid-template-columns: 1fr auto;
         gap: 4px 12px;
@@ -166,9 +166,9 @@
         text-decoration: none;
         background: rgba(255, 255, 255, 0.045);
       }
-      .dlv-burger-link:hover,
-      .dlv-burger-link:focus-visible,
-      .dlv-burger-link.is-active {
+      .dragon-burger-link:hover,
+      .dragon-burger-link:focus-visible,
+      .dragon-burger-link.is-active {
         outline: none;
         border-color: rgba(255, 69, 35, 0.72);
         background:
@@ -176,16 +176,16 @@
           rgba(255, 255, 255, 0.05);
         box-shadow: 0 0 18px rgba(255, 36, 12, 0.24);
       }
-      .dlv-burger-link strong {
+      .dragon-burger-link strong {
         color: #ffffff;
         font-size: 14px;
       }
-      .dlv-burger-link span {
+      .dragon-burger-link span {
         grid-column: 1 / -1;
         color: rgba(255, 211, 203, 0.68);
         font-size: 12px;
       }
-      .dlv-burger-link em {
+      .dragon-burger-link em {
         align-self: center;
         color: #ffb000;
         font-style: normal;
@@ -194,18 +194,18 @@
         text-transform: uppercase;
       }
       @media (max-width: 560px) {
-        .dlv-burger-menu {
+        .dragon-burger-menu {
           top: max(10px, env(safe-area-inset-top));
           right: max(10px, env(safe-area-inset-right));
         }
-        .dlv-burger-toggle {
+        .dragon-burger-toggle {
           min-height: 40px;
           padding: 9px 12px;
           font-size: 12px;
         }
       }
       @media print {
-        .dlv-burger-menu { display: none !important; }
+        .dragon-burger-menu { display: none !important; }
       }
     `;
     document.head.appendChild(style);
@@ -220,33 +220,33 @@
     injectStyles();
 
     const root = document.createElement("div");
-    root.className = "dlv-burger-menu";
+    root.className = "dragon-burger-menu";
 
     const toggle = document.createElement("button");
-    toggle.className = "dlv-burger-toggle";
+    toggle.className = "dragon-burger-toggle";
     toggle.type = "button";
-    toggle.setAttribute("aria-label", "Open DLV menu");
+    toggle.setAttribute("aria-label", "Open DRAGON menu");
     toggle.setAttribute("aria-haspopup", "true");
     toggle.setAttribute("aria-expanded", "false");
     toggle.innerHTML = `
-      <span class="dlv-burger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="dragon-burger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
       <span>Menu</span>
     `;
 
     const panel = document.createElement("nav");
-    panel.className = "dlv-burger-panel";
-    panel.setAttribute("aria-label", "DLV navigation");
+    panel.className = "dragon-burger-panel";
+    panel.setAttribute("aria-label", "DRAGON navigation");
     panel.innerHTML = `
-      <div class="dlv-burger-head">
-        <div class="dlv-burger-title">
-          <strong>DLV Menu</strong>
+      <div class="dragon-burger-head">
+        <div class="dragon-burger-title">
+          <strong>DRAGON Menu</strong>
           <span>быстрая навигация</span>
         </div>
-        <button class="dlv-burger-close" type="button" aria-label="Close DLV menu">×</button>
+        <button class="dragon-burger-close" type="button" aria-label="Close DRAGON menu">×</button>
       </div>
-      <div class="dlv-burger-links">
+      <div class="dragon-burger-links">
         ${pages.map(page => `
-          <a class="dlv-burger-link ${isActive(page.file) ? "is-active" : ""}" href="${pageUrl(page.file)}">
+          <a class="dragon-burger-link ${isActive(page.file) ? "is-active" : ""}" href="${pageUrl(page.file)}">
             <strong>${page.label}</strong>
             ${isActive(page.file) ? "<em>open</em>" : ""}
             <span>${page.note}</span>
@@ -258,7 +258,7 @@
     root.append(toggle, panel);
     document.body.appendChild(root);
 
-    const close = panel.querySelector(".dlv-burger-close");
+    const close = panel.querySelector(".dragon-burger-close");
     toggle.addEventListener("click", event => {
       event.stopPropagation();
       const open = root.classList.toggle("is-open");

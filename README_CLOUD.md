@@ -1,4 +1,4 @@
-# DLV Cloud Bridge
+# DRAGON Cloud Bridge
 
 Этот режим переносит рабочий bridge API из локального ноутбука в облако, чтобы:
 
@@ -8,9 +8,9 @@
 
 ## Что изменилось
 
-- `dlv_local_server_cloud.py` теперь отдаёт тот же API, что и локальный `dlv_local_server.py`.
+- `dragon_local_server_cloud.py` теперь отдаёт тот же API, что и локальный `dragon_local_server.py`.
 - `cloud_sync.py` хранит bridge-совместимые payload'ы заказов в Supabase.
-- `dlv_static_config.js` умеет подключаться к удалённому bridge URL, а не только к `localhost`.
+- `dragon_static_config.js` умеет подключаться к удалённому bridge URL, а не только к `localhost`.
 
 ## API
 
@@ -50,12 +50,12 @@ bash setup_cloud.sh
 5. Запустите bridge:
 
 ```bash
-python3 dlv_local_server_cloud.py --bind 0.0.0.0 --port 8000
+python3 dragon_local_server_cloud.py --bind 0.0.0.0 --port 8000
 ```
 
 6. Откройте страницы:
 
-- `http://IP_ИЛИ_ИМЯ_СЕРВЕРА:8000/DLV_KASSA.html`
+- `http://IP_ИЛИ_ИМЯ_СЕРВЕРА:8000/DRAGON_KASSA.html`
 - `http://IP_ИЛИ_ИМЯ_СЕРВЕРА:8000/MONITOR.html`
 - `http://IP_ИЛИ_ИМЯ_СЕРВЕРА:8000/profil.html`
 - `http://IP_ИЛИ_ИМЯ_СЕРВЕРА:8000/MONITOR_CLOUD.html`
@@ -65,6 +65,21 @@ python3 dlv_local_server_cloud.py --bind 0.0.0.0 --port 8000
 - `http://203.0.113.10:8000/MONITOR.html`
 
 Если домен ещё не куплен или DNS не настроен, адрес вида `https://что-то.example.com` работать не будет.
+
+## Стабильный адрес из дома без VPS
+
+Если нужен один и тот же HTTPS-адрес, но bridge пока крутится на локальном ноутбуке, используй named Cloudflare Tunnel вместо Quick Tunnel:
+
+```bash
+bash start_dragon_named_tunnel.sh 8000
+```
+
+Подробный workflow описан в [STABLE_REMOTE_ADDRESS.md](STABLE_REMOTE_ADDRESS.md).
+Quick Tunnel (`trycloudflare.com`) хорош только для быстрых тестов, потому что публичный URL там временный.
+
+Если Quick Tunnel всё же нужен, `bash start_dragon_remote_tunnel.sh 8000` теперь умеет отправлять новый public URL в Telegram. Для этого задай `DRAGON_TG_BOT_TOKEN` и `DRAGON_TG_CHAT_ID` в `.env`.
+
+Если нужен внешний адрес уже сейчас без Cloudflare login, используй `bash start_dragon_localhostrun_tunnel.sh 8000`. Подробности: [LOCALHOSTRUN_REMOTE_ADDRESS.md](LOCALHOSTRUN_REMOTE_ADDRESS.md).
 
 ## Как подключить существующий статический сайт к облаку
 
@@ -79,7 +94,7 @@ https://your-static-host/index.html?bridgeUrl=https://api.your-domain.com
 2. Один раз сохранить bridge URL в браузере через консоль:
 
 ```js
-window.DLV_STATIC.setBridgeBase("https://api.your-domain.com");
+window.DRAGON_STATIC.setBridgeBase("https://api.your-domain.com");
 ```
 
 После этого фронтенд будет использовать:
@@ -93,7 +108,7 @@ window.DLV_STATIC.setBridgeBase("https://api.your-domain.com");
 Для реальной работы заведения лучше так:
 
 1. VPS / облачный сервер с Ubuntu.
-2. `dlv_local_server_cloud.py` как `systemd` сервис.
+2. `dragon_local_server_cloud.py` как `systemd` сервис.
 3. Caddy или Nginx перед Python-сервером.
 4. HTTPS на вашем реальном домене, например `https://dlv.vash-domen.com`.
 5. Все рабочие страницы открываются с этого же домена, тогда настройка `bridgeUrl` не нужна.
