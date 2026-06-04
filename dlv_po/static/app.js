@@ -10,6 +10,7 @@ const state = {
     suppliers: [],
     products: [],
     orders: [],
+    authenticated: !API_BASE,
 };
 
 const statusLabels = {
@@ -250,18 +251,104 @@ function showNotice(message, kind = "success") {
     }, 3200);
 }
 
+function setAuthLocked(locked, message = "") {
+    if (!API_BASE) return;
+
+    const overlay = document.getElementById("authOverlay");
+    const error = document.getElementById("authError");
+    const sessionBar = document.getElementById("sessionBar");
+
+    document.body.classList.toggle("auth-locked", locked);
+    overlay.classList.toggle("hidden", !locked);
+    overlay.setAttribute("aria-hidden", locked ? "false" : "true");
+    sessionBar.classList.toggle("hidden", locked);
+
+    if (error) {
+        if (message) {
+            error.textContent = message;
+            error.classList.remove("hidden");
+        } else {
+            error.textContent = "";
+            error.classList.add("hidden");
+        }
+    }
+
+    if (locked) {
+        window.setTimeout(() => {
+            document.getElementById("loginPassword")?.focus();
+        }, 30);
+    }
+}
+
+function applyAuthState(authenticated, message = "") {
+    state.authenticated = Boolean(authenticated) || !API_BASE;
+    setAuthLocked(!state.authenticated, state.authenticated ? "" : message);
+    return state.authenticated;
+}
+
+async function sessionRequest(path, options = {}) {
+    return fetch(`${API_BASE}${path}`, {
+        credentials: "same-origin",
+        ...options,
+        headers: {
+            ...(options.headers || {}),
+        },
+    });
+}
+
+async function refreshSession() {
+    if (!API_BASE) return true;
+    const response = await sessionRequest("/session", { cache: "no-store" });
+    if (!response.ok) {
+        applyAuthState(false, "Не удалось проверить сессию.");
+        return false;
+    }
+    const payload = await response.json().catch(() => ({}));
+    return applyAuthState(Boolean(payload.authenticated));
+}
+
+async function login(password) {
+    const response = await sessionRequest("/session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload?.ok) {
+        applyAuthState(false, payload.error || "Неверный пароль.");
+        throw new Error(payload.error || "Неверный пароль.");
+    }
+    applyAuthState(true);
+    return payload;
+}
+
+async function logout() {
+    if (!API_BASE) return;
+    await sessionRequest("/session", { method: "DELETE" }).catch(() => null);
+    applyAuthState(false);
+}
+
 async function request(path, options = {}) {
     if (!API_BASE) {
         return staticRequest(path, options);
     }
 
     const response = await fetch(`${API_BASE}${path}`, {
+        credentials: "same-origin",
         headers: {
             "Content-Type": "application/json",
             ...(options.headers || {}),
         },
         ...options,
     });
+
+    if (response.status === 401) {
+        const errorPayload = await response.json().catch(() => ({}));
+        applyAuthState(false, "Сессия истекла. Войдите снова.");
+        throw new Error(errorPayload.error || "Authentication required.");
+    }
 
     if (!response.ok) {
         const errorPayload = await response.json().catch(() => ({}));
@@ -541,6 +628,9 @@ async function handleOrderSubmit(event) {
 }
 
 async function init() {
+    const loginForm = document.getElementById("loginForm");
+    const logoutBtn = document.getElementById("logoutBtn");
+
     document.getElementById("supplierForm").addEventListener("submit", async (event) => {
         try {
             await handleSupplierSubmit(event);
@@ -572,6 +662,42 @@ async function init() {
     document.querySelector('[name="currency"]').addEventListener("input", updateOrderTotal);
 
     addOrderItemRow();
+
+    loginForm?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const passwordInput = document.getElementById("loginPassword");
+        const submitBtn = document.getElementById("loginSubmitBtn");
+        const password = String(passwordInput?.value || "");
+        if (!password.trim()) {
+            applyAuthState(false, "Введите пароль.");
+            passwordInput?.focus();
+            return;
+        }
+
+        submitBtn.disabled = true;
+        try {
+            await login(password);
+            loginForm.reset();
+            await loadAll();
+            showNotice("Сессия открыта.");
+        } catch (error) {
+            showNotice(error.message, "error");
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
+    logoutBtn?.addEventListener("click", async () => {
+        await logout();
+        showNotice("Сессия завершена.");
+    });
+
+    if (API_BASE) {
+        const authenticated = await refreshSession();
+        if (!authenticated) {
+            return;
+        }
+    }
 
     try {
         await loadAll();

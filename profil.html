@@ -107,6 +107,9 @@
             <option value="ru">🇷🇺 RU</option>
             <option value="ua">🇺🇦 UA</option>
             <option value="vn">🇻🇳 VN</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="pl">🇵🇱 PL</option>
+            <option value="de">🇩🇪 DE</option>
           </select>
         </div>
         <button class="burger" id="burgerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="navPop">☰</button>
@@ -121,6 +124,9 @@
               <option value="ru">🇷🇺 RU</option>
               <option value="ua">🇺🇦 UA</option>
               <option value="vn">🇻🇳 VN</option>
+              <option value="zh">🇨🇳 ZH</option>
+              <option value="pl">🇵🇱 PL</option>
+              <option value="de">🇩🇪 DE</option>
             </select>
           </div>
         </nav>
@@ -199,7 +205,30 @@
       const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || '';
       const CURRENCY = 'грн';
       const STORE_PHONE = '+380632637999';
-      let LANG = localStorage.getItem(LANG_KEY) || 'ru';
+      const SUPPORTED_LANGS = ['ru', 'ua', 'vn', 'zh', 'pl', 'de'];
+
+      function normalizeLang(value) {
+        return SUPPORTED_LANGS.includes(value) ? value : 'ru';
+      }
+
+      function cloneLocaleData(value) {
+        return value ? JSON.parse(JSON.stringify(value)) : value;
+      }
+
+      function mergeLocaleData(target, source) {
+        if (!source || typeof source !== 'object') return target;
+        Object.entries(source).forEach(([key, value]) => {
+          if (value && typeof value === 'object' && !Array.isArray(value)) {
+            if (!target[key] || typeof target[key] !== 'object' || Array.isArray(target[key])) target[key] = {};
+            mergeLocaleData(target[key], value);
+            return;
+          }
+          target[key] = value;
+        });
+        return target;
+      }
+
+      let LANG = normalizeLang(localStorage.getItem(LANG_KEY) || 'ru');
       document.documentElement.lang = LANG;
 
       const I18N = {
@@ -438,6 +467,248 @@
           }
         }
       };
+      if (!I18N.zh) I18N.zh = cloneLocaleData(I18N.vn);
+      if (!I18N.pl) I18N.pl = cloneLocaleData(I18N.ua || I18N.ru);
+      if (!I18N.de) I18N.de = cloneLocaleData(I18N.ua || I18N.ru);
+      const PROFILE_I18N_OVERRIDES = {
+        zh: {
+          navHome:'首页',
+          navAccount:'个人资料',
+          navOrders:'订单',
+          navContact:'联系',
+          contactTitle:'联系方式',
+          statusBtn:'状态',
+          statusPlaceholder:'订单号（例如 a123）',
+          latestOrder:'最近订单',
+          latestMissing:'此设备上还没有订单。',
+          orderOpen:'打开追踪',
+          ordersTitle:'我的订单',
+          ordersIntro:'输入订单号，或从下面选择最近的订单以查看详细追踪。',
+          noOrders:'首次下单后，本地订单会显示在这里。',
+          profile:{
+            title:'个人资料',
+            intro:'将电话和地址保存在此设备上，以便更快下单并查看订单状态。',
+            phone:'电话',
+            address:'配送地址',
+            save:'保存资料',
+            track:'我的订单',
+            note:'资料仅保存在此浏览器中。',
+            saved:'资料已保存。',
+            phonePlaceholder:'+380 63 000 00 00',
+            addressPlaceholder:'城市、街道、门牌号、入口…'
+          },
+          tracking:{
+            title:'配送状态',
+            notFound:'此设备上未找到订单 {code}。',
+            live:'订单实时状态',
+            courierTitle:'地图上的配送员',
+            courierHint:'当配送员共享位置后，这里会显示他当前的位置。',
+            courierFallback:'DRAGON 配送员',
+            noCourier:'暂未分配配送员。',
+            openMap:'打开地图',
+            callCourier:'致电配送员',
+            callStore:'致电 DRAGON',
+            lastSignal:'最近信号',
+            receipt:'Telegram 小票',
+            waitingMap:'订单出现配送坐标后，这里会显示地图。',
+            labels:{
+              created:'创建时间',
+              updated:'更新时间',
+              type:'类型',
+              payment:'支付',
+              delivery:'配送',
+              total:'合计',
+              address:'地址',
+              courier:'配送员',
+              phone:'电话',
+              transport:'交通工具',
+              items:'菜品'
+            },
+            payment:{ card:'银行卡', cash:'现金' },
+            orderType:{ on_site:'堂食', takeaway:'自取', delivery:'配送' },
+            status:{ NEW:'已接单', COOKING:'制作中', READY:'配送中', HANDED:'已送达', CANCELLED:'已取消' },
+            timeline:{
+              delivery:[
+                { key:'NEW', title:'订单已接收', subtitle:'餐厅已确认订单并开始准备。' },
+                { key:'COOKING', title:'正在制作', subtitle:'厨房正在准备菜品。' },
+                { key:'READY', title:'配送员在路上', subtitle:'订单已打包，正在送往您处。' },
+                { key:'HANDED', title:'配送完成', subtitle:'订单已交付给顾客。' }
+              ],
+              takeaway:[
+                { key:'NEW', title:'订单已接收', subtitle:'餐厅已收到订单。' },
+                { key:'COOKING', title:'正在制作', subtitle:'厨房已经开始制作。' },
+                { key:'READY', title:'可以取餐', subtitle:'订单已在取餐处等候。' },
+                { key:'HANDED', title:'订单已领取', subtitle:'感谢您的光临。' }
+              ],
+              on_site:[
+                { key:'NEW', title:'订单已接收', subtitle:'服务员已将订单传至厨房。' },
+                { key:'COOKING', title:'正在制作', subtitle:'菜品正在烹饪中。' },
+                { key:'READY', title:'准备上桌', subtitle:'订单马上送到您的餐桌。' },
+                { key:'HANDED', title:'已上桌', subtitle:'祝您用餐愉快。' }
+              ]
+            }
+          }
+        },
+        pl: {
+          navHome:'Strona główna',
+          navAccount:'Profil',
+          navOrders:'Zamówienia',
+          navContact:'Kontakt',
+          contactTitle:'Kontakt',
+          statusBtn:'Status',
+          statusPlaceholder:'Kod zamówienia (np. a123)',
+          latestOrder:'Ostatnie zamówienie',
+          latestMissing:'Na tym urządzeniu nie ma jeszcze żadnych zamówień.',
+          orderOpen:'Otwórz śledzenie',
+          ordersTitle:'Moje zamówienia',
+          ordersIntro:'Wpisz kod zamówienia albo wybierz jedno z ostatnich zamówień poniżej, aby otworzyć szczegółowe śledzenie.',
+          noOrders:'Lokalne zamówienia pojawią się tutaj po pierwszym złożeniu zamówienia.',
+          profile:{
+            title:'Profil',
+            intro:'Zapisz telefon i adres na tym urządzeniu, aby szybciej składać zamówienia i sprawdzać ich status.',
+            phone:'Telefon',
+            address:'Adres dostawy',
+            save:'Zapisz profil',
+            track:'Moje zamówienia',
+            note:'Profil jest zapisywany tylko w tej przeglądarce.',
+            saved:'Profil został zapisany.',
+            phonePlaceholder:'+380 63 000 00 00',
+            addressPlaceholder:'Miasto, ulica, numer domu, wejście…'
+          },
+          tracking:{
+            title:'Status dostawy',
+            notFound:'Nie znaleziono zamówienia {code} na tym urządzeniu.',
+            live:'Status zamówienia na żywo',
+            courierTitle:'Kurier na mapie',
+            courierHint:'Gdy kurier udostępni geolokalizację, tutaj pojawi się jego pozycja.',
+            courierFallback:'Kurier DRAGON',
+            noCourier:'Kurier nie został jeszcze przypisany.',
+            openMap:'Otwórz mapę',
+            callCourier:'Zadzwoń do kuriera',
+            callStore:'Zadzwoń do DRAGON',
+            lastSignal:'Ostatni sygnał',
+            receipt:'Paragon w Telegramie',
+            waitingMap:'Mapa pojawi się, gdy zamówienie otrzyma współrzędne kuriera.',
+            labels:{
+              created:'Utworzono',
+              updated:'Zaktualizowano',
+              type:'Typ',
+              payment:'Płatność',
+              delivery:'Dostawa',
+              total:'Razem',
+              address:'Adres',
+              courier:'Kurier',
+              phone:'Telefon',
+              transport:'Transport',
+              items:'Pozycje'
+            },
+            payment:{ card:'Karta', cash:'Gotówka' },
+            orderType:{ on_site:'Na miejscu', takeaway:'Na wynos', delivery:'Dostawa' },
+            status:{ NEW:'Przyjęte', COOKING:'W przygotowaniu', READY:'Kurier w drodze', HANDED:'Dostarczone', CANCELLED:'Anulowane' },
+            timeline:{
+              delivery:[
+                { key:'NEW', title:'Zamówienie przyjęte', subtitle:'Restauracja potwierdziła zamówienie i przekazała je do kuchni.' },
+                { key:'COOKING', title:'Przygotowujemy zamówienie', subtitle:'Dania są już w trakcie przygotowania.' },
+                { key:'READY', title:'Kurier w drodze', subtitle:'Zamówienie jest spakowane i jedzie do Ciebie.' },
+                { key:'HANDED', title:'Dostawa zakończona', subtitle:'Zamówienie zostało przekazane klientowi.' }
+              ],
+              takeaway:[
+                { key:'NEW', title:'Zamówienie przyjęte', subtitle:'Restauracja otrzymała zamówienie.' },
+                { key:'COOKING', title:'Przygotowujemy zamówienie', subtitle:'Kuchnia już pracuje.' },
+                { key:'READY', title:'Gotowe do odbioru', subtitle:'Zamówienie czeka przy wydawce.' },
+                { key:'HANDED', title:'Zamówienie odebrane', subtitle:'Dziękujemy za wizytę.' }
+              ],
+              on_site:[
+                { key:'NEW', title:'Zamówienie przyjęte', subtitle:'Kelner przekazał zamówienie do kuchni.' },
+                { key:'COOKING', title:'Przygotowujemy zamówienie', subtitle:'Pozycje są właśnie przygotowywane.' },
+                { key:'READY', title:'Podanie', subtitle:'Zamówienie jest już niesione do stolika.' },
+                { key:'HANDED', title:'Podano', subtitle:'Smacznego.' }
+              ]
+            }
+          }
+        },
+        de: {
+          navHome:'Startseite',
+          navAccount:'Profil',
+          navOrders:'Bestellungen',
+          navContact:'Kontakt',
+          contactTitle:'Kontakt',
+          statusBtn:'Status',
+          statusPlaceholder:'Bestellcode (z. B. a123)',
+          latestOrder:'Letzte Bestellung',
+          latestMissing:'Auf diesem Gerät gibt es noch keine Bestellungen.',
+          orderOpen:'Tracking öffnen',
+          ordersTitle:'Meine Bestellungen',
+          ordersIntro:'Gib einen Bestellcode ein oder wähle unten eine aktuelle Bestellung aus, um das detaillierte Tracking zu öffnen.',
+          noOrders:'Lokale Bestellungen erscheinen hier nach der ersten Bestellung.',
+          profile:{
+            title:'Profil',
+            intro:'Speichere Telefon und Adresse auf diesem Gerät, um schneller zu bestellen und den Status zu öffnen.',
+            phone:'Telefon',
+            address:'Lieferadresse',
+            save:'Profil speichern',
+            track:'Meine Bestellungen',
+            note:'Das Profil wird nur in diesem Browser gespeichert.',
+            saved:'Profil wurde gespeichert.',
+            phonePlaceholder:'+380 63 000 00 00',
+            addressPlaceholder:'Stadt, Straße, Hausnummer, Eingang…'
+          },
+          tracking:{
+            title:'Lieferstatus',
+            notFound:'Bestellung {code} wurde auf diesem Gerät nicht gefunden.',
+            live:'Live-Status der Bestellung',
+            courierTitle:'Kurier auf der Karte',
+            courierHint:'Sobald der Kurier seine Position sendet, erscheint sie hier auf der Karte.',
+            courierFallback:'DRAGON Kurier',
+            noCourier:'Es wurde noch kein Kurier zugewiesen.',
+            openMap:'Karte öffnen',
+            callCourier:'Kurier anrufen',
+            callStore:'DRAGON anrufen',
+            lastSignal:'Letztes Signal',
+            receipt:'Beleg in Telegram',
+            waitingMap:'Die Karte erscheint, sobald Koordinaten des Kuriers vorliegen.',
+            labels:{
+              created:'Erstellt',
+              updated:'Aktualisiert',
+              type:'Typ',
+              payment:'Zahlung',
+              delivery:'Lieferung',
+              total:'Gesamt',
+              address:'Adresse',
+              courier:'Kurier',
+              phone:'Telefon',
+              transport:'Transport',
+              items:'Positionen'
+            },
+            payment:{ card:'Karte', cash:'Bar' },
+            orderType:{ on_site:'Vor Ort', takeaway:'Zum Mitnehmen', delivery:'Lieferung' },
+            status:{ NEW:'Angenommen', COOKING:'In Zubereitung', READY:'Kurier unterwegs', HANDED:'Zugestellt', CANCELLED:'Storniert' },
+            timeline:{
+              delivery:[
+                { key:'NEW', title:'Bestellung angenommen', subtitle:'Das Restaurant hat die Bestellung bestätigt und an die Küche weitergegeben.' },
+                { key:'COOKING', title:'Wir bereiten Ihre Bestellung vor', subtitle:'Die Gerichte sind bereits in Arbeit.' },
+                { key:'READY', title:'Kurier ist unterwegs', subtitle:'Die Bestellung ist verpackt und auf dem Weg zu Ihnen.' },
+                { key:'HANDED', title:'Lieferung abgeschlossen', subtitle:'Die Bestellung wurde dem Kunden übergeben.' }
+              ],
+              takeaway:[
+                { key:'NEW', title:'Bestellung angenommen', subtitle:'Das Restaurant hat die Bestellung erhalten.' },
+                { key:'COOKING', title:'Wir bereiten Ihre Bestellung vor', subtitle:'Die Küche arbeitet bereits.' },
+                { key:'READY', title:'Abholbereit', subtitle:'Die Bestellung wartet an der Ausgabe.' },
+                { key:'HANDED', title:'Bestellung abgeholt', subtitle:'Vielen Dank für Ihren Besuch.' }
+              ],
+              on_site:[
+                { key:'NEW', title:'Bestellung angenommen', subtitle:'Der Service hat die Bestellung an die Küche übergeben.' },
+                { key:'COOKING', title:'Wir bereiten Ihre Bestellung vor', subtitle:'Die Positionen werden gerade zubereitet.' },
+                { key:'READY', title:'Servieren', subtitle:'Die Bestellung wird gerade an den Tisch gebracht.' },
+                { key:'HANDED', title:'Serviert', subtitle:'Guten Appetit.' }
+              ]
+            }
+          }
+        }
+      };
+      Object.entries(PROFILE_I18N_OVERRIDES).forEach(([locale, overrides]) => {
+        mergeLocaleData(I18N[locale], overrides);
+      });
 
       const $ = selector => document.querySelector(selector);
       const $$ = selector => document.querySelectorAll(selector);
@@ -518,6 +789,17 @@
         return new Date().toISOString();
       }
 
+      function safeExternalUrl(value) {
+        const helper = window.DRAGON_STATIC?.normalizeExternalUrl;
+        if (typeof helper === 'function') return helper(value);
+        try {
+          const url = new URL(String(value || '').trim(), window.location.href);
+          return url.protocol === 'http:' || url.protocol === 'https:' ? url.toString() : '';
+        } catch (_) {
+          return '';
+        }
+      }
+
       function normalizeStatus(value) {
         const raw = String(value || '').trim().toUpperCase();
         if (!raw || raw === 'SENT' || raw === 'FAILED') return 'NEW';
@@ -564,6 +846,7 @@
           created_at: createdAt,
           updated_at: updatedAt,
           currency: raw?.currency || CURRENCY,
+          receipt_link: safeExternalUrl(raw?.receipt_link || raw?.receiptLink || ''),
           items: Array.isArray(raw?.items) ? raw.items : [],
           sync: {
             ...sync,
@@ -1031,6 +1314,7 @@
       }
 
       function setLang(value) {
+        value = normalizeLang(value);
         LANG = value;
         localStorage.setItem(LANG_KEY, value);
         document.documentElement.lang = value;

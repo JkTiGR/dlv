@@ -45,6 +45,9 @@
             <option value="ru">🇷🇺 RU</option>
             <option value="ua">🇺🇦 UA</option>
             <option value="vn">🇻🇳 VN</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="pl">🇵🇱 PL</option>
+            <option value="de">🇩🇪 DE</option>
           </select>
         </div>
 
@@ -54,6 +57,7 @@
           <a href="index.html" id="navHome" role="menuitem">🏠 HOME</a>
           <a href="#" id="navMenu" role="menuitem">🍜 MENU</a>
           <a href="#" id="navKaraoke" role="menuitem">🎤 KARAOKE</a>
+          <a href="profil.html" id="navProfil" role="menuitem">👤 PROFILE</a>
           <a href="#" id="navContact" role="menuitem">📞 CONTACT</a>
           <hr>
           <div class="lang-inline" role="none">🌐
@@ -61,6 +65,9 @@
               <option value="ru">🇷🇺 RU</option>
               <option value="ua">🇺🇦 UA</option>
               <option value="vn">🇻🇳 VN</option>
+              <option value="zh">🇨🇳 ZH</option>
+              <option value="pl">🇵🇱 PL</option>
+              <option value="de">🇩🇪 DE</option>
             </select>
           </div>
         </nav>
@@ -208,6 +215,9 @@
       <button data-lang="ru">🇷🇺 RU</button>
       <button data-lang="ua">🇺🇦 UA</button>
       <button data-lang="vn">🇻🇳 VN</button>
+      <button data-lang="zh">🇨🇳 ZH</button>
+      <button data-lang="pl">🇵🇱 PL</button>
+      <button data-lang="de">🇩🇪 DE</button>
     </div>
 
     <!-- More Sheet -->
@@ -310,10 +320,53 @@
 
       /* ==== LANG & I18N ==== */
       const LANG_KEY = 'CD_LANG';
-      let LANG = localStorage.getItem(LANG_KEY) || 'ru';
+      const SUPPORTED_LANGS = ['ru', 'ua', 'vn', 'zh', 'pl', 'de'];
+      const EXTRA_LANG_FALLBACKS = {
+        zh: ['vn', 'ru', 'ua'],
+        pl: ['ua', 'ru', 'vn'],
+        de: ['ua', 'ru', 'vn']
+      };
+
+      function normalizeLang(value) {
+        return SUPPORTED_LANGS.includes(value) ? value : 'ru';
+      }
+
+      function localeChain(locale) {
+        const chain = [locale];
+        (EXTRA_LANG_FALLBACKS[locale] || []).forEach(code => chain.push(code));
+        ['ru', 'ua', 'vn'].forEach(code => chain.push(code));
+        return [...new Set(chain)];
+      }
+
+      function localeValue(value, locale) {
+        if (!value || typeof value !== 'object') return '';
+        for (const code of localeChain(locale)) {
+          if (value[code]) return value[code];
+        }
+        return '';
+      }
+
+      function cloneLocaleData(value) {
+        return value ? JSON.parse(JSON.stringify(value)) : value;
+      }
+
+      function mergeLocaleData(target, source) {
+        if (!source || typeof source !== 'object') return target;
+        Object.entries(source).forEach(([key, value]) => {
+          if (value && typeof value === 'object' && !Array.isArray(value)) {
+            if (!target[key] || typeof target[key] !== 'object' || Array.isArray(target[key])) target[key] = {};
+            mergeLocaleData(target[key], value);
+            return;
+          }
+          target[key] = value;
+        });
+        return target;
+      }
+
+      let LANG = normalizeLang(localStorage.getItem(LANG_KEY) || 'ru');
       document.documentElement.lang = LANG;
 
-      const LANG_FLAGS = { ru:'🇷🇺', ua:'🇺🇦', vn:'🇻🇳' };
+      const LANG_FLAGS = { ru:'🇷🇺', ua:'🇺🇦', vn:'🇻🇳', zh:'🇨🇳', pl:'🇵🇱', de:'🇩🇪' };
       const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
       const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || '';
       const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || '';
@@ -395,6 +448,122 @@
           deliveryOff:'Tạm thời chưa có giao hàng'
         }
       };
+      if (!I18N.zh) I18N.zh = cloneLocaleData(I18N.vn);
+      if (!I18N.pl) I18N.pl = cloneLocaleData(I18N.ua || I18N.ru);
+      if (!I18N.de) I18N.de = cloneLocaleData(I18N.ua || I18N.ru);
+      const MENU_I18N_OVERRIDES = {
+        zh: {
+          navHome:'首页',
+          navMenu:'菜单',
+          navKaraoke:'卡拉OK',
+          navContact:'联系',
+          contactTitle:'联系方式',
+          bankSheetTitle:'选择支付方式',
+          statusBtn:'状态',
+          searchPlaceholder:'搜索菜品 / Search…',
+          statusPlaceholder:'订单号（例如 a123）',
+          searchEmpty:'没有找到匹配的菜品。',
+          statusNotFound:'此设备上未找到订单 {code}。',
+          statusCodeLabel:'订单号',
+          ui:{add:'添加',more:'详情',itemsShort:'份',viewList:'列表视图',viewGrid:'网格视图'},
+          sheet:{
+            title:'您的订单',empty:'购物车为空。',orderType:'订单类型',
+            onSite:'堂食',takeaway:'自取',delivery:'配送',
+            table:'桌号',pickupIn:'多少分钟后取餐',address:'配送地址',phone:'电话',
+            phTable:'例如 5',phPickup:'15',phAddress:'城市、街道、门牌号…',phPhone:'+380 63 000 00 00',
+            total:'合计',checkout:'提交订单',clear:'清空购物车',
+            errTable:'请填写桌号。',errPickup:'请填写取餐时间。',
+            errPhone:'请填写电话号码。',errAddress:'请填写配送地址。',
+            deliveryPrice:'配送费',
+            freeDelivery:'满 1000 грн 免配送费'
+          },
+          common:{required:'(必填)',optional:'(选填)',ingredients:'配料'},
+          tabbar:{menu:'菜单',lang:'语言',cart:'购物车',profile:'个人资料'},
+          receiptBtn:'在 Telegram 获取小票',
+          receiptReady:'可在 Telegram 中查看小票。',
+          deliveryOff:'暂时无法配送'
+        },
+        pl: {
+          navHome:'Strona główna',
+          navMenu:'Menu',
+          navKaraoke:'Karaoke',
+          navContact:'Kontakt',
+          contactTitle:'Kontakt',
+          bankSheetTitle:'Wybierz metodę płatności',
+          statusBtn:'Status',
+          searchPlaceholder:'Szukaj dania / Search…',
+          statusPlaceholder:'Kod zamówienia (np. a123)',
+          searchEmpty:'Nie znaleziono pasujących dań.',
+          statusNotFound:'Nie znaleziono zamówienia {code} na tym urządzeniu.',
+          statusCodeLabel:'Kod',
+          ui:{add:'Dodaj',more:'Szczegóły',itemsShort:'szt.',viewList:'Widok listy',viewGrid:'Widok siatki'},
+          sheet:{
+            title:'Twoje zamówienie',empty:'Koszyk jest pusty.',orderType:'Typ zamówienia',
+            onSite:'Na miejscu',takeaway:'Na wynos',delivery:'Dostawa',
+            table:'Stół',pickupIn:'Za ile minut odebrać',address:'Adres dostawy',phone:'Telefon',
+            phTable:'Na przykład 5',phPickup:'15',phAddress:'Miasto, ulica, numer domu…',phPhone:'+380 63 000 00 00',
+            total:'Razem',checkout:'Złóż zamówienie',clear:'Wyczyść koszyk',
+            errTable:'Podaj numer stołu.',errPickup:'Podaj czas odbioru.',
+            errPhone:'Podaj numer telefonu.',errAddress:'Podaj adres dostawy.',
+            deliveryPrice:'Koszt dostawy',
+            freeDelivery:'Darmowa dostawa od 1000 грн'
+          },
+          common:{required:'(wymagane)',optional:'(opcjonalne)',ingredients:'Składniki'},
+          tabbar:{menu:'Menu',lang:'Język',cart:'Koszyk',profile:'Profil'},
+          receiptBtn:'Odbierz paragon w Telegramie',
+          receiptReady:'Paragon będzie dostępny w Telegramie.',
+          deliveryOff:'Dostawa jest chwilowo niedostępna'
+        },
+        de: {
+          navHome:'Startseite',
+          navMenu:'Menü',
+          navKaraoke:'Karaoke',
+          navContact:'Kontakt',
+          contactTitle:'Kontakt',
+          bankSheetTitle:'Zahlungsart wählen',
+          statusBtn:'Status',
+          searchPlaceholder:'Gericht suchen / Search…',
+          statusPlaceholder:'Bestellcode (z. B. a123)',
+          searchEmpty:'Keine passenden Gerichte gefunden.',
+          statusNotFound:'Bestellung {code} wurde auf diesem Gerät nicht gefunden.',
+          statusCodeLabel:'Code',
+          ui:{add:'Hinzufügen',more:'Mehr',itemsShort:'Stk.',viewList:'Listenansicht',viewGrid:'Rasteransicht'},
+          sheet:{
+            title:'Ihre Bestellung',empty:'Der Warenkorb ist leer.',orderType:'Bestellart',
+            onSite:'Vor Ort',takeaway:'Zum Mitnehmen',delivery:'Lieferung',
+            table:'Tischnummer',pickupIn:'Abholung in wie vielen Minuten',address:'Lieferadresse',phone:'Telefon',
+            phTable:'Zum Beispiel 5',phPickup:'15',phAddress:'Stadt, Straße, Hausnummer…',phPhone:'+380 63 000 00 00',
+            total:'Gesamt',checkout:'Bestellung absenden',clear:'Warenkorb leeren',
+            errTable:'Bitte Tischnummer eingeben.',errPickup:'Bitte Abholzeit angeben.',
+            errPhone:'Bitte Telefonnummer angeben.',errAddress:'Bitte Lieferadresse angeben.',
+            deliveryPrice:'Lieferkosten',
+            freeDelivery:'Kostenlose Lieferung ab 1000 грн'
+          },
+          common:{required:'(erforderlich)',optional:'(optional)',ingredients:'Zutaten'},
+          tabbar:{menu:'Menü',lang:'Sprache',cart:'Warenkorb',profile:'Profil'},
+          receiptBtn:'Beleg in Telegram erhalten',
+          receiptReady:'Der Beleg ist in Telegram verfügbar.',
+          deliveryOff:'Lieferung ist vorübergehend nicht verfügbar'
+        }
+      };
+      Object.entries(MENU_I18N_OVERRIDES).forEach(([locale, overrides]) => {
+        mergeLocaleData(I18N[locale], overrides);
+      });
+      mergeLocaleData(I18N.ru, {
+        searchEmpty:'Ничего не найдено.',
+        statusNotFound:'Заказ {code} не найден на этом устройстве.',
+        statusCodeLabel:'Код'
+      });
+      mergeLocaleData(I18N.ua, {
+        searchEmpty:'Нічого не знайдено.',
+        statusNotFound:'Замовлення {code} не знайдено на цьому пристрої.',
+        statusCodeLabel:'Код'
+      });
+      mergeLocaleData(I18N.vn, {
+        searchEmpty:'Khong tim thay mon phu hop.',
+        statusNotFound:'Khong tim thay don {code} tren thiet bi nay.',
+        statusCodeLabel:'Ma'
+      });
       const L = () => I18N[LANG] || I18N.ru;
 
       let DESCS = null;
@@ -416,14 +585,21 @@
       function textByLang(val){
         if (!val) return '';
         if (typeof val === 'string') return val;
-        if (typeof val === 'object') return val?.[LANG] || val?.ru || val?.ua || val?.vn || '';
+        if (typeof val === 'object') return localeValue(val, LANG);
         return String(val || '');
       }
 
       function textByLocale(val, locale){
         if (!val) return '';
         if (typeof val === 'string') return val;
-        if (typeof val === 'object') return val?.[locale] || val?.ua || val?.ru || val?.vn || '';
+        if (typeof val === 'object') return localeValue(val, normalizeLang(locale));
+        return String(val || '');
+      }
+
+      function exactLocaleText(val, locale){
+        if (!val) return '';
+        if (typeof val === 'string') return val;
+        if (typeof val === 'object') return val?.[locale] || '';
         return String(val || '');
       }
 
@@ -434,12 +610,12 @@
 
       function getDishDescription(it){
         const entry = getDescEntry(it);
-        return textByLang(entry?.description) || textByLang(it?.short) || textByLang(it?.desc) || '';
+        return exactLocaleText(entry?.description, LANG) || textByLang(it?.short) || exactLocaleText(it?.desc, LANG) || textByLang(entry?.description) || textByLang(it?.desc) || '';
       }
 
       function getDishIngredients(it){
         const entry = getDescEntry(it);
-        return textByLang(entry?.ingredients) || '';
+        return exactLocaleText(entry?.ingredients, LANG) || '';
       }
 
       function isBuilderItem(it){
@@ -484,7 +660,20 @@
         appetizers:{ru:'Закуски',ua:'Закуски',vn:'Món khai vị'},
         drinks:{ru:'Напитки',ua:'Напої',vn:'Đồ uống'}
       };
-      const catLabel = k => (CAT_LABELS[k]?.[LANG] || CAT_LABELS[k]?.ru || k);
+      mergeLocaleData(CAT_LABELS.top, { zh:'TOP', pl:'TOP', de:'TOP' });
+      mergeLocaleData(CAT_LABELS.pho_soups, { zh:'汤河粉', pl:'Zupa pho', de:'Pho-Suppe' });
+      mergeLocaleData(CAT_LABELS.bun_soups, { zh:'汤米线', pl:'Zupa bun', de:'Bun-Suppe' });
+      mergeLocaleData(CAT_LABELS.salat_bun, { zh:'凉拌米线', pl:'Sałatka bun', de:'Bun-Salat' });
+      mergeLocaleData(CAT_LABELS.mien_soups, { zh:'汤粉丝', pl:'Zupa mien', de:'Mien-Suppe' });
+      mergeLocaleData(CAT_LABELS.mi_soups, { zh:'汤蛋面', pl:'Zupa mi', de:'Mi-Suppe' });
+      mergeLocaleData(CAT_LABELS.wok_fried_pho, { zh:'炒河粉', pl:'Smażone pho', de:'Gebratene Pho-Nudeln' });
+      mergeLocaleData(CAT_LABELS.wok_fried_mien, { zh:'炒粉丝', pl:'Smażony mien', de:'Gebratene Mien' });
+      mergeLocaleData(CAT_LABELS.wok_fried_mi, { zh:'炒蛋面', pl:'Smażony makaron', de:'Gebratene Nudeln' });
+      mergeLocaleData(CAT_LABELS.rice_braised, { zh:'白米饭', pl:'Biały ryż', de:'Weisser Reis' });
+      mergeLocaleData(CAT_LABELS.fried_rice, { zh:'炒饭', pl:'Smażony ryż', de:'Gebratener Reis' });
+      mergeLocaleData(CAT_LABELS.appetizers, { zh:'小吃', pl:'Przystawki', de:'Snacks' });
+      mergeLocaleData(CAT_LABELS.drinks, { zh:'饮品', pl:'Napoje', de:'Getränke' });
+      const catLabel = k => textByLocale(CAT_LABELS[k], LANG) || k;
 
       const $ = s => document.querySelector(s);
       const $$ = s => document.querySelectorAll(s);
@@ -687,6 +876,17 @@
         return syncStamp(left) >= syncStamp(right) ? left : right;
       }
 
+      function safeExternalUrl(value){
+        const helper = window.DRAGON_STATIC?.normalizeExternalUrl;
+        if (typeof helper === 'function') return helper(value);
+        try{
+          const url = new URL(String(value || '').trim(), window.location.href);
+          return url.protocol === 'http:' || url.protocol === 'https:' ? url.toString() : '';
+        }catch(_){
+          return '';
+        }
+      }
+
       function normalizeOrderRecord(raw){
         const code = String(raw?.code || raw?.order_code || raw?.id || '').trim().toLowerCase();
         const createdAt = raw?.created_at || raw?.createdAt || nowIso();
@@ -700,6 +900,7 @@
           created_at: createdAt,
           updated_at: updatedAt,
           currency: raw?.currency || CURRENCY,
+          receipt_link: safeExternalUrl(raw?.receipt_link || raw?.receiptLink || ''),
           items: Array.isArray(raw?.items) ? raw.items : [],
           sync: {
             ...sync,
@@ -953,7 +1154,7 @@
               }
             });
           }
-          renderSection(content, `🔎 ${q}`, res.length ? res : [`<div class="muted" style="padding:12px">Ничего не найдено.</div>`]);
+          renderSection(content, `🔎 ${q}`, res.length ? res : [`<div class="muted" style="padding:12px">${escapeHtml(L().searchEmpty || 'Nothing found.')}</div>`]);
           const only = content.lastElementChild;
           if (only) only.id = 'sec-search';
           applyView();
@@ -1647,6 +1848,7 @@
         $('#navHome').textContent = '🏠 ' + t.navHome;
         $('#navMenu').textContent = '🍜 ' + t.navMenu;
         $('#navKaraoke').textContent = '🎤 ' + t.navKaraoke;
+        $('#navProfil').textContent = '👤 ' + (t.tabbar?.profile || 'Profile');
         $('#navContact').textContent = '📞 ' + t.navContact;
 
         $('#sheetTitle').textContent = s.title;
@@ -1708,7 +1910,7 @@
           return;
         }
         if (!rec){
-          statusResultEl.innerHTML = `<div class="muted">Заказ <b>${escapeHtml(code)}</b> не найден на этом устройстве.</div>`;
+          statusResultEl.innerHTML = `<div class="muted">${escapeHtml((L().statusNotFound || 'Order {code} was not found.').replace('{code}', String(code).trim().toUpperCase()))}</div>`;
           return;
         }
         const when = new Date(rec.created_at).toLocaleString();
@@ -1716,15 +1918,15 @@
         
         let deliveryInfo = '';
         if (rec.delivery_fee !== undefined) {
-          deliveryInfo = `<div class="muted">Стоимость доставки: ${(rec.delivery_fee||0).toFixed(2)} ${CURRENCY}</div>`;
+          deliveryInfo = `<div class="muted">${escapeHtml(L().sheet?.deliveryPrice || 'Delivery fee')}: ${(rec.delivery_fee||0).toFixed(2)} ${CURRENCY}</div>`;
         }
         
         statusResultEl.innerHTML = `
           <div class="status-card">
-            <div><b>Код:</b> ${escapeHtml(rec.code)} <span class="pill-mini">${escapeHtml(rec.status||'—')}</span></div>
+            <div><b>${escapeHtml(L().statusCodeLabel || 'Code')}:</b> ${escapeHtml(rec.code)} <span class="pill-mini">${escapeHtml(rec.status||'—')}</span></div>
             <div class="muted">ID: ${escapeHtml(rec.id)} · ${escapeHtml(when)}</div>
             ${deliveryInfo}
-            <div class="muted">Итого: ${total} ${escapeHtml(rec.currency||CURRENCY)}</div>
+            <div class="muted">${escapeHtml(L().sheet?.total || 'Total')}: ${total} ${escapeHtml(rec.currency||CURRENCY)}</div>
             ${rec.receipt_link ? `
             <div style="margin-top:10px">
               <a class="btn primary" href="${rec.receipt_link}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;justify-content:center;align-items:center;text-decoration:none;">
@@ -1829,6 +2031,7 @@
       connectLocalEvents();
 
       function setLang(v){
+        v = normalizeLang(v);
         LANG = v;
         localStorage.setItem(LANG_KEY, v);
         document.documentElement.lang = v;
@@ -1849,23 +2052,21 @@
 
       /* TELEGRAM */
       const TG = {
-        BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",
-        CHAT_ID: "-1002283682762",
-        CHAT_ID_VN: "-1002156259709",
+        MAIN_CHANNEL: "main",
+        VN_CHANNEL: "vn",
         BOT_USERNAME: "@cyber_dracon_bot",
-        PROXY_URL: ""
+        PROXY_URL: window.DRAGON_STATIC?.telegramMessageApi || ""
       };
 
       function TG_ENDPOINT() {
-        if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
-        if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
-        return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
+        return String(TG.PROXY_URL || '').trim();
       }
 
-      async function sendTelegramMessage(chatId, text) {
+      async function sendTelegramMessage(channel, text) {
         const url = TG_ENDPOINT();
+        if (!url) return { ok:false, reason:"Telegram proxy is not configured" };
         const payload = {
-          chat_id: chatId,
+          channel: channel === TG.VN_CHANNEL ? TG.VN_CHANNEL : TG.MAIN_CHANNEL,
           text,
           parse_mode: "HTML",
           disable_web_page_preview: true
@@ -1952,9 +2153,8 @@ ${lines}`;
       }
 
       async function sendOrderToTelegram(orderPayload) {
-        if (!TG.CHAT_ID) return { ok:false, reason:"TG.CHAT_ID is empty" };
         const text = buildUkrainianOrderText(orderPayload);
-        return sendTelegramMessage(TG.CHAT_ID, text);
+        return sendTelegramMessage(TG.MAIN_CHANNEL, text);
       }
 
       function viType(ot){
@@ -2024,9 +2224,8 @@ ${lines}`;
       }
 
       async function sendOrderToTelegramVN(orderPayload){
-        if (!TG.CHAT_ID_VN) return { ok:false, reason:"TG.CHAT_ID_VN is empty" };
         const text = buildVietnameseOrderText(orderPayload);
-        return sendTelegramMessage(TG.CHAT_ID_VN, text);
+        return sendTelegramMessage(TG.VN_CHANNEL, text);
       }
 
       async function createOrderOnSheet(orderPayload){

@@ -74,9 +74,30 @@
     return String(rawValue || "").trim();
   }
 
+  function decorateBridgeApiUrl(baseUrl, token) {
+    const normalized = normalizeExternalUrl(baseUrl);
+    if (!normalized) return "";
+    if (!token) return normalized;
+
+    try {
+      const apiUrl = new URL(normalized);
+      const apiOrigin = apiUrl.origin;
+      if (origin && apiOrigin === origin) {
+        return normalized;
+      }
+      if (!apiUrl.searchParams.get("bridgeToken")) {
+        apiUrl.searchParams.set("bridgeToken", token);
+      }
+      return apiUrl.toString();
+    } catch (_) {
+      return normalized;
+    }
+  }
+
   const origin = isHttp ? location.origin : "";
   const defaultOnlinePaymentUrl = "https://bank.gov.ua/qr/QkNECjAwMgoxClVDVAoK0JvRlCDQotGF0ZYg0JrRhdCw0L3RjCDQm9GWClVBNDczMjIwMDEwMDAwMDI2MjAwMzQ0NTAzNjYwCgozMzAwMzIxNzYyCgoK0J_QvtC_0L7QstC90LXQvdC90Y8g0YDQsNGF0YPQvdC60YMKCg==";
   const defaultOnlinePaymentLabel = "Universal Bank";
+  const allowQueryPaymentOverride = isLoopback || Boolean(global.DRAGON_ALLOW_QUERY_PAYMENT_URL);
   const paramBridgeBase = normalizeBridgeBase(
     params.get("bridgeUrl") ||
     params.get("bridge_url") ||
@@ -89,22 +110,22 @@
     params.get("remoteBridgeToken") ||
     params.get("remote_bridge_token")
   );
-  const paramPaymentUrl = normalizeExternalUrl(
+  const paramPaymentUrl = allowQueryPaymentOverride ? normalizeExternalUrl(
     params.get("payUrl") ||
     params.get("pay_url") ||
     params.get("paymentUrl") ||
     params.get("payment_url") ||
     params.get("onlinePaymentUrl") ||
     params.get("online_payment_url")
-  );
-  const paramPaymentLabel = normalizeLabel(
+  ) : "";
+  const paramPaymentLabel = allowQueryPaymentOverride ? normalizeLabel(
     params.get("payLabel") ||
     params.get("pay_label") ||
     params.get("paymentLabel") ||
     params.get("payment_label") ||
     params.get("onlinePaymentLabel") ||
     params.get("online_payment_label")
-  );
+  ) : "";
   const explicitBridgeBase = normalizeBridgeBase(global.DRAGON_REMOTE_BRIDGE_URL || "");
   const explicitBridgeToken = normalizeBridgeToken(global.DRAGON_REMOTE_BRIDGE_TOKEN || "");
   const explicitPaymentUrl = normalizeExternalUrl(global.DRAGON_ONLINE_PAYMENT_URL || "");
@@ -131,23 +152,27 @@
   ) {
     safeStorageSet(bridgeTokenStorageKey, "");
   }
-  if (paramPaymentUrl) {
+  if (allowQueryPaymentOverride && paramPaymentUrl) {
     safeStorageSet(paymentUrlStorageKey, paramPaymentUrl);
   } else if (
-    params.get("payUrl") === "" ||
-    params.get("pay_url") === "" ||
-    params.get("paymentUrl") === "" ||
-    params.get("payment_url") === ""
+    allowQueryPaymentOverride && (
+      params.get("payUrl") === "" ||
+      params.get("pay_url") === "" ||
+      params.get("paymentUrl") === "" ||
+      params.get("payment_url") === ""
+    )
   ) {
     safeStorageSet(paymentUrlStorageKey, "");
   }
-  if (paramPaymentLabel) {
+  if (allowQueryPaymentOverride && paramPaymentLabel) {
     safeStorageSet(paymentLabelStorageKey, paramPaymentLabel);
   } else if (
-    params.get("payLabel") === "" ||
-    params.get("pay_label") === "" ||
-    params.get("paymentLabel") === "" ||
-    params.get("payment_label") === ""
+    allowQueryPaymentOverride && (
+      params.get("payLabel") === "" ||
+      params.get("pay_label") === "" ||
+      params.get("paymentLabel") === "" ||
+      params.get("payment_label") === ""
+    )
   ) {
     safeStorageSet(paymentLabelStorageKey, "");
   }
@@ -176,6 +201,10 @@
     storedPaymentLabel ||
     defaultOnlinePaymentLabel;
   const hasLocalBridge = Boolean(bridgeBase);
+  const buildBridgeApiUrl = path => {
+    if (!hasLocalBridge) return "";
+    return decorateBridgeApiUrl(`${bridgeBase}${path}`, bridgeToken);
+  };
 
   const staticConfig = {
     isHttp,
@@ -186,15 +215,17 @@
     bridgeToken,
     hasLocalBridge,
     isStaticOnly: !hasLocalBridge,
-    localOrdersApi: hasLocalBridge ? `${bridgeBase}/api/local-orders` : "",
-    localEventsUrl: hasLocalBridge ? `${bridgeBase}/api/local-events` : "",
-    menuAvailabilityApi: hasLocalBridge ? `${bridgeBase}/api/menu-availability` : "",
-    telegramMessageApi: hasLocalBridge ? `${bridgeBase}/api/telegram/send-message` : "",
-    telegramDocumentApi: hasLocalBridge ? `${bridgeBase}/api/telegram/send-document` : "",
-    liqpayCheckoutApi: hasLocalBridge ? `${bridgeBase}/api/liqpay/checkout` : "",
-    kassaSessionApi: hasLocalBridge ? `${bridgeBase}/api/kassa/session` : "",
+    localOrdersApi: buildBridgeApiUrl("/api/local-orders"),
+    localEventsUrl: buildBridgeApiUrl("/api/local-events"),
+    menuAvailabilityApi: buildBridgeApiUrl("/api/menu-availability"),
+    telegramMessageApi: buildBridgeApiUrl("/api/telegram/send-message"),
+    telegramDocumentApi: buildBridgeApiUrl("/api/telegram/send-document"),
+    liqpayCheckoutApi: buildBridgeApiUrl("/api/liqpay/checkout"),
+    kassaSessionApi: buildBridgeApiUrl("/api/kassa/session"),
     onlinePaymentUrl,
     onlinePaymentLabel,
+    allowQueryPaymentOverride,
+    normalizeExternalUrl,
     remoteBridgeStorageKey: bridgeStorageKey,
     remoteBridgeTokenStorageKey: bridgeTokenStorageKey,
     onlinePaymentStorageKey: paymentUrlStorageKey,

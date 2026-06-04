@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
+    <div class="auth-overlay hidden" id="authOverlay" aria-hidden="true">
+        <div class="auth-card">
+            <p class="eyebrow">Protected Access</p>
+            <h2>Вход в DRAGON PO</h2>
+            <p class="auth-card__lead">
+                Закупочный модуль теперь защищён сессией. Введите админ-пароль, настроенный на сервере,
+                чтобы открыть поставщиков, товары и purchase orders.
+            </p>
+            <form id="loginForm" class="auth-form">
+                <label>
+                    <span>Пароль</span>
+                    <input type="password" id="loginPassword" name="password" placeholder="DRAGON_PO_ADMIN_PASSWORD" autocomplete="current-password" required>
+                </label>
+                <p class="auth-error hidden" id="authError"></p>
+                <button type="submit" class="button" id="loginSubmitBtn">Войти</button>
+            </form>
+        </div>
+    </div>
+
     <div class="page-shell">
         <header class="hero">
             <div class="hero__content">
@@ -53,6 +72,13 @@
         </section>
 
         <div class="notice hidden" id="notice"></div>
+        <div class="session-bar hidden" id="sessionBar">
+            <div>
+                <strong>Protected workspace</strong>
+                <p>Сессия активна. Данные больше не доступны анонимно по сети.</p>
+            </div>
+            <button type="button" class="button button--secondary session-bar__action" id="logoutBtn">Выйти</button>
+        </div>
 
         <main class="workspace">
             <section class="panel">
@@ -246,6 +272,5 @@
     </div>
 
     <script src="static/app.js" defer></script>
-    <script src="../dragon_burger_menu.js"></script>
 </body>
 </html>

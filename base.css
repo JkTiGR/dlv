@@ -17,6 +17,31 @@ html {
   --glass-2: rgba(215, 191, 255, 0.14);
   --glass-3: rgba(23, 15, 41, 0.8);
   --glass-4: rgba(8, 5, 18, 0.92);
+  --glass-blur: 24px;
+  --glass-saturation: 180%;
+  --ng-outline: rgba(245, 239, 255, 0.22);
+  --ng-outline-soft: rgba(224, 206, 255, 0.12);
+  --ng-panel:
+    radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.24), transparent 26%),
+    radial-gradient(circle at 84% 16%, rgba(119, 198, 255, 0.14), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 16%, rgba(95, 57, 174, 0.18) 42%, rgba(11, 8, 24, 0.88) 100%);
+  --ng-panel-soft:
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.16), transparent 24%),
+    radial-gradient(circle at 84% 18%, rgba(255, 118, 220, 0.1), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 16%, rgba(74, 45, 141, 0.16) 40%, rgba(11, 8, 24, 0.82) 100%);
+  --ng-highlight:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.12) 18%, rgba(255, 255, 255, 0.03) 44%, transparent 72%),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 30%, transparent 68%, rgba(122, 209, 255, 0.06));
+  --ng-inner-shadow:
+    inset 0 6px 12px rgba(255, 255, 255, 0.16),
+    inset 0 -40px 40px rgba(6, 3, 18, 0.3),
+    inset 0 -6px 18px rgba(255, 255, 255, 0.12),
+    inset 0 40px 40px rgba(255, 255, 255, 0.06),
+    inset 0 2px 1px rgba(255, 255, 255, 0.72);
+  --ng-outer-shadow:
+    0 24px 54px rgba(5, 2, 18, 0.42),
+    0 0 30px rgba(153, 110, 255, 0.18),
+    0 0 68px rgba(105, 173, 255, 0.08);
 
   --line: rgba(207, 187, 255, 0.12);
   --line-strong: rgba(232, 219, 255, 0.22);
@@ -188,29 +213,42 @@ a {
 .card,
 .social-link {
   color: var(--text);
-  backdrop-filter: blur(18px) saturate(135%) contrast(1.01);
-  -webkit-backdrop-filter: blur(18px) saturate(135%) contrast(1.01);
+  isolation: isolate;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation)) contrast(1.06);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation)) contrast(1.06);
 }
 
 .glass {
-  background:
-    linear-gradient(180deg, rgba(46, 27, 86, 0.38), rgba(14, 10, 28, 0.74));
-  border: 1px solid var(--line);
+  background: var(--ng-panel-soft);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
-    var(--shadow-2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 0 18px rgba(157, 111, 255, 0.12);
+    var(--ng-outer-shadow),
+    var(--ng-inner-shadow);
 }
 
 .glass-nav {
-  background:
-    linear-gradient(180deg, rgba(50, 30, 92, 0.48), rgba(14, 9, 30, 0.8));
-  border: 1px solid var(--line);
+  background: var(--ng-panel);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
-    var(--shadow-2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 0 18px rgba(157, 111, 255, 0.12);
+    var(--ng-outer-shadow),
+    var(--ng-inner-shadow);
+}
+
+.glass::before,
+.glass-nav::before,
+.bar::before,
+.nav-pop::before,
+.sheet::before,
+.status-card::before,
+.social-link::before,
+.dock::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--ng-highlight);
+  opacity: 0.8;
 }
 
 /* =========================================================
@@ -234,20 +272,18 @@ a {
   width: 100%;
   padding: 10px 8px;
   border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(42, 24, 79, 0.7), rgba(14, 10, 29, 0.88));
-  border: 1px solid rgba(214, 196, 255, 0.12);
+  background: var(--ng-panel);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
-    0 16px 34px rgba(5, 2, 18, 0.3),
-    0 0 18px rgba(155, 108, 255, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
+    var(--ng-outer-shadow),
+    var(--ng-inner-shadow);
+  backdrop-filter: blur(28px) saturate(185%) contrast(1.06);
+  -webkit-backdrop-filter: blur(28px) saturate(185%) contrast(1.06);
   overflow: visible;
 }
 
 .bar::before {
-  display: none;
+  opacity: 0.88;
 }
 
 .brand {
@@ -351,9 +387,12 @@ a {
   min-width: 240px;
   padding: 8px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(39, 24, 74, 0.92), rgba(12, 9, 25, 0.96));
-  border: 1px solid rgba(214, 196, 255, 0.12);
-  box-shadow: var(--shadow);
+  background: var(--ng-panel);
+  border: 1px solid var(--ng-outline);
+  box-shadow:
+    0 24px 46px rgba(5, 2, 18, 0.48),
+    0 0 28px rgba(155, 108, 255, 0.18),
+    var(--ng-inner-shadow);
   display: none;
   z-index: 90;
 }
@@ -415,12 +454,18 @@ a {
   min-height: auto;
   padding-top: 0;
   border-radius: 30px;
-  background: linear-gradient(180deg, rgba(20, 12, 38, 0.94), rgba(8, 6, 18, 0.96));
-  border: 1px solid rgba(214, 196, 255, 0.12);
+  background:
+    radial-gradient(circle at 14% 10%, rgba(255, 255, 255, 0.14), transparent 20%),
+    radial-gradient(circle at 86% 18%, rgba(114, 192, 255, 0.1), transparent 22%),
+    linear-gradient(180deg, rgba(26, 16, 48, 0.96), rgba(8, 6, 18, 0.98));
+  border: 1px solid rgba(228, 214, 255, 0.14);
   box-shadow:
     0 24px 56px rgba(5, 2, 18, 0.34),
-    0 0 24px rgba(149, 106, 255, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 0 28px rgba(149, 106, 255, 0.14),
+    0 0 62px rgba(99, 179, 255, 0.06),
+    inset 0 6px 12px rgba(255, 255, 255, 0.08),
+    inset 0 -30px 34px rgba(6, 3, 18, 0.24),
+    inset 0 2px 1px rgba(255, 255, 255, 0.12);
   isolation: isolate;
   overflow: hidden;
 }
@@ -525,15 +570,16 @@ a {
   justify-content: center;
   overflow: hidden;
   text-decoration: none;
-  background:
-    linear-gradient(180deg, rgba(63, 36, 118, 0.48), rgba(16, 10, 32, 0.88));
-  border: 1px solid rgba(214, 196, 255, 0.12);
+  background: var(--ng-panel-soft);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
     0 20px 40px rgba(5, 2, 18, 0.34),
-    0 0 18px rgba(155, 108, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px) saturate(135%);
-  -webkit-backdrop-filter: blur(14px) saturate(135%);
+    0 0 22px rgba(155, 108, 255, 0.14),
+    inset 0 6px 12px rgba(255, 255, 255, 0.12),
+    inset 0 -18px 24px rgba(6, 3, 18, 0.18),
+    inset 0 2px 1px rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(165%) contrast(1.05);
+  -webkit-backdrop-filter: blur(20px) saturate(165%) contrast(1.05);
   transition:
     transform 0.18s ease,
     box-shadow 0.22s ease,
@@ -944,19 +990,25 @@ body.island .app {
 }
 
 .workspace-shell .cat-nav {
-  background: linear-gradient(180deg, rgba(70, 42, 132, 0.3), rgba(20, 13, 38, 0.66));
-  border: 1px solid rgba(214, 196, 255, 0.1);
+  background: var(--ng-panel);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
     0 12px 26px rgba(7, 4, 16, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 0 22px rgba(149, 106, 255, 0.12),
+    inset 0 6px 12px rgba(255, 255, 255, 0.12),
+    inset 0 -28px 32px rgba(6, 3, 18, 0.2),
+    inset 0 2px 1px rgba(255, 255, 255, 0.58);
 }
 
 .workspace-shell .pill {
   color: rgba(239, 232, 255, 0.86);
-  border: 1px solid rgba(214, 196, 255, 0.1);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(108, 73, 206, 0.08));
+  border: 1px solid rgba(231, 219, 255, 0.12);
+  background:
+    radial-gradient(circle at 16% 14%, rgba(255, 255, 255, 0.12), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(108, 73, 206, 0.12) 42%, rgba(13, 9, 25, 0.54));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 4px 8px rgba(255, 255, 255, 0.1),
+    inset 0 -18px 24px rgba(6, 3, 18, 0.16),
     0 6px 14px rgba(7, 4, 16, 0.18);
 }
 
@@ -966,11 +1018,15 @@ body.island .app {
 
 .workspace-shell .pill.active {
   color: #faf7ff;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(171, 122, 255, 0.28), rgba(90, 59, 187, 0.36));
-  border: 1px solid rgba(231, 220, 255, 0.24);
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.24), transparent 22%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(171, 122, 255, 0.32), rgba(90, 59, 187, 0.42));
+  border: 1px solid rgba(241, 232, 255, 0.26);
   box-shadow:
     0 14px 28px rgba(89, 58, 186, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    0 0 22px rgba(161, 118, 255, 0.16),
+    inset 0 6px 10px rgba(255, 255, 255, 0.12),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7);
 }
 
 .searchbar,
@@ -986,11 +1042,14 @@ body.island .app {
 
 .workspace-shell .searchbar,
 .workspace-shell .statusbar {
-  background: linear-gradient(180deg, rgba(57, 35, 104, 0.2), rgba(16, 10, 31, 0.56));
-  border: 1px solid rgba(214, 196, 255, 0.1);
+  background: var(--ng-panel-soft);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
     0 10px 18px rgba(7, 4, 16, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 0 18px rgba(149, 106, 255, 0.1),
+    inset 0 6px 12px rgba(255, 255, 255, 0.1),
+    inset 0 -22px 28px rgba(6, 3, 18, 0.18),
+    inset 0 2px 1px rgba(255, 255, 255, 0.62);
 }
 
 .searchbar input,
@@ -1044,17 +1103,24 @@ body.island .app {
 
 .workspace-shell .icon-btn {
   background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(214, 196, 255, 0.12);
+  border-color: rgba(226, 214, 255, 0.16);
   color: #d7ccff;
+  box-shadow:
+    inset 0 3px 6px rgba(255, 255, 255, 0.08),
+    inset 0 -14px 18px rgba(6, 3, 18, 0.14);
 }
 
 .workspace-shell .statusbar .btn.mini {
   color: #fff;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(164, 119, 255, 0.32), rgba(89, 56, 188, 0.4));
-  border: 1px solid rgba(231, 220, 255, 0.24);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.26), transparent 22%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(164, 119, 255, 0.34), rgba(89, 56, 188, 0.44));
+  border: 1px solid rgba(239, 230, 255, 0.28);
   box-shadow:
     0 10px 20px rgba(89, 56, 188, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    0 0 20px rgba(164, 119, 255, 0.16),
+    inset 0 6px 10px rgba(255, 255, 255, 0.12),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7);
 }
 
 .status-result {
@@ -1062,11 +1128,15 @@ body.island .app {
 }
 
 .status-card {
-  background: linear-gradient(180deg, rgba(55, 33, 101, 0.3), rgba(16, 10, 31, 0.72));
-  border: 1px solid rgba(214, 196, 255, 0.12);
+  position: relative;
+  background: var(--ng-panel-soft);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
     0 10px 22px rgba(7, 4, 16, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 0 18px rgba(149, 106, 255, 0.1),
+    inset 0 6px 10px rgba(255, 255, 255, 0.1),
+    inset 0 -18px 24px rgba(6, 3, 18, 0.18),
+    inset 0 2px 1px rgba(255, 255, 255, 0.68);
   color: var(--text);
 }
 
@@ -1097,6 +1167,9 @@ main#content {
   font-weight: 900;
   letter-spacing: 0.03em;
   color: #f8f4ff;
+  text-shadow:
+    0 0 18px rgba(163, 122, 255, 0.18),
+    0 0 34px rgba(104, 180, 255, 0.08);
 }
 
 /* =========================================================
@@ -1117,26 +1190,31 @@ main#content {
   min-width: 0;
   padding: 10px;
   border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(38, 23, 72, 0.52), rgba(13, 9, 25, 0.34));
-  border: 1px solid rgba(226, 214, 255, 0.18);
+  background: var(--ng-panel-soft);
+  border: 1px solid rgba(234, 224, 255, 0.2);
   box-shadow:
     0 18px 34px rgba(5, 2, 18, 0.22),
-    0 0 18px rgba(149, 106, 255, 0.08),
-    0 1px 0 rgba(255, 255, 255, 0.12) inset;
-  backdrop-filter: blur(18px) saturate(145%);
-  -webkit-backdrop-filter: blur(18px) saturate(145%);
+    0 0 24px rgba(149, 106, 255, 0.12),
+    0 0 42px rgba(99, 179, 255, 0.06),
+    inset 0 6px 12px rgba(255, 255, 255, 0.12),
+    inset 0 -32px 36px rgba(6, 3, 18, 0.2),
+    inset 0 2px 1px rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
   overflow: hidden;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  border-color: rgba(236, 224, 255, 0.24);
+  border-color: rgba(241, 232, 255, 0.28);
   box-shadow:
     0 22px 42px rgba(5, 2, 18, 0.28),
-    0 0 22px rgba(149, 106, 255, 0.12),
-    0 1px 0 rgba(255, 255, 255, 0.14) inset;
+    0 0 28px rgba(149, 106, 255, 0.16),
+    0 0 46px rgba(99, 179, 255, 0.08),
+    inset 0 6px 12px rgba(255, 255, 255, 0.14),
+    inset 0 -32px 36px rgba(6, 3, 18, 0.22),
+    inset 0 2px 1px rgba(255, 255, 255, 0.72);
 }
 
 .card::before {
@@ -1144,10 +1222,8 @@ main#content {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.12), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 34%, transparent 72%, rgba(255, 255, 255, 0.03));
-  opacity: 0.76;
+  background: var(--ng-highlight);
+  opacity: 0.84;
 }
 
 .card::after,
@@ -1178,11 +1254,15 @@ main#content {
   border-radius: 22px;
   aspect-ratio: 1/1;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(174, 132, 255, 0.05)),
-    rgba(19, 11, 36, 0.12);
-  border: 1px solid rgba(214, 196, 255, 0.1);
+    radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.12), transparent 20%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(174, 132, 255, 0.08)),
+    rgba(19, 11, 36, 0.16);
+  border: 1px solid rgba(228, 214, 255, 0.12);
   backdrop-filter: blur(10px) saturate(125%);
   -webkit-backdrop-filter: blur(10px) saturate(125%);
+  box-shadow:
+    inset 0 4px 8px rgba(255, 255, 255, 0.08),
+    inset 0 -18px 22px rgba(6, 3, 18, 0.14);
 }
 
 .thumb img {
@@ -1209,11 +1289,16 @@ main#content {
   border-radius: 999px;
   cursor: pointer;
   color: #fff;
-  background: rgba(28, 31, 37, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background:
+    radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.22), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(82, 52, 156, 0.22), rgba(16, 10, 31, 0.56));
+  border: 1px solid rgba(244, 236, 255, 0.22);
+  box-shadow:
+    0 8px 14px rgba(0, 0, 0, 0.1),
+    0 0 18px rgba(149, 106, 255, 0.14),
+    inset 0 4px 8px rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
 }
 
 .name {
@@ -1382,11 +1467,25 @@ main#content {
 }
 
 .workspace-shell .contact {
-  background: linear-gradient(180deg, rgba(53, 31, 98, 0.24), rgba(16, 10, 31, 0.68));
-  border: 1px solid rgba(214, 196, 255, 0.1);
+  position: relative;
+  background: var(--ng-panel-soft);
+  border: 1px solid var(--ng-outline-soft);
   box-shadow:
-    0 10px 22px rgba(7, 4, 16, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 14px 28px rgba(7, 4, 16, 0.2),
+    0 0 20px rgba(149, 106, 255, 0.1),
+    inset 0 6px 12px rgba(255, 255, 255, 0.1),
+    inset 0 -22px 28px rgba(6, 3, 18, 0.18),
+    inset 0 2px 1px rgba(255, 255, 255, 0.68);
+}
+
+.workspace-shell .contact::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--ng-highlight);
+  opacity: 0.74;
 }
 
 .contact h2 {
@@ -1438,11 +1537,13 @@ main#content {
 }
 
 .workspace-shell .more-row:hover {
-  background: rgba(17, 21, 27, 0.03);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.08), transparent 20%),
+    linear-gradient(90deg, rgba(171, 123, 255, 0.08), rgba(102, 180, 255, 0.04));
 }
 
 .workspace-shell .muted {
-  color: #aa9fcb;
+  color: rgba(218, 206, 245, 0.76);
 }
 
 /* =========================================================
@@ -1478,12 +1579,13 @@ main#content {
   padding: 14px;
   padding-bottom: calc(14px + var(--safe-bottom));
   border-radius: 28px 28px 0 0;
-  background:
-    linear-gradient(180deg, rgba(39, 24, 74, 0.94), rgba(12, 9, 25, 0.98));
-  border: 1px solid rgba(214, 196, 255, 0.12);
+  background: var(--ng-panel);
+  border: 1px solid var(--ng-outline);
   box-shadow:
     0 -18px 44px rgba(5, 2, 18, 0.44),
-    0 0 24px rgba(149, 106, 255, 0.12);
+    0 0 30px rgba(149, 106, 255, 0.16),
+    0 0 52px rgba(99, 179, 255, 0.08),
+    var(--ng-inner-shadow);
   transition: transform 0.24s ease;
   overscroll-behavior: contain;
 }
@@ -1492,12 +1594,30 @@ main#content {
   transform: translateX(-50%) translateY(0);
 }
 
+#dishOverlay {
+  background: rgba(4, 2, 12, 0.28);
+  backdrop-filter: blur(2px) saturate(110%);
+  -webkit-backdrop-filter: blur(2px) saturate(110%);
+}
+
+.dish-sheet.open {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(95, 57, 174, 0.12) 20%, rgba(12, 9, 25, 0.98) 100%);
+  backdrop-filter: blur(28px) saturate(185%);
+  -webkit-backdrop-filter: blur(28px) saturate(185%);
+}
+
 .sheet-handle {
   width: 46px;
   height: 5px;
   margin: 0 auto 10px;
   border-radius: 999px;
-  background: rgba(223, 211, 255, 0.3);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.36), rgba(205, 189, 255, 0.82), rgba(106, 186, 255, 0.48));
+  box-shadow:
+    0 0 14px rgba(164, 122, 255, 0.22),
+    0 0 24px rgba(99, 179, 255, 0.1);
 }
 
 .sheet-close {
@@ -1511,9 +1631,15 @@ main#content {
   border: none;
   border-radius: 14px;
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(214, 196, 255, 0.12);
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.2), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(78, 49, 151, 0.18), rgba(18, 12, 34, 0.54));
+  border: 1px solid rgba(238, 228, 255, 0.18);
   cursor: pointer;
+  box-shadow:
+    0 10px 16px rgba(5, 2, 18, 0.16),
+    0 0 18px rgba(149, 106, 255, 0.12),
+    inset 0 4px 8px rgba(255, 255, 255, 0.08);
 }
 
 .cart-lines {
@@ -1530,8 +1656,13 @@ main#content {
   align-items: center;
   padding: 10px;
   border-radius: 16px;
-  border: 1px solid rgba(214, 196, 255, 0.08);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(228, 214, 255, 0.1);
+  background:
+    radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.1), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(82, 51, 154, 0.1), rgba(14, 10, 28, 0.48));
+  box-shadow:
+    inset 0 4px 8px rgba(255, 255, 255, 0.08),
+    inset 0 -16px 20px rgba(6, 3, 18, 0.12);
 }
 
 .section {
@@ -1550,22 +1681,30 @@ main#content {
   border-radius: 999px;
   font-family: var(--font-display);
   color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(214, 196, 255, 0.1);
+  background:
+    radial-gradient(circle at 16% 16%, rgba(255, 255, 255, 0.12), transparent 20%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(92, 57, 168, 0.1), rgba(16, 10, 31, 0.46));
+  border: 1px solid rgba(228, 214, 255, 0.12);
+  box-shadow:
+    inset 0 4px 8px rgba(255, 255, 255, 0.08),
+    inset 0 -16px 20px rgba(6, 3, 18, 0.12);
 }
 
 .chip.active {
   color: #fff;
   font-weight: 900;
-  border: 1px solid rgba(231, 220, 255, 0.24);
+  border: 1px solid rgba(241, 232, 255, 0.26);
   background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.22), transparent 22%),
     linear-gradient(135deg,
       rgba(255, 255, 255, 0.16) 0%,
-      rgba(171, 122, 255, 0.28) 48%,
-      rgba(90, 59, 187, 0.36) 100%);
+      rgba(171, 122, 255, 0.32) 48%,
+      rgba(90, 59, 187, 0.42) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 14px 24px rgba(89, 56, 188, 0.22);
+    inset 0 6px 10px rgba(255, 255, 255, 0.12),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7),
+    0 14px 24px rgba(89, 56, 188, 0.22),
+    0 0 18px rgba(149, 106, 255, 0.16);
 }
 
 .field {
@@ -1581,12 +1720,17 @@ main#content {
   width: 100%;
   min-height: 46px;
   color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(214, 196, 255, 0.1);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.1), transparent 20%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(88, 55, 161, 0.08), rgba(14, 10, 28, 0.48));
+  border: 1px solid rgba(228, 214, 255, 0.12);
   border-radius: 16px;
   outline: none;
   padding: 12px 14px;
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  box-shadow:
+    inset 0 4px 8px rgba(255, 255, 255, 0.08),
+    inset 0 -16px 20px rgba(6, 3, 18, 0.12);
 }
 
 .field input:focus,
@@ -1595,20 +1739,23 @@ main#content {
 .dish-note textarea:focus,
 .searchbar:focus-within,
 .statusbar:focus-within {
-  border-color: rgba(227, 213, 255, 0.2);
+  border-color: rgba(240, 231, 255, 0.22);
   box-shadow:
-    0 0 0 3px rgba(171, 123, 255, 0.1),
-    0 0 20px rgba(171, 123, 255, 0.14),
+    0 0 0 3px rgba(171, 123, 255, 0.12),
+    0 0 22px rgba(171, 123, 255, 0.16),
+    0 0 34px rgba(99, 179, 255, 0.08),
     inset 0 0 14px rgba(255, 255, 255, 0.03);
 }
 
 .workspace-shell .searchbar:focus-within,
 .workspace-shell .statusbar:focus-within {
-  border-color: rgba(227, 213, 255, 0.16);
+  border-color: rgba(240, 231, 255, 0.18);
   box-shadow:
     0 0 0 3px rgba(171, 123, 255, 0.08),
     0 10px 18px rgba(7, 4, 16, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 0 24px rgba(149, 106, 255, 0.12),
+    inset 0 6px 12px rgba(255, 255, 255, 0.12),
+    inset 0 2px 1px rgba(255, 255, 255, 0.62);
 }
 
 .field textarea,
@@ -1634,20 +1781,25 @@ main#content {
 .btn.primary {
   color: #fff;
   background:
+    radial-gradient(circle at 18% 16%, rgba(255, 255, 255, 0.24), transparent 22%),
     linear-gradient(135deg,
       rgba(255, 255, 255, 0.18) 0%,
       rgba(171, 122, 255, 0.3) 48%,
       rgba(90, 59, 187, 0.4) 100%);
-  border: 1px solid rgba(231, 220, 255, 0.24);
+  border: 1px solid rgba(241, 232, 255, 0.24);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 14px 24px rgba(89, 56, 188, 0.24);
+    inset 0 6px 10px rgba(255, 255, 255, 0.12),
+    inset 0 2px 1px rgba(255, 255, 255, 0.72),
+    0 14px 24px rgba(89, 56, 188, 0.24),
+    0 0 22px rgba(149, 106, 255, 0.14);
 }
 
 .btn.primary:hover {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 16px 26px rgba(89, 56, 188, 0.28);
+    inset 0 6px 10px rgba(255, 255, 255, 0.14),
+    inset 0 2px 1px rgba(255, 255, 255, 0.76),
+    0 16px 26px rgba(89, 56, 188, 0.28),
+    0 0 28px rgba(149, 106, 255, 0.16);
 }
 
 .btn.ghost {
@@ -1799,26 +1951,24 @@ main#content {
   gap: 4px;
   padding: 8px 10px;
   border-radius: 999px;
-  background:
-    linear-gradient(180deg, rgba(46, 27, 86, 0.82), rgba(12, 8, 25, 0.96));
-  border: 1px solid rgba(214, 196, 255, 0.12);
+  background: var(--ng-panel);
+  border: 1px solid var(--ng-outline);
   box-shadow:
     0 28px 54px rgba(5, 2, 18, 0.42),
-    0 0 24px rgba(149, 106, 255, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px) saturate(145%);
-  -webkit-backdrop-filter: blur(16px) saturate(145%);
+    0 0 28px rgba(149, 106, 255, 0.16),
+    0 0 52px rgba(99, 179, 255, 0.08),
+    inset 0 6px 12px rgba(255, 255, 255, 0.1),
+    inset 0 -24px 28px rgba(6, 3, 18, 0.18),
+    inset 0 2px 1px rgba(255, 255, 255, 0.64);
+  backdrop-filter: blur(22px) saturate(165%);
+  -webkit-backdrop-filter: blur(22px) saturate(165%);
 }
 
 .dock::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: inherit;
-  pointer-events: none;
   background:
-    radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.14), transparent 40%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03), transparent 20%, transparent 80%, rgba(183, 142, 255, 0.06));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.08) 20%, transparent 72%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03), transparent 20%, transparent 80%, rgba(183, 142, 255, 0.08));
+  opacity: 0.82;
 }
 
 .dock-btn {
@@ -1867,10 +2017,14 @@ main#content {
 
 .dock-btn.active {
   color: #fff;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(171, 122, 255, 0.16));
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.18), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(171, 122, 255, 0.18));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 10px 20px rgba(89, 56, 188, 0.2);
+    inset 0 6px 10px rgba(255, 255, 255, 0.1),
+    inset 0 2px 1px rgba(255, 255, 255, 0.68),
+    0 10px 20px rgba(89, 56, 188, 0.2),
+    0 0 18px rgba(149, 106, 255, 0.14);
 }
 
 .cart-badge {
@@ -1886,7 +2040,7 @@ main#content {
   border-radius: 999px;
   font-size: 0.66rem;
   font-weight: 800;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgb(255, 0, 0);
   border: 1px solid rgba(255, 255, 255, 0.22);
   color: #fff;
 }
@@ -2163,6 +2317,176 @@ select:focus-visible {
 
   body.island .bar {
     max-width: min(720px, calc(100vw - 32px));
+  }
+}
+
+@media (min-width: 1280px) {
+  .app {
+    width: min(1480px, calc(100% - 48px));
+    padding-bottom: 40px;
+  }
+
+  .bar {
+    padding: 14px 16px;
+    border-radius: 32px;
+  }
+
+  .hero {
+    margin: 12px 0 18px;
+    border-radius: 36px;
+  }
+
+  .promo {
+    aspect-ratio: 24 / 7;
+    border-radius: 30px 30px 22px 22px;
+  }
+
+  .social {
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: -94px;
+    padding: 0 22px 24px;
+  }
+
+  .pay-switcher {
+    min-width: 182px;
+    height: 54px;
+    padding-inline: 16px;
+  }
+
+  .workspace-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-areas:
+      "nav nav"
+      "tools sidebar"
+      "content sidebar";
+    gap: 18px 22px;
+    align-items: start;
+    padding: 30px 0 0;
+  }
+
+  .workspace-shell .cat-nav {
+    grid-area: nav;
+    margin-bottom: 0;
+  }
+
+  .top-tools {
+    grid-area: tools;
+    margin: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 340px);
+    grid-template-areas:
+      "search status"
+      "search result";
+    gap: 14px;
+    align-items: start;
+  }
+
+  .searchbar {
+    grid-area: search;
+    min-height: 62px;
+  }
+
+  .statusbar {
+    grid-area: status;
+    min-height: 62px;
+  }
+
+  .status-result {
+    grid-area: result;
+    grid-column: auto;
+  }
+
+  main#content {
+    grid-area: content;
+    gap: 28px;
+  }
+
+  #contactSection {
+    grid-area: sidebar;
+    margin: 0;
+    position: sticky;
+    top: calc(var(--safe-top) + 108px);
+  }
+
+  .list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .card.featured {
+    grid-column: span 2;
+  }
+
+  .menu-section {
+    gap: 14px;
+  }
+
+  .menu-section h2 {
+    font-size: clamp(1.16rem, 1.35vw, 1.56rem);
+  }
+
+  .dock {
+    left: auto;
+    right: max(18px, calc((100vw - 1480px) / 2 + 18px));
+    bottom: 26px;
+    transform: none;
+    width: 86px;
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 12px 10px;
+    border-radius: 32px;
+  }
+
+  .dock-btn {
+    max-width: none;
+    width: 100%;
+    min-height: 58px;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 0;
+  }
+
+  .dock-btn::after {
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+  }
+
+  .cart-badge {
+    right: 12px;
+  }
+
+  body.sheet-open .dock {
+    transform: translateY(16px) scale(0.97);
+  }
+
+  .mini-popup {
+    left: auto;
+    right: max(116px, calc((100vw - 1480px) / 2 + 116px));
+    bottom: 26px;
+    transform: translateY(12px);
+    max-width: 320px;
+  }
+
+  .mini-popup.show {
+    transform: translateY(0);
+  }
+
+  .sheet {
+    width: min(680px, calc(100% - 48px));
+  }
+}
+
+@media (min-width: 1650px) {
+  .workspace-shell {
+    grid-template-columns: minmax(0, 1fr) 380px;
+  }
+
+  .list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
