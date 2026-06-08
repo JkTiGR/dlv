@@ -524,6 +524,9 @@ class CloudBridgeHandler(SimpleHTTPRequestHandler):
         query = parse_qs(parsed.query)
 
         if path == "/api/liqpay/checkout":
+            if not self.has_bridge_access(query):
+                self.send_unauthorized_json()
+                return
             try:
                 payload = self.read_json_body()
                 checkout = build_liqpay_checkout_form(

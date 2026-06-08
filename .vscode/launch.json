@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "/home/jkbook/DLV/index.html"
+            "file": "/home/jkbook/DRAGON/index.html"
         }
     ]
 }

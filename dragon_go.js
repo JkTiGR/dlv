@@ -20,6 +20,35 @@
   const TELEGRAM_MESSAGE_API = window.DRAGON_STATIC?.telegramMessageApi || "";
   const ONLINE_PAYMENT_URL = window.DRAGON_STATIC?.onlinePaymentUrl || "";
   const ROUTE_PARAMS = new URLSearchParams(window.location.search);
+  const SUPPORTED_LANGS = ["ru", "ua", "vn", "zh", "pl", "de"];
+  const EXTRA_LANG_FALLBACKS = {
+    zh: ["vn", "ru", "ua"],
+    pl: ["ua", "ru", "vn"],
+    de: ["ua", "ru", "vn"]
+  };
+
+  function normalizeLang(value) {
+    return SUPPORTED_LANGS.includes(value) ? value : "ru";
+  }
+
+  function localeChain(locale) {
+    const chain = [locale];
+    (EXTRA_LANG_FALLBACKS[locale] || []).forEach(code => chain.push(code));
+    ["ru", "ua", "vn"].forEach(code => chain.push(code));
+    return [...new Set(chain)];
+  }
+
+  function localeValue(value, locale) {
+    if (!value || typeof value !== "object") return "";
+    for (const code of localeChain(locale)) {
+      if (value[code]) return value[code];
+    }
+    return "";
+  }
+
+  function cloneLocaleData(value) {
+    return value ? JSON.parse(JSON.stringify(value)) : value;
+  }
 
   const TG = {
     MAIN_CHANNEL: "main",
@@ -535,6 +564,17 @@
     }
   };
 
+  if (!I18N.zh) I18N.zh = cloneLocaleData(I18N.vn);
+  if (!I18N.pl) I18N.pl = cloneLocaleData(I18N.ua || I18N.ru);
+  if (!I18N.de) I18N.de = cloneLocaleData(I18N.ua || I18N.ru);
+
+  Object.assign(I18N.ru.app, { languageZH: "Chinese", languagePL: "Polish", languageDE: "German" });
+  Object.assign(I18N.ua.app, { languageZH: "Китайська", languagePL: "Польська", languageDE: "Німецька" });
+  Object.assign(I18N.vn.app, { languageZH: "Tieng Trung", languagePL: "Tieng Ba Lan", languageDE: "Tieng Duc" });
+  Object.assign(I18N.zh.app, { languageZH: "Chinese", languagePL: "Polish", languageDE: "German" });
+  Object.assign(I18N.pl.app, { languageZH: "Chinska", languagePL: "Polski", languageDE: "Niemiecki" });
+  Object.assign(I18N.de.app, { languageZH: "Chinesisch", languagePL: "Polnisch", languageDE: "Deutsch" });
+
   const TRACKING_COPY = {
     ru: {
       buttons: {
@@ -760,8 +800,12 @@
     }
   };
 
+  if (!TRACKING_COPY.zh) TRACKING_COPY.zh = cloneLocaleData(TRACKING_COPY.vn);
+  if (!TRACKING_COPY.pl) TRACKING_COPY.pl = cloneLocaleData(TRACKING_COPY.ua || TRACKING_COPY.ru);
+  if (!TRACKING_COPY.de) TRACKING_COPY.de = cloneLocaleData(TRACKING_COPY.ua || TRACKING_COPY.ru);
+
   const state = {
-    lang: localStorage.getItem(LANG_KEY) || "ru",
+    lang: normalizeLang(localStorage.getItem(LANG_KEY) || "ru"),
     screen: "home",
     search: localStorage.getItem(SEARCH_KEY) || "",
     activeCategory: "",
@@ -998,13 +1042,13 @@
   function textByLang(value) {
     if (!value) return "";
     if (typeof value === "string") return value;
-    return String(value?.[state.lang] || value?.ru || value?.ua || value?.vn || "");
+    return String(localeValue(value, state.lang) || "");
   }
 
   function textByLocale(value, locale) {
     if (!value) return "";
     if (typeof value === "string") return value;
-    return String(value?.[locale] || value?.ru || value?.ua || value?.vn || "");
+    return String(localeValue(value, normalizeLang(locale)) || "");
   }
 
   function escapeHtml(value) {
@@ -1021,7 +1065,7 @@
   }
 
   function catLabel(category) {
-    return CAT_LABELS[category]?.[state.lang] || CAT_LABELS[category]?.ru || category;
+    return localeValue(CAT_LABELS[category], state.lang) || category;
   }
 
   function itemName(item) {
@@ -1270,6 +1314,17 @@
     return new Date().toISOString();
   }
 
+  function safeExternalUrl(value) {
+    const helper = window.DRAGON_STATIC?.normalizeExternalUrl;
+    if (typeof helper === "function") return helper(value);
+    try {
+      const url = new URL(String(value || "").trim(), window.location.href);
+      return url.protocol === "http:" || url.protocol === "https:" ? url.toString() : "";
+    } catch (_) {
+      return "";
+    }
+  }
+
   function normalizeStatus(value) {
     const raw = String(value || "").trim().toUpperCase();
     if (!raw || raw === "SENT" || raw === "FAILED") return "NEW";
@@ -1319,7 +1374,8 @@
       created_at: createdAt,
       updated_at: updatedAt,
       currency: raw?.currency || CURRENCY,
-      payment_url: raw?.payment_url || raw?.paymentUrl || raw?.payment_link || raw?.paymentLink || "",
+      receipt_link: safeExternalUrl(raw?.receipt_link || raw?.receiptLink || ""),
+      payment_url: safeExternalUrl(raw?.payment_url || raw?.paymentUrl || raw?.payment_link || raw?.paymentLink || ""),
       payment_provider: raw?.payment_provider || raw?.paymentProvider || "",
       payment_status: raw?.payment_status || raw?.paymentStatus || "",
       items: Array.isArray(raw?.items) ? raw.items : [],
@@ -1939,9 +1995,18 @@ ${lines}`;
     dom.receiptCopyCodeButton.textContent = trackingCopy().buttons.copyCode;
     dom.receiptCopySummaryButton.textContent = trackingCopy().buttons.copySummary;
 
-    dom.languageStack.querySelector("[data-lang='ru']").textContent = t("app.languageRU");
-    dom.languageStack.querySelector("[data-lang='ua']").textContent = t("app.languageUA");
-    dom.languageStack.querySelector("[data-lang='vn']").textContent = t("app.languageVN");
+    const languageLabels = {
+      ru: t("app.languageRU"),
+      ua: t("app.languageUA"),
+      vn: t("app.languageVN"),
+      zh: t("app.languageZH"),
+      pl: t("app.languagePL"),
+      de: t("app.languageDE")
+    };
+    Object.entries(languageLabels).forEach(([code, label]) => {
+      const button = dom.languageStack?.querySelector(`[data-lang='${code}']`);
+      if (button) button.textContent = label;
+    });
     dom.languageStack.querySelectorAll("[data-lang]").forEach(button => {
       button.classList.toggle("language-option-active", button.dataset.lang === state.lang);
     });
@@ -3283,7 +3348,7 @@ ${lines}`;
     dom.languageStack.addEventListener("click", event => {
       const button = event.target.closest("[data-lang]");
       if (!button) return;
-      state.lang = button.dataset.lang;
+      state.lang = normalizeLang(button.dataset.lang);
       localStorage.setItem(LANG_KEY, state.lang);
       renderAll();
       closeDrawer("langDrawer");

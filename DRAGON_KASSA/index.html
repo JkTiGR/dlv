@@ -2,12 +2,18 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0a0616" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DRAGON KASSA Redirect</title>
+  <link rel="icon" href="../logo.png" />
+  <link rel="stylesheet" href="../dragon-theme.css" />
 </head>
-<body>
-  <p>Перенаправление в DRAGON KASSA...</p>
-  <p><a id="targetLink" href="../DRAGON_KASSA.html">Открыть кассу</a></p>
+<body class="dragon-unified dragon-redirect-page">
+  <main class="dragon-redirect-card dragon-surface">
+    <h1>Перенаправление в DRAGON KASSA</h1>
+    <p>Используется актуальная корневая страница кассы.</p>
+    <p><a id="targetLink" href="../DRAGON_KASSA.html">Открыть кассу</a></p>
+  </main>
   <script>
     (function redirectToKassa() {
       const current = new URL(window.location.href);

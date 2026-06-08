@@ -4,10 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DRAGON Purchase Order Starter</title>
+    <link rel="stylesheet" href="../dragon-theme.css">
     <link rel="stylesheet" href="static/styles.css">
 </head>
-<body>
-    <div class="page-shell">
+<body class="dragon-unified dragon-po-page">
+    <div class="auth-overlay hidden" id="authOverlay" aria-hidden="true">
+        <div class="auth-card">
+            <p class="eyebrow">Protected Access</p>
+            <h2>Вход в DRAGON PO</h2>
+            <p class="auth-card__lead">
+                Закупочный модуль теперь защищён сессией. Введите админ-пароль, настроенный на сервере,
+                чтобы открыть поставщиков, товары и purchase orders.
+            </p>
+            <form id="loginForm" class="auth-form">
+                <label>
+                    <span>Пароль</span>
+                    <input type="password" id="loginPassword" name="password" placeholder="DRAGON_PO_ADMIN_PASSWORD" autocomplete="current-password" required>
+                </label>
+                <p class="auth-error hidden" id="authError"></p>
+                <button type="submit" class="button" id="loginSubmitBtn">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="dragon-page-shell">
+        <header class="dragon-page-topbar">
+            <a class="dragon-page-brand" href="../index.html">
+                <img class="dragon-page-logo" src="../logo.png" alt="DRAGON logo">
+                <span>
+                    <span class="dragon-page-kicker">Cyber Dragon</span>
+                    <span class="dragon-page-title">Purchase Orders</span>
+                    <span class="dragon-page-copy">Модуль закупок теперь визуально живет в том же семействе экранов, что и `index.html`.</span>
+                </span>
+            </a>
+            <div class="dragon-page-actions">
+                <a class="dragon-page-chip is-primary" href="../index.html">Menu</a>
+                <a class="dragon-page-chip" href="../DRAGON_KASSA.html">Kassa</a>
+                <a class="dragon-page-chip" href="../admin_index.html">Admin</a>
+            </div>
+        </header>
+    </div>
+
+    <div class="page-shell dragon-po-page">
         <header class="hero">
             <div class="hero__content">
                 <p class="eyebrow">DRAGON Procurement Workspace</p>
@@ -53,6 +91,13 @@
         </section>
 
         <div class="notice hidden" id="notice"></div>
+        <div class="session-bar hidden" id="sessionBar">
+            <div>
+                <strong>Protected workspace</strong>
+                <p>Сессия активна. Данные больше не доступны анонимно по сети.</p>
+            </div>
+            <button type="button" class="button button--secondary session-bar__action" id="logoutBtn">Выйти</button>
+        </div>
 
         <main class="workspace">
             <section class="panel">
@@ -246,6 +291,5 @@
     </div>
 
     <script src="static/app.js" defer></script>
-    <script src="../dragon_burger_menu.js"></script>
 </body>
 </html>

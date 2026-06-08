@@ -12,7 +12,7 @@ const menuData = {
       "translations": {
         "ru": "Суп Фо с говядиной",
         "ua": "Фо з яловичиною",
-        "vn": "Phở bò"
+        "vn": "Phở bò xao"
       },
       "short": {
         "ru": "Насыщенный костный бульон, рисовая лапша, сочная говядина и свежая зелень.",
@@ -30,7 +30,7 @@ const menuData = {
       "translations": {
         "ru": "Суп Фо со свининой",
         "ua": "Фо зі свининою",
-        "vn": "Phở heo"
+        "vn": "Phở lon xao"
       },
       "short": {
         "ru": "Ароматный бульон, рисовая лапша, нежная свинина и зелень.",
@@ -126,12 +126,12 @@ const menuData = {
       "translations": {
         "ru": "Суп Ми с говядиной",
         "ua": "Суп Mi з яловичиною",
-        "vn": "Mì nước bò"
+        "vn": "Mì nước & bò xao"
       },
       "short": {
         "ru": "Ароматный бульон, яичная лапша, говядина и овощи.",
         "ua": "Ароматний бульйон, яєчна локшина, яловичина та овочі.",
-        "vn": "Nước dùng thơm, mì trứng, bò và rau củ."
+        "vn": "Nước dùng thơm, mì trứng, bò xao và rau củ."
       }
     },
     {
@@ -144,7 +144,7 @@ const menuData = {
       "translations": {
         "ru": "Суп Ми со свининой",
         "ua": "Суп Mi зі свининою",
-        "vn": "Mì nước heo"
+        "vn": "Mì nước lon xao"
       },
       "short": {
         "ru": "Бульон, яичная лапша, сочная свинина и овощи.",
@@ -162,12 +162,12 @@ const menuData = {
       "translations": {
         "ru": "Суп Ми с курицей",
         "ua": "Суп Mi з куркою",
-        "vn": "Mì nước gà"
+        "vn": "Mì nước gà xao"
       },
       "short": {
         "ru": "Лёгкий бульон, лапша, курица и овощи.",
         "ua": "Легкий бульйон, локшина, курка та овочі.",
-        "vn": "Nước dùng nhẹ, mì trứng, thịt gà và rau củ."
+        "vn": "Nước dùng nhẹ, mì trứng, thịt gà xao và rau củ."
       }
     },
     {
@@ -223,9 +223,9 @@ const menuData = {
         "vn": "Mì nước mix"
       },
       "short": {
-        "ru": "Лапша, бульон и микс мяса с морепродуктами.",
-        "ua": "Локшина, бульйон, мікс м’яса та морепродуктів.",
-        "vn": "Mì nước với mix thịt và hải sản."
+        "ru": "Лапша, бульон и микс мяса.",
+        "ua": "Локшина, бульйон, мікс м’яса.",
+        "vn": "Mì nước với mix thịt."
       }
     }
   ],
@@ -240,12 +240,12 @@ const menuData = {
       "translations": {
         "ru": "Суп Миен с говядиной",
         "ua": "Суп Мієн з яловичиною",
-        "vn": "Miến nước bò"
+        "vn": "Miến nước bò xao"
       },
       "short": {
         "ru": "Прозрачный бульон, стеклянная лапша, говядина и овощи.",
         "ua": "Прозорий бульйон, скляна локшина, яловичина та овочі.",
-        "vn": "Nước dùng trong, miến, bò và rau củ."
+        "vn": "Nước dùng trong, miến, bò xao và rau củ."
       }
     },
     {
@@ -258,12 +258,12 @@ const menuData = {
       "translations": {
         "ru": "Суп Миен со свининой",
         "ua": "Суп Мієн зі свининою",
-        "vn": "Miến nước heo"
+        "vn": "Miến nước lon xao"
       },
       "short": {
         "ru": "Лёгкий бульон, стеклянная лапша, свинина и овощи.",
         "ua": "Легкий бульйон, локшина, свинина та овочі.",
-        "vn": "Nước dùng nhẹ, miến, thịt heo và rau củ."
+        "vn": "Nước dùng nhẹ, miến, thịt lon xao và rau củ."
       }
     },
     {
@@ -276,12 +276,12 @@ const menuData = {
       "translations": {
         "ru": "Суп Миен с курицей",
         "ua": "Суп Мієн з куркою",
-        "vn": "Miến nước gà"
+        "vn": "Miến nước gà xao"
       },
       "short": {
         "ru": "Бульон, стеклянная лапша, курица и зелень.",
         "ua": "Бульйон, локшина, курка та зелень.",
-        "vn": "Nước dùng, miến, thịt gà và rau xanh."
+        "vn": "Nước dùng, miến, thịt gà xao và rau xanh."
       }
     },
     {
@@ -1550,6 +1550,311 @@ const menuData = {
 };
 
 (function patchMenuForSite(){
+  const EXTRA_LANG_FALLBACKS = {
+    zh: ['vn', 'ru', 'ua'],
+    pl: ['ua', 'ru', 'vn'],
+    de: ['ua', 'ru', 'vn']
+  };
+
+  function extendLocaleFields(value){
+    if (!value || typeof value !== 'object') return;
+    if (Array.isArray(value)){
+      value.forEach(extendLocaleFields);
+      return;
+    }
+
+    const keys = Object.keys(value);
+    if (keys.includes('ru') || keys.includes('ua') || keys.includes('vn')){
+      for (const [lang, fallbacks] of Object.entries(EXTRA_LANG_FALLBACKS)){
+        if (value[lang]) continue;
+        for (const code of fallbacks){
+          if (value[code]){
+            value[lang] = value[code];
+            break;
+          }
+        }
+      }
+    }
+
+    Object.values(value).forEach(extendLocaleFields);
+  }
+
+  extendLocaleFields(menuData);
+
+  const SPECIAL_MENU_TRANSLATIONS = {
+    nem_ran: {
+      zh: { name: '炸春卷', short: '香脆炸春卷，内馅鲜香多汁。' },
+      pl: { name: 'Smażone nemy', short: 'Chrupiące smażone rolki z wyrazistym mięsnym farszem.' },
+      de: { name: 'Gebratene Nem-Rollen', short: 'Knusprig gebratene Rollen mit herzhafter Fleischfüllung.' }
+    },
+    ga_chien_xu: {
+      zh: { name: '脆皮鸡', short: '外酥里嫩的金黄脆皮鸡。' },
+      pl: { name: 'Chrupiący kurczak', short: 'Soczysty kurczak w chrupiącej, złocistej panierce.' },
+      de: { name: 'Knuspriges Hähnchen', short: 'Saftiges Hähnchen in einer goldenen, knusprigen Panade.' }
+    },
+    banh_bao: {
+      zh: { name: '包子', short: '松软蒸包，内有肉馅和鸡蛋。' },
+      pl: { name: 'Bao', short: 'Parowana bułka z pszennym ciastem, mięsnym farszem i jajkiem.' },
+      de: { name: 'Bao Bun', short: 'Gedämpftes Weizenbrötchen mit Fleischfüllung und Ei.' }
+    },
+    bo_huc: {
+      zh: { name: 'Bò Húc', short: '能量饮料。' },
+      pl: { name: 'Bò Húc', short: 'Napoj energetyczny.' },
+      de: { name: 'Bò Húc', short: 'Energy-Drink.' }
+    },
+    ca_phe_viet: {
+      zh: { name: '越南咖啡', short: '浓郁的越南咖啡。' },
+      pl: { name: 'Kawa wietnamska', short: 'Mocna kawa po wietnamsku.' },
+      de: { name: 'Vietnamesischer Kaffee', short: 'Kräftiger vietnamesischer Kaffee.' }
+    },
+    pepsi_03: {
+      zh: { name: '百事可乐 0.33', short: '百事可乐 0.33 升。' },
+      pl: { name: 'Pepsi-Cola 0.33', short: 'Pepsi-Cola 0.33 l.' },
+      de: { name: 'Pepsi-Cola 0.33', short: 'Pepsi-Cola 0.33 l.' }
+    },
+    pepsi_black: {
+      zh: { name: '百事黑 0.5', short: 'Pepsi Black 0.5 升。' },
+      pl: { name: 'Pepsi Black 0.5', short: 'Pepsi Black 0.5 l.' },
+      de: { name: 'Pepsi Black 0.5', short: 'Pepsi Black 0.5 l.' }
+    },
+    pepsi_cream_soda_033: {
+      zh: { name: '百事奶油苏打 0.33', short: 'Pepsi Treats 奶油苏打口味，0.33 升。' },
+      pl: { name: 'Pepsi Cream Soda 0.33', short: 'Pepsi Treats o smaku cream soda, 0.33 l.' },
+      de: { name: 'Pepsi Cream Soda 0.33', short: 'Pepsi Treats mit Cream-Soda-Geschmack, 0.33 l.' }
+    },
+    pepsi_strawberry_cream_033: {
+      zh: { name: '百事草莓奶油 0.33', short: 'Pepsi Treats 草莓奶油口味，0.33 升。' },
+      pl: { name: 'Pepsi Truskawka i Śmietanka 0.33', short: 'Pepsi Treats o smaku truskawki i śmietanki, 0.33 l.' },
+      de: { name: 'Pepsi Erdbeere & Sahne 0.33', short: 'Pepsi Treats mit Erdbeer-Sahne-Geschmack, 0.33 l.' }
+    },
+    pepsi_zero_033: {
+      zh: { name: '百事零糖 0.33', short: 'Pepsi Zero Sugar 0.33 升。' },
+      pl: { name: 'Pepsi Zero Sugar 0.33', short: 'Pepsi Zero Sugar 0.33 l.' },
+      de: { name: 'Pepsi Zero Sugar 0.33', short: 'Pepsi Zero Sugar 0.33 l.' }
+    },
+    pepsi_cola_05: {
+      zh: { name: '百事可乐 0.5', short: '百事可乐 0.5 升。' },
+      pl: { name: 'Pepsi-Cola 0.5', short: 'Pepsi-Cola 0.5 l.' },
+      de: { name: 'Pepsi-Cola 0.5', short: 'Pepsi-Cola 0.5 l.' }
+    },
+    pepsi_tropical_05: {
+      zh: { name: '百事热带风味 0.5', short: 'Pepsi Tropical 0.5 升。' },
+      pl: { name: 'Pepsi Tropical 0.5', short: 'Pepsi Tropical 0.5 l.' },
+      de: { name: 'Pepsi Tropical 0.5', short: 'Pepsi Tropical 0.5 l.' }
+    },
+    mirinda_7up: {
+      zh: { name: 'Mirinda / 7UP', short: 'Mirinda 或 7UP。' },
+      pl: { name: 'Mirinda / 7UP', short: 'Mirinda lub 7UP.' },
+      de: { name: 'Mirinda / 7UP', short: 'Mirinda oder 7UP.' }
+    },
+    water: {
+      zh: { name: '矿泉水', short: '可选有气或无气。' },
+      pl: { name: 'Woda', short: 'Woda gazowana lub niegazowana.' },
+      de: { name: 'Wasser', short: 'Still oder mit Kohlensäure.' }
+    },
+    juice: {
+      zh: { name: '果汁', short: '多种水果或番茄口味。' },
+      pl: { name: 'Sok', short: 'Wieloowocowy lub pomidorowy.' },
+      de: { name: 'Saft', short: 'Mehrfrucht- oder Tomatensaft.' }
+    },
+    juice_tomato_05: {
+      zh: { name: 'Sadochok 番茄汁 0.5', short: 'Sadochok 番茄汁 0.5 升。' },
+      pl: { name: 'Sok Sadochok Pomidorowy 0.5', short: 'Sok pomidorowy Sadochok 0.5 l.' },
+      de: { name: 'Sadochok Tomatensaft 0.5', short: 'Tomatensaft Sadochok 0.5 l.' }
+    },
+    juice_apple_grape_05: {
+      zh: { name: 'Sadochok 苹果葡萄汁 0.5', short: 'Sadochok 苹果葡萄汁 0.5 升。' },
+      pl: { name: 'Sok Sadochok Jabłko-Winogrono 0.5', short: 'Sok jabłkowo-winogronowy Sadochok 0.5 l.' },
+      de: { name: 'Sadochok Apfel-Trauben-Saft 0.5', short: 'Apfel-Trauben-Saft Sadochok 0.5 l.' }
+    },
+    juice_multifruit_05: {
+      zh: { name: 'Sadochok 混合果汁 0.5', short: 'Sadochok 混合果汁 0.5 升。' },
+      pl: { name: 'Sok Sadochok Wieloowocowy 0.5', short: 'Sok wieloowocowy Sadochok 0.5 l.' },
+      de: { name: 'Sadochok Mehrfruchtsaft 0.5', short: 'Mehrfruchtsaft Sadochok 0.5 l.' }
+    }
+  };
+
+  function detectVariant(key){
+    const safeKey = String(key || '');
+    if (safeKey.includes('_ga_chien_xu')) return 'crispyChicken';
+    if (safeKey.endsWith('_mix')) return 'mix';
+    if (safeKey.endsWith('_nem')) return 'nem';
+    if (safeKey.endsWith('_rau')) return 'vegetables';
+    if (safeKey.endsWith('_tom')) return 'shrimp';
+    if (safeKey.match(/_bo(?:_|$)/)) return 'beef';
+    if (safeKey.match(/_lon(?:_|$)/)) return 'pork';
+    if (safeKey.match(/_ga(?:_|$)/)) return 'chicken';
+    return '';
+  }
+
+  function translateGeneratedDish(locale, category, variant){
+    if (!variant) return null;
+
+    if (locale === 'zh'){
+      const title = {
+        beef: '牛肉',
+        pork: '猪肉',
+        chicken: '鸡肉',
+        crispyChicken: '脆皮鸡肉',
+        shrimp: '虾仁',
+        mix: '什锦肉类',
+        nem: '炸春卷',
+        vegetables: '蔬菜'
+      }[variant];
+      const desc = {
+        beef: '牛肉',
+        pork: '猪肉',
+        chicken: '鸡肉',
+        crispyChicken: '脆皮鸡肉',
+        shrimp: '虾仁',
+        mix: '什锦肉类',
+        nem: '炸春卷',
+        vegetables: '蔬菜'
+      }[variant];
+      switch (category){
+        case 'pho_soups':
+          return { name: `${title}汤河粉`, short: `浓郁汤底、河粉、${desc}和新鲜香草。` };
+        case 'mi_soups':
+          return { name: `${title}汤蛋面`, short: `鲜香汤底、蛋面、${desc}和蔬菜。` };
+        case 'mien_soups':
+          return { name: `${title}汤粉丝`, short: `清爽汤底、粉丝、${desc}和新鲜香草。` };
+        case 'bun_soups':
+          return { name: `${title}汤米线`, short: `鲜香汤底、米线、${desc}和新鲜香草。` };
+        case 'salat_bun':
+          return { name: `${title}凉拌米线`, short: `米线、${desc}、新鲜蔬菜和越南风味酱汁。` };
+        case 'wok_fried_mien':
+          return { name: `${title}炒粉丝`, short: `粉丝、${desc}、蔬菜和炒酱。` };
+        case 'wok_fried_mi':
+          return { name: `${title}炒蛋面`, short: `蛋面、${desc}、蔬菜和炒酱。` };
+        case 'wok_fried_pho':
+          return { name: `${title}炒河粉`, short: `河粉、${desc}、蔬菜和炒酱。` };
+        case 'rice_braised':
+          return { name: `白米饭配${title}`, short: `白米饭、${desc}和蔬菜。` };
+        case 'fried_rice':
+          return { name: `${title}炒饭`, short: variant === 'vegetables' ? '炒饭、蔬菜和酱汁。' : `炒饭、${desc}、蔬菜和酱汁。` };
+        default:
+          return null;
+      }
+    }
+
+    if (locale === 'pl'){
+      const title = {
+        beef: 'wołowiną',
+        pork: 'wieprzowiną',
+        chicken: 'kurczakiem',
+        crispyChicken: 'chrupiącym kurczakiem',
+        shrimp: 'krewetkami',
+        mix: 'mixem mięs',
+        nem: 'nemami',
+        vegetables: 'warzywami'
+      }[variant];
+      const desc = {
+        beef: 'wołowina',
+        pork: 'wieprzowina',
+        chicken: 'kurczak',
+        crispyChicken: 'chrupiący kurczak',
+        shrimp: 'krewetki',
+        mix: 'mix mięs',
+        nem: 'chrupiące nemy',
+        vegetables: 'warzywa'
+      }[variant];
+      switch (category){
+        case 'pho_soups':
+          return { name: `Pho z ${title}`, short: `Aromatyczny bulion, makaron pho, ${desc} i świeże zioła.` };
+        case 'mi_soups':
+          return { name: `Zupa mi z ${title}`, short: `Aromatyczny bulion, makaron mi, ${desc} i warzywa.` };
+        case 'mien_soups':
+          return { name: `Zupa mien z ${title}`, short: `Lekki bulion, makaron mien, ${desc} i świeże zioła.` };
+        case 'bun_soups':
+          return { name: `Zupa bun z ${title}`, short: `Aromatyczny bulion, makaron bun, ${desc} i świeże zioła.` };
+        case 'salat_bun':
+          return { name: `Sałatka bun z ${title}`, short: `Makaron ryżowy, ${desc} i świeże warzywa z tradycyjnym sosem.` };
+        case 'wok_fried_mien':
+          return { name: `Smażony mien z ${title}`, short: `Makaron mien, ${desc}, warzywa i sos z woka.` };
+        case 'wok_fried_mi':
+          return { name: `Smażony makaron mi z ${title}`, short: `Makaron mi, ${desc}, warzywa i sos z woka.` };
+        case 'wok_fried_pho':
+          return { name: `Smażone pho z ${title}`, short: `Makaron pho, ${desc}, warzywa i sos z woka.` };
+        case 'rice_braised':
+          return { name: `Biały ryż z ${title}`, short: `Biały ryż, ${desc} i warzywa.` };
+        case 'fried_rice':
+          return { name: `Smażony ryż z ${title}`, short: variant === 'vegetables' ? 'Smażony ryż, warzywa i sos.' : `Smażony ryż, ${desc}, warzywa i sos.` };
+        default:
+          return null;
+      }
+    }
+
+    if (locale === 'de'){
+      const title = {
+        beef: 'Rindfleisch',
+        pork: 'Schweinefleisch',
+        chicken: 'Hähnchen',
+        crispyChicken: 'knusprigem Hähnchen',
+        shrimp: 'Garnelen',
+        mix: 'Fleischmix',
+        nem: 'Nem-Rollen',
+        vegetables: 'Gemüse'
+      }[variant];
+      const desc = {
+        beef: 'Rindfleisch',
+        pork: 'Schweinefleisch',
+        chicken: 'Hähnchen',
+        crispyChicken: 'knuspriges Hähnchen',
+        shrimp: 'Garnelen',
+        mix: 'Fleischmix',
+        nem: 'knusprige Nem-Rollen',
+        vegetables: 'Gemüse'
+      }[variant];
+      switch (category){
+        case 'pho_soups':
+          return { name: `Pho-Suppe mit ${title}`, short: `Aromatische Brühe, Pho-Nudeln, ${desc} und frische Kräuter.` };
+        case 'mi_soups':
+          return { name: `Mi-Suppe mit ${title}`, short: `Aromatische Brühe, Mi-Nudeln, ${desc} und Gemüse.` };
+        case 'mien_soups':
+          return { name: `Mien-Suppe mit ${title}`, short: `Leichte Brühe, Mien-Nudeln, ${desc} und frische Kräuter.` };
+        case 'bun_soups':
+          return { name: `Bun-Suppe mit ${title}`, short: `Aromatische Brühe, Bun-Nudeln, ${desc} und frische Kräuter.` };
+        case 'salat_bun':
+          return { name: `Bun-Salat mit ${title}`, short: `Reisnudeln, ${desc} und frisches Gemüse mit traditioneller Sauce.` };
+        case 'wok_fried_mien':
+          return { name: `Gebratene Mien mit ${title}`, short: `Mien-Nudeln, ${desc}, Gemüse und Wok-Sauce.` };
+        case 'wok_fried_mi':
+          return { name: `Gebratene Mi-Nudeln mit ${title}`, short: `Mi-Nudeln, ${desc}, Gemüse und Wok-Sauce.` };
+        case 'wok_fried_pho':
+          return { name: `Gebratene Pho-Nudeln mit ${title}`, short: `Pho-Nudeln, ${desc}, Gemüse und Wok-Sauce.` };
+        case 'rice_braised':
+          return { name: `Weisser Reis mit ${title}`, short: `Weisser Reis, ${desc} und Gemüse.` };
+        case 'fried_rice':
+          return { name: `Gebratener Reis mit ${title}`, short: variant === 'vegetables' ? 'Gebratener Reis, Gemüse und Sauce.' : `Gebratener Reis, ${desc}, Gemüse und Sauce.` };
+        default:
+          return null;
+      }
+    }
+
+    return null;
+  }
+
+  function applyLiveMenuTranslations(){
+    for (const [category, items] of Object.entries(menuData)){
+      if (!Array.isArray(items)) continue;
+      for (const item of items){
+        const variant = detectVariant(item.key);
+        for (const locale of Object.keys(EXTRA_LANG_FALLBACKS)){
+          const translated =
+            SPECIAL_MENU_TRANSLATIONS[item.key]?.[locale] ||
+            translateGeneratedDish(locale, category, variant);
+          if (!translated) continue;
+          if (!item.translations || typeof item.translations !== 'object') item.translations = {};
+          if (!item.short || typeof item.short !== 'object') item.short = {};
+          item.translations[locale] = translated.name;
+          item.short[locale] = translated.short;
+        }
+      }
+    }
+  }
+
+  applyLiveMenuTranslations();
+
   const order = [
     'pho_soups',
     'mi_soups',

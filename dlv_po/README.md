@@ -2,6 +2,12 @@
 
 Стартовый проект для системы управления заказами на поставку DRAGON. Он уже включает базовый backend на Flask, SQLite-схему, стартовую веб-панель и API для поставщиков, номенклатуры и purchase orders.
 
+Теперь модуль запускается безопаснее:
+- API закрыт сессией
+- пароль админа берётся из `DRAGON_PO_ADMIN_PASSWORD`
+- по умолчанию сервер слушает только `127.0.0.1`
+- debug mode по умолчанию выключен
+
 ## Что уже готово
 
 - единая точка входа `app.py`
@@ -17,7 +23,7 @@
 ## Структура
 
 ```text
-dragon_po/
+dlv_po/
 ├── app.py
 ├── data/
 │   └── po.db
@@ -34,7 +40,7 @@ dragon_po/
 1. Перейдите в каталог проекта:
 
    ```bash
-   cd /home/jkbook/DRAGON/dragon_po
+   cd /home/jkbook/DRAGON/dlv_po
    ```
 
 2. Установите зависимости:
@@ -43,21 +49,40 @@ dragon_po/
    pip install -r requirements.txt
    ```
 
-3. Запустите приложение:
+3. Задайте пароль для входа:
+
+   ```bash
+   export DRAGON_PO_ADMIN_PASSWORD='change-this-password'
+   ```
+
+   Дополнительно можно задать:
+
+   ```bash
+   export DRAGON_PO_SECRET_KEY='long-random-secret'
+   export DRAGON_PO_HOST='127.0.0.1'
+   export DRAGON_PO_DEBUG='0'
+   ```
+
+4. Запустите приложение:
 
    ```bash
    python app.py
    ```
 
-4. Откройте в браузере:
+5. Откройте в браузере:
 
    ```text
    http://127.0.0.1:5001
    ```
 
+6. Войдите через форму на странице, используя `DRAGON_PO_ADMIN_PASSWORD`.
+
 ## Основные API endpoints
 
 - `GET /api/health`
+- `GET /api/session`
+- `POST /api/session`
+- `DELETE /api/session`
 - `GET /api/dashboard`
 - `GET /api/suppliers`
 - `POST /api/suppliers`
@@ -69,9 +94,10 @@ dragon_po/
 
 ## Данные
 
-- база создается автоматически в `dragon_po/data/po.db`
+- база создается автоматически в `dlv_po/data/po.db`
 - номера заказов формируются в формате `PO-YYYYMMDD-XXX`
 - суммы заказов пересчитываются на сервере
+- если пароль не задан через env, приложение сгенерирует временный пароль и выведет его в консоль
 
 ## Следующий этап
 

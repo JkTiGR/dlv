@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import os
+import secrets
 import sqlite3
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from functools import wraps
 from pathlib import Path
 from typing import Any
 
-from flask import Flask, current_app, jsonify, request, send_from_directory
-from flask_cors import CORS
+from flask import Flask, current_app, jsonify, request, send_from_directory, session
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -91,7 +92,7 @@ def query_dashboard(connection: sqlite3.Connection) -> dict[str, Any]:
     }
 
 
-def generate_po_number(connection: sqlite3.Connection) -> str:
+def generate_po_number(connection: sqlite3.Connection, counter_offset: int = 0) -> str:
     date_key = datetime.now(timezone.utc).date().isoformat()
     date_code = date_key.replace("-", "")
     current_count = connection.execute(
@@ -102,7 +103,7 @@ def generate_po_number(connection: sqlite3.Connection) -> str:
         """,
         (date_key,),
     ).fetchone()[0]
-    return f"PO-{date_code}-{current_count + 1:03d}"
+    return f"PO-{date_code}-{current_count + counter_offset + 1:03d}"
 
 
 def fetch_supplier(connection: sqlite3.Connection, supplier_id: int) -> sqlite3.Row | None:
@@ -168,13 +169,59 @@ def serialize_orders(connection: sqlite3.Connection) -> list[dict[str, Any]]:
     return [serialize_order(connection, row) for row in rows]
 
 
-def create_app() -> Flask:
+def resolve_admin_password() -> tuple[str, str]:
+    for env_name in ("DRAGON_PO_ADMIN_PASSWORD", "PO_ADMIN_PASSWORD"):
+        value = str(os.getenv(env_name) or "").strip()
+        if value:
+            return value, env_name
+    return secrets.token_urlsafe(18), "generated"
+
+
+def is_authenticated() -> bool:
+    return bool(session.get("dragon_po_authenticated"))
+
+
+def require_auth(view_func):
+    @wraps(view_func)
+    def wrapped(*args, **kwargs):
+        if is_authenticated():
+            return view_func(*args, **kwargs)
+        return jsonify({"error": "Authentication required.", "auth_required": True}), 401
+
+    return wrapped
+
+
+def create_app(config: dict[str, Any] | None = None) -> Flask:
+    generated_password, password_source = resolve_admin_password()
+
     app = Flask(__name__, static_folder="static", static_url_path="/static")
-    CORS(app)
-    app.config["DATABASE_PATH"] = Path(os.getenv("DRAGON_PO_DB_PATH", DEFAULT_DB_PATH))
-    app.config["DEBUG"] = os.getenv("DRAGON_PO_DEBUG", "1") == "1"
+    app.config.update(
+        DATABASE_PATH=Path(os.getenv("DRAGON_PO_DB_PATH", DEFAULT_DB_PATH)),
+        DEBUG=os.getenv("DRAGON_PO_DEBUG", "0") == "1",
+        HOST=str(os.getenv("DRAGON_PO_HOST", "127.0.0.1")).strip() or "127.0.0.1",
+        SECRET_KEY=str(os.getenv("DRAGON_PO_SECRET_KEY") or secrets.token_hex(32)),
+        SESSION_COOKIE_NAME="dragon_po_session",
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE="Lax",
+        SESSION_COOKIE_SECURE=os.getenv("DRAGON_PO_SECURE_COOKIE", "0") == "1",
+        PERMANENT_SESSION_LIFETIME=timedelta(hours=12),
+        PO_ADMIN_PASSWORD=generated_password,
+        PO_PASSWORD_SOURCE=password_source,
+    )
+    if config:
+        app.config.update(config)
 
     init_db(app)
+
+    if app.config.get("PO_PASSWORD_SOURCE") == "generated":
+        print("DRAGON PO auth password generated for this process:")
+        print(f"  {app.config['PO_ADMIN_PASSWORD']}")
+        print("Set DRAGON_PO_ADMIN_PASSWORD to persist it across restarts.")
+
+    @app.after_request
+    def harden_response(response):
+        response.headers.setdefault("Cache-Control", "no-store")
+        return response
 
     @app.get("/")
     def index():
@@ -186,17 +233,49 @@ def create_app() -> Flask:
             {
                 "status": "ok",
                 "project": "DRAGON Purchase Order Starter",
-                "database_path": str(Path(app.config["DATABASE_PATH"])),
+                "auth_enabled": True,
                 "generated_at": utc_now(),
             }
         )
 
+    @app.get("/api/session")
+    def session_state():
+        return jsonify(
+            {
+                "authenticated": is_authenticated(),
+                "auth_enabled": True,
+                "password_source": app.config.get("PO_PASSWORD_SOURCE") or "configured",
+                "generated_at": utc_now(),
+            }
+        )
+
+    @app.post("/api/session")
+    def create_session():
+        payload = request.get_json(silent=True) or {}
+        password = str(payload.get("password") or "").strip()
+        if password != str(app.config["PO_ADMIN_PASSWORD"]):
+            session.clear()
+            return json_error("Invalid password.", 401)
+
+        session.clear()
+        session.permanent = True
+        session["dragon_po_authenticated"] = True
+        session["dragon_po_authenticated_at"] = utc_now()
+        return jsonify({"ok": True, "authenticated": True, "generated_at": utc_now()})
+
+    @app.delete("/api/session")
+    def delete_session():
+        session.clear()
+        return jsonify({"ok": True, "authenticated": False, "generated_at": utc_now()})
+
     @app.get("/api/dashboard")
+    @require_auth
     def dashboard():
         with get_db() as connection:
             return jsonify(query_dashboard(connection))
 
     @app.route("/api/suppliers", methods=["GET", "POST"])
+    @require_auth
     def suppliers():
         with get_db() as connection:
             if request.method == "GET":
@@ -257,6 +336,7 @@ def create_app() -> Flask:
             return jsonify(dict(row)), 201
 
     @app.route("/api/products", methods=["GET", "POST"])
+    @require_auth
     def products():
         with get_db() as connection:
             if request.method == "GET":
@@ -349,6 +429,7 @@ def create_app() -> Flask:
             return jsonify(dict(row)), 201
 
     @app.route("/api/orders", methods=["GET", "POST"])
+    @require_auth
     def orders():
         with get_db() as connection:
             if request.method == "GET":
@@ -423,34 +504,44 @@ def create_app() -> Flask:
                 return json_error(str(error))
 
             created_at = utc_now()
-            po_number = generate_po_number(connection)
+            cursor = None
+            for attempt in range(5):
+                po_number = generate_po_number(connection, counter_offset=attempt)
+                try:
+                    cursor = connection.execute(
+                        """
+                        INSERT INTO purchase_orders (
+                            po_number,
+                            supplier_id,
+                            status,
+                            currency,
+                            expected_date,
+                            total_amount,
+                            notes,
+                            created_at,
+                            updated_at
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            po_number,
+                            supplier["id"],
+                            status,
+                            currency,
+                            expected_date,
+                            total_amount,
+                            notes,
+                            created_at,
+                            created_at,
+                        ),
+                    )
+                    break
+                except sqlite3.IntegrityError as error:
+                    connection.rollback()
+                    if "po_number" not in str(error).lower():
+                        raise
 
-            cursor = connection.execute(
-                """
-                INSERT INTO purchase_orders (
-                    po_number,
-                    supplier_id,
-                    status,
-                    currency,
-                    expected_date,
-                    total_amount,
-                    notes,
-                    created_at,
-                    updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    po_number,
-                    supplier["id"],
-                    status,
-                    currency,
-                    expected_date,
-                    total_amount,
-                    notes,
-                    created_at,
-                    created_at,
-                ),
-            )
+            if cursor is None:
+                return json_error("Could not allocate a unique purchase order number. Please retry.", 409)
 
             order_id = cursor.lastrowid
 
@@ -511,6 +602,7 @@ def create_app() -> Flask:
             return jsonify(serialize_order(connection, row)), 201
 
     @app.get("/api/orders/<int:order_id>")
+    @require_auth
     def order_detail(order_id: int):
         with get_db() as connection:
             row = connection.execute(
@@ -547,7 +639,7 @@ app = create_app()
 
 if __name__ == "__main__":
     app.run(
-        host="0.0.0.0",
+        host=str(app.config["HOST"]),
         port=int(os.getenv("PORT", "5001")),
-        debug=app.config["DEBUG"],
+        debug=bool(app.config["DEBUG"]),
     )

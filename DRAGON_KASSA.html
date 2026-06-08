@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#080101" />
   <title>DRAGON KASSA</title>
   <link rel="icon" href="logo.png" />
+  <link rel="stylesheet" href="dragon-theme.css" />
   <style>
     :root {
       --bg: #030000;
@@ -528,6 +529,34 @@
       min-height: 22px;
       color: #ffb0b8;
       font-size: 13px;
+    }
+
+    .auth-help {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      border-radius: 16px;
+    }
+
+    .auth-help[hidden] {
+      display: none;
+    }
+
+    .auth-help code {
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff4ef;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .auth-help a {
+      color: #ffd5c4;
+      word-break: break-all;
     }
 
     .stats {
@@ -2019,6 +2048,471 @@
       display: none !important;
     }
 
+    /* =========================================================
+       LIQUID GLASS RED THEME
+       ========================================================= */
+
+    :root {
+      --bg: #050001;
+      --bg-alt: #140103;
+      --panel: rgba(37, 7, 10, 0.54);
+      --panel-2: rgba(17, 3, 5, 0.8);
+      --panel-3: rgba(58, 9, 12, 0.92);
+      --line: rgba(255, 101, 86, 0.16);
+      --line-strong: rgba(255, 141, 118, 0.34);
+      --text: #fff5f2;
+      --muted: #dbb1ae;
+      --accent: #ff4f40;
+      --accent-2: #ff9b5d;
+      --neon-red: rgba(255, 79, 64, 0.26);
+      --neon-amber: rgba(255, 155, 93, 0.18);
+      --neon-cyan: rgba(96, 236, 255, 0.18);
+      --neon-violet: rgba(212, 120, 255, 0.18);
+      --neon-lime: rgba(196, 255, 117, 0.12);
+      --shadow:
+        0 28px 74px rgba(0, 0, 0, 0.5),
+        0 0 26px rgba(255, 79, 64, 0.16),
+        0 0 58px rgba(255, 127, 83, 0.08);
+      --glass-blur: 24px;
+      --glass-sat: 180%;
+      --liquid-stroke: rgba(255, 230, 224, 0.14);
+      --liquid-panel:
+        radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.22), transparent 26%),
+        radial-gradient(circle at 86% 16%, rgba(255, 128, 96, 0.14), transparent 24%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 14%, rgba(110, 22, 27, 0.18) 42%, rgba(11, 2, 4, 0.88) 100%);
+      --liquid-panel-soft:
+        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 88% 18%, rgba(255, 155, 93, 0.1), transparent 22%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 14%, rgba(75, 11, 16, 0.16) 38%, rgba(10, 2, 4, 0.8) 100%);
+      --liquid-highlight:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.1) 18%, rgba(255, 255, 255, 0.02) 44%, transparent 74%),
+        linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 30%, transparent 68%, rgba(255, 132, 92, 0.06));
+      --liquid-inner:
+        inset 0 6px 12px rgba(255, 255, 255, 0.12),
+        inset 0 -28px 32px rgba(8, 1, 3, 0.24),
+        inset 0 2px 1px rgba(255, 255, 255, 0.66);
+      --crystal-cut: polygon(18px 0, calc(100% - 34px) 0, 100% 28px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 24px 100%, 0 calc(100% - 24px), 0 18px);
+      --crystal-facets:
+        linear-gradient(132deg, rgba(255, 255, 255, 0.2) 0 12%, transparent 12% 42%, rgba(255, 160, 108, 0.09) 42% 58%, transparent 58% 100%),
+        linear-gradient(318deg, rgba(255, 255, 255, 0.14) 0 10%, transparent 10% 46%, rgba(255, 86, 74, 0.08) 46% 62%, transparent 62% 100%),
+        conic-gradient(from 128deg at 14% 14%, rgba(255, 255, 255, 0.24), rgba(255, 170, 124, 0.08) 16%, transparent 30% 72%, rgba(255, 255, 255, 0.08) 86%, transparent 100%),
+        conic-gradient(from -34deg at 88% 82%, rgba(255, 255, 255, 0.16), rgba(255, 115, 84, 0.06) 18%, transparent 34% 70%, rgba(255, 255, 255, 0.08) 84%, transparent 100%);
+      --crystal-facets-strong:
+        linear-gradient(132deg, rgba(255, 255, 255, 0.22) 0 12%, transparent 12% 38%, rgba(255, 174, 120, 0.1) 38% 54%, transparent 54% 100%),
+        linear-gradient(316deg, rgba(255, 255, 255, 0.16) 0 10%, transparent 10% 42%, rgba(255, 99, 82, 0.08) 42% 58%, transparent 58% 100%),
+        conic-gradient(from 124deg at 14% 16%, rgba(255, 255, 255, 0.26), rgba(255, 174, 130, 0.1) 16%, transparent 28% 70%, rgba(255, 255, 255, 0.08) 86%, transparent 100%),
+        conic-gradient(from -28deg at 86% 82%, rgba(255, 255, 255, 0.18), rgba(255, 118, 90, 0.08) 18%, transparent 34% 68%, rgba(255, 255, 255, 0.08) 84%, transparent 100%);
+      --triangle-shards:
+        linear-gradient(146deg, rgba(255, 255, 255, 0.18) 0 7%, transparent 7% 100%),
+        linear-gradient(326deg, rgba(120, 234, 255, 0.17) 0 8%, transparent 8% 100%),
+        linear-gradient(212deg, transparent 0 60%, rgba(255, 120, 222, 0.13) 60% 72%, transparent 72% 100%),
+        linear-gradient(38deg, transparent 0 68%, rgba(196, 255, 117, 0.09) 68% 78%, transparent 78% 100%);
+      --triangle-shards-strong:
+        linear-gradient(148deg, rgba(255, 255, 255, 0.2) 0 8%, transparent 8% 100%),
+        linear-gradient(328deg, rgba(120, 234, 255, 0.18) 0 8%, transparent 8% 100%),
+        linear-gradient(210deg, transparent 0 58%, rgba(255, 132, 228, 0.14) 58% 72%, transparent 72% 100%),
+        linear-gradient(36deg, transparent 0 64%, rgba(208, 255, 126, 0.1) 64% 76%, transparent 76% 100%);
+      --holo-spectrum:
+        linear-gradient(112deg, rgba(111, 240, 255, 0.24) 4%, rgba(255, 255, 255, 0.1) 18%, rgba(255, 126, 228, 0.18) 34%, rgba(255, 182, 98, 0.2) 48%, rgba(198, 255, 124, 0.14) 62%, rgba(111, 240, 255, 0.2) 78%, transparent 90%);
+      --prism-spectrum:
+        conic-gradient(from 124deg at 14% 14%, rgba(255, 255, 255, 0.2), rgba(112, 240, 255, 0.18) 14%, rgba(255, 129, 226, 0.16) 28%, rgba(255, 188, 98, 0.18) 42%, rgba(196, 255, 122, 0.12) 58%, transparent 76%, rgba(255, 255, 255, 0.12) 88%, transparent 100%),
+        conic-gradient(from -40deg at 88% 84%, rgba(255, 255, 255, 0.16), rgba(106, 228, 255, 0.14) 18%, rgba(255, 134, 230, 0.12) 32%, transparent 46% 72%, rgba(255, 184, 104, 0.12) 86%, transparent 100%);
+      --crystal-gleam:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.32) 0 8%, transparent 8% 100%),
+        linear-gradient(315deg, rgba(255, 255, 255, 0.18) 0 8%, transparent 8% 100%),
+        linear-gradient(90deg, transparent 0 14%, rgba(255, 255, 255, 0.08) 18%, transparent 23%, transparent 73%, rgba(255, 160, 112, 0.08) 80%, transparent 86%);
+    }
+
+    html,
+    body {
+      background:
+        radial-gradient(62% 42% at 14% 10%, rgba(255, 86, 74, 0.2), transparent 54%),
+        radial-gradient(48% 38% at 82% 14%, rgba(255, 138, 88, 0.12), transparent 48%),
+        radial-gradient(72% 58% at 50% 108%, rgba(94, 8, 13, 0.42), transparent 54%),
+        linear-gradient(180deg, #180103 0%, #0a0102 28%, #050001 54%, #090102 76%, #140103 100%);
+    }
+
+    body::before,
+    body::after {
+      width: min(96vw, 1180px);
+      height: min(96vw, 1180px);
+      border: none;
+      box-shadow: none;
+      filter: blur(14px);
+      opacity: 0.84;
+    }
+
+    body::before {
+      top: -36vh;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 92, 76, 0.24), rgba(140, 18, 24, 0.16) 30%, rgba(20, 2, 4, 0) 68%);
+    }
+
+    body::after {
+      bottom: -40vh;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 154, 90, 0.14), rgba(126, 12, 18, 0.12) 30%, rgba(20, 2, 4, 0) 68%);
+    }
+
+    .side-card,
+    .panel,
+    .stat,
+    .hero,
+    .auth-card,
+    .modal-card,
+    .date-toolbar,
+    .sync-row,
+    .order-card,
+    .menu-result,
+    .manual-item,
+    .modifier-builder,
+    .modifier-group,
+    .modifier-preview,
+    .manual-section,
+    .summary-box,
+    .toast {
+      position: relative;
+      overflow: hidden;
+      clip-path: var(--crystal-cut);
+      border: 1px solid var(--liquid-stroke);
+      border-radius: 0;
+      background:
+        var(--triangle-shards),
+        var(--crystal-facets),
+        var(--liquid-panel-soft);
+      box-shadow: var(--shadow), var(--liquid-inner);
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+      background-blend-mode: screen, screen, normal;
+    }
+
+    .hero,
+    .auth-card,
+    .modal-card,
+    .summary-box,
+    .modifier-quick-card,
+    .remote-access-card,
+    .manual-order-panel,
+    .modifier-actions {
+      background:
+        var(--triangle-shards-strong),
+        var(--crystal-facets-strong),
+        var(--liquid-panel);
+      background-blend-mode: screen, screen, normal;
+    }
+
+    .side-card::before,
+    .panel::before,
+    .stat::before,
+    .hero::before,
+    .auth-card::before,
+    .modal-card::before,
+    .date-toolbar::before,
+    .sync-row::before,
+    .order-card::before,
+    .menu-result::before,
+    .manual-item::before,
+    .modifier-builder::before,
+    .modifier-group::before,
+    .modifier-preview::before,
+    .manual-section::before,
+    .summary-box::before,
+    .toast::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      clip-path: var(--crystal-cut);
+      border-radius: 0;
+      pointer-events: none;
+      background:
+        var(--holo-spectrum),
+        var(--prism-spectrum),
+        var(--liquid-highlight);
+      background-size: 180% 180%, 160% 160%, auto;
+      background-position: 0% 0%, 100% 100%, 0 0;
+      opacity: 0.86;
+      mix-blend-mode: screen;
+      filter: saturate(128%);
+      z-index: 0;
+      animation: holographicDrift 10s linear infinite alternate;
+    }
+
+    .side-card::after,
+    .panel::after,
+    .stat::after,
+    .hero::after,
+    .auth-card::after,
+    .modal-card::after,
+    .date-toolbar::after,
+    .sync-row::after,
+    .order-card::after,
+    .menu-result::after,
+    .manual-item::after,
+    .modifier-builder::after,
+    .modifier-group::after,
+    .modifier-preview::after,
+    .manual-section::after,
+    .summary-box::after,
+    .toast::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: var(--crystal-cut);
+      border-radius: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(144deg, rgba(255, 255, 255, 0.2) 0 1px, transparent 1px 100%),
+        linear-gradient(324deg, rgba(255, 184, 142, 0.14) 0 1px, transparent 1px 100%),
+        linear-gradient(152deg, transparent 0 38%, rgba(112, 240, 255, 0.18) 38% 39%, transparent 39% 100%),
+        linear-gradient(332deg, transparent 0 62%, rgba(255, 118, 226, 0.15) 62% 63%, transparent 63% 100%),
+        linear-gradient(90deg, transparent 0 34%, rgba(255, 255, 255, 0.08) 35%, transparent 36%, transparent 64%, rgba(255, 129, 97, 0.07) 65%, transparent 66%),
+        var(--prism-spectrum),
+        var(--crystal-gleam);
+      background-size: auto, auto, auto, auto, auto, 150% 150%, auto;
+      background-position: 0 0, 0 0, 0 0, 100% 0, 0 0, 100% 100%, 0 0;
+      opacity: 0.82;
+      mix-blend-mode: screen;
+      z-index: 0;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 236, 230, 0.14),
+        inset 0 0 28px rgba(255, 255, 255, 0.03),
+        0 0 22px rgba(255, 82, 66, 0.08),
+        0 0 38px rgba(112, 240, 255, 0.06);
+      animation: prismSweep 8s ease-in-out infinite alternate;
+    }
+
+    .side-card > *,
+    .panel > *,
+    .stat > *,
+    .hero > *,
+    .auth-card > *,
+    .modal-card > *,
+    .date-toolbar > *,
+    .sync-row > *,
+    .order-card > *,
+    .menu-result > *,
+    .manual-item > *,
+    .modifier-builder > *,
+    .modifier-group > *,
+    .modifier-preview > *,
+    .manual-section > *,
+    .summary-box > *,
+    .toast > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      clip-path: polygon(26px 0, calc(100% - 44px) 0, 100% 34px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 34px 100%, 0 calc(100% - 30px), 0 24px);
+      border-radius: 0;
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.48),
+        0 0 32px rgba(255, 76, 62, 0.16),
+        inset 0 6px 12px rgba(255, 255, 255, 0.1),
+        inset 0 -32px 34px rgba(9, 1, 3, 0.22),
+        inset 0 2px 1px rgba(255, 255, 255, 0.64);
+    }
+
+    .auth-card,
+    .modal-card,
+    .summary-box,
+    .manual-section,
+    .modifier-builder,
+    .modifier-actions,
+    .modifier-quick-card,
+    .remote-access-card,
+    .report-table-wrap {
+      clip-path: polygon(22px 0, calc(100% - 34px) 0, 100% 30px, 100% calc(100% - 18px), calc(100% - 20px) 100%, 26px 100%, 0 calc(100% - 24px), 0 20px);
+      border-radius: 0;
+    }
+
+    .hero h2,
+    .panel-head h3,
+    .modal-head h3 {
+      text-shadow:
+        0 0 18px rgba(255, 78, 64, 0.28),
+        0 0 32px rgba(110, 236, 255, 0.12),
+        0 0 36px rgba(255, 142, 98, 0.12);
+    }
+
+    .auth-screen,
+    .modal {
+      background:
+        radial-gradient(circle at 18% 16%, rgba(255, 79, 64, 0.18), transparent 32%),
+        radial-gradient(circle at 84% 76%, rgba(255, 155, 93, 0.12), transparent 28%),
+        rgba(8, 1, 2, 0.78);
+      backdrop-filter: blur(24px) saturate(170%);
+      -webkit-backdrop-filter: blur(24px) saturate(170%);
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      backdrop-filter: blur(16px) saturate(165%);
+      -webkit-backdrop-filter: blur(16px) saturate(165%);
+    }
+
+    .btn.primary {
+      color: #fffaf7;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(255, 255, 255, 0.26), transparent 22%),
+        linear-gradient(135deg, rgba(255, 146, 112, 0.96), rgba(221, 43, 47, 0.94) 48%, rgba(107, 11, 18, 0.96));
+      border-color: rgba(255, 229, 221, 0.24);
+      box-shadow:
+        0 0 22px rgba(255, 79, 64, 0.24),
+        0 0 42px rgba(255, 142, 98, 0.12),
+        inset 0 6px 10px rgba(255, 255, 255, 0.12),
+        inset 0 2px 1px rgba(255, 255, 255, 0.78);
+    }
+
+    .btn.secondary,
+    .btn.ghost,
+    .date-chip,
+    .toggle-btn,
+    .modifier-option,
+    .qty-box,
+    .qty-box button {
+      border-color: var(--liquid-stroke);
+      background:
+        var(--triangle-shards),
+        var(--liquid-panel-soft);
+      box-shadow:
+        inset 0 4px 8px rgba(255, 255, 255, 0.08),
+        inset 0 -18px 24px rgba(9, 1, 3, 0.12);
+      background-blend-mode: screen, normal;
+    }
+
+    .btn.secondary,
+    .btn.ghost,
+    .date-chip,
+    .toggle-btn,
+    .modifier-option {
+      clip-path: polygon(14px 0, calc(100% - 18px) 0, 100% 16px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 16px 100%, 0 calc(100% - 16px), 0 14px);
+      border-radius: 0;
+    }
+
+    .date-chip.active,
+    .toggle-btn.active,
+    .modifier-option.active,
+    .modifier-builder.editing .modifier-edit-btn {
+      color: #fffaf7;
+      border-color: rgba(255, 233, 226, 0.22);
+      background:
+        var(--triangle-shards-strong),
+        radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.22), transparent 24%),
+        linear-gradient(135deg, rgba(255, 146, 112, 0.92), rgba(224, 48, 52, 0.9) 48%, rgba(111, 12, 19, 0.94));
+      box-shadow:
+        0 0 18px rgba(255, 79, 64, 0.22),
+        0 0 28px rgba(110, 236, 255, 0.08),
+        inset 0 6px 10px rgba(255, 255, 255, 0.1),
+        inset 0 2px 1px rgba(255, 255, 255, 0.72);
+    }
+
+    .input,
+    .select,
+    .textarea {
+      border-color: rgba(255, 109, 92, 0.16);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.1), transparent 22%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(73, 11, 15, 0.08), rgba(11, 2, 4, 0.56));
+      box-shadow:
+        inset 0 4px 8px rgba(255, 255, 255, 0.08),
+        inset 0 -16px 20px rgba(9, 1, 3, 0.14);
+      backdrop-filter: blur(16px) saturate(165%);
+      -webkit-backdrop-filter: blur(16px) saturate(165%);
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      border-color: rgba(255, 137, 116, 0.42);
+      background:
+        var(--triangle-shards),
+        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.12), transparent 22%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(98, 16, 21, 0.1), rgba(11, 2, 4, 0.62));
+      box-shadow:
+        0 0 0 3px rgba(255, 79, 64, 0.1),
+        0 0 20px rgba(110, 236, 255, 0.08),
+        0 0 18px rgba(255, 79, 64, 0.16),
+        inset 0 4px 8px rgba(255, 255, 255, 0.08);
+    }
+
+    .order-card,
+    .menu-result,
+    .manual-item,
+    .modifier-group,
+    .modifier-preview {
+      border-color: rgba(255, 112, 97, 0.12);
+    }
+
+    .order-card.payment-unknown-card {
+      box-shadow:
+        0 24px 70px rgba(255, 109, 122, 0.14),
+        0 0 26px rgba(255, 109, 122, 0.12),
+        inset 0 6px 10px rgba(255, 255, 255, 0.08);
+    }
+
+    .modifier-actions,
+    .modal-footer {
+      border-color: rgba(255, 122, 96, 0.22);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+    }
+
+    .report-table-wrap {
+      border-color: rgba(255, 110, 92, 0.24);
+      background:
+        var(--crystal-facets-strong),
+        rgba(255, 255, 255, 0.96);
+      box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.28),
+        0 0 24px rgba(255, 70, 58, 0.12);
+    }
+
+    .toast {
+      background:
+        var(--triangle-shards-strong),
+        var(--liquid-panel);
+    }
+
+    .auth-mark,
+    .qty-box {
+      clip-path: polygon(14px 0, calc(100% - 18px) 0, 100% 16px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 16px 100%, 0 calc(100% - 16px), 0 14px);
+      border-radius: 0;
+    }
+
+    @keyframes holographicDrift {
+      0% {
+        background-position: 0% 0%, 100% 100%, 0 0;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      50% {
+        background-position: 45% 20%, 55% 80%, 0 0;
+      }
+
+      100% {
+        background-position: 100% 24%, 0% 76%, 0 0;
+        transform: translate3d(0, 0, 0) scale(1.02);
+      }
+    }
+
+    @keyframes prismSweep {
+      0% {
+        background-position: 0 0, 0 0, 0 0, 100% 0, 0 0, 100% 100%, 0 0;
+        opacity: 0.68;
+      }
+
+      50% {
+        background-position: 0 0, 0 0, 24% 10%, 82% 24%, 0 0, 52% 52%, 0 0;
+        opacity: 0.88;
+      }
+
+      100% {
+        background-position: 0 0, 0 0, 100% 36%, 0% 88%, 0 0, 0% 0%, 0 0;
+        opacity: 0.74;
+      }
+    }
+
     @media (max-width: 1320px) {
       .stats {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2141,7 +2635,7 @@
     }
   </style>
 </head>
-<body class="locked">
+<body class="dragon-unified locked">
   <section class="auth-screen" id="authScreen" aria-label="PIN кассы">
     <form class="auth-card" id="pinForm" autocomplete="off">
       <div class="auth-mark">DRAGON</div>
@@ -2152,8 +2646,27 @@
       <input class="input" id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="PIN / пароль" aria-label="PIN кассы" />
       <button class="btn primary" type="submit">Открыть кассу</button>
       <div class="auth-error" id="pinError" aria-live="polite"></div>
+      <div class="auth-help" id="pinServerHint" hidden></div>
     </form>
   </section>
+
+  <div class="dragon-page-shell">
+    <header class="dragon-page-topbar">
+      <a class="dragon-page-brand" href="index.html">
+        <img class="dragon-page-logo" src="logo.png" alt="DRAGON logo">
+        <span>
+          <span class="dragon-page-kicker">Cyber Dragon</span>
+          <span class="dragon-page-title">DRAGON KASSA</span>
+          <span class="dragon-page-copy">Касса, смена и ручная работа с заказами в том же визуальном стиле, что и клиентское меню.</span>
+        </span>
+      </a>
+      <div class="dragon-page-actions">
+        <a class="dragon-page-chip is-primary" href="index.html">Menu</a>
+        <a class="dragon-page-chip" href="contron.html">Contron</a>
+        <a class="dragon-page-chip" href="admin_index.html">Admin</a>
+      </div>
+    </header>
+  </div>
 
   <div class="app">
     <main class="main">
@@ -2607,6 +3120,7 @@
     const TELEGRAM_MESSAGE_API = window.DRAGON_STATIC?.telegramMessageApi || "";
     const TELEGRAM_DOCUMENT_API = window.DRAGON_STATIC?.telegramDocumentApi || "";
     const KASSA_SESSION_API = window.DRAGON_STATIC?.kassaSessionApi || "/api/kassa/session";
+    const DEFAULT_LOCAL_SERVER_BASE = "http://127.0.0.1:8000";
     const SCREENSHOT_MODE = new URLSearchParams(window.location.search).get("screenshot") === "1";
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
     const REFRESH_MS = 30000;
@@ -2813,6 +3327,32 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+    }
+
+    function isFileModePage() {
+      return String(window.location.protocol || "") === "file:";
+    }
+
+    function currentPageFilename(fallback = "DRAGON_KASSA.html") {
+      const pathname = String(window.location.pathname || "");
+      const filename = pathname.split("/").filter(Boolean).pop() || fallback;
+      return /\.html?$/i.test(filename) ? filename : fallback;
+    }
+
+    function buildLocalKassaUrl() {
+      return `${DEFAULT_LOCAL_SERVER_BASE}/${currentPageFilename()}${window.location.search || ""}${window.location.hash || ""}`;
+    }
+
+    function buildPinServerHelpHtml(targetUrl = buildLocalKassaUrl()) {
+      const safeUrl = escapeHtml(targetUrl);
+      return `PIN проверяется через локальный DRAGON сервер. Запусти <code>bash start_dragon_lan.sh 8000</code> и открой <a href="${safeUrl}">${safeUrl}</a>.`;
+    }
+
+    function renderPinServerHint(messageHtml = "") {
+      const hint = $("#pinServerHint");
+      if (!hint) return;
+      hint.hidden = !messageHtml;
+      hint.innerHTML = messageHtml || "";
     }
 
     function fmtMoney(value) {
@@ -3061,6 +3601,17 @@
       }
     }
 
+    function safeExternalUrl(value) {
+      const helper = window.DRAGON_STATIC?.normalizeExternalUrl;
+      if (typeof helper === "function") return helper(value);
+      try {
+        const url = new URL(String(value || "").trim(), window.location.href);
+        return url.protocol === "http:" || url.protocol === "https:" ? url.toString() : "";
+      } catch (_) {
+        return "";
+      }
+    }
+
     function inferPaymentType(cash, card, fallback = "unknown") {
       const cashAmount = normalizeAmount(cash);
       const cardAmount = normalizeAmount(card);
@@ -3237,7 +3788,7 @@
         source: raw.source === "cashier" ? "cashier" : "site",
         created_at: raw.created_at || raw.createdAt || new Date().toISOString(),
         updated_at: raw.updated_at || raw.updatedAt || raw.created_at || new Date().toISOString(),
-        receipt_link: raw.receipt_link || "",
+        receipt_link: safeExternalUrl(raw.receipt_link || raw.receiptLink || ""),
         meta: Array.isArray(raw.meta) ? raw.meta : [],
         sync: {
           local: localSync,

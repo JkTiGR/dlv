@@ -32,6 +32,10 @@ body {
         linear-gradient(160deg, var(--bg-1), var(--bg-2));
 }
 
+body.auth-locked {
+    overflow: hidden;
+}
+
 button,
 input,
 textarea,
@@ -43,6 +47,51 @@ select {
     width: min(1280px, calc(100% - 32px));
     margin: 0 auto;
     padding: 28px 0 56px;
+}
+
+.auth-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(31, 18, 13, 0.58);
+    backdrop-filter: blur(10px);
+}
+
+.auth-card {
+    width: min(460px, 100%);
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(180deg, rgba(221, 177, 123, 0.18), transparent 100%),
+        var(--surface-strong);
+    box-shadow: var(--shadow);
+}
+
+.auth-card h2 {
+    margin: 0;
+}
+
+.auth-card__lead {
+    margin: 16px 0 0;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.auth-form {
+    display: grid;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.auth-error {
+    margin: 0;
+    color: var(--danger);
+    font-weight: 600;
 }
 
 .hero {
@@ -383,6 +432,28 @@ tbody tr:last-child td {
     display: none;
 }
 
+.session-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 20px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: rgba(255, 248, 238, 0.92);
+    box-shadow: var(--shadow);
+}
+
+.session-bar p {
+    margin: 6px 0 0;
+    color: var(--muted);
+}
+
+.session-bar__action {
+    min-width: 160px;
+}
+
 @media (max-width: 1120px) {
     .hero,
     .workspace,
@@ -413,7 +484,8 @@ tbody tr:last-child td {
     }
 
     .order-lines__header,
-    .order-summary {
+    .order-summary,
+    .session-bar {
         align-items: flex-start;
         flex-direction: column;
     }
