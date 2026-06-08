@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="dragon-theme.css">
 
   <style>
     .more-row{display:flex;align-items:center;justify-content:space-between;padding:16px 14px;border-top:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit}
@@ -784,6 +784,7 @@
       const CURRENCY = 'грн';
       const IMG_DIR = 'images/';
       const IMG_EXTS = ['webp','jpg','jpeg','png'];
+      const MENU_LAZY_ROOT_MARGIN = '900px 0px';
       const fmt = n => Number(n).toFixed(2) + ' ' + CURRENCY;
       const escapeHtml = (s='') => String(s)
         .replaceAll('&','&amp;')
@@ -791,6 +792,20 @@
         .replaceAll('>','&gt;')
         .replaceAll('"','&quot;')
         .replaceAll("'","&#039;");
+      const lazyImageLoaders = new WeakMap();
+      // Native loading="lazy" doesn't let us widen the preload distance for menu cards.
+      const lazyMenuImageObserver = 'IntersectionObserver' in window
+        ? new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (!entry.isIntersecting && entry.intersectionRatio <= 0) return;
+              const imgEl = entry.target;
+              lazyMenuImageObserver.unobserve(imgEl);
+              const load = lazyImageLoaders.get(imgEl);
+              lazyImageLoaders.delete(imgEl);
+              load?.();
+            });
+          }, { rootMargin: MENU_LAZY_ROOT_MARGIN, threshold: 0.01 })
+        : null;
 
       function summarizeSelections(it, selections){
         const opts = normalizeOptions(it);
@@ -832,6 +847,11 @@
         return lines;
       }
 
+      function removeItemImage(imgEl){
+        imgEl.closest('.thumb, .dish-thumb')?.classList.add('noimg');
+        imgEl.remove();
+      }
+
       function buildThumb(imgEl, key){
         let i = 0;
         const trySet = () => imgEl.src = IMG_DIR + key + '.' + IMG_EXTS[i];
@@ -840,11 +860,39 @@
           if (i < IMG_EXTS.length){
             trySet();
           } else {
-            imgEl.closest('.thumb')?.classList.add('noimg');
-            imgEl.remove();
+            removeItemImage(imgEl);
           }
         };
         trySet();
+      }
+
+      function loadItemImage(imgEl, it){
+        if (!imgEl || !it || imgEl.dataset.loaded === '1') return;
+        imgEl.dataset.loaded = '1';
+        imgEl.removeAttribute('loading');
+
+        if (it.image) {
+          imgEl.onerror = () => removeItemImage(imgEl);
+          imgEl.src = it.image;
+          return;
+        }
+
+        if (it.key) {
+          buildThumb(imgEl, it.key);
+          return;
+        }
+
+        removeItemImage(imgEl);
+      }
+
+      function queueItemImage(imgEl, it){
+        if (!imgEl || !it) return;
+        if (!lazyMenuImageObserver) {
+          loadItemImage(imgEl, it);
+          return;
+        }
+        lazyImageLoaders.set(imgEl, () => loadItemImage(imgEl, it));
+        lazyMenuImageObserver.observe(imgEl);
       }
 
       const itemName = it =>
@@ -1177,7 +1225,7 @@
           <div class="card ${featured?'featured':''} ${hasOpts?'has-opts':''}" data-id="${id}">
             <div class="thumb-wrap">
               <div class="thumb">
-                <img alt="${escapeHtml(name)}" loading="lazy" decoding="async">
+                <img alt="${escapeHtml(name)}" decoding="async">
               </div>
               <button class="info"
                       data-toggle="${id}"
@@ -1216,19 +1264,7 @@
           const it = menuData?.[cat]?.[+idx];
           const img = row.querySelector('.thumb img');
           if (!img || !it) return;
-
-          if (it.image) {
-            img.src = it.image;
-            img.onerror = () => {
-              img.closest('.thumb')?.classList.add('noimg');
-              img.remove();
-            };
-          } else if (it.key) {
-            buildThumb(img, it.key);
-          } else {
-            img.closest('.thumb')?.classList.add('noimg');
-            img.remove();
-          }
+          queueItemImage(img, it);
         });
       }
 
@@ -1243,6 +1279,7 @@
         await loadDescriptions();
         if (renderToken !== menuRenderToken) return;
 
+        lazyMenuImageObserver?.disconnect();
         content.innerHTML = '';
 
         const q = (document.getElementById('searchIn')?.value || '').trim().toLowerCase();
@@ -1285,7 +1322,6 @@
 
         const keys = Object.keys(menuData || {});
         keys.forEach(k => {
-          if (k === 'top') return; // Skip 'top' category as it's already rendered as TOP section
           const safeItems = (menuData[k] || []).filter(it => !isBuilderItem(it) && isMenuItemAvailable(it));
           if (!safeItems.length) return;
           const items = safeItems.map((it, idx) => {
@@ -1629,24 +1665,13 @@
         dishQtyEl.textContent = String(cartQty(id));
 
         dishMedia.innerHTML = '';
-        if (it.image){
+        if (it.image || it.key){
           const wrap = document.createElement('div');
           wrap.className = 'dish-thumb';
-          wrap.innerHTML = `<img alt="${escapeHtml(itemName(it))}" loading="lazy" decoding="async">`;
-          const img = wrap.querySelector('img');
-          img.src = it.image;
-          img.onerror = () => {
-            wrap.classList.add('noimg');
-            img.remove();
-          };
-          dishMedia.appendChild(wrap);
-        } else if (it.key){
-          const wrap = document.createElement('div');
-          wrap.className = 'dish-thumb';
-          wrap.innerHTML = `<img alt="${escapeHtml(itemName(it))}" loading="lazy" decoding="async">`;
+          wrap.innerHTML = `<img alt="${escapeHtml(itemName(it))}" decoding="async">`;
           const img = wrap.querySelector('img');
           dishMedia.appendChild(wrap);
-          if (img) buildThumb(img, it.key);
+          if (img) loadItemImage(img, it);
         }
 
         try{

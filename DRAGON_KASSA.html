@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#080101" />
   <title>DRAGON KASSA</title>
   <link rel="icon" href="logo.png" />
+  <link rel="stylesheet" href="dragon-theme.css" />
   <style>
     :root {
       --bg: #030000;
@@ -2065,9 +2066,9 @@
       --accent-2: #ff9b5d;
       --neon-red: rgba(255, 79, 64, 0.26);
       --neon-amber: rgba(255, 155, 93, 0.18);
-      --neon-cyan: rgba(96, 236, 255, 0.16);
-      --neon-violet: rgba(212, 120, 255, 0.16);
-      --neon-lime: rgba(196, 255, 117, 0.1);
+      --neon-cyan: rgba(96, 236, 255, 0.18);
+      --neon-violet: rgba(212, 120, 255, 0.18);
+      --neon-lime: rgba(196, 255, 117, 0.12);
       --shadow:
         0 28px 74px rgba(0, 0, 0, 0.5),
         0 0 26px rgba(255, 79, 64, 0.16),
@@ -2090,7 +2091,7 @@
         inset 0 6px 12px rgba(255, 255, 255, 0.12),
         inset 0 -28px 32px rgba(8, 1, 3, 0.24),
         inset 0 2px 1px rgba(255, 255, 255, 0.66);
-      --crystal-cut: polygon(18px 0, calc(100% - 30px) 0, 100% 28px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 24px 100%, 0 calc(100% - 24px), 0 18px);
+      --crystal-cut: polygon(18px 0, calc(100% - 34px) 0, 100% 28px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 24px 100%, 0 calc(100% - 24px), 0 18px);
       --crystal-facets:
         linear-gradient(132deg, rgba(255, 255, 255, 0.2) 0 12%, transparent 12% 42%, rgba(255, 160, 108, 0.09) 42% 58%, transparent 58% 100%),
         linear-gradient(318deg, rgba(255, 255, 255, 0.14) 0 10%, transparent 10% 46%, rgba(255, 86, 74, 0.08) 46% 62%, transparent 62% 100%),
@@ -2103,16 +2104,16 @@
         conic-gradient(from -28deg at 86% 82%, rgba(255, 255, 255, 0.18), rgba(255, 118, 90, 0.08) 18%, transparent 34% 68%, rgba(255, 255, 255, 0.08) 84%, transparent 100%);
       --triangle-shards:
         linear-gradient(146deg, rgba(255, 255, 255, 0.18) 0 7%, transparent 7% 100%),
-        linear-gradient(328deg, rgba(120, 234, 255, 0.16) 0 8%, transparent 8% 100%),
-        linear-gradient(210deg, transparent 0 62%, rgba(255, 120, 222, 0.12) 62% 73%, transparent 73% 100%),
-        linear-gradient(36deg, transparent 0 68%, rgba(196, 255, 117, 0.08) 68% 78%, transparent 78% 100%);
+        linear-gradient(326deg, rgba(120, 234, 255, 0.17) 0 8%, transparent 8% 100%),
+        linear-gradient(212deg, transparent 0 60%, rgba(255, 120, 222, 0.13) 60% 72%, transparent 72% 100%),
+        linear-gradient(38deg, transparent 0 68%, rgba(196, 255, 117, 0.09) 68% 78%, transparent 78% 100%);
       --triangle-shards-strong:
         linear-gradient(148deg, rgba(255, 255, 255, 0.2) 0 8%, transparent 8% 100%),
         linear-gradient(328deg, rgba(120, 234, 255, 0.18) 0 8%, transparent 8% 100%),
         linear-gradient(210deg, transparent 0 58%, rgba(255, 132, 228, 0.14) 58% 72%, transparent 72% 100%),
         linear-gradient(36deg, transparent 0 64%, rgba(208, 255, 126, 0.1) 64% 76%, transparent 76% 100%);
       --holo-spectrum:
-        linear-gradient(112deg, rgba(111, 240, 255, 0.22) 4%, rgba(255, 255, 255, 0.1) 18%, rgba(255, 126, 228, 0.18) 34%, rgba(255, 182, 98, 0.2) 48%, rgba(198, 255, 124, 0.14) 62%, rgba(111, 240, 255, 0.2) 78%, transparent 90%);
+        linear-gradient(112deg, rgba(111, 240, 255, 0.24) 4%, rgba(255, 255, 255, 0.1) 18%, rgba(255, 126, 228, 0.18) 34%, rgba(255, 182, 98, 0.2) 48%, rgba(198, 255, 124, 0.14) 62%, rgba(111, 240, 255, 0.2) 78%, transparent 90%);
       --prism-spectrum:
         conic-gradient(from 124deg at 14% 14%, rgba(255, 255, 255, 0.2), rgba(112, 240, 255, 0.18) 14%, rgba(255, 129, 226, 0.16) 28%, rgba(255, 188, 98, 0.18) 42%, rgba(196, 255, 122, 0.12) 58%, transparent 76%, rgba(255, 255, 255, 0.12) 88%, transparent 100%),
         conic-gradient(from -40deg at 88% 84%, rgba(255, 255, 255, 0.16), rgba(106, 228, 255, 0.14) 18%, rgba(255, 134, 230, 0.12) 32%, transparent 46% 72%, rgba(255, 184, 104, 0.12) 86%, transparent 100%);
@@ -2257,6 +2258,7 @@
       position: absolute;
       inset: 0;
       clip-path: var(--crystal-cut);
+      border-radius: 0;
       pointer-events: none;
       background:
         linear-gradient(144deg, rgba(255, 255, 255, 0.2) 0 1px, transparent 1px 100%),
@@ -2302,7 +2304,7 @@
 
     .hero {
       clip-path: polygon(26px 0, calc(100% - 44px) 0, 100% 34px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 34px 100%, 0 calc(100% - 30px), 0 24px);
-      border-radius: 34px;
+      border-radius: 0;
       box-shadow:
         0 30px 80px rgba(0, 0, 0, 0.48),
         0 0 32px rgba(255, 76, 62, 0.16),
@@ -2321,6 +2323,7 @@
     .remote-access-card,
     .report-table-wrap {
       clip-path: polygon(22px 0, calc(100% - 34px) 0, 100% 30px, 100% calc(100% - 18px), calc(100% - 20px) 100%, 26px 100%, 0 calc(100% - 24px), 0 20px);
+      border-radius: 0;
     }
 
     .hero h2,
@@ -2469,6 +2472,12 @@
       background:
         var(--triangle-shards-strong),
         var(--liquid-panel);
+    }
+
+    .auth-mark,
+    .qty-box {
+      clip-path: polygon(14px 0, calc(100% - 18px) 0, 100% 16px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 16px 100%, 0 calc(100% - 16px), 0 14px);
+      border-radius: 0;
     }
 
     @keyframes holographicDrift {
@@ -2626,7 +2635,7 @@
     }
   </style>
 </head>
-<body class="locked">
+<body class="dragon-unified locked">
   <section class="auth-screen" id="authScreen" aria-label="PIN кассы">
     <form class="auth-card" id="pinForm" autocomplete="off">
       <div class="auth-mark">DRAGON</div>
@@ -2640,6 +2649,24 @@
       <div class="auth-help" id="pinServerHint" hidden></div>
     </form>
   </section>
+
+  <div class="dragon-page-shell">
+    <header class="dragon-page-topbar">
+      <a class="dragon-page-brand" href="index.html">
+        <img class="dragon-page-logo" src="logo.png" alt="DRAGON logo">
+        <span>
+          <span class="dragon-page-kicker">Cyber Dragon</span>
+          <span class="dragon-page-title">DRAGON KASSA</span>
+          <span class="dragon-page-copy">Касса, смена и ручная работа с заказами в том же визуальном стиле, что и клиентское меню.</span>
+        </span>
+      </a>
+      <div class="dragon-page-actions">
+        <a class="dragon-page-chip is-primary" href="index.html">Menu</a>
+        <a class="dragon-page-chip" href="contron.html">Contron</a>
+        <a class="dragon-page-chip" href="admin_index.html">Admin</a>
+      </div>
+    </header>
+  </div>
 
   <div class="app">
     <main class="main">
@@ -4300,13 +4327,7 @@
         }
         unlockKassa();
       } catch (_) {
-        if (isFileModePage()) {
-          error.textContent = "Страница открыта как file://, поэтому PIN не может провериться напрямую.";
-          renderPinServerHint(`Страница открыта с диска. ${buildPinServerHelpHtml()}`);
-          return;
-        }
-        error.textContent = "Локальный DRAGON сервер не отвечает.";
-        renderPinServerHint(buildPinServerHelpHtml(`${window.location.origin}${window.location.pathname}${window.location.search || ""}${window.location.hash || ""}`));
+        error.textContent = "Не удалось проверить PIN на сервере.";
       } finally {
         input.disabled = false;
       }
@@ -7122,9 +7143,6 @@ ${lines}`;
 
     async function initAuth() {
       $("#pinForm").addEventListener("submit", handlePinSubmit);
-      if (isFileModePage()) {
-        renderPinServerHint(`Страница открыта с диска. ${buildPinServerHelpHtml()}`);
-      }
       const unlocked = await refreshKassaSession();
       if (unlocked) {
         showKassa();
