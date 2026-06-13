@@ -1,10 +1,12 @@
-const DRAGON_CACHE = 'dragon-pwa-v1';
+const DRAGON_CACHE = 'dragon-pwa-v2';
 const CORE_ASSETS = [
   './',
-  './app.html',
   './index.html',
+  './menu.html',
+  './app.html',
   './base.css',
-  './logo.png'
+  './logo.png',
+  './manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
