@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>DRAGON — Menu</title>
+  <style>
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08060f;color:#fff;font-family:Arial,sans-serif;text-align:center;padding:24px}
+    .box{max-width:420px;padding:24px;border:1px solid rgba(255,255,255,.14);border-radius:24px;background:rgba(255,255,255,.06)}
+    .muted{color:rgba(255,255,255,.7);line-height:1.45}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>DRAGON Menu</h1>
+    <p class="muted">Загружаю меню…</p>
+  </div>
+  <script>
+    const LEGACY_INDEX_BLOB = '48d2232a03e8101026caafaa2a252362a50a3dfb';
+    const API_URL = `https://api.github.com/repos/JkTiGR/dlv/git/blobs/${LEGACY_INDEX_BLOB}`;
+
+    function decodeBase64Utf8(base64) {
+      const binary = atob(String(base64 || '').replace(/\s/g, ''));
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+      return new TextDecoder('utf-8').decode(bytes);
+    }
+
+    fetch(API_URL, { cache: 'force-cache' })
+      .then((response) => {
+        if (!response.ok) throw new Error('Cannot load menu source');
+        return response.json();
+      })
+      .then((blob) => {
+        const html = decodeBase64Utf8(blob.content);
+        document.open();
+        document.write(html.replace(/href="index\.html"/g, 'href="menu.html"'));
+        document.close();
+      })
+      .catch(() => {
+        document.body.innerHTML = '<div class="box"><h1>Меню временно не загрузилось</h1><p class="muted">Обновите страницу или откройте позже.</p><p><a style="color:#ffd36a" href="index.html">Вернуться на HOME</a></p></div>';
+      });
+  </script>
+</body>
+</html>
