@@ -400,6 +400,14 @@ a {
 .nav-pop.open {
   display: block;
   animation: popIn 0.18s ease;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    linear-gradient(180deg, rgba(35, 26, 64, 0.98), rgba(12, 9, 27, 0.98));
+  border-color: rgba(236, 228, 255, 0.18);
+  box-shadow:
+    0 24px 46px rgba(5, 2, 18, 0.56),
+    0 0 28px rgba(155, 108, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 @keyframes popIn {
