@@ -1,10 +1,14 @@
-const CACHE_NAME = "dragon-go-shell-v4";
+const CACHE_NAME = "dragon-go-shell-v5";
 const APP_SHELL = [
+  "./",
+  "./menu.html",
   "./dragon_go.html",
   "./index.html",
   "./dragon_go.css",
   "./dragon_go.js",
   "./dragon_go.webmanifest",
+  "./manifest.json",
+  "./sw.js",
   "./dragon_static_config.js",
   "./menu.js",
   "./menu_availability.js",
@@ -60,7 +64,7 @@ self.addEventListener("fetch", event => {
 
 self.addEventListener("notificationclick", event => {
   event.notification.close();
-  const targetUrl = new URL(event.notification.data?.url || "./dragon_go.html?screen=orders", self.location.origin).href;
+  const targetUrl = new URL(event.notification.data?.url || "./menu.html?screen=orders", self.location.origin).href;
 
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then(windowClients => {

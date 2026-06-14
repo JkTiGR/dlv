@@ -4,6 +4,13 @@ __pycache__/
 *.log
 *.tmp
 .DS_Store
+.env
+.env.*
+!.env.example
+.envrc
+secrets/
+*.pem
+*.key
 .cloudflared/
 .dlv_telegram_state.json
 .dragon_telegram_state.json

@@ -116,6 +116,229 @@
 }
 
 /* ============================================================
+   Shared Entry Theme - index.html + HOME.html
+   Uses the same .bar and .dock classes without touching app/POS pages.
+   ============================================================ */
+body.dragon-entry {
+  --entry-bar-gap: 14px;
+  --entry-bar-min-h: 58px;
+  --entry-bar-padding: 8px 10px;
+  --entry-bar-radius: 20px;
+  --entry-bar-margin-bottom: 0;
+  --entry-bar-border: rgba(234, 224, 255, 0.18);
+  --entry-bar-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(11, 8, 24, 0.64)),
+    rgba(11, 8, 24, 0.68);
+  --entry-bar-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 14px 28px rgba(0, 0, 0, 0.18);
+  --entry-bar-text: #ffffff;
+  --entry-bar-link-bg: linear-gradient(135deg, #fff, #edf5ff 62%, #cfe8ff);
+  --entry-bar-link-text: #101318;
+
+  --entry-dock-bottom: max(10px, env(safe-area-inset-bottom));
+  --entry-dock-width: min(460px, calc(100% - 16px));
+  --entry-dock-display: grid;
+  --entry-dock-cols: repeat(3, minmax(0, 1fr));
+  --entry-dock-gap: 8px;
+  --entry-dock-padding: 8px;
+  --entry-dock-radius: 22px;
+  --entry-dock-border: rgba(255, 255, 255, 0.2);
+  --entry-dock-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(12, 8, 28, 0.74)),
+    rgba(12, 8, 28, 0.78);
+  --entry-dock-shadow: 0 18px 38px rgba(0, 0, 0, 0.3);
+  --entry-dock-link-color: #ffffff;
+  --entry-dock-active-color: #ffffff;
+  --entry-dock-action-bg: rgba(255, 255, 255, 0.06);
+  --entry-dock-action-radius: 16px;
+  --entry-dock-action-min-h: 56px;
+  --entry-dock-font-size: 0.78rem;
+}
+
+body.dragon-entry-home {
+  --entry-bar-min-h: 62px;
+  --entry-bar-padding: 10px 12px;
+  --entry-bar-radius: 28px;
+  --entry-bar-margin-bottom: 18px;
+  --entry-bar-border: rgba(245, 239, 255, 0.24);
+  --entry-bar-bg: var(--ng-panel);
+  --entry-bar-shadow:
+    var(--ng-outer-shadow),
+    var(--ng-inner-shadow);
+  --entry-bar-text: #ffffff;
+
+  --entry-dock-bottom: calc(var(--safe-bottom) + 8px);
+  --entry-dock-width: min(var(--phone-w), calc(100% - 10px));
+  --entry-dock-display: flex;
+  --entry-dock-cols: none;
+  --entry-dock-gap: 4px;
+  --entry-dock-padding: 8px 10px;
+  --entry-dock-radius: 999px;
+  --entry-dock-border: var(--ng-outline);
+  --entry-dock-bg: var(--ng-panel);
+  --entry-dock-shadow:
+    0 28px 54px rgba(5, 2, 18, 0.42),
+    0 0 28px rgba(149, 106, 255, 0.16),
+    0 0 52px rgba(99, 179, 255, 0.08),
+    inset 0 6px 12px rgba(255, 255, 255, 0.1),
+    inset 0 -24px 28px rgba(6, 3, 18, 0.18),
+    inset 0 2px 1px rgba(255, 255, 255, 0.64);
+  --entry-dock-link-color: rgba(241, 244, 255, 0.82);
+  --entry-dock-active-color: #ffffff;
+  --entry-dock-action-bg: transparent;
+  --entry-dock-action-radius: 18px;
+  --entry-dock-action-min-h: 54px;
+  --entry-dock-font-size: 0.68rem;
+}
+
+body.dragon-entry .bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--entry-bar-gap);
+  min-height: var(--entry-bar-min-h);
+  margin-bottom: var(--entry-bar-margin-bottom);
+  padding: var(--entry-bar-padding);
+  border: 1px solid var(--entry-bar-border);
+  border-radius: var(--entry-bar-radius);
+  color: var(--entry-bar-text);
+  background: var(--entry-bar-bg);
+  box-shadow: var(--entry-bar-shadow);
+}
+
+body.dragon-entry .bar-link {
+  flex: 0 0 auto;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 14px;
+  color: var(--entry-bar-link-text);
+  text-decoration: none;
+  background: var(--entry-bar-link-bg);
+  font-weight: 800;
+}
+
+body.dragon-entry .dock {
+  position: fixed;
+  left: 50%;
+  bottom: var(--entry-dock-bottom);
+  z-index: 10;
+  transform: translateX(-50%);
+  width: var(--entry-dock-width);
+  display: var(--entry-dock-display);
+  grid-template-columns: var(--entry-dock-cols);
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--entry-dock-gap);
+  padding: var(--entry-dock-padding);
+  border: 1px solid var(--entry-dock-border);
+  border-radius: var(--entry-dock-radius);
+  background: var(--entry-dock-bg);
+  box-shadow: var(--entry-dock-shadow);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+body.dragon-entry-home .bar {
+  position: relative;
+  overflow: hidden;
+}
+
+body.dragon-entry-home .bar::before,
+body.dragon-entry-home .dock::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--ng-highlight);
+  opacity: 0.82;
+}
+
+body.dragon-entry .dock a,
+body.dragon-entry .dock button,
+body.dragon-entry .dock-action {
+  min-width: 0;
+  min-height: var(--entry-dock-action-min-h);
+  display: grid;
+  place-items: center;
+  gap: 3px;
+  border: 0;
+  padding: 0;
+  border-radius: var(--entry-dock-action-radius);
+  color: var(--entry-dock-link-color);
+  background: var(--entry-dock-action-bg);
+  text-decoration: none;
+  font: inherit;
+  font-size: var(--entry-dock-font-size);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+body.dragon-entry .dock .active {
+  color: var(--entry-dock-active-color);
+}
+
+body.dragon-entry .dock svg {
+  width: 27px;
+  height: 27px;
+  stroke: currentColor;
+}
+
+body.dragon-entry .dock img,
+body.dragon-entry .dock-action img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+body.dragon-entry .dock .dock-btn {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  max-width: 76px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 4px 0;
+  text-transform: uppercase;
+  transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+body.dragon-entry .dock .dock-btn::after {
+  content: attr(data-label);
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--entry-dock-font-size);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+body.dragon-entry .dock .dock-btn.active {
+  color: var(--entry-dock-active-color);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.18), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(171, 122, 255, 0.18));
+  box-shadow:
+    inset 0 6px 10px rgba(255, 255, 255, 0.1),
+    inset 0 2px 1px rgba(255, 255, 255, 0.68),
+    0 10px 20px rgba(89, 56, 188, 0.2),
+    0 0 18px rgba(149, 106, 255, 0.14);
+}
+
+@media (max-width: 560px) {
+  body.dragon-entry .bar-link {
+    display: none;
+  }
+}
+
+/* ============================================================
    Global Reset & Base Styles
    ============================================================ */
 * {
@@ -141,7 +364,7 @@ body {
     radial-gradient(700px 520px at 84% 10%, rgba(255, 104, 218, 0.09), transparent 44%),
     radial-gradient(520px 360px at 50% 34%, rgba(109, 124, 255, 0.07), transparent 54%),
     linear-gradient(180deg, rgba(8, 5, 16, 0.38) 0%, rgba(13, 8, 24, 0.5) 38%, rgba(9, 4, 18, 0.7) 100%),
-    url("fon.png") center top / cover no-repeat fixed,
+    url("fon1.png") center top / cover no-repeat fixed,
     var(--bg-primary);
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
@@ -593,7 +816,7 @@ body.dragon-unified {
     radial-gradient(700px 520px at 84% 10%, rgba(255, 104, 218, 0.09), transparent 44%),
     radial-gradient(520px 360px at 50% 34%, rgba(109, 124, 255, 0.07), transparent 54%),
     linear-gradient(180deg, rgba(8, 5, 16, 0.38) 0%, rgba(13, 8, 24, 0.5) 38%, rgba(9, 4, 18, 0.7) 100%),
-    url("fon.png") center top / cover no-repeat fixed,
+    url("fon1.png") center top / cover no-repeat fixed,
     var(--bg);
 }
 
