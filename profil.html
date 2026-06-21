@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#070101" />
   <title>CYBER DRAGON — Profile</title>
   <link rel="icon" href="logo.png"/>
-  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="dragon-theme.css">
   <style>
     .profile-shell{display:grid;gap:14px;margin-top:10px}
     .profile-brand-link{display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -101,29 +101,63 @@
   <div class="app">
     <header class="header">
       <div class="bar">
-        <h1 class="brand"><a href="index.html" class="profile-brand-link"><img class="mark" src="logo.png" alt="Logo"><span class="brand-label">DRAGON GO</span></a></h1>
+        <h1 class="brand"><a href="https://jktigr.github.io/DRAGON-GO/HOME.html" class="profile-brand-link"><img class="mark" src="logo.png" alt="Logo"><span class="brand-label">DRAGON GO</span></a></h1>
         <div class="lang">
           <select id="langSel" aria-label="Language">
-            <option value="ru">🇷🇺 RU</option>
+            <option value="ru">🇺🇦 RU</option>
             <option value="ua">🇺🇦 UA</option>
             <option value="vn">🇻🇳 VN</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="pl">🇵🇱 PL</option>
+            <option value="de">🇩🇪 DE</option>
           </select>
         </div>
         <button class="burger" id="burgerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="navPop">☰</button>
-        <nav class="nav-pop" id="navPop" role="menu" aria-label="Main menu">
-          <a href="index.html" id="navHome" role="menuitem">🏠 HOME</a>
-          <a href="profil.html" id="navAccount" role="menuitem">👤 PROFILE</a>
-          <a href="#ordersSection" id="navOrders" role="menuitem">📦 ORDERS</a>
-          <a href="#contactSection" id="navContact" role="menuitem">📞 CONTACT</a>
-          <hr>
+
+      <nav class="nav-pop bolt-drawer" id="navPop" role="menu" aria-label="Main menu">
+          <div class="nav-main">
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html" id="navHome" role="menuitem">Головна</a>
+            <a href="market.html" id="navMarket" role="menuitem">Магазини</a>
+            <a href="menu.html#searchIn" id="navSearch" role="menuitem">Пошук</a>
+            <a href="#ordersSection" id="navOrders" role="menuitem">Замовлення</a>
+            <a href="profil.html" id="navProfil" role="menuitem">Профіль</a>
+          </div>
+
+          <div class="nav-delivery">
+            <p id="navDeliveryTitle">Замовити доставку їжі</p>
+            <a class="app-store-badge" href="https://jktigr.github.io/DRAGON-GO/HOME.html" aria-label="Download on the App Store">
+              <img src="images/icon/apple.png" alt="">
+              <span><small>Download on the</small><strong>App Store</strong></span>
+            </a>
+          </div>
+
           <div class="lang-inline" role="none">🌐
-            <select id="langSelMenu" aria-label="Language (menu)">
-              <option value="ru">🇷🇺 RU</option>
+            <select id="langSelMenu" aria-label="Вибір мови в меню" data-i18n-aria-label="langMenuLabel">
+              <option value="ru">🇺🇦 RU</option>
               <option value="ua">🇺🇦 UA</option>
               <option value="vn">🇻🇳 VN</option>
+              <option value="zh">🇨🇳 ZH</option>
+              <option value="pl">🇵🇱 PL</option>
+              <option value="de">🇩🇪 DE</option>
             </select>
           </div>
-        </nav>
+
+          <div class="nav-legal">
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html#privacy" id="navPrivacy" role="menuitem">Конфіденційність</a>
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html#cookies" id="navCookies" role="menuitem">Файли Cookies</a>
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html#security" id="navSecurity" role="menuitem">Безпека</a>
+          </div>
+
+          <div class="nav-socials" aria-label="Social links">
+            <a href="#" aria-label="Facebook"><img src="images/icon/fb.png" alt=""></a>
+            <a class="nav-social-letter" href="#" aria-label="Twitter">x</a>
+            <a href="#" aria-label="Instagram"><img src="images/icon/ig.png" alt=""></a>
+            <a class="nav-social-letter nav-social-in" href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="TikTok"><img src="images/icon/tt.png" alt=""></a>
+          </div>
+
+          <div class="nav-copy">© 2026 Bolt Technology OÜ</div>
+      </nav>
       </div>
     </header>
 
@@ -439,6 +473,10 @@
         }
       };
 
+      I18N.zh = I18N.zh || I18N.vn;
+      I18N.pl = I18N.pl || I18N.ua;
+      I18N.de = I18N.de || I18N.ua;
+
       const $ = selector => document.querySelector(selector);
       const $$ = selector => document.querySelectorAll(selector);
       const L = () => I18N[LANG] || I18N.ru;
@@ -456,9 +494,14 @@
         langSel: $('#langSel'),
         langSelMenu: $('#langSelMenu'),
         navHome: $('#navHome'),
-        navAccount: $('#navAccount'),
+        navMarket: $('#navMarket'),
+        navSearch: $('#navSearch'),
         navOrders: $('#navOrders'),
-        navContact: $('#navContact'),
+        navProfil: $('#navProfil'),
+        navDeliveryTitle: $('#navDeliveryTitle'),
+        navPrivacy: $('#navPrivacy'),
+        navCookies: $('#navCookies'),
+        navSecurity: $('#navSecurity'),
         profileTitle: $('#profileTitle'),
         profileIntro: $('#profileIntro'),
         profilePhoneLabel: $('#profilePhoneLabel'),
@@ -1038,10 +1081,23 @@
         dom.langSelMenu.value = value;
         const t = L();
         const p = t.profile || {};
-        dom.navHome.textContent = '🏠 ' + t.navHome;
-        dom.navAccount.textContent = '👤 ' + t.navAccount;
-        dom.navOrders.textContent = '📦 ' + t.navOrders;
-        dom.navContact.textContent = '📞 ' + t.navContact;
+        const navCopy = {
+          ru:{ shops:'Магазины', search:'Поиск', delivery:'Заказать доставку еды', privacy:'Конфиденциальность', cookies:'Файлы Cookies', security:'Безопасность' },
+          ua:{ shops:'Магазини', search:'Пошук', delivery:'Замовити доставку їжі', privacy:'Конфіденційність', cookies:'Файли Cookies', security:'Безпека' },
+          vn:{ shops:'Cửa hàng', search:'Tìm kiếm', delivery:'Đặt giao đồ ăn', privacy:'Quyền riêng tư', cookies:'Tệp Cookies', security:'Bảo mật' },
+          zh:{ shops:'商店', search:'搜索', delivery:'订购外送美食', privacy:'隐私', cookies:'Cookie 文件', security:'安全' },
+          pl:{ shops:'Sklepy', search:'Szukaj', delivery:'Zamów dostawę jedzenia', privacy:'Prywatność', cookies:'Pliki Cookies', security:'Bezpieczeństwo' },
+          de:{ shops:'Shops', search:'Suche', delivery:'Essen liefern lassen', privacy:'Datenschutz', cookies:'Cookie-Dateien', security:'Sicherheit' }
+        }[LANG] || {};
+        dom.navHome.textContent = t.navHome || 'Головна';
+        dom.navMarket.textContent = navCopy.shops || 'Магазини';
+        dom.navSearch.textContent = navCopy.search || 'Пошук';
+        dom.navOrders.textContent = t.navOrders || 'Замовлення';
+        dom.navProfil.textContent = t.navAccount || 'Профіль';
+        dom.navDeliveryTitle.textContent = navCopy.delivery || 'Замовити доставку їжі';
+        dom.navPrivacy.textContent = navCopy.privacy || 'Конфіденційність';
+        dom.navCookies.textContent = navCopy.cookies || 'Файли Cookies';
+        dom.navSecurity.textContent = navCopy.security || 'Безпека';
         dom.profileTitle.textContent = '👤 ' + (p.title || t.navAccount);
         dom.profileIntro.textContent = p.intro || '';
         dom.profilePhoneLabel.textContent = p.phone || '';
@@ -1079,31 +1135,41 @@
       }
 
       function bindEvents() {
-        dom.burgerBtn?.addEventListener('click', () => {
+        const closeDrawer = () => {
+          dom.navPop?.classList.remove('open');
+          dom.burgerBtn?.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('drawer-open');
+        };
+
+        dom.burgerBtn?.addEventListener('click', event => {
+          event.stopPropagation();
           const open = dom.navPop.classList.toggle('open');
           dom.burgerBtn.setAttribute('aria-expanded', String(open));
+          document.body.classList.toggle('drawer-open', open);
         });
 
         document.addEventListener('click', event => {
           if (!dom.navPop) return;
           if (!dom.navPop.contains(event.target) && event.target !== dom.burgerBtn) {
-            dom.navPop.classList.remove('open');
-            dom.burgerBtn?.setAttribute('aria-expanded', 'false');
+            closeDrawer();
           }
+        });
+
+        dom.navPop?.addEventListener('click', event => {
+          const link = event.target instanceof Element ? event.target.closest('a') : null;
+          if (link) closeDrawer();
         });
 
         dom.navOrders?.addEventListener('click', event => {
           event.preventDefault();
-          dom.navPop?.classList.remove('open');
-          dom.burgerBtn?.setAttribute('aria-expanded', 'false');
+          closeDrawer();
           document.getElementById('ordersSection')?.scrollIntoView({ behavior:'smooth', block:'start' });
         });
 
-        dom.navContact?.addEventListener('click', event => {
+        dom.navSearch?.addEventListener('click', event => {
           event.preventDefault();
-          dom.navPop?.classList.remove('open');
-          dom.burgerBtn?.setAttribute('aria-expanded', 'false');
-          document.getElementById('contactSection')?.scrollIntoView({ behavior:'smooth', block:'start' });
+          closeDrawer();
+          window.location.href = 'menu.html#searchIn';
         });
 
         dom.langSel?.addEventListener('change', event => setLang(event.target.value));

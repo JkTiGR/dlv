@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#070101" />
   <title>CYBER DRAGON — Menu</title>
   <link rel="icon" href="logo.png"/>
-  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="dragon-theme.css">
 
   <style>
     .more-row{display:flex;align-items:center;justify-content:space-between;padding:16px 14px;border-top:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit}
@@ -42,28 +42,61 @@
 
         <div class="lang">
           <select id="langSel" aria-label="Language">
-            <option value="ru">🇷🇺 RU</option>
+            <option value="ru">🇺🇦 RU</option>
             <option value="ua">🇺🇦 UA</option>
             <option value="vn">🇻🇳 VN</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="pl">🇵🇱 PL</option>
+            <option value="de">🇩🇪 DE</option>
           </select>
         </div>
 
         <button class="burger" id="burgerBtn" aria-haspopup="true" aria-expanded="false" aria-controls="navPop">☰</button>
 
-        <nav class="nav-pop" id="navPop" role="menu" aria-label="Main menu">
-          <a href="index.html" id="navHome" role="menuitem">🏠 HOME</a>
-          <a href="#" id="navMenu" role="menuitem">🍜 MENU</a>
-          <a href="#" id="navKaraoke" role="menuitem">🎤 KARAOKE</a>
-          <a href="#" id="navContact" role="menuitem">📞 CONTACT</a>
-          <hr>
+      <nav class="nav-pop bolt-drawer" id="navPop" role="menu" aria-label="Main menu">
+          <div class="nav-main">
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html" id="navHome" role="menuitem">Головна</a>
+            <a href="market.html" id="navMarket" role="menuitem">Магазини</a>
+            <a href="#searchIn" id="navSearch" role="menuitem">Пошук</a>
+            <a href="profil.html#ordersSection" id="navOrders" role="menuitem">Замовлення</a>
+            <a href="profil.html" id="navProfil" role="menuitem">Профіль</a>
+          </div>
+
+          <div class="nav-delivery">
+            <p id="navDeliveryTitle">Замовити доставку їжі</p>
+            <a class="app-store-badge" href="https://jktigr.github.io/DRAGON-GO/HOME.html" aria-label="Download on the App Store">
+              <img src="images/icon/apple.png" alt="">
+              <span><small>Download on the</small><strong>App Store</strong></span>
+            </a>
+          </div>
+
           <div class="lang-inline" role="none">🌐
-            <select id="langSelMenu" aria-label="Language (menu)">
-              <option value="ru">🇷🇺 RU</option>
+            <select id="langSelMenu" aria-label="Вибір мови в меню" data-i18n-aria-label="langMenuLabel">
+              <option value="ru">🇺🇦 RU</option>
               <option value="ua">🇺🇦 UA</option>
               <option value="vn">🇻🇳 VN</option>
+              <option value="zh">🇨🇳 ZH</option>
+              <option value="pl">🇵🇱 PL</option>
+              <option value="de">🇩🇪 DE</option>
             </select>
           </div>
-        </nav>
+
+          <div class="nav-legal">
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html#privacy" id="navPrivacy" role="menuitem">Конфіденційність</a>
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html#cookies" id="navCookies" role="menuitem">Файли Cookies</a>
+            <a href="https://jktigr.github.io/DRAGON-GO/HOME.html#security" id="navSecurity" role="menuitem">Безпека</a>
+          </div>
+
+          <div class="nav-socials" aria-label="Social links">
+            <a href="#" aria-label="Facebook"><img src="images/icon/fb.png" alt=""></a>
+            <a class="nav-social-letter" href="#" aria-label="Twitter">x</a>
+            <a href="#" aria-label="Instagram"><img src="images/icon/ig.png" alt=""></a>
+            <a class="nav-social-letter nav-social-in" href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="TikTok"><img src="images/icon/tt.png" alt=""></a>
+          </div>
+
+          <div class="nav-copy">© 2026 Bolt Technology OÜ</div>
+      </nav>
       </div>
     </header>
 
@@ -313,7 +346,7 @@
       let LANG = localStorage.getItem(LANG_KEY) || 'ru';
       document.documentElement.lang = LANG;
 
-      const LANG_FLAGS = { ru:'🇷🇺', ua:'🇺🇦', vn:'🇻🇳' };
+      const LANG_FLAGS = { ru:'🇺🇦', ua:'🇺🇦', vn:'🇻🇳', zh:'🇨🇳', pl:'🇵🇱', de:'🇩🇪' };
       const API_BASE = "https://script.google.com/macros/s/AKfycbywwekrmdJvCnKuXKXY-D1_fkJDNm6ES9xAsptqRpoCOS6u9QidiSnGizIK0wybcGTl/exec";
       const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || '';
       const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || '';
@@ -395,6 +428,9 @@
           deliveryOff:'Tạm thời chưa có giao hàng'
         }
       };
+      I18N.zh = I18N.zh || I18N.vn;
+      I18N.pl = I18N.pl || I18N.ua;
+      I18N.de = I18N.de || I18N.ua;
       const L = () => I18N[LANG] || I18N.ru;
 
       let DESCS = null;
@@ -1549,26 +1585,44 @@
       const burgerBtn = $('#burgerBtn');
       const navPop = $('#navPop');
 
-      burgerBtn?.addEventListener('click', ()=>{
+      function closeNavDrawer(){
+        navPop?.classList.remove('open');
+        burgerBtn?.setAttribute('aria-expanded','false');
+        document.body.classList.remove('drawer-open');
+      }
+
+      burgerBtn?.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if (!navPop) return;
         const open = navPop.classList.toggle('open');
         burgerBtn.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('drawer-open', open);
       });
 
       document.addEventListener('click', e=>{
-        const navPop = document.getElementById('navPop');
-        const burgerBtn= document.getElementById('burgerBtn');
         const dockProfil = document.getElementById('dockProfil');
         if (!navPop) return;
         if (!navPop.contains(e.target) && e.target !== burgerBtn && e.target !== dockProfil) {
-          navPop.classList.remove('open');
-          burgerBtn?.setAttribute('aria-expanded','false');
+          closeNavDrawer();
         }
+      });
+
+      navPop?.addEventListener('click', (e)=>{
+        const link = e.target instanceof Element ? e.target.closest('a') : null;
+        if (link) closeNavDrawer();
+      });
+
+      $('#navSearch')?.addEventListener('click', (e)=>{
+        e.preventDefault();
+        closeNavDrawer();
+        const search = document.getElementById('searchIn');
+        search?.scrollIntoView({behavior:'smooth', block:'center'});
+        window.setTimeout(()=>search?.focus(), 180);
       });
 
       $('#navContact')?.addEventListener('click', (e)=>{
         e.preventDefault();
-        navPop?.classList.remove('open');
-        burgerBtn?.setAttribute('aria-expanded','false');
+        closeNavDrawer();
         document.getElementById('contactSection')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
 
@@ -1643,11 +1697,28 @@
       function setUITexts(){
         const t = L();
         const s = t.sheet;
+        const navCopy = {
+          ru:{ shops:'Магазины', search:'Поиск', orders:'Заказы', profile:'Профиль', delivery:'Заказать доставку еды', privacy:'Конфиденциальность', cookies:'Файлы Cookies', security:'Безопасность' },
+          ua:{ shops:'Магазини', search:'Пошук', orders:'Замовлення', profile:'Профіль', delivery:'Замовити доставку їжі', privacy:'Конфіденційність', cookies:'Файли Cookies', security:'Безпека' },
+          vn:{ shops:'Cửa hàng', search:'Tìm kiếm', orders:'Đơn hàng', profile:'Hồ sơ', delivery:'Đặt giao đồ ăn', privacy:'Quyền riêng tư', cookies:'Tệp Cookies', security:'Bảo mật' },
+          zh:{ shops:'商店', search:'搜索', orders:'订单', profile:'个人资料', delivery:'订购外送美食', privacy:'隐私', cookies:'Cookie 文件', security:'安全' },
+          pl:{ shops:'Sklepy', search:'Szukaj', orders:'Zamówienia', profile:'Profil', delivery:'Zamów dostawę jedzenia', privacy:'Prywatność', cookies:'Pliki Cookies', security:'Bezpieczeństwo' },
+          de:{ shops:'Shops', search:'Suche', orders:'Bestellungen', profile:'Profil', delivery:'Essen liefern lassen', privacy:'Datenschutz', cookies:'Cookie-Dateien', security:'Sicherheit' }
+        }[LANG] || {};
+        const setText = (selector, value)=>{
+          const el = $(selector);
+          if (el) el.textContent = value;
+        };
 
-        $('#navHome').textContent = '🏠 ' + t.navHome;
-        $('#navMenu').textContent = '🍜 ' + t.navMenu;
-        $('#navKaraoke').textContent = '🎤 ' + t.navKaraoke;
-        $('#navContact').textContent = '📞 ' + t.navContact;
+        setText('#navHome', t.navHome || 'Головна');
+        setText('#navMarket', navCopy.shops || 'Магазини');
+        setText('#navSearch', navCopy.search || 'Пошук');
+        setText('#navOrders', navCopy.orders || 'Замовлення');
+        setText('#navProfil', navCopy.profile || 'Профіль');
+        setText('#navDeliveryTitle', navCopy.delivery || 'Замовити доставку їжі');
+        setText('#navPrivacy', navCopy.privacy || 'Конфіденційність');
+        setText('#navCookies', navCopy.cookies || 'Файли Cookies');
+        setText('#navSecurity', navCopy.security || 'Безпека');
 
         $('#sheetTitle').textContent = s.title;
         $('#orderTypeTitle').textContent = s.orderType;
@@ -1849,23 +1920,23 @@
 
       /* TELEGRAM */
       const TG = {
-        BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",
-        CHAT_ID: "-1002283682762",
-        CHAT_ID_VN: "-1002156259709",
+        MAIN_CHANNEL: "main",
+        VN_CHANNEL: "vn",
         BOT_USERNAME: "@cyber_dracon_bot",
-        PROXY_URL: ""
+        PROXY_URL: window.DRAGON_STATIC?.telegramMessageApi || ""
       };
 
       function TG_ENDPOINT() {
-        if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
-        if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
-        return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendMessage`;
+        return String(TG.PROXY_URL || "").trim();
       }
 
-      async function sendTelegramMessage(chatId, text) {
+      async function sendTelegramMessage(channel, text) {
         const url = TG_ENDPOINT();
+        if (!url) {
+          return { ok: false, reason: "telegram_proxy_missing" };
+        }
         const payload = {
-          chat_id: chatId,
+          channel,
           text,
           parse_mode: "HTML",
           disable_web_page_preview: true
@@ -1952,9 +2023,8 @@ ${lines}`;
       }
 
       async function sendOrderToTelegram(orderPayload) {
-        if (!TG.CHAT_ID) return { ok:false, reason:"TG.CHAT_ID is empty" };
         const text = buildUkrainianOrderText(orderPayload);
-        return sendTelegramMessage(TG.CHAT_ID, text);
+        return sendTelegramMessage(TG.MAIN_CHANNEL, text);
       }
 
       function viType(ot){
@@ -2024,9 +2094,8 @@ ${lines}`;
       }
 
       async function sendOrderToTelegramVN(orderPayload){
-        if (!TG.CHAT_ID_VN) return { ok:false, reason:"TG.CHAT_ID_VN is empty" };
         const text = buildVietnameseOrderText(orderPayload);
-        return sendTelegramMessage(TG.CHAT_ID_VN, text);
+        return sendTelegramMessage(TG.VN_CHANNEL, text);
       }
 
       async function createOrderOnSheet(orderPayload){

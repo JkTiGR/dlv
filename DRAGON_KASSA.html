@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#080101" />
   <title>DRAGON KASSA</title>
   <link rel="icon" href="logo.png" />
+  <link rel="stylesheet" href="dragon-theme.css" />
   <style>
     :root {
       --bg: #030000;
@@ -2600,13 +2601,19 @@
     const REPORT_LANG_KEY = "CD_KASSA_REPORT_LANG_V1";
     const REPORT_COMMENT_OVERRIDES_KEY = "CD_KASSA_REPORT_COMMENT_OVERRIDES_V1";
     const LAST_SYNC_KEY = "CD_KASSA_LAST_SYNC_V1";
+    const TRACE_DEVICE_KEY = "CD_DRAGON_KASSA_DEVICE_ID_V1";
+    const TRACE_SESSION_KEY = "CD_DRAGON_KASSA_SESSION_ID_V1";
+    const TRACE_SESSION_STARTED_AT_KEY = "CD_DRAGON_KASSA_SESSION_STARTED_AT_V1";
     const CONTRON_STORAGE_KEY = "DRAGON_CONTRON_PANEL_V2";
     const STOCK_SUMMARY_KEY = "DRAGON_STOCK_SUMMARY_V1";
     const LOCAL_API_BASE = window.DRAGON_STATIC?.localOrdersApi || "";
     const LOCAL_EVENTS_URL = window.DRAGON_STATIC?.localEventsUrl || "";
     const TELEGRAM_MESSAGE_API = window.DRAGON_STATIC?.telegramMessageApi || "";
     const TELEGRAM_DOCUMENT_API = window.DRAGON_STATIC?.telegramDocumentApi || "";
-    const KASSA_SESSION_API = window.DRAGON_STATIC?.kassaSessionApi || "/api/kassa/session";
+    const KASSA_SESSION_API = window.DRAGON_STATIC?.kassaSessionApi || "";
+    // Static hosting cannot protect a secret PIN; this is only a local fallback when the bridge API is unavailable.
+    const KASSA_LOCAL_PIN = String(window.DRAGON_STATIC?.kassaLocalPin || "1990").trim();
+    const KASSA_LOCAL_AUTH_KEY = "CD_DRAGON_KASSA_LOCAL_AUTH_V1";
     const SCREENSHOT_MODE = new URLSearchParams(window.location.search).get("screenshot") === "1";
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
     const REFRESH_MS = 30000;
@@ -3061,6 +3068,93 @@
       }
     }
 
+    function storageArea(kind) {
+      try {
+        return window[kind] || null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function readStored(area, key) {
+      try {
+        return String(area?.getItem(key) || "").trim();
+      } catch (_) {
+        return "";
+      }
+    }
+
+    function writeStored(area, key, value) {
+      try {
+        area?.setItem(key, String(value || ""));
+      } catch (_) {}
+    }
+
+    function generateTraceId(prefix) {
+      const token = window.crypto?.randomUUID
+        ? window.crypto.randomUUID().replace(/-/g, "").slice(0, 12)
+        : `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+      return `${prefix}-${token}`;
+    }
+
+    const TRACE_DEVICE_ID = (() => {
+      const area = storageArea("localStorage");
+      const existing = readStored(area, TRACE_DEVICE_KEY);
+      if (existing) return existing;
+      const next = generateTraceId("dragondev");
+      writeStored(area, TRACE_DEVICE_KEY, next);
+      return next;
+    })();
+
+    const TRACE_SESSION_ID = (() => {
+      const area = storageArea("sessionStorage");
+      const existing = readStored(area, TRACE_SESSION_KEY);
+      if (existing) return existing;
+      const next = generateTraceId("dragonsess");
+      writeStored(area, TRACE_SESSION_KEY, next);
+      return next;
+    })();
+
+    const TRACE_SESSION_STARTED_AT = (() => {
+      const area = storageArea("sessionStorage");
+      const existing = readStored(area, TRACE_SESSION_STARTED_AT_KEY);
+      if (existing) return existing;
+      const next = new Date().toISOString();
+      writeStored(area, TRACE_SESSION_STARTED_AT_KEY, next);
+      return next;
+    })();
+
+    function traceOriginLabel() {
+      try {
+        const url = new URL(window.location.href);
+        if (url.protocol === "file:") {
+          const fileName = url.pathname.split("/").filter(Boolean).pop() || "local-file";
+          return `file://${fileName}`;
+        }
+        return `${url.origin}${url.pathname}`;
+      } catch (_) {
+        return String(window.location.href || "").trim();
+      }
+    }
+
+    function traceBrowserLabel() {
+      return [String(navigator.platform || "").trim(), String(navigator.language || "").trim()]
+        .filter(Boolean)
+        .join(" • ");
+    }
+
+    function currentCashierTrace() {
+      const shiftNote = String(state.shift?.note || "").trim();
+      return {
+        device_id: TRACE_DEVICE_ID,
+        session_id: TRACE_SESSION_ID,
+        session_started_at: TRACE_SESSION_STARTED_AT,
+        source_url: traceOriginLabel(),
+        browser_label: traceBrowserLabel(),
+        shift_note: shiftNote
+      };
+    }
+
     function inferPaymentType(cash, card, fallback = "unknown") {
       const cashAmount = normalizeAmount(cash);
       const cardAmount = normalizeAmount(card);
@@ -3216,6 +3310,13 @@
       const tgSyncVN = raw.sync?.telegram_vn ?? raw.vn_tg ?? null;
       const sheetSync = raw.sync?.sheet ?? raw.sheet ?? null;
       const payment = derivePaymentAmounts(raw, total, raw.payment_type || raw.payment || raw.payment_method);
+      const trace = raw.trace && typeof raw.trace === "object" ? raw.trace : {};
+      const deviceId = String(raw.device_id || trace.device_id || "").trim();
+      const sessionId = String(raw.session_id || trace.session_id || "").trim();
+      const sessionStartedAt = String(raw.session_started_at || trace.session_started_at || "").trim();
+      const sourceUrl = String(raw.source_url || trace.source_url || "").trim();
+      const browserLabel = String(raw.browser_label || trace.browser_label || "").trim();
+      const shiftNote = String(raw.shift_note || trace.shift_note || "").trim();
 
       return {
         id,
@@ -3239,6 +3340,20 @@
         updated_at: raw.updated_at || raw.updatedAt || raw.created_at || new Date().toISOString(),
         receipt_link: raw.receipt_link || "",
         meta: Array.isArray(raw.meta) ? raw.meta : [],
+        device_id: deviceId,
+        session_id: sessionId,
+        session_started_at: sessionStartedAt,
+        source_url: sourceUrl,
+        browser_label: browserLabel,
+        shift_note: shiftNote,
+        trace: {
+          device_id: deviceId,
+          session_id: sessionId,
+          session_started_at: sessionStartedAt,
+          source_url: sourceUrl,
+          browser_label: browserLabel,
+          shift_note: shiftNote
+        },
         sync: {
           local: localSync,
           telegram: tgSync,
@@ -3708,6 +3823,32 @@
       state.timer = setInterval(pollOrdersWhenVisible, REFRESH_MS);
     }
 
+    function hasKassaSessionApi() {
+      return Boolean(String(KASSA_SESSION_API || "").trim());
+    }
+
+    function isLocalKassaPinValid(pin) {
+      return Boolean(KASSA_LOCAL_PIN) && String(pin || "").trim() === KASSA_LOCAL_PIN;
+    }
+
+    function setLocalKassaSession(active) {
+      const area = storageArea("sessionStorage");
+      if (!area) return;
+      if (active) writeStored(area, KASSA_LOCAL_AUTH_KEY, "1");
+      else area.removeItem?.(KASSA_LOCAL_AUTH_KEY);
+    }
+
+    function hasLocalKassaSession() {
+      const area = storageArea("sessionStorage");
+      return readStored(area, KASSA_LOCAL_AUTH_KEY) === "1";
+    }
+
+    function unlockKassaLocal(message = "") {
+      setLocalKassaSession(true);
+      unlockKassa();
+      if (message) showToast(message, "warn");
+    }
+
     function unlockKassa() {
       state.kassa_authenticated = true;
       $("#pinError").textContent = "";
@@ -3716,10 +3857,13 @@
     }
 
     async function lockKassa() {
-      try {
-        await fetch(KASSA_SESSION_API, { method: "DELETE" });
-      } catch (_) {
-        // Ignore network errors while logging out locally.
+      setLocalKassaSession(false);
+      if (hasKassaSessionApi()) {
+        try {
+          await fetch(KASSA_SESSION_API, { method: "DELETE" });
+        } catch (_) {
+          // Ignore network errors while logging out locally.
+        }
       }
       state.kassa_authenticated = false;
       if (state.timer) {
@@ -3731,6 +3875,11 @@
     }
 
     async function refreshKassaSession() {
+      if (!hasKassaSessionApi()) {
+        state.kassa_authenticated = hasLocalKassaSession();
+        return state.kassa_authenticated;
+      }
+
       try {
         const response = await fetch(KASSA_SESSION_API, { cache: "no-store" });
         if (!response.ok) {
@@ -3759,6 +3908,17 @@
       error.textContent = "";
       input.disabled = true;
 
+      if (!hasKassaSessionApi()) {
+        if (isLocalKassaPinValid(pin)) {
+          unlockKassaLocal("Касса открыта локально: bridge PIN API не задан.");
+        } else {
+          error.textContent = "Неверный PIN. Попробуйте ещё раз.";
+          input.select();
+        }
+        input.disabled = false;
+        return;
+      }
+
       try {
         const response = await fetch(KASSA_SESSION_API, {
           method: "POST",
@@ -3770,13 +3930,21 @@
           payload = await response.json();
         } catch (_) {}
         if (!response.ok || !payload?.ok) {
+          if ((response.status === 404 || response.status === 405 || response.status >= 500) && isLocalKassaPinValid(pin)) {
+            unlockKassaLocal("Сервер PIN недоступен, касса открыта локально.");
+            return;
+          }
           error.textContent = payload?.error || "Неверный PIN. Попробуйте ещё раз.";
           input.select();
           return;
         }
         unlockKassa();
       } catch (_) {
-        error.textContent = "Не удалось проверить PIN на сервере.";
+        if (isLocalKassaPinValid(pin)) {
+          unlockKassaLocal("Сервер PIN недоступен, касса открыта локально.");
+        } else {
+          error.textContent = "Не удалось проверить PIN на сервере.";
+        }
       } finally {
         input.disabled = false;
       }
@@ -4989,8 +5157,8 @@
     async function sendFullScreenshotToVN(event) {
       const btn = event?.currentTarget || $("#sendScreenshotBtn");
       if (!btn || state.screenshotBusy) return;
-      if (!TG.CHAT_ID_VN) {
-        showToast("CHAT_ID_VN не задан", "error");
+      if (!TG_DOCUMENT_ENDPOINT()) {
+        showToast("Telegram proxy не настроен", "error");
         return;
       }
 
@@ -5007,7 +5175,7 @@
         const stamp = new Date().toISOString().replace(/[:.]/g, "-");
         const caption = `DRAGON Kassa full screenshot • ${fmtDateTime(nowIso())}`;
         const result = await sendTelegramDocument(
-          TG.CHAT_ID_VN,
+          TG.VN_CHANNEL,
           imageBlob,
           `dragon-kassa-full-${stamp}.png`,
           caption
@@ -5017,7 +5185,7 @@
           throw new Error(result.error || "Telegram sendDocument failed");
         }
 
-        showToast("Full screenshot отправлен в CHAT_ID_VN");
+        showToast("Full screenshot отправлен в VN");
       } catch (error) {
         showToast(`Скрин не отправлен: ${error?.message || error}`, "error");
       } finally {
@@ -5031,8 +5199,8 @@
     async function sendReportScreenshotToVN(event) {
       const btn = event?.currentTarget || $("#reportScreenshotBtn");
       if (!btn || state.screenshotBusy) return;
-      if (!TG.CHAT_ID_VN) {
-        showToast("CHAT_ID_VN не задан", "error");
+      if (!TG_DOCUMENT_ENDPOINT()) {
+        showToast("Telegram proxy не настроен", "error");
         return;
       }
 
@@ -5049,7 +5217,7 @@
         const stamp = new Date().toISOString().replace(/[:.]/g, "-");
         const caption = `DRAGON report screenshot • ${fmtDateTime(nowIso())}`;
         const result = await sendTelegramDocument(
-          TG.CHAT_ID_VN,
+          TG.VN_CHANNEL,
           imageBlob,
           `dragon-day-report-${stamp}.png`,
           caption
@@ -5059,7 +5227,7 @@
           throw new Error(result.error || "Telegram sendDocument failed");
         }
 
-        showToast("Скрин отчёта отправлен в CHAT_ID_VN");
+        showToast("Скрин отчёта отправлен в VN");
       } catch (error) {
         showToast(`Скрин отчёта не отправлен: ${error?.message || error}`, "error");
       } finally {
@@ -5085,6 +5253,12 @@
       if (order.address) meta.push(`Адреса: <b>${escapeHtml(order.address)}</b>`);
       if (order.phone) meta.push(`Телефон: <b>${escapeHtml(order.phone)}</b>`);
       if (order.comment) meta.push(`Коментар: <b>${escapeHtml(order.comment)}</b>`);
+      if (order.device_id) meta.push(`Device ID: <code>${escapeHtml(order.device_id)}</code>`);
+      if (order.session_id) meta.push(`Session ID: <code>${escapeHtml(order.session_id)}</code>`);
+      if (order.session_started_at) meta.push(`Початок сесії: <b>${escapeHtml(fmtDateTime(order.session_started_at))}</b>`);
+      if (order.browser_label) meta.push(`Пристрій: <b>${escapeHtml(order.browser_label)}</b>`);
+      if (order.source_url) meta.push(`Джерело: <code>${escapeHtml(order.source_url)}</code>`);
+      if (order.shift_note) meta.push(`Нотатка зміни: <b>${escapeHtml(order.shift_note)}</b>`);
 
       return `<b>DRAGON KASSA — Нове замовлення</b>
 ID: <code>${escapeHtml(order.id)}</code>
@@ -5112,6 +5286,12 @@ ${lines}`;
       if (order.address) meta.push(`Địa chỉ: <b>${escapeHtml(order.address)}</b>`);
       if (order.phone) meta.push(`SĐT: <b>${escapeHtml(order.phone)}</b>`);
       if (order.comment) meta.push(`Ghi chú: <b>${escapeHtml(order.comment)}</b>`);
+      if (order.device_id) meta.push(`Device ID: <code>${escapeHtml(order.device_id)}</code>`);
+      if (order.session_id) meta.push(`Session ID: <code>${escapeHtml(order.session_id)}</code>`);
+      if (order.session_started_at) meta.push(`Bat dau phien: <b>${escapeHtml(fmtDateTime(order.session_started_at))}</b>`);
+      if (order.browser_label) meta.push(`Thiet bi: <b>${escapeHtml(order.browser_label)}</b>`);
+      if (order.source_url) meta.push(`Nguon: <code>${escapeHtml(order.source_url)}</code>`);
+      if (order.shift_note) meta.push(`Ghi chu ca: <b>${escapeHtml(order.shift_note)}</b>`);
 
       return `<b>DRAGON KASSA — Đơn mới</b>
 ID: <code>${escapeHtml(order.id)}</code>
@@ -6295,6 +6475,7 @@ ${lines}`;
       }
 
       const orderCode = state.manual.draft_code || generateShortCode();
+      const trace = currentCashierTrace();
       const order = normalizeOrder({
         id: `CASH-${new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14)}`,
         code: orderCode,
@@ -6329,7 +6510,14 @@ ${lines}`;
         total: totals.total,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-        source: "cashier"
+        source: "cashier",
+        device_id: trace.device_id,
+        session_id: trace.session_id,
+        session_started_at: trace.session_started_at,
+        source_url: trace.source_url,
+        browser_label: trace.browser_label,
+        shift_note: trace.shift_note,
+        trace
       });
 
       markSheetPending(order, "create");
@@ -6339,8 +6527,8 @@ ${lines}`;
       const tgTextUA = buildTelegramTextUA(order);
       const tgTextVN = buildTelegramTextVN(order);
       const [tgMain, tgVN, sheetRes] = await Promise.all([
-        sendTelegramMessage(TG.CHAT_ID, tgTextUA),
-        TG.CHAT_ID_VN ? sendTelegramMessage(TG.CHAT_ID_VN, tgTextVN) : Promise.resolve({ ok: false, error: "CHAT_ID_VN empty" }),
+        sendTelegramMessage(TG.MAIN_CHANNEL, tgTextUA),
+        sendTelegramMessage(TG.VN_CHANNEL, tgTextVN),
         createOrderOnSheet(order)
       ]);
 

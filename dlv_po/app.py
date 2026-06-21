@@ -180,6 +180,14 @@ def create_app() -> Flask:
     def index():
         return send_from_directory(BASE_DIR, "index.html")
 
+    @app.get("/dragon-theme.css")
+    def dragon_theme():
+        return send_from_directory(BASE_DIR.parent, "dragon-theme.css")
+
+    @app.get("/fon1.png")
+    def dragon_background():
+        return send_from_directory(BASE_DIR.parent, "fon1.png")
+
     @app.get("/api/health")
     def healthcheck():
         return jsonify(

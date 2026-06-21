@@ -1629,7 +1629,7 @@
           }
           items.push({ name, price: unit, qty, key, code, selections: entry.selections || {}, note: noteText });
         }
-        
+
         let deliveryFee = 0;
         let deliveryText = '';
         if (orderType === 'delivery') {
@@ -1641,7 +1641,7 @@
             deliveryText = `${DELIVERY_PRICE} ${CURRENCY}`;
           }
         }
-        
+
         const totalWithDelivery = sum + deliveryFee;
         return {itemsCount, sum, lines, items, deliveryFee, deliveryText, totalWithDelivery};
       }
@@ -1650,15 +1650,15 @@
         const t = L().sheet;
         const lines = $('#cartLines');
         if (!lines) return;
-        
+
         const orderType = document.querySelector('#orderType .chip.active')?.dataset.ot || 'on_site';
-        
+
         if (cart.size === 0){
           lines.innerHTML = `<div class="muted">${t.empty}</div>`;
           $('#cartMeta').innerHTML = `${t.total}: ${fmt(0)}`;
           return;
         }
-        
+
         let sum = 0;
         lines.innerHTML = '';
         for (const [id, entry] of cart){
@@ -1689,7 +1689,7 @@
             </div>`;
           lines.appendChild(el);
         }
-        
+
         let deliveryFee = 0;
         let deliveryText = '';
         if (orderType === 'delivery') {
@@ -1701,15 +1701,15 @@
             deliveryText = `${DELIVERY_PRICE} ${CURRENCY}`;
           }
         }
-        
+
         const totalWithDelivery = sum + deliveryFee;
-        
+
         let metaText = `${t.total}: ${fmt(sum)}`;
         if (orderType === 'delivery') {
           metaText += `<br>${t.deliveryPrice}: ${deliveryText}`;
           metaText += `<br><strong>${t.total} с доставкой: ${fmt(totalWithDelivery)}</strong>`;
         }
-        
+
         $('#cartMeta').innerHTML = metaText;
       }
 
@@ -2302,7 +2302,7 @@
         if (tableNo) tableNo.required = (v === 'on_site');
         if (pickupIn) pickupIn.required = (v === 'takeaway');
         if (address) address.required = (v === 'delivery');
-        
+
         if (v === 'delivery') {
           phoneHint.textContent = c.common.required;
           phone.required = true;
@@ -2313,11 +2313,11 @@
           phoneHint.textContent = c.common.optional;
           phone.required = false;
         }
-        
+
         tableHint.textContent = c.common.required;
         pickupHint.textContent = c.common.required;
         addrHint.textContent = c.common.required;
-        
+
         renderCartSheet();
       }
 
@@ -2396,7 +2396,7 @@
 
         const csTitle = $('#catSheetTitle');
         if (csTitle) csTitle.textContent = t.navMenu || 'Категории';
-        
+
         const bankTitle = $('#bankSheetTitle');
         if (bankTitle) bankTitle.textContent = t.bankSheetTitle || 'Выберите способ оплаты';
         const contactTitle = $('#contactTitle');
@@ -2444,12 +2444,12 @@
         }
         const when = new Date(rec.created_at).toLocaleString();
         const total = Number(rec.total || rec.subtotal + (rec.delivery_fee||0)).toFixed(2);
-        
+
         let deliveryInfo = '';
         if (rec.delivery_fee !== undefined) {
           deliveryInfo = `<div class="muted">${escapeHtml(L().sheet?.deliveryPrice || 'Delivery fee')}: ${(rec.delivery_fee||0).toFixed(2)} ${CURRENCY}</div>`;
         }
-        
+
         statusResultEl.innerHTML = `
           <div class="status-card">
             <div><b>${escapeHtml(L().statusCodeLabel || 'Code')}:</b> ${escapeHtml(rec.code)} <span class="pill-mini">${escapeHtml(rec.status||'—')}</span></div>
@@ -4065,4 +4065,3 @@ ${lines}`;
   </div>
 </body>
 </html>
-

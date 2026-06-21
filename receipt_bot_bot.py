@@ -1,3 +1,4 @@
+import os
 import re
 import sqlite3
 from datetime import datetime, timezone
@@ -7,7 +8,7 @@ from telegram import Update
 from telegram.constants import ParseMode
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 
-BOT_TOKEN = "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4"
+BOT_TOKEN = os.environ.get("DRAGON_TG_BOT_TOKEN", "").strip()
 DB_PATH = "orders.db"
 
 CODE_RE = re.compile(r"\bCode:\s*([a-z]\d{3})\b", re.IGNORECASE)
@@ -100,6 +101,9 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Отправь код вида y908 или нажми кнопку «Получить чек» на сайте.")
 
 def main():
+    if not BOT_TOKEN:
+        raise RuntimeError("DRAGON_TG_BOT_TOKEN is required")
+
     app = Application.builder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))

@@ -1,11 +1,12 @@
-const DRAGON_CACHE = 'dragon-pwa-v2';
+const DRAGON_CACHE = 'dragon-pwa-v18';
 const CORE_ASSETS = [
   './',
   './index.html',
   './menu.html',
   './app.html',
-  './base.css',
+  './dragon-theme.css',
   './logo.png',
+  './fon1.png',
   './manifest.json'
 ];
 

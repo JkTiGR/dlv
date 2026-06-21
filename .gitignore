@@ -13,6 +13,7 @@ dlv_local_orders.json
 dlv_menu_availability.json
 dragon_local_orders.json
 dragon_menu_availability.json
+dragon_order_audit.jsonl
 po.db
 dlv_po/data/po.db
 

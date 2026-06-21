@@ -8,6 +8,7 @@ import ipaddress
 import json
 import os
 import queue
+import re
 import threading
 import time
 from datetime import datetime, timezone
@@ -30,6 +31,8 @@ from dragon_bridge_runtime import (
 ROOT_DIR = Path(__file__).resolve().parent
 DB_PATH = ROOT_DIR / "dragon_local_orders.json"
 MENU_AVAILABILITY_PATH = ROOT_DIR / "dragon_menu_availability.json"
+AUDIT_PATH = ROOT_DIR / "dragon_order_audit.jsonl"
+MAX_AUDIT_EVENTS_RETURNED = 500
 
 
 def utc_iso() -> str:
@@ -90,14 +93,17 @@ class DRAGONServer(ThreadingHTTPServer):
         root_dir: Path,
         db_path: Path,
         menu_availability_path: Path,
+        audit_path: Path,
         runtime_config: BridgeRuntimeConfig,
     ):
         self.root_dir = root_dir
         self.db_path = db_path
         self.menu_availability_path = menu_availability_path
+        self.audit_path = audit_path
         self.runtime_config = runtime_config
         self.db_lock = threading.Lock()
         self.menu_lock = threading.Lock()
+        self.audit_lock = threading.Lock()
         self.listeners_lock = threading.Lock()
         self.listeners: set[queue.Queue[str]] = set()
         self.sessions_lock = threading.Lock()
@@ -171,6 +177,40 @@ class DRAGONServer(ThreadingHTTPServer):
         tmp_path = self.db_path.with_suffix(".tmp")
         tmp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         tmp_path.replace(self.db_path)
+
+    def append_audit_event(self, event: dict) -> None:
+        if not isinstance(event, dict):
+            return
+        event = {
+            "received_at": event.get("received_at") or utc_iso(),
+            **event,
+        }
+        line = json.dumps(event, ensure_ascii=False, separators=(",", ":"))
+        try:
+            with self.audit_lock:
+                with self.audit_path.open("a", encoding="utf-8") as fh:
+                    fh.write(line + "\n")
+        except OSError as exc:
+            print(f"Order audit write failed: {exc}", flush=True)
+
+    def read_audit_events(self, limit: int = MAX_AUDIT_EVENTS_RETURNED) -> list[dict]:
+        if not self.audit_path.exists():
+            return []
+        limit = max(1, min(int(limit or MAX_AUDIT_EVENTS_RETURNED), MAX_AUDIT_EVENTS_RETURNED))
+        try:
+            with self.audit_lock:
+                lines = self.audit_path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            return []
+        events: list[dict] = []
+        for line in lines[-limit:]:
+            try:
+                payload = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(payload, dict):
+                events.append(payload)
+        return events
 
     def find_order_key(self, orders: dict, reference: str) -> str | None:
         ref = str(reference or "").strip()
@@ -335,6 +375,7 @@ class DRAGONServer(ThreadingHTTPServer):
             "storage": "json_bridge",
             "db_path": str(self.db_path),
             "menu_availability_path": str(self.menu_availability_path),
+            "audit_path": str(self.audit_path),
             "snapshot": self.snapshot_token(),
         }
 
@@ -486,6 +527,11 @@ class DRAGONHandler(SimpleHTTPRequestHandler):
         return self.server.has_kassa_session(self.parse_cookie("dragon_kassa_session"))
 
     def send_unauthorized_json(self, message: str = "Bridge access denied. Open the page using a bridgeToken link.") -> None:
+        parsed = urlsplit(self.path)
+        audit = self.request_audit_context("api_unauthorized", parse_qs(parsed.query))
+        audit["ok"] = False
+        audit["error"] = message
+        self.server.append_audit_event(audit)
         self.send_json(
             {
                 "ok": False,
@@ -515,6 +561,124 @@ class DRAGONHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    def bounded_header(self, name: str, limit: int = 500) -> str:
+        value = str(self.headers.get(name) or "").strip()
+        return value[:limit]
+
+    def forwarded_ip_chain(self) -> list[str]:
+        raw_values = [
+            self.bounded_header("CF-Connecting-IP"),
+            self.bounded_header("X-Real-IP"),
+            self.bounded_header("X-Forwarded-For", 1000),
+        ]
+        forwarded = self.bounded_header("Forwarded", 1000)
+        if forwarded:
+            raw_values.extend(re.findall(r"for=\"?([^;,\" ]+)", forwarded, flags=re.IGNORECASE))
+
+        ips: list[str] = []
+        for raw in raw_values:
+            for part in str(raw or "").split(","):
+                value = part.strip().strip('"').strip("'")
+                if not value:
+                    continue
+                if value.startswith("[") and "]" in value:
+                    value = value[1:value.index("]")]
+                elif ":" in value and value.count(":") == 1:
+                    value = value.rsplit(":", 1)[0]
+                if value and value not in ips:
+                    ips.append(value)
+        return ips
+
+    def request_audit_context(self, event_type: str, query: dict[str, list[str]]) -> dict:
+        remote_addr = str((self.client_address or [""])[0] or "").strip()
+        forwarded_ips = self.forwarded_ip_chain()
+        client_ip = forwarded_ips[0] if forwarded_ips else remote_addr
+        request_id = base64.urlsafe_b64encode(os.urandom(9)).decode("ascii").rstrip("=")
+        return {
+            "event": event_type,
+            "request_id": request_id,
+            "received_at": utc_iso(),
+            "method": self.command,
+            "path": urlsplit(self.path).path,
+            "client_ip": client_ip,
+            "remote_addr": remote_addr,
+            "forwarded_ips": forwarded_ips,
+            "headers": {
+                "host": self.bounded_header("Host"),
+                "origin": self.bounded_header("Origin"),
+                "referer": self.bounded_header("Referer", 1000),
+                "user_agent": self.bounded_header("User-Agent", 1000),
+                "accept_language": self.bounded_header("Accept-Language"),
+                "cf_ipcountry": self.bounded_header("CF-IPCountry"),
+            },
+            "auth": {
+                "bridge_token_in_query": bool(self.bridge_token_from_query(query)),
+                "bridge_session_cookie": bool(self.parse_cookie("dragon_bridge_session")),
+                "kassa_session_cookie": bool(self.parse_cookie("dragon_kassa_session")),
+                "loopback_client": self.is_loopback_client(),
+            },
+        }
+
+    def order_audit_summary(self, order: dict) -> dict:
+        if not isinstance(order, dict):
+            return {}
+        customer = order.get("customer") if isinstance(order.get("customer"), dict) else {}
+        trace = order.get("trace") if isinstance(order.get("trace"), dict) else {}
+        geo = order.get("geo") if isinstance(order.get("geo"), dict) else trace.get("geo") if isinstance(trace.get("geo"), dict) else {}
+        return {
+            "id": str(order.get("id") or ""),
+            "code": str(order.get("code") or ""),
+            "source": str(order.get("source") or ""),
+            "type": str(order.get("type") or ""),
+            "status": str(order.get("status") or ""),
+            "total": order.get("total"),
+            "phone": str(order.get("phone") or order.get("customer_phone") or customer.get("phone") or ""),
+            "customer_name": str(order.get("customer_name") or customer.get("name") or ""),
+            "device_id": str(order.get("device_id") or trace.get("device_id") or order.get("customer_id") or ""),
+            "session_id": str(order.get("session_id") or trace.get("session_id") or ""),
+            "session_started_at": str(order.get("session_started_at") or trace.get("session_started_at") or ""),
+            "source_url": str(order.get("source_url") or trace.get("source_url") or ""),
+            "browser_label": str(order.get("browser_label") or trace.get("browser_label") or ""),
+            "geo": geo if isinstance(geo, dict) else {},
+        }
+
+    def attach_request_trace(self, order: dict, audit: dict) -> dict:
+        if not isinstance(order, dict):
+            return order
+        headers = audit.get("headers") if isinstance(audit.get("headers"), dict) else {}
+        request_trace = {
+            "request_id": audit.get("request_id"),
+            "received_at": audit.get("received_at"),
+            "client_ip": audit.get("client_ip"),
+            "remote_addr": audit.get("remote_addr"),
+            "forwarded_ips": audit.get("forwarded_ips") or [],
+            "user_agent": headers.get("user_agent") or "",
+            "accept_language": headers.get("accept_language") or "",
+            "origin": headers.get("origin") or "",
+            "referer": headers.get("referer") or "",
+            "host": headers.get("host") or "",
+            "cf_ipcountry": headers.get("cf_ipcountry") or "",
+        }
+        existing_trace = order.get("request_trace") if isinstance(order.get("request_trace"), dict) else {}
+        return {
+            **order,
+            "request_trace": {
+                **existing_trace,
+                **request_trace,
+            },
+        }
+
+    def telegram_text_summary(self, text: str) -> dict:
+        raw = str(text or "")
+        plain = re.sub(r"<[^>]+>", "", raw)
+        id_match = re.search(r"\bID:\s*([A-Z0-9_-]+)", plain, flags=re.IGNORECASE)
+        code_match = re.search(r"\bCode:\s*([a-z]\d{3})", plain, flags=re.IGNORECASE)
+        return {
+            "id": id_match.group(1) if id_match else "",
+            "code": code_match.group(1).lower() if code_match else "",
+            "preview": plain[:700],
+        }
 
     def handle_local_events(self) -> None:
         client_queue = self.server.register_listener()
@@ -603,6 +767,20 @@ class DRAGONHandler(SimpleHTTPRequestHandler):
                 })
                 return
 
+            if path == "/api/order-audit":
+                limit_raw = (query.get("limit") or [""])[0]
+                try:
+                    limit = int(limit_raw or MAX_AUDIT_EVENTS_RETURNED)
+                except ValueError:
+                    limit = MAX_AUDIT_EVENTS_RETURNED
+                self.send_json({
+                    "ok": True,
+                    "events": self.server.read_audit_events(limit),
+                    "audit_path": str(self.server.audit_path),
+                    "updated_at": utc_iso(),
+                })
+                return
+
             if path == "/api/menu-availability":
                 self.send_json({
                     "ok": True,
@@ -683,6 +861,9 @@ class DRAGONHandler(SimpleHTTPRequestHandler):
                 return
             pin = str(payload.get("pin") or "").strip()
             if pin != str(self.server.runtime_config.kassa_pin or "").strip():
+                audit = self.request_audit_context("kassa_pin_failed", query)
+                audit["ok"] = False
+                self.server.append_audit_event(audit)
                 self.send_json({"ok": False, "error": "Неверный PIN."}, HTTPStatus.UNAUTHORIZED)
                 return
             session_token = self.server.create_kassa_session()
@@ -696,19 +877,35 @@ class DRAGONHandler(SimpleHTTPRequestHandler):
                 return
             try:
                 payload = self.read_json_body()
+                audit = self.request_audit_context("telegram_send_message", query)
+                text = str(payload.get("text") or "")
+                audit["telegram"] = {
+                    "channel": str(payload.get("channel") or "main"),
+                    **self.telegram_text_summary(text),
+                }
                 response = send_telegram_message(
                     self.server.runtime_config,
                     channel=str(payload.get("channel") or "main"),
-                    text=str(payload.get("text") or ""),
+                    text=text,
                     parse_mode=str(payload.get("parse_mode") or "HTML"),
                     disable_web_page_preview=bool(payload.get("disable_web_page_preview", True)),
                 )
             except ValueError as exc:
+                if "audit" in locals():
+                    audit["ok"] = False
+                    audit["error"] = str(exc)
+                    self.server.append_audit_event(audit)
                 self.send_json({"ok": False, "error": str(exc)}, HTTPStatus.BAD_REQUEST)
                 return
             except RuntimeError as exc:
+                if "audit" in locals():
+                    audit["ok"] = False
+                    audit["error"] = str(exc)
+                    self.server.append_audit_event(audit)
                 self.send_json({"ok": False, "error": str(exc)}, HTTPStatus.BAD_GATEWAY)
                 return
+            audit["ok"] = True
+            self.server.append_audit_event(audit)
             self.send_json({"ok": True, "data": response, "updated_at": utc_iso()})
             return
 
@@ -761,16 +958,27 @@ class DRAGONHandler(SimpleHTTPRequestHandler):
 
         try:
             if path == "/api/local-orders":
+                audit = self.request_audit_context("order_upsert", query)
+                payload = self.attach_request_trace(payload, audit)
                 order = self.server.upsert_order(payload)
+                audit["order"] = self.order_audit_summary(order)
+                audit["ok"] = True
+                self.server.append_audit_event(audit)
                 self.send_json({"ok": True, "order": order, "updated_at": utc_iso()})
                 return
 
             if path == "/api/orders":
+                audit = self.request_audit_context("order_upsert", query)
+                payload = self.attach_request_trace(payload, audit)
                 order = self.server.upsert_order(payload)
+                audit["order"] = self.order_audit_summary(order)
+                audit["ok"] = True
+                self.server.append_audit_event(audit)
                 self.send_json(order, HTTPStatus.CREATED)
                 return
 
             if path.startswith("/api/orders/"):
+                audit = self.request_audit_context("order_update", query)
                 reference = path.rsplit("/", 1)[-1]
                 existing = self.server.get_order(reference)
                 if not existing:
@@ -784,7 +992,11 @@ class DRAGONHandler(SimpleHTTPRequestHandler):
                         **(payload.get("sync") if isinstance(payload.get("sync"), dict) else {}),
                     },
                 }
+                merged = self.attach_request_trace(merged, audit)
                 order = self.server.upsert_order(merged)
+                audit["order"] = self.order_audit_summary(order)
+                audit["ok"] = True
+                self.server.append_audit_event(audit)
                 self.send_json(order)
                 return
         except ValueError as exc:
@@ -853,10 +1065,11 @@ def main() -> None:
 
     runtime_config = load_bridge_runtime_config(ROOT_DIR)
     handler_cls = functools.partial(DRAGONHandler, directory=str(ROOT_DIR))
-    server = DRAGONServer((args.bind, args.port), handler_cls, ROOT_DIR, DB_PATH, MENU_AVAILABILITY_PATH, runtime_config)
+    server = DRAGONServer((args.bind, args.port), handler_cls, ROOT_DIR, DB_PATH, MENU_AVAILABILITY_PATH, AUDIT_PATH, runtime_config)
     print(f"Serving DRAGON on http://{args.bind}:{args.port} from {ROOT_DIR}")
     print(f"Local bridge DB: {DB_PATH}")
     print(f"Menu availability DB: {MENU_AVAILABILITY_PATH}")
+    print(f"Order audit log: {AUDIT_PATH}")
     if runtime_config.bridge_token:
         print("Bridge remote auth: enabled")
     elif args.bind not in {"127.0.0.1", "localhost", "::1"} and not runtime_config.allow_insecure_remote:
@@ -870,6 +1083,7 @@ def main() -> None:
     print("  POST         /api/telegram/send-message")
     print("  POST         /api/telegram/send-document")
     print("  GET/POST/DELETE /api/local-orders")
+    print("  GET           /api/order-audit")
     print("  GET           /api/local-events")
     print("  GET/POST/DELETE /api/menu-availability")
     print("  GET/POST/DELETE /api/orders")

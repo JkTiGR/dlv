@@ -1,8 +1,8 @@
-const CACHE_NAME = "dragon-go-shell-v4";
+const CACHE_NAME = "dragon-go-shell-v19";
 const APP_SHELL = [
   "./dragon_go.html",
   "./index.html",
-  "./dragon_go.css",
+  "./dragon-theme.css",
   "./dragon_go.js",
   "./dragon_go.webmanifest",
   "./dragon_static_config.js",
@@ -10,6 +10,7 @@ const APP_SHELL = [
   "./menu_availability.js",
   "./descriptions.json",
   "./logo.png",
+  "./fon1.png",
   "./promo.jpg",
   "./DockIconLang.png",
   "./DockIconKorzina.png"

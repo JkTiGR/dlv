@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#080101" />
   <title>DRAGON Contron Panel</title>
   <link rel="icon" href="logo.png" />
+  <link rel="stylesheet" href="dragon-theme.css" />
   <style>
     :root {
       --bg: #030000;
@@ -1174,11 +1175,9 @@
     const STATUS_KEYS = ["full", "ok", "min"];
     const MODES = ["products", "portions", "losses"];
     const HTML2CANVAS_URL = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
-    // TODO: Move Telegram token to backend proxy.
     const TG = {
-      BOT_TOKEN: "6819820426:AAEWwwN8tYLVPo6U-g6EjWCo4evnJ2SaGk4",
-      CHAT_ID_VN: "-1002156259709",
-      PROXY_URL: ""
+      VN_CHANNEL: "vn",
+      PROXY_URL: window.DRAGON_STATIC?.telegramDocumentApi || ""
     };
 
     // Нормы на одну порцию
@@ -2111,9 +2110,7 @@
     }
 
     function TG_DOCUMENT_ENDPOINT() {
-      if (TG.PROXY_URL && TG.PROXY_URL.trim()) return TG.PROXY_URL;
-      if (!TG.BOT_TOKEN) throw new Error("TG.BOT_TOKEN is empty");
-      return `https://api.telegram.org/bot${TG.BOT_TOKEN}/sendDocument`;
+      return String(TG.PROXY_URL || "").trim();
     }
 
     function ensureHtml2Canvas() {
@@ -2180,15 +2177,36 @@
       });
     }
 
-    async function sendTelegramDocument(chatId, blob, filename, caption) {
-      const formData = new FormData();
-      formData.append("chat_id", chatId);
-      formData.append("caption", caption);
-      formData.append("document", blob, filename);
+    function blobToBase64(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = String(reader.result || "");
+          const marker = "base64,";
+          const index = result.indexOf(marker);
+          resolve(index >= 0 ? result.slice(index + marker.length) : result);
+        };
+        reader.onerror = () => reject(reader.error || new Error("Не удалось прочитать файл"));
+        reader.readAsDataURL(blob);
+      });
+    }
 
-      const response = await fetch(TG_DOCUMENT_ENDPOINT(), {
+    async function sendTelegramDocument(channel, blob, filename, caption) {
+      const endpoint = TG_DOCUMENT_ENDPOINT();
+      if (!endpoint) {
+        return { ok: false, error: "telegram_proxy_missing" };
+      }
+
+      const response = await fetch(endpoint, {
         method: "POST",
-        body: formData
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          channel,
+          caption,
+          filename,
+          mime_type: blob?.type || "application/octet-stream",
+          document_base64: await blobToBase64(blob)
+        })
       });
 
       let data = null;
@@ -2213,8 +2231,8 @@
     async function sendFullScreenshotToVN() {
       const btn = $("#sendScreenshotBtn");
       if (!btn || btn.dataset.busy === "1") return;
-      if (!TG.CHAT_ID_VN) {
-        showToast("CHAT_ID_VN не задан");
+      if (!TG_DOCUMENT_ENDPOINT()) {
+        showToast("Telegram proxy не настроен");
         return;
       }
 
@@ -2228,7 +2246,7 @@
 
         const caption = `DRAGON Contron full screenshot • ${fmtSavedAt()}`;
         const result = await sendTelegramDocument(
-          TG.CHAT_ID_VN,
+          TG.VN_CHANNEL,
           imageBlob,
           `dragon-contron-full-${screenshotStamp()}.png`,
           caption
@@ -2238,7 +2256,7 @@
           throw new Error(result.error || "Telegram sendDocument failed");
         }
 
-        showToast("Full screenshot отправлен в CHAT_ID_VN");
+        showToast("Full screenshot отправлен в VN");
       } catch (error) {
         showToast(`Скрин не отправлен: ${error?.message || error}`);
       } finally {
