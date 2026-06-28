@@ -23,6 +23,51 @@
     .more-ico{width:22px;display:inline-flex;justify-content:center;opacity:.9}
     .more-arrow{opacity:.6;font-size:22px;line-height:1}
     .contact{margin:14px 0 0;padding:14px;border-radius:18px}
+    #contactSection{position:relative;margin:18px 0 0}
+    @media (min-width: 1280px) {
+      .app{padding-bottom:calc(var(--dock-h) + var(--safe-bottom) + 34px)}
+      .workspace-shell{
+        grid-template-columns:minmax(0, 1fr);
+        grid-template-areas:
+          "nav"
+          "tools"
+          "content";
+      }
+      #contactSection{margin:28px 0 0}
+      .dock{
+        left:50%;
+        right:auto;
+        bottom:26px;
+        transform:translateX(-50%);
+        width:min(620px, calc(100% - 48px));
+        min-height:68px;
+        flex-direction:row;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:4px;
+        padding:8px 10px;
+        border-radius:999px;
+      }
+      .dock-btn{
+        flex:1 1 0;
+        width:auto;
+        max-width:76px;
+        min-height:54px;
+        justify-content:flex-start;
+        gap:4px;
+        padding:4px 0;
+      }
+      .dock-btn::after{font-size:.68rem;letter-spacing:.03em}
+      body.sheet-open .dock{transform:translateX(-50%) translateY(16px) scale(.97)}
+      .mini-popup{
+        left:50%;
+        right:auto;
+        bottom:calc(var(--dock-h) + var(--safe-bottom) + 18px);
+        transform:translateX(-50%) translateY(12px);
+        max-width:min(360px, calc(100% - 18px));
+      }
+      .mini-popup.show{transform:translateX(-50%) translateY(0)}
+    }
     .status-card{padding:12px;border-radius:16px;background:radial-gradient(circle at 14% 12%,rgba(255,255,255,.12),transparent 22%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(86,53,160,.1),rgba(16,10,31,.72));border:1px solid rgba(226,214,255,.14);box-shadow:0 10px 22px rgba(7,4,16,.2),0 0 18px rgba(149,106,255,.1),inset 0 6px 10px rgba(255,255,255,.08),inset 0 -18px 24px rgba(6,3,18,.16),inset 0 2px 1px rgba(255,255,255,.62);color:#f7f2ff}
     .pill-mini{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(102,66,184,.12),rgba(255,255,255,.04));border:1px solid rgba(226,214,255,.16);font-size:12px;color:#f0e8ff;box-shadow:inset 0 2px 4px rgba(255,255,255,.08),0 0 12px rgba(149,106,255,.08)}
     .code {
@@ -164,48 +209,48 @@
 
       <!-- Content -->
       <main id="content"></main>
+    </section>
 
-      <!-- CONTACT SECTION -->
-      <section id="contactSection" class="contact glass">
-        <h2 style="margin:0 0 10px 0;" id="contactTitle">📞 CONTACT</h2>
+    <!-- CONTACT SECTION -->
+    <section id="contactSection" class="contact glass">
+      <h2 style="margin:0 0 10px 0;" id="contactTitle">📞 CONTACT</h2>
 
-        <a class="more-row" href="tel:+380632637999" style="border-top:none">
-          <span class="more-left">
-            <span class="more-ico">📞</span>
-            <span>
-              <div><b>+380 632 637 999</b></div>
-              <div class="muted">DRAGON</div>
-            </span>
+      <a class="more-row" href="tel:+380632637999" style="border-top:none">
+        <span class="more-left">
+          <span class="more-ico">📞</span>
+          <span>
+            <div><b>+380 632 637 999</b></div>
+            <div class="muted">DRAGON</div>
           </span>
-          <span class="more-arrow">›</span>
-        </a>
+        </span>
+        <span class="more-arrow">›</span>
+      </a>
 
-        <a class="more-row"
-           href="https://maps.google.com/?q=Героїв%20Крут%2022%2C%20Одеса"
-           target="_blank" rel="noopener noreferrer">
-          <span class="more-left">
-            <span class="more-ico">📍</span>
-            <span>
-              <div><b>Героїв Крут, 22</b></div>
-              <div class="muted">Черёмушки · Одесса</div>
-            </span>
+      <a class="more-row"
+         href="https://maps.google.com/?q=Героїв%20Крут%2022%2C%20Одеса"
+         target="_blank" rel="noopener noreferrer">
+        <span class="more-left">
+          <span class="more-ico">📍</span>
+          <span>
+            <div><b>Героїв Крут, 22</b></div>
+            <div class="muted">Черёмушки · Одесса</div>
           </span>
-          <span class="more-arrow">›</span>
-        </a>
+        </span>
+        <span class="more-arrow">›</span>
+      </a>
 
-        <a class="more-row"
-           href="https://www.privat24.ua/send/4a2kl"
-           target="_blank" rel="noopener noreferrer">
-          <span class="more-left">
-            <span class="more-ico">💳</span>
-            <span>
-              <div><b>Privat24 / Pay</b></div>
-              <div class="muted">Privat24 · карта / IBAN</div>
-            </span>
+      <a class="more-row"
+         href="https://www.privat24.ua/send/4a2kl"
+         target="_blank" rel="noopener noreferrer">
+        <span class="more-left">
+          <span class="more-ico">💳</span>
+          <span>
+            <div><b>Privat24 / Pay</b></div>
+            <div class="muted">Privat24 · карта / IBAN</div>
           </span>
-          <span class="more-arrow">›</span>
-        </a>
-      </section>
+        </span>
+        <span class="more-arrow">›</span>
+      </a>
     </section>
 
     <!-- Categories Sheet -->
@@ -829,14 +874,261 @@
         return (DESCS && DESCS[it.key]) ? DESCS[it.key] : null;
       }
 
+      const DETAILED_DISH_COPY = {
+        ru: {
+          proteins: {
+            beef: { with: 'с нежной говядиной', ingredient: 'говядина' },
+            pork: { with: 'с сочной свининой', ingredient: 'свинина' },
+            chicken: { with: 'с курицей', ingredient: 'курица' },
+            crispyChicken: { with: 'с курицей в хрустящей панировке', ingredient: 'курица в панировке' },
+            shrimp: { with: 'с креветками', ingredient: 'креветки' },
+            mix: { with: 'с миксом мяса и морепродуктов', ingredient: 'говядина, свинина, курица, креветки' },
+            nem: { with: 'с жареными нэмами', ingredient: 'жареные нэмы' },
+            vegetables: { with: 'с овощами', ingredient: 'овощи' },
+            default: { with: 'с фирменной начинкой', ingredient: 'фирменная начинка' }
+          },
+          families: {
+            pho_soups: { base: 'рисовая лапша фо', broth: 'наваристом бульоне с имбирем и пряностями', extras: 'свежая зелень, лук, лайм и ростки бобов', kind: 'soup' },
+            mi_soups: { base: 'яичная лапша ми', broth: 'мягком ароматном бульоне', extras: 'овощи, зелень, лук и соус', kind: 'soup' },
+            mien_soups: { base: 'стеклянная лапша миен', broth: 'прозрачном бульоне с легким вкусом', extras: 'овощи, зелень, лук и лайм', kind: 'soup' },
+            bun_soups: { base: 'рисовая вермишель бун', broth: 'легком вьетнамском бульоне', extras: 'зелень, лук, овощи и лайм', kind: 'soup' },
+            salat_bun: { base: 'рисовая вермишель бун', extras: 'свежий салат, огурец, морковь, зелень, арахис и соус ныок мам', kind: 'salad' },
+            wok_fried_mien: { base: 'стеклянная лапша миен', extras: 'овощи, зелень и фирменный wok-соус', kind: 'wok' },
+            wok_fried_mi: { base: 'яичная лапша ми', extras: 'овощи, зелень и фирменный wok-соус', kind: 'wok' },
+            wok_fried_pho: { base: 'рисовая лапша фо', extras: 'овощи, зелень и фирменный wok-соус', kind: 'wok' },
+            rice_braised: { base: 'рассыпчатый белый рис', extras: 'овощи, зелень и мягкий соус', kind: 'rice' },
+            fried_rice: { base: 'рис, обжаренный на сильном огне', extras: 'овощи, зелень и соус', kind: 'friedRice' }
+          },
+          spicy: 'Можно сделать ярче острым соусом по вкусу.',
+          templates: {
+            soup: ({ name, family, protein, spicy }) => `${name} — большая горячая порция: ${family.base} ${protein.with} в ${family.broth}. Бульон раскрывает вкус основного ингредиента, а ${family.extras} добавляют свежесть и аромат. Подается сытно, согревающе и в узнаваемом вьетнамском стиле.${spicy ? ' ' + spicy : ''}`,
+            salad: ({ name, family, protein }) => `${name} — прохладный вьетнамский боул: ${family.base} ${protein.with}. Внутри ${family.extras}, поэтому вкус получается свежим, кисло-сладким и насыщенным. Хороший выбор, когда хочется легкое блюдо без тяжелого бульона.`,
+            wok: ({ name, family, protein, spicy }) => `${name} — горячий wok: ${family.base} ${protein.with}. Лапша быстро обжаривается с ${family.extras}, остается упругой и хорошо впитывает аромат соуса. Блюдо получается сытным, ярким и удобным для быстрого обеда или ужина.${spicy ? ' ' + spicy : ''}`,
+            rice: ({ name, family, protein }) => `${name} — полноценная тарелка: ${family.base} ${protein.with}. ${family.extras} помогают рису впитать вкус основного ингредиента и делают порцию сбалансированной. Спокойное, понятное блюдо для тех, кто хочет сытно поесть без лишней остроты.`,
+            friedRice: ({ name, family, protein, spicy }) => `${name} — ${family.base} ${protein.with}. Рис готовится с ${family.extras}, поэтому зерна остаются рассыпчатыми, а вкус получается насыщенным и слегка карамельным. Хороший вариант, когда хочется горячее блюдо без бульона.${spicy ? ' ' + spicy : ''}`
+          },
+          drinks: {
+            ca_phe_viet: 'Cà phê Việt — крепкий вьетнамский кофе с глубоким ароматом и мягкой горчинкой. Можно пить как бодрый горячий напиток или как освежающий кофе со льдом; особенно хорошо подходит после сытных блюд.',
+            pepsi: name => `${name} — охлажденный газированный напиток с ярким сладким вкусом и легкой кислинкой. Хорошо сочетается с wok-блюдами, жареным рисом и закусками.`,
+            pepsi_zero: name => `${name} — охлажденная Pepsi без сахара с классическим вкусом колы. Подходит, если хочется газированный напиток к еде, но без лишней сладости.`,
+            mirinda_7up: 'Mirinda / 7UP — освежающий газированный напиток на выбор: фруктовая Mirinda или лимонно-лаймовый 7UP. Хорошо охлаждает вкус после горячих и жареных блюд.',
+            water: 'Вода — простой освежающий напиток к любому блюду. Можно выбрать газированную или негазированную, чтобы сбалансировать насыщенный вкус лапши, риса и соусов.',
+            juice: name => `${name} — фруктовый или овощной сок в удобном формате к обеду. Мягкий вкус хорошо подходит к супам, рисовым блюдам и закускам.`,
+            default: name => `${name} — напиток к основному блюду или закуске. Освежает вкус, помогает сбалансировать пряные соусы и делает заказ полноценным.`
+          },
+          appetizers: {
+            nem_ran: 'Нэмы — классические жареные вьетнамские роллы с хрустящей оболочкой и сочной мясной начинкой. Подаются как самостоятельная закуска или как дополнение к супу, рису и салату бун.',
+            ga_chien_xu: 'Курица в панировке — сочные кусочки курицы в золотистой хрустящей корочке. Вкус мягкий, понятный и насыщенный; хорошо подходит как закуска или как добавка к рису и лапше.',
+            banh_bao: 'Bánh bao — мягкая паровая булочка из пшеничного теста с мясной начинкой и яйцом. Нежная, теплая и сытная закуска в азиатском стиле, удобная для быстрого перекуса.'
+          }
+        },
+        ua: {
+          proteins: {
+            beef: { with: 'з ніжною яловичиною', ingredient: 'яловичина' },
+            pork: { with: 'зі соковитою свининою', ingredient: 'свинина' },
+            chicken: { with: 'з куркою', ingredient: 'курка' },
+            crispyChicken: { with: 'з куркою у хрусткій паніровці', ingredient: 'курка у паніровці' },
+            shrimp: { with: 'з креветками', ingredient: 'креветки' },
+            mix: { with: 'з міксом м’яса та морепродуктів', ingredient: 'яловичина, свинина, курка, креветки' },
+            nem: { with: 'зі смаженими немами', ingredient: 'смажені неми' },
+            vegetables: { with: 'з овочами', ingredient: 'овочі' },
+            default: { with: 'з фірмовою начинкою', ingredient: 'фірмова начинка' }
+          },
+          families: {
+            pho_soups: { base: 'рисова локшина фо', broth: 'наваристому бульйоні з імбиром і прянощами', extras: 'свіжа зелень, цибуля, лайм і паростки бобів', kind: 'soup' },
+            mi_soups: { base: 'яєчна локшина мі', broth: 'м’якому ароматному бульйоні', extras: 'овочі, зелень, цибуля та соус', kind: 'soup' },
+            mien_soups: { base: 'скляна локшина мієн', broth: 'прозорому легкому бульйоні', extras: 'овочі, зелень, цибуля та лайм', kind: 'soup' },
+            bun_soups: { base: 'рисова вермішель бун', broth: 'легкому в’єтнамському бульйоні', extras: 'зелень, цибуля, овочі та лайм', kind: 'soup' },
+            salat_bun: { base: 'рисова вермішель бун', extras: 'свіжий салат, огірок, морква, зелень, арахіс і соус ньок мам', kind: 'salad' },
+            wok_fried_mien: { base: 'скляна локшина мієн', extras: 'овочі, зелень і фірмовий wok-соус', kind: 'wok' },
+            wok_fried_mi: { base: 'яєчна локшина мі', extras: 'овочі, зелень і фірмовий wok-соус', kind: 'wok' },
+            wok_fried_pho: { base: 'рисова локшина фо', extras: 'овочі, зелень і фірмовий wok-соус', kind: 'wok' },
+            rice_braised: { base: 'розсипчастий білий рис', extras: 'овочі, зелень і м’який соус', kind: 'rice' },
+            fried_rice: { base: 'рис, обсмажений на сильному вогні', extras: 'овочі, зелень і соус', kind: 'friedRice' }
+          },
+          spicy: 'За бажанням можна додати гострий соус.',
+          templates: {
+            soup: ({ name, family, protein, spicy }) => `${name} — велика гаряча порція: ${family.base} ${protein.with} у ${family.broth}. Бульйон розкриває смак основного інгредієнта, а ${family.extras} додають свіжість і аромат. Подається ситно, зігріваюче та у впізнаваному в’єтнамському стилі.${spicy ? ' ' + spicy : ''}`,
+            salad: ({ name, family, protein }) => `${name} — прохолодний в’єтнамський боул: ${family.base} ${protein.with}. Усередині ${family.extras}, тому смак виходить свіжим, кисло-солодким і насиченим. Добрий вибір, коли хочеться легкої страви без важкого бульйону.`,
+            wok: ({ name, family, protein, spicy }) => `${name} — гарячий wok: ${family.base} ${protein.with}. Локшина швидко обсмажується з ${family.extras}, лишається пружною та добре вбирає аромат соусу. Страва виходить ситною, яскравою і зручною для швидкого обіду чи вечері.${spicy ? ' ' + spicy : ''}`,
+            rice: ({ name, family, protein }) => `${name} — повноцінна тарілка: ${family.base} ${protein.with}. ${family.extras} допомагають рису увібрати смак основного інгредієнта та роблять порцію збалансованою. Спокійна, зрозуміла страва для ситного обіду без зайвої гостроти.`,
+            friedRice: ({ name, family, protein, spicy }) => `${name} — ${family.base} ${protein.with}. Рис готується з ${family.extras}, тому зерна лишаються розсипчастими, а смак стає насиченим і трохи карамельним. Гарний варіант, коли хочеться гарячої страви без бульйону.${spicy ? ' ' + spicy : ''}`
+          },
+          drinks: {
+            ca_phe_viet: 'Cà phê Việt — міцна в’єтнамська кава з глибоким ароматом і м’якою гірчинкою. Можна пити гарячою або з льодом; особливо добре підходить після ситних страв.',
+            pepsi: name => `${name} — охолоджений газований напій з яскравим солодким смаком і легкою кислинкою. Добре поєднується з wok-стравами, смаженим рисом і закусками.`,
+            pepsi_zero: name => `${name} — охолоджена Pepsi без цукру з класичним смаком коли. Підходить, якщо хочеться газований напій до їжі без зайвої солодкості.`,
+            mirinda_7up: 'Mirinda / 7UP — освіжаючий газований напій на вибір: фруктова Mirinda або лимонно-лаймовий 7UP. Добре освіжає після гарячих і смажених страв.',
+            water: 'Вода — простий освіжаючий напій до будь-якої страви. Можна вибрати газовану або негазовану, щоб збалансувати насичений смак локшини, рису та соусів.',
+            juice: name => `${name} — фруктовий або овочевий сік у зручному форматі до обіду. М’який смак добре підходить до супів, рисових страв і закусок.`,
+            default: name => `${name} — напій до основної страви або закуски. Освіжає смак, допомагає збалансувати пряні соуси та робить замовлення повноцінним.`
+          },
+          appetizers: {
+            nem_ran: 'Неми — класичні смажені в’єтнамські роли з хрусткою оболонкою та соковитою м’ясною начинкою. Подаються як самостійна закуска або як доповнення до супу, рису чи салату бун.',
+            ga_chien_xu: 'Курка в паніровці — соковиті шматочки курки у золотистій хрусткій скоринці. Смак м’який, зрозумілий і насичений; добре підходить як закуска або додаток до рису й локшини.',
+            banh_bao: 'Bánh bao — м’яка парова булочка з пшеничного тіста з м’ясною начинкою та яйцем. Ніжна, тепла й ситна закуска в азійському стилі для швидкого перекусу.'
+          }
+        },
+        vn: {
+          proteins: {
+            beef: { with: 'với thịt bò mềm', ingredient: 'thịt bò' },
+            pork: { with: 'với thịt heo mềm', ingredient: 'thịt heo' },
+            chicken: { with: 'với thịt gà', ingredient: 'thịt gà' },
+            crispyChicken: { with: 'với gà chiên xù giòn', ingredient: 'gà chiên xù' },
+            shrimp: { with: 'với tôm', ingredient: 'tôm' },
+            mix: { with: 'với mix thịt và hải sản', ingredient: 'thịt bò, thịt heo, thịt gà, tôm' },
+            nem: { with: 'với nem rán', ingredient: 'nem rán' },
+            vegetables: { with: 'với rau củ', ingredient: 'rau củ' },
+            default: { with: 'với phần nhân đặc biệt', ingredient: 'nhân đặc biệt' }
+          },
+          families: {
+            pho_soups: { base: 'bánh phở gạo', broth: 'nước dùng thơm với gừng và gia vị', extras: 'rau thơm, hành, chanh và giá đỗ', kind: 'soup' },
+            mi_soups: { base: 'mì trứng', broth: 'nước dùng thơm nhẹ', extras: 'rau củ, rau thơm, hành và nước sốt', kind: 'soup' },
+            mien_soups: { base: 'miến trong', broth: 'nước dùng trong vị nhẹ', extras: 'rau củ, rau thơm, hành và chanh', kind: 'soup' },
+            bun_soups: { base: 'bún gạo', broth: 'nước dùng Việt Nam thanh nhẹ', extras: 'rau thơm, hành, rau củ và chanh', kind: 'soup' },
+            salat_bun: { base: 'bún gạo', extras: 'xà lách, dưa chuột, cà rốt, rau thơm, đậu phộng và nước mắm pha', kind: 'salad' },
+            wok_fried_mien: { base: 'miến xào', extras: 'rau củ, rau thơm và sốt wok đặc biệt', kind: 'wok' },
+            wok_fried_mi: { base: 'mì trứng xào', extras: 'rau củ, rau thơm và sốt wok đặc biệt', kind: 'wok' },
+            wok_fried_pho: { base: 'phở xào', extras: 'rau củ, rau thơm và sốt wok đặc biệt', kind: 'wok' },
+            rice_braised: { base: 'cơm trắng tơi', extras: 'rau củ, rau thơm và nước sốt nhẹ', kind: 'rice' },
+            fried_rice: { base: 'cơm rang trên lửa lớn', extras: 'rau củ, rau thơm và nước sốt', kind: 'friedRice' }
+          },
+          spicy: 'Có thể thêm tương ớt theo khẩu vị.',
+          templates: {
+            soup: ({ name, family, protein, spicy }) => `${name} — phần lớn gồm ${family.base} ${protein.with} trong ${family.broth}. Nước dùng làm nổi bật nguyên liệu chính, còn ${family.extras} tạo vị tươi và mùi thơm. Món ăn được phục vụ nóng, no bụng và đúng phong cách Việt.${spicy ? ' ' + spicy : ''}`,
+            salad: ({ name, family, protein }) => `${name} — tô bún nguội kiểu Việt gồm ${family.base} ${protein.with}. Bên trong có ${family.extras}, tạo vị tươi, chua ngọt và đậm đà. Phù hợp khi muốn món nhẹ nhưng vẫn đủ no.`,
+            wok: ({ name, family, protein, spicy }) => `${name} — món wok nóng với ${family.base} ${protein.with}. Sợi được xào nhanh cùng ${family.extras}, giữ độ dai và thấm mùi sốt. Món ăn đậm vị, no bụng, hợp cho bữa trưa hoặc tối nhanh.${spicy ? ' ' + spicy : ''}`,
+            rice: ({ name, family, protein }) => `${name} — phần cơm đầy đủ với ${family.base} ${protein.with}. ${family.extras} giúp cơm thấm vị nguyên liệu chính và làm khẩu phần cân bằng hơn. Lựa chọn dễ ăn, no bụng và không quá cay.`,
+            friedRice: ({ name, family, protein, spicy }) => `${name} — ${family.base} ${protein.with}. Cơm được rang cùng ${family.extras}, hạt cơm tơi và hương vị đậm đà nhẹ. Phù hợp khi muốn món nóng không có nước dùng.${spicy ? ' ' + spicy : ''}`
+          },
+          drinks: {
+            ca_phe_viet: 'Cà phê Việt — cà phê Việt Nam đậm vị, thơm sâu và hơi đắng nhẹ. Có thể uống nóng hoặc thêm đá; rất hợp sau các món no bụng.',
+            pepsi: name => `${name} — nước ngọt có ga ướp lạnh, vị ngọt rõ và hơi chua nhẹ. Hợp với món wok, cơm rang và đồ chiên.`,
+            pepsi_zero: name => `${name} — Pepsi không đường ướp lạnh với vị cola quen thuộc. Phù hợp khi muốn đồ uống có ga nhưng ít ngọt hơn.`,
+            mirinda_7up: 'Mirinda / 7UP — nước ngọt có ga để chọn: Mirinda vị trái cây hoặc 7UP chanh lime. Giúp cân bằng vị sau món nóng và món chiên.',
+            water: 'Nước — đồ uống đơn giản và mát cho mọi món. Có thể chọn có ga hoặc không ga để cân bằng vị đậm của mì, cơm và nước sốt.',
+            juice: name => `${name} — nước ép trái cây hoặc rau củ tiện dùng cùng bữa ăn. Vị nhẹ, hợp với súp, cơm và món khai vị.`,
+            default: name => `${name} — đồ uống dùng kèm món chính hoặc món khai vị. Giúp làm mới vị giác và cân bằng các loại sốt đậm.`
+          },
+          appetizers: {
+            nem_ran: 'Nem rán — món cuốn chiên Việt Nam với vỏ giòn và nhân thịt đậm vị. Có thể ăn riêng như món khai vị hoặc dùng kèm súp, cơm và bún.',
+            ga_chien_xu: 'Gà chiên xù — miếng gà mềm bên trong, vỏ ngoài vàng giòn. Vị dễ ăn, hợp làm món khai vị hoặc dùng thêm với cơm và mì.',
+            banh_bao: 'Bánh bao — bánh hấp mềm từ bột mì với nhân thịt và trứng. Món ăn ấm, no bụng, tiện cho bữa nhẹ nhanh.'
+          }
+        }
+      };
+
+      const detailedLocale = locale => ['ru', 'ua', 'vn'].includes(normalizeLang(locale)) ? normalizeLang(locale) : 'ru';
+
+      const itemCategoryCache = new WeakMap();
+      function itemCategoryKey(it){
+        if (!it || typeof it !== 'object') return '';
+        if (itemCategoryCache.has(it)) return itemCategoryCache.get(it);
+        let found = '';
+        for (const [cat, arr] of Object.entries(menuData || {})){
+          if ((arr || []).includes(it)){
+            found = cat;
+            break;
+          }
+        }
+        itemCategoryCache.set(it, found);
+        return found;
+      }
+
+      function dishProteinType(it){
+        const key = String(it?.key || '').toLowerCase();
+        const name = String(it?.translations?.ru || '').toLowerCase();
+        const hay = `${key} ${name}`;
+        if (hay.includes('mix')) return 'mix';
+        if (hay.includes('ga_chien_xu') || hay.includes('паниров')) return 'crispyChicken';
+        if (hay.includes('_tom') || hay.includes('кревет')) return 'shrimp';
+        if (hay.includes('_nem') || hay.includes('нэм')) return 'nem';
+        if (hay.includes('_rau') || hay.includes('овощ')) return 'vegetables';
+        if (hay.includes('_bo') || hay.includes('говядин')) return 'beef';
+        if (hay.includes('_lon') || hay.includes('_heo') || hay.includes('свинин')) return 'pork';
+        if (hay.includes('_ga') || hay.includes('куриц')) return 'chicken';
+        return 'default';
+      }
+
+      function fallbackDrinkDescription(it, locale){
+        const copy = DETAILED_DISH_COPY[detailedLocale(locale)];
+        const key = String(it?.key || '').toLowerCase();
+        const name = textByLocale(it?.translations, detailedLocale(locale)) || textByLang(it?.translations) || key;
+        if (key === 'ca_phe_viet' || key === 'caphe_viet') return copy.drinks.ca_phe_viet;
+        if (key.includes('pepsi_zero')) return copy.drinks.pepsi_zero(name);
+        if (key.includes('pepsi')) return copy.drinks.pepsi(name);
+        if (key.includes('mirinda') || key.includes('7up')) return copy.drinks.mirinda_7up;
+        if (key.includes('water')) return copy.drinks.water;
+        if (key.includes('juice')) return copy.drinks.juice(name);
+        return copy.drinks.default(name);
+      }
+
+      function fallbackDishDescription(it){
+        if (!it) return '';
+        const locale = detailedLocale(LANG);
+        const copy = DETAILED_DISH_COPY[locale];
+        const key = String(it.key || '').toLowerCase();
+        const cat = itemCategoryKey(it);
+        const name = textByLocale(it.translations, locale) || textByLang(it.translations) || key;
+        if (cat === 'drinks') return fallbackDrinkDescription(it, locale);
+        if (cat === 'appetizers' && copy.appetizers[key]) return copy.appetizers[key];
+
+        const family = copy.families[cat];
+        if (!family) return textByLocale(it.short, locale) || textByLang(it.short) || '';
+
+        const protein = copy.proteins[dishProteinType(it)] || copy.proteins.default;
+        const spicy = Number(it.spicy || 0) > 0 ? copy.spicy : '';
+        const template = copy.templates[family.kind] || copy.templates.soup;
+        return template({ name, family, protein, spicy });
+      }
+
+      function fallbackDishIngredients(it){
+        if (!it) return '';
+        const locale = detailedLocale(LANG);
+        const copy = DETAILED_DISH_COPY[locale];
+        const cat = itemCategoryKey(it);
+        const key = String(it.key || '').toLowerCase();
+        const name = textByLocale(it.translations, locale) || textByLang(it.translations) || key;
+
+        if (cat === 'drinks') return name;
+        if (cat === 'appetizers') {
+          if (key === 'nem_ran') {
+            return locale === 'ua'
+              ? 'рисовий папір, м’ясна начинка, гриби, морква, вермішель, соус'
+              : locale === 'vn'
+                ? 'bánh tráng, nhân thịt, nấm, cà rốt, miến, nước chấm'
+                : 'рисовая бумага, мясная начинка, грибы, морковь, вермишель, соус';
+          }
+          if (key === 'ga_chien_xu') {
+            return locale === 'ua'
+              ? 'курка, хрустка паніровка, спеції, соус'
+              : locale === 'vn'
+                ? 'thịt gà, bột chiên xù, gia vị, nước sốt'
+                : 'курица, хрустящая панировка, специи, соус';
+          }
+          if (key === 'banh_bao') {
+            return locale === 'ua'
+              ? 'пшеничне тісто, м’ясна начинка, яйце, спеції'
+              : locale === 'vn'
+                ? 'bột mì, nhân thịt, trứng, gia vị'
+                : 'пшеничное тесто, мясная начинка, яйцо, специи';
+          }
+        }
+
+        const family = copy.families[cat];
+        if (!family) return '';
+        const protein = copy.proteins[dishProteinType(it)] || copy.proteins.default;
+        return `${family.base}, ${protein.ingredient}, ${family.extras}`;
+      }
+
       function getDishDescription(it){
         const entry = getDescEntry(it);
-        return exactLocaleText(entry?.description, LANG) || textByLang(it?.short) || exactLocaleText(it?.desc, LANG) || textByLang(entry?.description) || textByLang(it?.desc) || '';
+        return exactLocaleText(entry?.description, LANG) || textByLang(entry?.description) || fallbackDishDescription(it) || textByLang(it?.short) || exactLocaleText(it?.desc, LANG) || textByLang(it?.desc) || '';
       }
 
       function getDishIngredients(it){
         const entry = getDescEntry(it);
-        return exactLocaleText(entry?.ingredients, LANG) || '';
+        return exactLocaleText(entry?.ingredients, LANG) || textByLang(entry?.ingredients) || fallbackDishIngredients(it) || '';
       }
 
       function isBuilderItem(it){
